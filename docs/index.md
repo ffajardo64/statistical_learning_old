@@ -5,5 +5,5 @@
 
 * Plano de ensino
 
-  - [Programa](https://bityli.com/O9qBC)
-  - [Introdução](https://bityli.com/SRQLr)
+  - [Programa](https://bit.ly/3vhS3sB)
+  - [Introdução](https://bit.ly/3zyTUNc)
