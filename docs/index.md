@@ -1,7 +1,7 @@
 ## STA13824 Análise de regressão
 
 
-### Aulas
+### Tópicos
 
 * Slides
 
