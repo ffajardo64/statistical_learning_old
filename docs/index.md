@@ -15,3 +15,5 @@
   
 * Códigos
 
+* Livros
+ - (An Introduction to Statistical Learning)[https://bit.ly/3qjFmwz]
