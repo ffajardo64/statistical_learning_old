@@ -16,4 +16,5 @@
 * Códigos
 
 * Livros
- - (An Introduction to Statistical Learning)[https://bit.ly/3qjFmwz]
+ - James, G., Witten, D., Hastie, T. and Tibshirani, R. [An Introduction to Statistical Learning](https://bit.ly/3qjFmwz). 1st Ed. (*A 2nd ed. será publicada em 2021*). [ERRATA](https://www.statlearning.com/errata-first-edition)
+ - 
