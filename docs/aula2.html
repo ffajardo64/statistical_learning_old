@@ -288,7 +288,7 @@ Dessa forma,
 &lt;div class="math"&gt;
 $$
 \begin{aligned}
-\textrm{cov}\left(\beta\right)&amp;=\mathbb{E}\left[\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)'\right]=\mathbb{E}\left[\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)'\right]\\
+\textrm{cov}\left(\widehat{\beta}\right)&amp;=\mathbb{E}\left[\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)'\right]=\mathbb{E}\left[\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)'\right]\\
 &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\right]\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
 \end{aligned}
 $$
@@ -301,13 +301,13 @@ temos que
 &lt;div class="math"&gt;
 $$
 \begin{aligned}
-\textrm{cov}\left(\beta\right)&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\sigma^2\mathbf{I}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\\
+\textrm{cov}\left(\widehat{\beta}\right)&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\sigma^2\mathbf{I}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\\
 &amp;=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
 \end{aligned}
 $$
 &lt;/div&gt;
 
-&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left(\beta\right)=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left(\widehat{\beta}\right)=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
 
 
 ---
