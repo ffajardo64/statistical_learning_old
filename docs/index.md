@@ -24,7 +24,7 @@
   - James, G., Witten, D., Hastie, T. and Tibshirani, R. (2013) [An Introduction to Statistical Learning](https://bit.ly/3qjFmwz). 1st Ed. **7a reimpressão**. (*A 2nd ed. será publicada em 2021*). [ERRATA](https://www.statlearning.com/errata-first-edition).
 
 **R**
-  - 
+  -
 
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
