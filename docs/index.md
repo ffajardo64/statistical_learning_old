@@ -17,7 +17,7 @@
   
 * Códigos
 
-#### Livros
+#### Livros online
 
   - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT).
   - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv).
