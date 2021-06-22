@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Estimação dos parâmetros
 ### Fabio A. Fajardo Molinares
 ### LECON/DEST - UFES
-### Vitória. ES - 21/06/2021
+### Vitória. ES - 22/06/2021
 
 ---
 
@@ -265,7 +265,7 @@ $$
 Daí, pela Suposição **A3.**, i.e., `\(\mathbb{E}[\mathbf{\epsilon}|\mathbf{X}]=\mathbf{0}\)`,
 temos que:
 
-`$$\mathbb{E}\left[\widehat{\mathbf{\beta}}\right]=\mathbf{\beta}+\mathbb{E}\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right]=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\right]=\mathbf{\beta}.$$`
+`$$\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\mathbb{E}\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}.$$`
 &gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`.
 
 ---
@@ -288,8 +288,8 @@ Dessa forma,
 &lt;div class="math"&gt;
 $$
 \begin{aligned}
-\textrm{cov}\left(\widehat{\beta}\right)&amp;=\mathbb{E}\left[\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)'\right]=\mathbb{E}\left[\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)'\right]\\
-&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\right]\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\mathbb{E}\left[\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)'\,\Big|\,\mathbf{X}\right]=\mathbb{E}\left[\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)'\,\Big|\,\mathbf{X}\right]\\
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
 \end{aligned}
 $$
 &lt;/div&gt;
@@ -301,13 +301,13 @@ temos que
 &lt;div class="math"&gt;
 $$
 \begin{aligned}
-\textrm{cov}\left(\widehat{\beta}\right)&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\sigma^2\mathbf{I}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\\
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\sigma^2\mathbf{I}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\\
 &amp;=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
 \end{aligned}
 $$
 &lt;/div&gt;
 
-&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left(\widehat{\beta}\right)=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
 
 
 ---
