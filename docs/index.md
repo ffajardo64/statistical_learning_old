@@ -13,9 +13,11 @@
 
 
 * Conjunto de dados
-  - distância.csv
+  - [distância.csv]()
   
-* Códigos
+* R notebooks
+
+* Python notebooks
 
 #### Livros online
 
