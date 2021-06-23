@@ -17,9 +17,16 @@ class: center, middle, inverse, title-slide
 # STA13824 - Análise de regressão
 ### Fabio A. Fajardo Molinares
 ### LECON/DEST - UFES
-### Vitória. ES - 05/06/2021
+### Vitória. ES - 23/06/2021
 
 ---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
 class: animated, slideInRight
 
 
@@ -66,6 +73,11 @@ class: animated, fadeIn
 1. SELEÇÃO DE MODELOS: 5.1. Critérios de informação; 5.2. Seleção Forward; 5.3. Seleção Backward; 5.4.Regressão Stepwise
 
 ---
+[//]: &lt;&gt; (https://github.com/emitanaka/anicon)
+[//]: &lt;&gt; (https://github.com/mitchelloharawild/icons)
+[//]: &lt;&gt; (https://slides.yihui.org/2020-genentech-rmarkdown.html#1)
+[//]: &lt;&gt; (https://github.com/gadenbuie/xaringanExtra)
+[//]: &lt;&gt; (class: center, middle, animated, slideInRight)
 
 class: animated, slideInRight
 
@@ -84,7 +96,7 @@ class: animated, slideInRight
 **Observação:** Por favor consultar a bibliografía complementar no PPC 2019 do curso, [**PPC 2019 do curso**](https://estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13824_analise_de_regressao_0.pdf).
 
 ---
-class: inverse, center, middle, animated, bounceInDown
+class: inverse, hide-logo, center, middle, animated, bounceInDown
 
 # Atividades avaliativas
 
@@ -174,7 +186,7 @@ central. Um bom texto deve ser admirado pelo seu conteúdo e não por sua forma.
 Seja objetivo. A objetividade é componente importante de qualquer texto cientı́fico.
 
 ---
-class: inverse, middle, center
+class: inverse, hide-logo, middle, center
 
 # Metodologia
 
@@ -232,7 +244,7 @@ ISBN 9780367563837. Boca Raton, Florida: Chapman and Hall/CRC. URL:
 [https://bookdown.org/yihui/rmarkdown-cookbook](https://bookdown.org/yihui/rmarkdown-cookbook).
 
 ---
-class: animated, bounceInDown
+class: animated, hide-logo, bounceInDown
 ## Política de proteção aos direitos autorais
 
 &gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
@@ -255,6 +267,11 @@ conteúdo disponível na plataforma.&lt;/span&gt;
 .center[
 [https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
 ]
+
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -346,6 +363,33 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {
