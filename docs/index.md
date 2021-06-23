@@ -8,7 +8,7 @@
   - [Programa da disciplina](https://bit.ly/3vhS3sB)
   - [Introdução](https://bit.ly/3zyTUNc)
   - [Estimação de parâmetros](https://bit.ly/3iWPb1K) (*Atualizado em 22/06/2021 às 08:34*)
-  - [Um pouco de geometria](#)
+  - [Interpretação geométrica do estimador MQO]()
   - [Caso particular: Modelo linear simples](#)
 
 
