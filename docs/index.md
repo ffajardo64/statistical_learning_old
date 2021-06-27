@@ -13,7 +13,7 @@
 
 
 * Conjunto de dados
-  - [distância.csv]()
+  - [distância.csv](https://bit.ly/3w2BPnD)
   
 * R notebooks
 
