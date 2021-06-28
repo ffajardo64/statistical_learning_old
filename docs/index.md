@@ -10,7 +10,7 @@
   - [Estimação de parâmetros](https://bit.ly/3iWPb1K)   (*Atualizado em 22/06/2021 às 08:34*)
   - [Interpretação geométrica do estimador MQO](https://bit.ly/3qkA4AV)   (*Atualizado em 23/06/2021 às 10:12*)
   - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3jbGGAf)
-  - [Estimador do parâmetro &sigma;](https://bit.ly/3h0ohow)
+  - [Estimador do parâmetro &sigma;<sup>2</sup>](https://bit.ly/3h0ohow)
 
 
 * **Conjunto de dados**
