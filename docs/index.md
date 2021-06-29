@@ -11,6 +11,7 @@
   - [Interpretação geométrica do estimador MQO](https://bit.ly/3qkA4AV)   (*Atualizado em 23/06/2021 às 10:12*)
   - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3jbGGAf)
   - [Inferência no modelo de regressão linear - I](https://bit.ly/3h0ohow)
+  - - [Inferência no modelo de regressão linear - II]()
 
 
 * **Conjunto de dados**
