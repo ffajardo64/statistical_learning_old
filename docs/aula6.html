@@ -44,8 +44,8 @@ dado por
 
 &gt; Pelas Suposições **A1-A5**, o parâmetro `\(\sigma^2\)` pode ser estimado com
 `$$QM_{Res}=\frac{SQ_{Res}}{n-p},$$`
-onde `\(SQ_{Res}=Y'\left(\mathbf{I}-\mathbf{H}\right)Y\)` e `\(p=k+1\)`. Ainda, sabemos 
-que `\(QM_{Res}\)` segue uma distribuição `\(\chi^2_{n-p}\)`.
+onde `\(SQ_{Res}=Y'\left(\mathbf{I}-\mathbf{H}\right)Y\)` e `\(p=k+1\)`. Ainda, 
+`\(QM_{Res}\)` segue uma distribuição `\(\chi^2_{n-p}\)`.
 
 
 ---
@@ -70,7 +70,6 @@ uma componente de projeção (*ajustado*) e uma componente residual, i.e.,
 vetor de resíduos é zero, i.e., `\(\langle\widehat{Y},e\rangle=\langle e,\widehat{Y}\rangle=0\)`. 
 Em outras palavras, os vetores são ortogonais;
 
-&lt;br&gt;&lt;/br&gt;
 
 Para detalhes ver, por exemplo, Chatterjee and Hadi (2006),
 Draper and Smith (1998) e Montgomery, Peck, and Vining (2006).
@@ -166,31 +165,37 @@ explicativo é o modelo linear.
 
 
 ---
-class: animated, slideInRight
+class: animated, fadeIn
 
 ### Coeficiente de determinação - `\(R^2\)`
 
 #### Algumas considerações
 
-* O `\(R^2\)` está definido no intervalo `\([0,1]\)`. Na prática, uma realização do `\(R^2\)`
+1. O `\(R^2\)` está definido no intervalo `\([0,1]\)`. Na prática, uma realização do `\(R^2\)`
 próxima de `\(1\)` indica que o modelo apresenta um "*bom*" ajuste para os dados, embora as 
 interpretações de ajuste dependam do contexto de análise.
 
-* Na prática, o `\(R^2\)` deve ser utilizado com cautela, pois sempre é possível 
+--
+
+2. Na prática, o `\(R^2\)` deve ser utilizado com cautela, pois sempre é possível 
 aumentar seu valor esperado adicionando termos suficientes ao modelo. 
 
-* Embora `\(R^2\)` não possa diminuir se adicionarmos uma variável regressora ao 
+--
+
+3. Embora `\(R^2\)` não possa diminuir se adicionarmos uma variável regressora ao 
 modelo, este não significa necessariamente que o novo modelo seja superior ao 
 antigo;
 
+--
 
-* A magnitude de `\(R^2\)` também depende da faixa de variabilidade da variável regressora. 
+4. A magnitude de `\(R^2\)` também depende da faixa de variabilidade da variável regressora. 
 Geralmente `\(R^2\)` aumentará o valor das suas realizações conforme a aumenta a
 variabilidade das regressoras e viceversa, desde que a forma do modelo assumido esteja correta.
 
-* Sob algumas considoções de regularidade, o `\(R^2\)` segue distribuição amostral `\(Beta\left(\frac{k}{2},\frac{n-k-1}{2}\right)\)`, 
-onde `\(k\)` é o número de regressores e `\(n\)` o tamanho de amostra. 
+--
 
+5. Sob algumas condições de regularidade, o `\(R^2\)` segue distribuição amostral `\(Beta\left(\frac{k}{2},\frac{n-k-1}{2}\right)\)`, 
+onde `\(k\)` é o número de regressores e `\(n\)` o tamanho de amostra. 
 
 ---
 class: inverse, hide-logo, middle, center
