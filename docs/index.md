@@ -12,6 +12,7 @@
   - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3jbGGAf)
   - [Inferência no modelo de regressão linear - I](https://bit.ly/3h0ohow) (*Atualizado em 29/06/2021 às 20:23*)
   - [Inferência no modelo de regressão linear - II](https://bit.ly/3A5DqMC)
+  - [Inferência no modelo de regressão linear - III](https://bit.ly/3jviHfA)
 
 
 * **Conjunto de dados**
