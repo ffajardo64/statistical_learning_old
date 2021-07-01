@@ -18,10 +18,13 @@
 * **Conjunto de dados**
   - [distância.csv](https://bit.ly/3w3AAo6)
   - [dureza.csv](https://bit.ly/3y2bTd1)
-  
+
+
 * R notebooks
 
+
 * Python notebooks
+
 
 #### Livros [online](https://bit.ly/3qxIogE)
 
