@@ -10,8 +10,8 @@
   - [Estimação de parâmetros](https://bit.ly/3iWPb1K)
   - [Interpretação geométrica do estimador MQO](https://bit.ly/3qkA4AV)   
   - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3jbGGAf)
-  - [Inferência no modelo de regressão linear - I](https://bit.ly/3h0ohow) (*Atualizado em 29/06/2021 às 20:23*)
-  - [Inferência no modelo de regressão linear - II](https://bit.ly/3A5DqMC)
+  - [Inferência no modelo de regressão linear - I](https://bit.ly/3h0ohow) 
+  - [Inferência no modelo de regressão linear - II](https://bit.ly/3A5DqMC) (*Atualizado em 01/07/2021 às 16:13*)
   - [Inferência no modelo de regressão linear - III](https://bit.ly/3jviHfA)
 
 
