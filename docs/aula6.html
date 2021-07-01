@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Inferência no modelo de regressão linear - II
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 30/06/2021
+### Vitória, ES. - 01/07/2021
 
 ---
 
@@ -45,7 +45,7 @@ dado por
 &gt; Pelas Suposições **A1-A5**, o parâmetro `\(\sigma^2\)` pode ser estimado com
 `$$QM_{Res}=\frac{SQ_{Res}}{n-p},$$`
 onde `\(SQ_{Res}=Y'\left(\mathbf{I}-\mathbf{H}\right)Y\)` e `\(p=k+1\)`. Ainda, 
-`\(QM_{Res}\)` segue uma distribuição `\(\chi^2_{n-p}\)`.
+`\(\frac{SQ_{Res}}{\sigma^2}\)` segue uma distribuição `\(\chi^2_{n-p}\)`.
 
 
 ---
@@ -135,12 +135,12 @@ segue uma distribuição `\(F_{p,n-p,\lambda}\)`, com `\(\lambda=\frac{1}{\sigma
 Dessa relação, podemos construir uma tabela básica para a **Análise de Variância**:
 
 
- | Fonte       | Graus de liberdade | Somas de quadrados| Quadrados médios |
- |------------:|:------------------:|------------------:|-----------------:|
- |    Regressão|         `\(p\)` | `\(\widehat{\beta}'\mathbf{X}'Y\)` |     `\(QM_{Reg}\)`       |
- |     Resíduos|       `\(n-p\)` | `\(Y'Y-\widehat{\beta}'\mathbf{X}'Y\)`|  `\(QM_{Res}\)`       |
- |             |             |             |                               |
- |        Total|         `\(n\)` |        `\(Y'Y\)`|                               |
+ | Fonte        | Graus de liberdade |        Somas de quadrados         | Quadrados médios  |
+ |:------------:|:------------------:|:---------------------------------:|:-----------------:|
+ |    Regressão |         `\(p\)`        | `\(\widehat{\beta}'\mathbf{X}'Y\)`    |  `\(QM_{Reg}\)`       |
+ |     Resíduos |       `\(n-p\)`        | `\(Y'Y-\widehat{\beta}'\mathbf{X}'Y\)`|  `\(QM_{Res}\)`       |
+ |              |                    |                                   |                   |
+ |        Total |         `\(n\)`        |        `\(Y'Y\)`                      |                   |
  
 
 ---
