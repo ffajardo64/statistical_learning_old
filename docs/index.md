@@ -48,3 +48,4 @@
 
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
+  - McKinney, W. and the Pandas Development Team[pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V). Version 1.3.0. Jul 02, 2021.
