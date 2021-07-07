@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Inferência no modelo de regressão linear - III
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 04/07/2021
+### Vitória, ES. - 06/07/2021
 
 ---
 
@@ -196,6 +196,165 @@ Seja `\(t_0\)` que representa a quantidade pivotal `\(t\)` sob `\(H_0\)`. Assim,
 uma distribuição `\(t_{n-p}\)`.
 
 Rejeitamos `\(H_0\)`, em favor de `\(H_1\)`, se `\(|t_0|&gt;t_{1-\alpha/2,n-p}\)`.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Correção da soma de quadrados
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - III
+
+#### Algumas considerações
+
+* A soma de quadrados total (*não-corrigida*) foi particionada na soma de 
+quadrados devido ao modelo de regressão e a soma de quadrados dos resíduos
+
+`$$Y'Y = \widehat{Y}'\widehat{Y}+e'e=\widehat{\beta}'\mathbf{X}'Y+e'e.$$`
+* Eventualmente teremos interesse em explicar a variação de `\(Y\)` em torno da 
+sua média (ao invés do em torno de zero) e determinar com quanta informação as 
+covariáveis contribuem para tal explicação. 
+
+  &gt; **Caso 1.** Se nenhuma informação das covariáveis estiver disponível, o 
+  melhor preditor de `\(Y\)` é a melhor estimativa disponível da média da população. 
+  Nesse sentido,
+  `$$\mathbb{E}\left[Y|\mathbf{X}\right]=\beta_0,$$`
+  daí, `\(\widehat{\beta}_0=\bar{Y}\)`;
+ 
+ 
+---
+class: animated, fadeIn
+
+### Análise de variância (ANOVA) - IV
+
+&gt; **Caso 2.** Quando as covariáveis estão disponíveis, ou seja
+`$$\mathbb{E}\left[Y|\mathbf{X}\right]=\mathbf{X}\beta,$$`
+o interesse está em saber com quanta informação as covariáveis contribuem para a 
+explicação da variação de `\(Y\)`, além da contribuição fornecida apenas pela média 
+de `\(Y\)`.
+
+Dessa forma, a informação adicional fornecida pelas covariáveis será representada
+como 
+`$$SQ_{Reg} = SQ_{Modelo} - SQ_{\mu},$$`
+onde `\(SQ_{Modelo}\)` representa a soma de quadrados da regressão quando as
+covariáveis **estão** disponíveis, e `\(SQ_{\mu}\)` representa a soma de quadrados da 
+regressão quando **nenhuma** covariável está disponível. O modelo sem covariáveis 
+contém apenas um único parâmetro, nesse caso a média geral `\(\mu\)`.
+
+&lt;br&gt;&lt;/br&gt;
+
+--
+
+.center[
+&lt;font size="6"&gt; Objetivo: Comparar os Casos 1 e 2.&lt;/font&gt;
+]
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+O modelo quando `\(\mu\)` é o único parâmetro é dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon},$$`
+onde `\(\mathbf{X}\)` é um o vetor coluna de `\(1's\)`, denotado por `\(\mathbf{1}\)`, e 
+`\(\beta=\mu\)`. Daí,
+
+`$$\widehat{\beta}=\left(\mathbf{1}'\mathbf{1}\right)^{-1}\mathbf{1}'Y=\frac{1}{n}\mathbf{1}'Y=\bar{Y}$$`
+e
+
+`$$SQ_{\mu}=\widehat{\beta}'\mathbf{X}'Y=\frac{1}{n}\left(\mathbf{1}'Y\right)'\left(\mathbf{1}'Y\right)=Y'\left(\frac1n\mathbf{11}'\right)Y=Y'\left(\frac1n\mathbf{J}\right)Y.$$`
+&gt; Uma outra forma para representar `\(SQ_\mu\)` é dada por 
+`$$SQ_\mu=\frac1n\left(\sum_{i=1}^nY_i\right)^2=n\bar{Y}^2.$$`
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+A matriz `\(\frac1n\mathbf{J}\)` é dada por
+ 
+&lt;div class="math"&gt;
+\[\frac1n\mathbf{J}=\frac1n\mathbf{11}'=\frac1n\left[
+\begin{array}{ccccc}
+1&amp;1&amp;1&amp;\cdots&amp;1 \\
+1&amp;1&amp;1&amp;\cdots&amp;1 \\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+1&amp;1&amp;1&amp;\cdots&amp;1
+\end{array}
+\right]_{n\times n}.
+\]
+&lt;/div&gt;
+
+Pode-se observar que a matriz `\(\frac1n\mathbf{J}\)` é idempotente, daí o posto é igual a 
+`\(\mathrm{tr}\left(\frac1n\mathbf{J}\right)=1\)`. Dessa forma, a forma quadrática
+
+`$$\frac{SQ_{\mu}}{\sigma^2}=\frac{1}{\sigma^2}Y'\left(\frac1n\mathbf{J}\right)Y$$`
+segue uma distribuição `\(\chi^2_{1,\lambda}\)`, com 
+
+`$$\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\left(\frac1n\mathbf{J}\right)\mathbf{X}\beta=\frac{1}{n\sigma^2}\left(\mathbf{X}\beta\right)'\mathbf{1}\mathbf{1}'\mathbf{X}\beta=\frac{1}{n\sigma^2}\left(\mathbf{1}'\mathbf{X}\beta\right)^2.$$`
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+A `\(SQ_{Reg}\)` é dada por
+
+`$$SQ_{Reg}=SQ_{Modelo}-SQ_\mu=Y'\mathbf{H}Y-Y'\left(\frac1n\mathbf{J}\right)Y=Y'\left(\mathbf{H}-\frac1n\mathbf{J}\right)Y.$$`
+Dessa forma, `\(\frac{SQ_{Reg}}{\sigma^2}=\frac{1}{\sigma^2}Y'\left(\mathbf{H}-\frac1n\mathbf{J}\right)Y\)`
+segue uma distribuição `\(\chi^2_{p-1,\lambda}\)`, com
+
+`$$\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\left(\mathbf{H}-\frac1n\mathbf{J}\right)\mathbf{X}\beta=\frac{1}{\sigma^2}\beta'\mathbf{X}'\left(\mathbf{I}-\frac1n\mathbf{J}\right)\mathbf{X}\beta.$$`
+&lt;br&gt;&lt;/br&gt;
+
+**&lt;span style="color:red"&gt;Exercício:&lt;/span&gt;** Mostre que a matriz `\(\frac1n\mathbf{J}\)`
+é ortogonal às matrizes `\(\mathbf{H}-\frac1n\mathbf{J}\)` e `\(\mathbf{I}-\mathbf{H}\)`.
+
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+Dessa forma, a soma de quadrados total pode ser particionada em três componentes
+tal que
+
+`$$Y'Y=SQ_\mu+SQ_{Reg}+SQ_{Res}=Y'\left(\frac1n\mathbf{J}\right)Y+Y'\left(\mathbf{H}-\frac1n\mathbf{J}\right)Y+Y'\left(\mathbf{I}-\mathbf{H}\right)Y.$$`
+Dessa forma, podemos construir uma tabela para a **Análise de Variância**, com a
+soma de quadrados corrigida, dada por:
+
+
+ | Fonte        | Graus de liberdade |  Somas de quadrados  | Quadrados médios  |
+ |:------------:|:------------------:|:--------------------:|:-----------------:|
+ |    Regressão |         `\(p-1\)`        | `\(SQ_{Reg}\)`         |  `\(QM_{Reg}\)`       |
+ |     Resíduos |         `\(n-p\)`        | `\(SQ_{Res}\)`         |  `\(QM_{Res}\)`       |
+ |              |                      |                    |                   |
+ |        Total |         `\(n-1\)`        | `\(SQ_{Total}\)`       |                   |
+ 
+
+---
+class: animated, slideInRight
+
+### Teste de significância da regressão
+
+O teste de significância da regressão permite verificar se existe uma relação 
+linear entre a variável dependente `\(Y\)` e as covariáveis.
+
+Considere as seguintes hipóteses
+
+  &lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0&amp;:\beta_1=\beta_2=\beta_3=\cdots=\beta_k=0 &amp; H_1&amp;:\beta_j\ne0.
+  \end{aligned}
+  $$
+
+
 
 
 ---
