@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Inferência no modelo de regressão linear - III
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 06/07/2021
+### Vitória, ES. - 07/07/2021
 
 ---
 
@@ -350,18 +350,25 @@ Considere as seguintes hipóteses
   &lt;div class="math"&gt;
   $$
   \begin{aligned}
-  H_0&amp;:\beta_1=\beta_2=\beta_3=\cdots=\beta_k=0 &amp; H_1&amp;:\beta_j\ne0.
+  H_0&amp;:\beta_1=\beta_2=\beta_3=\cdots=\beta_k=0 &amp; H_1&amp;:\text{algum }\beta_j\ne0, \quad j=1,2,\ldots,k.
   \end{aligned}
   $$
+A rejeição de `\(H_0\)` implica que pelo menos uma das covariáveis contribui ao modelo.
 
+Sob `\(H_0\)`,
 
+`$$F_0=\frac{SQ_{Reg}/(p-1)}{SQ_{Res}/(n-p)}=\frac{QM_{Reg}}{QM_{Res}}$$`
+segue uma distribuição `\(F_{p-1,n-p}\)`. Rejeitamos `\(H_0\)` se `\(F_0&gt;F_{p-1,n-p}\)`.
 
+&gt; O coeficiente de determinação ajustado define-se como
+`$$R^2_{Ajust}=1-\frac{SQ_{Res}/(n-p)}{SQ_{Total}/(n-1)}.$$`
 
 ---
 class: animated, lightSpeedIn
 # Referências
 
-Muirhead, R. J. (2005). _Aspects of Multivariate Statistical Theory_. Wiley-Interscience.
+Muirhead, R. J. (2005). _Aspects of Multivariate Statistical Theory_.
+Wiley-Interscience.
 
 ---
 class: animated, hide-logo, bounceInDown
