@@ -22,7 +22,7 @@
 
 
 * **R notebooks**
-  - [reg2_intro.ipynb]()
+  - [reg2_intro.ipynb](https://bit.ly/3r0Qkrk)
 
 
 * Python notebooks
