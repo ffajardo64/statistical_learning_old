@@ -7,17 +7,19 @@ log da quantidade de hiperplasia prostática benigna lbph, vesícula seminal em-
 porcentagem das pontuações de Gleason 4 ou 5 pgg45. 
 
 
-Preditores (colunas 1--8)
-lcavol
-peso
-era
-lbph
-svi
-lcp
-Gleason
-resultado (coluna 9)
-lpsa
-indicador de treino / teste (coluna 10)
+**Preditores (colunas 1--8)**
+* lcavol
+* peso
+* era
+* lbph
+* svi
+* lcp
+* Gleason
+
+**resultado (coluna 9)**
+* lpsa
+
+**indicador de treino / teste (coluna 10)**
 
 Esta última coluna indica quais 67 observações foram usadas como o "*conjunto de treinamento*" (T) e qual 30 como o "*conjunto de teste*" (F).
 
