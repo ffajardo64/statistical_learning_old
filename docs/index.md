@@ -21,7 +21,8 @@
   - [dureza.csv](https://bit.ly/3y2bTd1)
 
 
-* R notebooks
+* **R notebooks**
+  - [reg2_intro.ipynb]()
 
 
 * Python notebooks
