@@ -17,6 +17,7 @@
 
 
 * **Conjunto de dados**
+  - [Próstata](https://github.com/ffajardo64/statistical_learning/tree/main/docs/db/prostata)
   - [distância.csv](https://bit.ly/3w3AAo6)
   - [dureza.csv](https://bit.ly/3y2bTd1)
 
