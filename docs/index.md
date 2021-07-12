@@ -19,6 +19,7 @@
 * **Conjunto de dados**
   - [distância.csv](https://bit.ly/3w3AAo6)
   - [dureza.csv](https://bit.ly/3y2bTd1)
+  - [prostate.csv](https://bit.ly/3hEwEqd)
 
 
 * **R notebooks**
