@@ -25,7 +25,8 @@
   - [reg2_intro.ipynb](https://bit.ly/3r0Qkrk)
 
 
-* Python notebooks
+* **Python notebooks**
+  - [reg2_intro.ipynb](https://bit.ly/2VpCrXI)
 
 
 #### Livros online
@@ -50,3 +51,4 @@
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
   - McKinney, W. and the Pandas Development Team[pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V). Version 1.3.0. Jul 02, 2021.
+  - Fajardo, F. A. M. [Análise de dados com Python](https://bit.ly/3wyZJaK) (2021) Notas de aula. Jul 21, 2021.
