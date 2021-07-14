@@ -2,7 +2,7 @@
 
 ### Hastie, T., Tibshirani, R. and Friedman, J. (2017) Elements of Statistical Learning. 2nd Ed. 12a reimpressão.
 
-Os dados para este exemplo vêm de um estudo de Stamey et al. (1989) que examinou a correlação entre o nível de antígeno específico da próstata (PSA) e uma série de 
+Os dados para este exemplo vêm de um estudo de [Stamey et al. (1989)](https://bit.ly/3i8eCLL) que examinou a correlação entre o nível de antígeno específico da próstata (PSA) e uma série de 
 medidas clínicas, em 97 homens que estavam prestes a receber uma prostatectomia radical. 
 
 **Objetivo**: Prever o log de PSA (lpsa) a partir de um número de medições. 
