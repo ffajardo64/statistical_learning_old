@@ -13,7 +13,8 @@
   - [Inferência no modelo de regressão linear - I](https://bit.ly/3h0ohow) 
   - [Inferência no modelo de regressão linear - II](https://bit.ly/3A5DqMC) 
   - [Inferência no modelo de regressão linear - III](https://bit.ly/3dGxuA0) (*Atualizado em 07/07/2021 às 00:48*)
-  - [Inferência no modelo de regressão linear - IV](https://bit.ly/3jviHfA)
+  - [Inferência no modelo de regressão linear - IV](https://bit.ly/2U24dtg)
+  - [Seleção de covariáveis](https://bit.ly/3jviHfA)
 
 
 * **Conjunto de dados**
