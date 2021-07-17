@@ -60,6 +60,6 @@
 
 #### Exercícios (*novo*)
   - Exercícios Cap 3 *Multiple Linear Regression* - Montgomery, Peck & Vining (2006)
-  - [Ex 2]()
-  - [Ex 3]()
+  - [Ex 2](https://github.com/ffajardo64/statistical_learning/blob/main/docs/Exercicios_provaI_a.pdf)
+  - [Ex 3](https://github.com/ffajardo64/statistical_learning/blob/main/docs/Exercicios_provaI_b.pdf)
 
