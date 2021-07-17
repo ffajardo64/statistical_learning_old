@@ -57,3 +57,9 @@
   - [Data Science - ML](https://bit.ly/3yIJ1Hc)
   - [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg)
 
+
+#### Exercícios (*novo*)
+  - Exercícios Cap 3 *Multiple Linear Regression* - Montgomery, Peck & Vining (2006)
+  - [Ex 2]()
+  - [Ex 3]()
+
