@@ -97,11 +97,10 @@ comportamento de uma variável aleatória com distribuição `\(t\)` de Student.
 --
 
 &gt; Belsley, Kuh, and Welsch (2005) sugerem padronizar cada resíduo com uma 
-estimativa do desvio padrão **independente** do resíduo.
-
-&gt; Isso é realizado usando, como estimatidor de `\(\sigma^2_i\)` para o `\(i\)`-ésimo 
-resíduo, o quadrado médio residual omitindo a `\(i\)`-ésima observação. 
-Dessa forma, o estimador de `\(\sigma^2_i\)` é dado por `\(s^2_{(i)}\sqrt{1-h_{ii}}\)`, onde
+estimativa do desvio padrão omitindo a `\(i\)`-ésima observação. Assim, o estimatidor 
+de `\(\sigma^2\)` para o `\(i\)`-ésimo resíduo, é o quadrado médio residual omitindo a 
+`\(i\)`-ésima observação. Dessa forma, o estimador de `\(\sigma^2\)` é dado por 
+`\(s^2_{(i)}\sqrt{1-h_{ii}}\)`, onde
 `$$s_{(i)}^2=\frac{1}{n-p-1}\left[(n-p)s^2-\frac{e_i^2}{1-h_{ii}}\right].$$`
 
 
@@ -152,7 +151,7 @@ ser considerado;
 
 * A principal vantagem do residuais estudentizados é sua conexão mais próxima 
 com o distribuição `\(t\)` de Student. Isso permite o uso da estatística `\(t\)` 
-como um critério conveniente para julgar se os resíduos são excessivamente grandes;
+como um critério conveniente para julgar se os resíduos são excessivamente grandes.
 
 &lt;br&gt;&lt;/br&gt;
 
@@ -173,7 +172,7 @@ adicionando uma observação a cada etapa.
 A equação de regressão calculada em cada etapa é usada para calcular o resíduo
 para a próxima observação a ser adicionada. Esse procedimento continua até que o 
 último resíduo tenha sido calculado. Dessa forma, no final do procedimento 
-haverá `\(n - p\)` resíduos recursivos.; os resíduos das primeiras p observações serão zero.
+haverá `\(n - p\)` resíduos recursivos.
 
 Suponha que uma ordem particular dos dados tenha sido adotada com o propósito 
 de calcular os *resíduos recursivos*. Considere `\(\mathbf{X}_r\)` a matriz com as
@@ -207,15 +206,17 @@ e outliers podem ser usados;
 
 --
 
-* Algumas desvantagens dos *resíduos recursivos*: 
+* Algumas desvantagens dos *resíduos recursivos*:
   - Alto custo computacional;
   - Nenhum resíduo está associado com as primeiras `\(p-1\)` observações usadas 
 como base;
-  - Os resíduos não são únicos, pois depende da ordem dos dados
+  - Os resíduos não são únicos, pois depende da ordem dos dados.
 
 &gt; Programas de computador apropriados podem remover o primeiro problema. Os dois 
 últimos são parcialmente superados pelo cálculo dos *resíduos recursivos* para 
 diferentes ordenações dos dados.
+
+Para detalhes, ver, e.g., Brown, Durbin, and Evans (1975).
 
 ---
 class: inverse, hide-logo, middle, center
@@ -301,19 +302,28 @@ class: fadeIn
 class: animated, lightSpeedIn
 # Referências
 
-Belsley, D., E. Kuh, and R. Welsch (2005). _Regression Diagnostics:
-Identifying Influential Data and Sources of Collinearity_. Wiley Series
-in Probability and Statistics. Wiley.
+Belsley, D., E. Kuh, and R. Welsch (2005). _Regression Diagnostics: Identifying Influential Data and Sources of
+Collinearity_. Wiley Series in Probability and Statistics. Wiley.
 
-Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
-Alternatives_. Springer Series in Statistics. Springer New York.
+Brown, R. L., J. Durbin, and J. M. Evans (1975). "Techniques for Testing the Constancy of Regression
+Relationships over Time". In: _Journal of the Royal Statistical Society. Series B (Methodological)_ 37.2, pp.
+149 - 192.
 
-Rawlings, J. O., S. G. Pantula, and D. A. Dickey (1998). _Applied
-regression analysis. a research tool_. 2nd ed.. Springer texts in
-statistics. New York, NY.: Springer.
+Greene, W. (2012). _Econometric Analysis_. Prentice Hall.
 
-Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_.
-2nd edition. Wiley.
+Montgomery, D. C., E. A. Peck, and G. G. Vining (2006). _Introduction to Linear Regression Analysis_. 4th
+edition. Wiley &amp; Sons.
+
+R Core Team (2021). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
+Computing. Vienna, Austria. URL: [https://www.R-project.org/](https://www.R-project.org/).
+
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and Alternatives_. Springer Series in
+Statistics. Springer New York.
+
+Rawlings, J. O., S. G. Pantula, and D. A. Dickey (1998). _Applied regression analysis. a research tool_. 2nd
+ed.. Springer texts in statistics. New York, NY.: Springer.
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_. 2nd edition. Wiley.
 
 ---
 class: animated, hide-logo, bounceInDown
