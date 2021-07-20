@@ -48,8 +48,10 @@
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
   - Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3xzvf9D) Notas de aula. Jul 21. (*novo*)
   - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V). Version 1.3.0. Jul 02.
+  - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J)
   - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW). (*novo*)
   - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ). (*novo*)
+  
 
 * **Python notebooks**
   - [reg2_intro.ipynb](https://bit.ly/2VpCrXI) (*novo*)
