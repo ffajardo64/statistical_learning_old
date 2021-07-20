@@ -47,8 +47,8 @@
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
   - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V). Version 1.3.0. Jul 02.
-  - Fajardo, F. A. M. [Análise de dados com Python](https://bit.ly/3xzvf9D) (2021) Notas de aula. Jul 21, 2021. (*novo*)
-  - [A u t o m A t e   t h e  B o r i n g   S t u f f  w i t h   P y t h o n ](https://bit.ly/3wSPVrW)
+  - Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3xzvf9D) (2021) Notas de aula. Jul 21. (*novo*)
+  - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW)
 
 * **Python notebooks**
   - [reg2_intro.ipynb](https://bit.ly/2VpCrXI) (*novo*)
