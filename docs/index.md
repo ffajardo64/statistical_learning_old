@@ -65,6 +65,6 @@
 
 #### Exercícios (*novo*)
   - Exercícios Cap 3 *Multiple Linear Regression* - Montgomery, Peck & Vining (2006)
-  - [Exercícios Cap 4 *Econometric Analysis* - Greene (2012)](https://bit.ly/36LbX5r) --> [Rabiscos da aula](https://bit.ly/3hWhsot)
+  - [Exercícios Cap 4 *Econometric Analysis* - Greene (2012)](https://bit.ly/36LbX5r) --> [Rabiscos da aula](https://bit.ly/3kDgQFN)
   - [Ex 3](https://bit.ly/3xUckXl)
 
