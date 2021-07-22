@@ -1,3 +1,5 @@
+layout: default
+
 ## STA13824 Análise de regressão
 
 
