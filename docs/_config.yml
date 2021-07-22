@@ -1,4 +1,4 @@
-theme: jekyll-theme-cayman
+theme: bulma-clean-theme
 title: "Statistical Learning"
 show_sidebar: false
 menubar: example_menu
