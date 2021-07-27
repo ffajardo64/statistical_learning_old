@@ -4,7 +4,6 @@
 ### Tópicos
 
 * **Slides**
-
   - [Programa da disciplina](https://bit.ly/3vhS3sB)
   - [Introdução](https://bit.ly/3zyTUNc)
   - [Estimação de parâmetros](https://bit.ly/3iWPb1K)
