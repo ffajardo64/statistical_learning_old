@@ -1,8 +1,5 @@
 ## STA13824 Análise de regressão
 
-
-### Tópicos
-
 * **Slides**
   - [Programa da disciplina](https://bit.ly/3vhS3sB)
   - [Introdução](https://bit.ly/3zyTUNc)
@@ -52,11 +49,11 @@
   - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8)  (*novo* Atenção: Versão Python 2.x)
   - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW).
   - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ).
- 
-  
-
+   
 * **Python notebooks**
   - [reg2_intro.ipynb](https://bit.ly/2VpCrXI) (*novo*)
+  - [Online Graph Maker · Plotly Chart Studio](https://bit.ly/3fl6RBG)
+
 
 ***
 
