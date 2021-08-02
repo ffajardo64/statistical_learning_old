@@ -52,7 +52,7 @@
    
 * **Python notebooks**
   - [reg2_intro.ipynb](https://bit.ly/2VpCrXI) (*novo*)
-  - [Online Graph Maker · Plotly Chart Studio](https://bit.ly/3fl6RBG)
+  - [Online Graph Maker](https://bit.ly/3fl6RBG) - Plotly Chart Studio
 
 
 ***
