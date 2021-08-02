@@ -58,6 +58,7 @@
 * **Python notebooks**
   - [reg2_intro.ipynb](https://bit.ly/2VpCrXI) (*novo*)
 
+***
 
 #### Vídeos (*novo*)
   - [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy)
