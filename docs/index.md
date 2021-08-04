@@ -11,7 +11,7 @@
   - [Inferência no modelo de regressão linear - III](https://bit.ly/3dGxuA0) 
   - [Inferência no modelo de regressão linear - IV](https://bit.ly/3xDc4Mo)
   - [Análise residual - I](https://bit.ly/3iqanv7) 
-  - [Análise residual - II](https://bit.ly/37gvtqW) (*Atualizado em 02/08/2021 às 22:23*)
+  - [Análise residual - II](https://bit.ly/37gvtqW) (*Atualizado em 04/08/2021 às 01:21*)
   - [Análise residual - III](https://bit.ly/3jviHfA) 
 
 
