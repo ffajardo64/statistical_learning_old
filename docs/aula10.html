@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Análise residual - II
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 02/08/2021
+### Vitória, ES. - 04/08/2021
 
 ---
 
@@ -161,19 +161,220 @@ podem ser considerados casos especiais de uma abordagem geral para medir o
 impacto da exclusão a `\(i\)`-ésima observação em qualquer conjunto de `\(k\)` funções 
 linearmente independentes de `\(\beta\)` (Cook and Weisberg (1982)).
 
+---
+class: inverse, hide-logo, middle, center
+
+# Análise de sensibilidade
+
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - I
+
+Considere o Teorema A.18 na p. 358 em Rao and Toutenburg (1999).
+
+&gt; **Teorema A.18**. Sejam `\(A_{p\times p}, B_{p\times n}, C_{n\times n}\)` e 
+`\(D_{n\times p}\)` matrizes. Suponha que a inversa de `\(A\)` e `\(C\)` existem. Então:
+1. `\(\left(A+BCD\right)^{-1}=A^{-1}-A^{-1}B(C^{-1}+DA^{-1}B)^{-1}DA^{-1}\)`;&lt;br&gt;&lt;/br&gt;
+1. Se `\(1+b'A^{-1}a\ne0\)`, então
+`$$\left(A+ab'\right)^{-1}=A^{-1}-\frac{A^{-1}ab'A^{-1}}{1+b'A^{-1}a}.$$`
+
+
+**Notação**: Sejam `\(Y_{(i)}\)` e `\(\mathbf{X}_{(i)}\)`, respectivamente, o vetor de observações 
+e a matriz de covariáveis quando a `\(i\)`-ésima observação é omitida, i.e., a 
+`\(i\)`-ésima linha de `\(Y\)` e `\(\mathbf{X}\)` são omitidas. Dessa forma,
+`$$\mathbf{X}'\mathbf{X}=\sum_{j=1}^n\mathbf{x}_j\mathbf{x}_j'=\mathbf{X}_{(i)}'\mathbf{X}_{(i)}+\mathbf{x}_i\mathbf{x}_i',$$`
+onde `\(\mathbf{x}_i\)` representa a `\(i\)`-ésima linha de `\(\mathbf{X}\)`, i.e., `\(\mathbf{x}_i\)`
+é um vetor linha.
+
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - II
+
+Suponha que o `\(\mathrm{posto}(\mathbf{X}_{(i)})=p-1\)`, então a inversa de 
+`\(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\)` é dada por
+`$$\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}},$$`
+onde `\(h_{ii}=\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\)` representa o `\(i\)`-ésimo elemento diagonal da matriz `\(\mathbf{H}\)`.
+
+O estimador do vetor de parâmetros, após a exclusão da `\(i\)`-ésima observação, é
+dado por
+
+`$$\widehat{\beta}_{(i)}=\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}_{(i)}'Y_{(i)}.$$`
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - III
+
+Portanto, o `\(i\)`-ésimo residual é dado por
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    e_{i(i)}&amp;=Y_i-\mathbf{x}_i'\widehat{\beta}_{(i)}=Y_i-\mathbf{x}_i'\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}_{(i)}'Y_{(i)}=Y_i-\mathbf{x}_i'\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\left(\mathbf{X}'Y-\mathbf{x}_iY_i\right)\\
+    &amp;=Y_i-\mathbf{x}_i'\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\right]\left(\mathbf{X}'Y-\mathbf{x}_iY_i\right)\\
+    &amp;=Y_i-\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\mathbf{X}'Y+\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_iY_i\\
+    &amp;\hspace{17cm}+\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i}{1-h_{ii}}Y_i\\
+    &amp;=Y_i-\widehat{Y}_i-\frac{h_{ii}\widehat{Y}_i}{1-h_{ii}}+h_{ii}Y_i+\frac{h_{ii}^2Y_i}{1-h_{ii}}
+    =\frac{Y_i-\widehat{Y}_i}{1-h_{ii}}\\
+   e_{i(i)} &amp;=\frac{e_i}{1-h_{ii}} \quad\blacksquare
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - IV
+
+Comparando os estimadores de MQO para ambos cenários, temos que
+
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    \widehat{\beta}-\widehat{\beta}_{(i)}&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}_{(i)}'Y_{(i)}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\left[\mathbf{X}'Y-\mathbf{x}_iY_i\right]\\
+    &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}'Y+\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{x}_iY_i\\
+    &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\right]\mathbf{X}'Y\\
+    &amp;\hspace{13cm}+\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\right]\mathbf{x}_iY_i\\
+    &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\left[Y_i+\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_iY_i}{1-h_{ii}}-\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y}{1-h_{ii}}\right]
+    =\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\left[Y_i+\frac{h_{ii}Y_i}{1-h_{ii}}-\frac{\widehat{Y}_i}{1-h_{ii}}\right]\\
+    &amp;=\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_ie_{i}}{1-h_{ii}} \quad\blacksquare
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Medidas de influência
+
+---
+class: animated, slideInRight
+
+###  Distância de Cook - I
+
+Considerando as Suposições **A1-A5**, temos que `\(\widehat{\beta}\)` segue uma 
+distribuição normal `\(p\)`-variada com vetor de médias `\(\beta\)` e matriz de 
+covariâncias `\(\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`. Sabemos que
+a forma quadrática
+`$$\frac{\left(\beta-\widehat{\beta}\right)'\left(\mathbf{X}'\mathbf{X}\right)\left(\beta-\widehat{\beta}\right)}{p\,s^2}$$`
+segue uma distribuição `\(F_{p,n-p}\)`. Dessa forma,
+`$$\frac{\left(\beta-\widehat{\beta}\right)'\left(\mathbf{X}'\mathbf{X}\right)\left(\beta-\widehat{\beta}\right)}{p\,s^2}\le F_{p,n-p,\alpha}$$`
+define um elipsoide confiança de `\(100(1-\alpha)\%\)` para o vetor `\(\beta\)`.
+
+
+---
+class: animated, slideInRight
+
+###  Distância de Cook - II
+
+Cook (1977) propõe a seguinte estatística para detectar dados 
+influentes
+
+`$$D_i=\frac{\left(\widehat{\beta}_{(i)}-\widehat{\beta}\right)'\left(\mathbf{X}'\mathbf{X}\right)\left(\widehat{\beta}_{(i)}-\widehat{\beta}\right)}{p\,s^2}=\frac{\left(\widehat{Y}_{(i)}-\widehat{Y}\right)'\left(\widehat{Y}_{(i)}-\widehat{Y}\right)}{p\,s^2}=\frac{e_{i}^2h_{ii}}{p\, s^2(1-h_{ii})^2}=\frac{h_{ii}}{1-h_{ii}}\frac{r_i^2}{p},$$`
+onde `\(r_i\)` são os resíduos estudentizado internamente. 
+
+#### Algumas considerações
+
+* Grandes valores de `\(D_i\)`  indicam a presença de observações influentes. Dessa forma, a 
+estatística `\(D_i\)` mede a mudança em `\(\widehat{\beta}\)` quando uma observação em 
+particular é omitida;
+
+* `\(D_i\)` depende de `\(h_{ii}\)`, daí `\(D_i\)` se torna grande se `\(h_{ii}\)` e/ou `\(r_i^2\)` 
+são grandes;
+
+* Pela analogia com o elipsoide confiança, Cook (1977) sugere
+comparar `\(D_i\)` com percentis da distribuição `\(F_{p,n-p}\)`. Assim, quanto maior o
+percentil correspondente a `\(D_i\)`, mais influente é a `\(i\)`-ésima observação.
+
+
+---
+class: animated, slideInRight
+
+###  DFFITS
+Proposto por Belsley, Kuh, and Welsch (2005), a estatística mede a mudança em
+`\(\widehat{Y}_i\)` quando a `\(i\)`-ésima observação é omitida. A estatística é dada por
+
+`$$\mathrm{DFFITS}_i=\frac{\widehat{Y}_i-\widehat{Y}_{i(i)}}{s_{(i)}\sqrt{h_{ii}}}=\left(\frac{h_{ii}}{1-h_{ii}}\right)\frac{e_i}{s_{(i)}\sqrt{1-h_{ii}}},$$`
+onde `\(\widehat{Y}_{i(i)}\)` é o `\(i\)`-ésimo elemento do vetor `\(\widehat{Y}\)`, quando
+a `\(i\)`-ésima observação é omitida ao estimar `\(\beta\)` e `\(s_{(i)}^2=\frac{1}{n-p-1}\left[(n-p)s^2-\frac{e_i^2}{1-h_{ii}}\right]\)`.
+
+
+* Belsley, Kuh, and Welsch (2005) sugerem que o valor absoluto dos valores da 
+estatística `\(\mathrm{DFFITS}\)` maiores do que `\(2\sqrt{\frac{p}{n}}\)` sugerem a presença 
+de  observações influentes;
+* A sua relação com a distância de Cook é dada pela seguinte expressão
+
+`$$D_i=(\mathrm{DFFITS}_i)^2\left(\frac{s_{(i)}^2}{p\, s^2}\right).$$`
+
+---
+class: animated, slideInRight
+
+###  DFBETAS
+
+A distância de Cook revela o impacto da `\(i\)`-ésima observação no vetor `\(\beta\)`.
+As mudanças para o coeficientes marginais são identificadas com os 
+`\(\textrm{DFBETAS}_{j(i)}, \, j=0,1,2,\ldots,p-1\)`. Cada `\(\textrm{DFBETAS}_{j(i)}\)`
+representa a mudança padronizada em `\(\widehat{\beta}_j\)` quando a `\(i\)`-ésima 
+observação é omitida da análise. A estatística é dada por
+`$$\mathrm{DFBETAS}_{j(i)}=\frac{\widehat{\beta}_j-\widehat{\beta}_{j(i)}}{s_i\sqrt{c_{jj}}},$$`
+onde `\(c_{jj}\)` é o `\((j+1)\)`-ésimo elemento diagonal da matriz `\(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+
+* Embora o formato pareça o de uma estatística `\(t\)`-student, a mesma não pode ser 
+usada para avaliar significância;
+* Valores de `\(\textrm{DFBETAS}_{j(i)}\)` maiores que `\(2\)` devem indicar um maior, mas
+improvável, impacto de um único ponto. O ponto `\(\frac{2}{\sqrt{n}}\)` tenderá a 
+destacar a mesma proporção de pontos de influência nos dados. Para detalhes veja
+Belsley, Kuh, and Welsch (2005).
+ 
+
+---
+class: animated, slideInRight
+
+###  COVRATIO
+
+O impacto da `\(i\)`-ésima observação na matriz de covariâncias do vetor `\(\beta\)` 
+é medido pela razão dos determinantes das duas matrizes de covariâncias, i.e.,
+
+`$$\mathrm{COVRATIO}=\frac{\det\left(s_{(i)}^2\left[\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right]^{-1}\right)}{\det\left(s^2\left[\mathbf{X}'\mathbf{X}\right]^{-1}\right)}=\left[\left(\frac{n-p-1}{n-p}+\frac{\left(r_i^*\right)^2}{n-p}\right)^{p-1}(1-h_{ii})\right]^{-1}.$$`
+* Valores pŕoximos de `\(1\)` indicam que a `\(i\)`-ésima observação tem um pequeno 
+efeito na precisão das estimativas;
+* Um COVRATIO maior que `\(1\)` indica que a presença da `\(i\)`-ésima observação 
+aumenta a precisão das estimativas; uma proporção menor que `\(1\)` indica que a
+presença da observação prejudica a precisão de as estimativas.
+* Belsley, Kuh, and Welsch (2005) sugerem que observações com valores do 
+`\(\mathrm{COVRATIO}\)` fora dos limites `\(1\pm3\frac{p}{n}\)` podem ser consideradas
+como influentes;
+
+&gt; As estatísticas de influência devem ser usadas como ferramentas de diagnóstico para identificar as observações com maior impacto nos resultados da regressão.
+Embora algumas das medidas de influência se assemelhem às estatísticas de teste, elas não devem ser interpretadas como testes de significância para observações influentes.
 
 ---
 class: animated, lightSpeedIn
 # Referências
 
+Belsley, D., E. Kuh, and R. Welsch (2005). _Regression Diagnostics:
+Identifying Influential Data and Sources of Collinearity_. Wiley Series
+in Probability and Statistics. Wiley.
+
 Brockwell, P. and R. Davis (2002). _Introduction to Time Series and
 Forecasting_. 2nd. Springer Verlag.
+
+Cook, R. D. (1977). "Detection of influential observation in linear
+regression". In: _Technometrics_ 19.1, pp. 15-18.
 
 Cook, R. D. and S. Weisberg (1982). _Residual and influence in
 regression_. New York: Chapman and Hall.
 
 Fuller, W. A. (1996). _Introduction to statistical time series_. John
 Wiley &amp; Sons.
+
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
+Alternatives_. 2nd ed.. Springer Series in Statistics. Springer New
+York.
 
 ---
 class: animated, hide-logo, bounceInDown
