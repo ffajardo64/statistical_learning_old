@@ -41,6 +41,7 @@
 
 * **R notebooks**
   - [reg2_intro.ipynb](https://bit.ly/3r0Qkrk)
+  - [reg4_intro.ipynb](https://bit.ly/3lDmFDG)
 
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
