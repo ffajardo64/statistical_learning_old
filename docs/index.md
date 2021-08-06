@@ -18,7 +18,8 @@
 * **Conjunto de dados**
   - [distância.csv](https://bit.ly/3w3AAo6)
   - [dureza.csv](https://bit.ly/3y2bTd1)
-  - [prostate.csv](https://bit.ly/3hEwEqd)
+  - [Câncer de próstata](https://bit.ly/3hEwEqd)
+  - [Biomassa](https://bit.ly/37r3i8x)
 
 
 #### Livros e material online
