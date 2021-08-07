@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Statistical Learning
-description: Repositório exclusivo para Apredizado Estatístico. Informações sobre métodos, modelagem estatística, códigos em R e Python, datasets e entre outros.
+description: Repositório exclusivo para Aprendizado Estatístico. Informações sobre métodos, modelagem estatística, códigos em R e Python, datasets e entre outros.
 ---
 
 # Aprendizado supervisionado
@@ -13,11 +13,16 @@ description: Repositório exclusivo para Apredizado Estatístico. Informações 
 
 
 
-# Teoria Estatística
+
+
+# Tópicos em Estatística
+
+### Inferência Estatística
+
 * [Inferência Estatística I](https://bit.ly/3jviHfA)
 
 
-# Estatística computacional
+### Estatística computacional
 
 * [Análise de dados com R](https://bit.ly/3jviHfA)
 
