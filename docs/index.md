@@ -1,3 +1,9 @@
+---
+layout: default
+title: Statistical Learning
+description: Repositório exclusivo para aprendizado estatístico
+---
+
 
 # Aprendizado supervisionado
 
