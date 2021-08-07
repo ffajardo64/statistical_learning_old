@@ -6,7 +6,7 @@ description: Repositório exclusivo para Apredizado Estatístico. Informações 
 
 # Aprendizado supervisionado
 
-	* [STA13824 Análise de regressão](https://bit.ly/3jvVHvg)
+* [STA13824 Análise de regressão](https://bit.ly/3jvVHvg)
 
 
 # Aprendizado não-supervisionado
@@ -14,12 +14,12 @@ description: Repositório exclusivo para Apredizado Estatístico. Informações 
 
 
 # Teoria Estatística
-	* [Inferência Estatística I](https://bit.ly/3jviHfA)
+* [Inferência Estatística I](https://bit.ly/3jviHfA)
 
 
 # Estatística computacional
 
-	* [Análise de dados com R](https://bit.ly/3jviHfA)
+* [Análise de dados com R](https://bit.ly/3jviHfA)
 
 
 
