@@ -26,4 +26,14 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 
+### Vídeos (*novo*)
+* [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy)
+* [Data Science - ML](https://bit.ly/3yIJ1Hc)
+* [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg)
+* [Machine Learning University](https://bit.ly/3zVEvWq)
+
+### Datasets
+* [UCI - Machine learning repository](https://archive.ics.uci.edu/ml/index.php)
+* [Kaggle datasets](https://www.kaggle.com/datasets)
+* [Coronavirus datasets](https://www.worldometers.info/coronavirus/)
 

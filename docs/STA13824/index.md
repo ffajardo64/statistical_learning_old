@@ -67,15 +67,6 @@ description: Repositório com material sobre análise de regressão.
   - [Online Graph Maker](https://bit.ly/3fl6RBG) - Plotly Chart Studio
 
 
-***
-
-#### Vídeos (*novo*)
-  - [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy)
-  - [Data Science - ML](https://bit.ly/3yIJ1Hc)
-  - [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg)
-  - [Machine Learning University](https://bit.ly/3zVEvWq)
-
-
 #### Exercícios (*novo*)
   - Exercícios Cap 3 *Multiple Linear Regression* - Montgomery, Peck & Vining (2006)
   - [Exercícios Cap 4 *Econometric Analysis* - Greene (2012)](https://bit.ly/36LbX5r) --> [Rabiscos da aula](https://bit.ly/3kDgQFN) 
