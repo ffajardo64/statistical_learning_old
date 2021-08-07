@@ -37,10 +37,8 @@ description: Repositório com material sobre análise de dados e programação c
 
 
 
-[STA13824 - Regression Analysis](https://bit.ly/3jvVHvg)
 
+ ***
+  [Inicio](https://bit.ly/3jviHfA)
+  
 
-
-
-
-[Início](https://bit.ly/3jviHfA)

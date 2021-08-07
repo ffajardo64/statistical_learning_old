@@ -6,7 +6,7 @@ description: Repositório com material sobre análise de regressão.
 ---
 
 
-## STA13824 Análise de regressão
+## Análise de regressão
 
 * **Slides**
   - [Programa da disciplina](https://bit.ly/3jy4Rr1)
