@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Análise de Regressão
+author: Laboratório de Estatística e Computação Natural - LECON -
 description: Repositório com material sobre análise de regressão.
 ---
 
