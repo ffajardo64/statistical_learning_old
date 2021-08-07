@@ -8,18 +8,18 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 # Aprendizado supervisionado
 
 * [Análise de regressão](https://bit.ly/3jvVHvg)
-* [Modelos de classificação](https://bit.ly/3jviHfA)
+* [Modelos de classificação](https://bit.ly/3jviHfA) (*Em construção*)
 
 # Aprendizado não-supervisionado
-* [Redução de dimensionalidade](https://bit.ly/3jviHfA)
-* [Análise de agrupamentos](https://bit.ly/3jviHfA)
-* [Detecção de anomalias](https://bit.ly/3jviHfA)
+* [Redução de dimensionalidade](https://bit.ly/3jviHfA) (*Em construção*)
+* [Análise de agrupamentos](https://bit.ly/3jviHfA) (*Em construção*)
+* [Detecção de anomalias](https://bit.ly/3jviHfA) (*Em construção*)
 
 # Tópicos em Estatística
 
 ### Inferência Estatística
 
-* [Inferência Estatística I](https://bit.ly/3jviHfA)
+* [Inferência Estatística I](https://bit.ly/3jviHfA) (*Em construção*)
 
 
 ### Estatística computacional
