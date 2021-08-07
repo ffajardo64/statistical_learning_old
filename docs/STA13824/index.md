@@ -1,25 +1,32 @@
+---
+layout: default
+title: Análise de Regressão
+description: Repositório com material sobre análise de regressão.
+---
+
+
 ## STA13824 Análise de regressão
 
 * **Slides**
-  - [Programa da disciplina](https://bit.ly/3vhS3sB)
-  - [Introdução](https://bit.ly/3zyTUNc)
-  - [Estimação de parâmetros](https://bit.ly/3iWPb1K)
-  - [Interpretação geométrica do estimador MQO](https://bit.ly/3qkA4AV)   
-  - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3jbGGAf)
-  - [Inferência no modelo de regressão linear - I](https://bit.ly/3h0ohow) 
-  - [Inferência no modelo de regressão linear - II](https://bit.ly/3A5DqMC) 
-  - [Inferência no modelo de regressão linear - III](https://bit.ly/3dGxuA0) 
-  - [Inferência no modelo de regressão linear - IV](https://bit.ly/3xDc4Mo)
-  - [Análise residual - I](https://bit.ly/3iqanv7) 
-  - [Análise residual - II](https://bit.ly/37gvtqW) (*Atualizado em 04/08/2021 às 01:21*)
+  - [Programa da disciplina](https://bit.ly/3jy4Rr1)
+  - [Introdução](https://bit.ly/2U66DqM)
+  - [Estimação de parâmetros](https://bit.ly/3CnTTwR)
+  - [Interpretação geométrica do estimador MQO](https://bit.ly/3fCLn39)
+  - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3lKkq1s)
+  - [Inferência no modelo de regressão linear - I](https://bit.ly/3yJspzL)
+  - [Inferência no modelo de regressão linear - II](https://bit.ly/3CpYXke)
+  - [Inferência no modelo de regressão linear - III](https://bit.ly/3jBSTg7)
+  - [Inferência no modelo de regressão linear - IV](https://bit.ly/2VGT0Pi)
+  - [Análise residual - I](https://bit.ly/3yvmZbb)
+  - [Análise residual - II](https://bit.ly/3jss8dU) (*Atualizado em 04/08/2021 às 01:21*)
   - [Análise residual - III](https://bit.ly/3jviHfA) 
 
 
 * **Conjunto de dados**
-  - [distância.csv](https://bit.ly/3w3AAo6)
-  - [dureza.csv](https://bit.ly/3y2bTd1)
-  - [Câncer de próstata](https://bit.ly/3hEwEqd)
-  - [Biomassa](https://bit.ly/37r3i8x)
+  - [distância.csv](https://bit.ly/3iuUMfi)
+  - [dureza.csv](https://bit.ly/3AkmzVB)
+  - [Câncer de próstata](https://bit.ly/3jvuGrD)
+  - [Biomassa](https://bit.ly/3xtpmdu)
 
 
 #### Livros e material online
@@ -40,8 +47,8 @@
   -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/).
 
 * **R notebooks**
-  - [reg2_intro.ipynb](https://bit.ly/3r0Qkrk)
-  - [reg4_intro.ipynb](https://bit.ly/3lDmFDG)
+  - [R_intro.ipynb](https://bit.ly/2VEoXaB)
+  - [R_introII.ipynb](https://bit.ly/3CBfzG2)
 
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH). Version 2.1.0.
@@ -53,7 +60,9 @@
   - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ).
    
 * **Python notebooks**
-  - [reg2_intro.ipynb](https://bit.ly/2VpCrXI) (*novo*)
+  - [python_intro.ipynb](https://bit.ly/3jxh8fj)
+
+* **Python dashboards**
   - [Online Graph Maker](https://bit.ly/3fl6RBG) - Plotly Chart Studio
 
 
