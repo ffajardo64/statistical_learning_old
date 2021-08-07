@@ -82,4 +82,9 @@ description: Repositório com material sobre análise de regressão.
   - [Exercícios aula 23/07/2021](https://bit.ly/3zGOcYX) (**Novo**)
   - [Ex 3](https://bit.ly/3xUckXl)
   - [Gujarati](https://bit.ly/3rFQzs4)
+  
+  
+  ***
+  [Inicio](https://bit.ly/3jviHfA)
+  
 

@@ -37,10 +37,10 @@ description: Repositório com material sobre análise de dados e programação c
 
 
 
-[STA13824 - Regression Analysis](https://ffajardo64.github.io/statistical_learning/)
+[STA13824 - Regression Analysis](https://bit.ly/3jvVHvg)
 
 
 
 
 
-[Início](https://ffajardo64.github.io/R/)
+[Início](https://bit.ly/3jviHfA)
