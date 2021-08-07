@@ -7,11 +7,13 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 # Aprendizado supervisionado
 
-* [STA13824 Análise de regressão](https://bit.ly/3jvVHvg)
-
+* [Análise de regressão](https://bit.ly/3jvVHvg)
+* [Modelos de classificação](https://bit.ly/3jviHfA)
 
 # Aprendizado não-supervisionado
-
+* [Redução de dimensionalidade](https://bit.ly/3jviHfA)
+* [Análise de agrupamentos](https://bit.ly/3jviHfA)
+* [Detecção de anomalias](https://bit.ly/3jviHfA)
 
 # Tópicos em Estatística
 
