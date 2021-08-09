@@ -45,9 +45,16 @@ description: Repositório com material sobre análise de regressão.
 **R**
   - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz).
   - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF).
-  -  Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht).
   -  Kuhn, M. (2019) [The caret package (short for Classification And REgression Training)](http://topepo.github.io/caret/).
-  -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/).
+  -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Espanhol](https://es.r4ds.hadley.nz/)
+  -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/). 2nd Ed.
+  -  Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht).
+  - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/). Material didático. Equipe EstBas - DEST/UFPR.
+  
+  **Outros**
+  - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/)
+  - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+  - Vancine, M. (2021)[Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
 
 * **R notebooks**
   - [R_intro.ipynb](https://bit.ly/2VEoXaB)
@@ -58,9 +65,11 @@ description: Repositório com material sobre análise de regressão.
   - Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3xzvf9D) Notas de aula. Jul 21. (*novo*)
   - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V). Version 1.3.0. Jul 02.
   - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J)
-  - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8)  (*novo* Atenção: Versão Python 2.x)
+  - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8)  (Atenção: Versão Python 2.x)
   - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW).
   - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ).
+  - Tagliaferri, L., Morales, M., Birbeck, E. and Wan, A. [Python Machine Learning Projects](https://bit.ly/3yyNyfS). Versão 2021.
+
    
 * **Python notebooks**
   - [python_intro.ipynb](https://bit.ly/3jxh8fj)
