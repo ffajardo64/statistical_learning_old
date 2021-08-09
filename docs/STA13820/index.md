@@ -31,6 +31,7 @@ description: Repositório com material sobre análise de dados e programação c
 
 ### Referências
 - Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a). Revista da Sociedad Chilena de Estadística, 9, p. 79-95.
+- Data Science Lab - DaSLab - [Primeiros passos no R](https://bit.ly/3AmiwYW). Projeto de extensão **ensinaR** - Coordenadora: Profa. Dra. Agatha Rodrigues. 2020.
 - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF).
 -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Espanhol](https://es.r4ds.hadley.nz/)
 -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/). 2nd Ed.
@@ -40,18 +41,11 @@ description: Repositório com material sobre análise de dados e programação c
 **Outros**
 - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/)
 - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
-- Vancine, M. (2021)[Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
+- Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
 
 * **R notebooks**
   - [R_intro.ipynb](https://bit.ly/2VEoXaB)
   - [R_introII.ipynb](https://bit.ly/3CBfzG2)
-
-
-
-
-
-
-* DaSLab - [Primeiros passos no R](https://daslab-ufes.github.io/assets/files/slides_rbasico.pdf) Material de apoio. Projeto de extensão **ensinaR** - Coordenadora: Profa. Agatha Rodrigues. 2020.
 
 ### Vídeos
 

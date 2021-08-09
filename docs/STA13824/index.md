@@ -54,7 +54,7 @@ description: Repositório com material sobre análise de regressão.
   **Outros**
   - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/)
   - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
-  - Vancine, M. (2021)[Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
+  - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
 
 * **R notebooks**
   - [R_intro.ipynb](https://bit.ly/2VEoXaB)
