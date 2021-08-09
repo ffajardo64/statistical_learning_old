@@ -46,7 +46,7 @@ description: Repositório com material sobre análise de regressão.
   - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz).
   - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF).
   -  Kuhn, M. (2019) [The caret package (short for Classification And REgression Training)](http://topepo.github.io/caret/).
-  -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Espanhol](https://es.r4ds.hadley.nz/)
+  -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/)
   -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/). 2nd Ed.
   -  Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht).
   - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/). Material didático. Equipe EstBas - DEST/UFPR.

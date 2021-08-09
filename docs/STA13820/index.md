@@ -33,7 +33,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a). Revista da Sociedad Chilena de Estadística, 9, p. 79-95.
 - Data Science Lab - DaSLab - [Primeiros passos no R](https://bit.ly/3AmiwYW). Projeto de extensão **ensinaR** - Coordenadora: Profa. Dra. Agatha Rodrigues. 2020.
 - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF).
--  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Espanhol](https://es.r4ds.hadley.nz/)
+-  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/)
 -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/). 2nd Ed.
 -  Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht).
 - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/). Material didático. Equipe EstBas - DEST/UFPR.
