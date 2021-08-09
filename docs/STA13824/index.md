@@ -20,7 +20,9 @@ description: Repositório com material sobre análise de regressão.
   - [Inferência no modelo de regressão linear - IV](https://bit.ly/2VGT0Pi)
   - [Análise residual - I](https://bit.ly/3yvmZbb)
   - [Análise residual - II](https://bit.ly/3jss8dU) (*Atualizado em 04/08/2021 às 01:21*)
-  - [Análise residual - III](https://bit.ly/3jviHfA) 
+  - [Modelos de regressão com variáveis binárias](https://bit.ly/3jFR9Cz)
+  - [Dados atípicos ou _Outliers_](https://bit.ly/3jviHfA)
+  - [Violação de suposições](https://bit.ly/3jviHfA) 
 
 
 * **Conjunto de dados**
