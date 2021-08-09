@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Modelos de regressão com variáveis binárias
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 09/08/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Variáveis dummies (ou indicadoras) - I
+
+Geralmente na análise de regressão as covariáveis são consideradas como variáveis
+quantitativas. Os modelos de regressão linear não estão restritos ao uso de 
+variáveis quantitativas e outros tipos de variáveis podem ser consideradas na 
+modelagem de um conjunto de observações, poe exemplo covariáveis de tipo 
+qualitativo ou categorizadas. 
+
+&gt; Dado que as variáveis categóricas não têm uma escala natural de medida, 
+devemos atribuir um conjunto de *níveis* a essa variáveis para determinar o 
+efeito delas na variável resposta.
+
+Para determinar esse efeito é necessário o uso de variáveis *dummies* ou 
+*indicadoras.* A ideia é "quantificar" tais níveis formulando variáveis 
+artificiais que assumem valores de `\(0\)` ou `\(1\)`, onde `\(1\)` indica a presença 
+(ou posse) daquele nível e `\(0\)` a ausência dele.
+
+&gt; Define-se uma variável *dummy* como uma covariável  definida como
+`$$\delta=\begin{cases}1, &amp; \text{ Se a característica está presente};\\ 0, &amp; \text{em caso contrário.}\end{cases}$$`
+
+
+Para detalhes Greene (2007), 
+Gujarati, Porter, and Gunasekar (2017), Rawlings, Pantula, and Dickey (1998).
+
+---
+class: animated, slideInRight
+
+### Variáveis dummies (ou indicadoras) - II
+
+**Exemplo**: Considere um modelo de regressão que usa dados anuais no período
+`\(1930, 1931, \ldots, 1959, 1960\)`, dado por
+
+`$$C_i=\beta_0+\beta_1\,r_i+\epsilon_i, \quad i=1,2,\ldots,n,$$`
+onde `\(C_i\)` representa o _consumo_ e  `\(r_i\)` e a _renda_.
+
+Suponha que essa relação sofre um efeito em determinado período de tempo. Dessa
+forma, um modelo apropriado seria
+
+`$$C_i=\beta_{0i}+\beta_1\, r_i+\epsilon_i,$$`
+onde `\(\beta_{0i}=\beta_0+\gamma\delta_i\)`, com
+
+$$
+\delta=
+`\begin{cases}
+1, &amp; \text{ Se o ano for 1941 a 1945}; \quad \text{(durante a guerra)}\\ 
+0, &amp; \text{em caso contrário.}
+\end{cases}`
+$$
+
+Outra forma de escrever 
+
+`$$C_i=\beta_0+\gamma\delta_i+\beta_1\, r_i+\epsilon_i.$$`
+---
+class: animated, slideInRight
+
+### Variáveis dummies (ou indicadoras) - III
+
+Daí, temos que
+
+* **Durante a Guerra**: `\(\quad  \mathbb{E}[C_i]=(\beta_0+\gamma)+\beta_1\,r_i\)`
+* **Durante a "não guerra"**:  `\(\quad  \mathbb{E}[C_i]=\beta_0+\beta_1\,r_i\)`
+
+&gt; Esse tipo de variável *dummy* é chamada de **dummy de intercepto**.
+
+Nesse cenário, é possível estimar e avaliar o efeito da **guerra** sobre o 
+_consumo_. Considere
+
+`$$\delta=\mathbb{E}\left[C|\delta=1,\ r\right]-\mathbb{E}\left[C|\delta=0,\ r\right]=(\beta_0+\gamma)+\beta_1\,r_i-\beta_0+\beta_1\,r_i.$$`
+Dessa forma, pode-se testar se houve de fato alteração no padrão de _consumo_
+durante a guerra.
+
+`$$H_0: ``\text{A relação é a mesma em toda a amostra}"\\ H_1: ``\text{A relação é diferente durante a guerra}"$$`
+ou
+
+`$$H_0: \ \delta=0 \quad H_1:\ \delta&lt;0.$$`
+---
+background-image: url("images/dummies.png")
+background-size: contain
+
+class: animated, slideInRight
+### Variáveis dummies (ou indicadoras) - IV
+
+
+---
+class: animated, slideInRight
+
+### Variáveis dummies (ou indicadoras) - V
+
+Se supormos que a queda no _consumo_ deve ser maior nos estratos mais altos de
+_renda_, isso significa que existe uma *interação* entre **guerra/não guerra** e **renda**.
+
+Um modelo apropriado seria dado por
+
+`$$\mathbb{E}[C_i]=\beta_0+(\beta_1+\gamma\delta_i)\ r_i=\beta_0+\beta_1\ r_i+\gamma\delta_i\ r_i.$$`
+&gt; Esse tipo de variável *dummy* é chamada de **dummy de interação**.
+
+Dessa forma, pode-se testar se houve de fato alteração no padrão de _consumo_
+durante a guerra.
+
+`$$H_0: \ \delta=0 \quad H_1:\ \delta&lt;0.$$`
+---
+background-image: url("images/dummiesII.png")
+background-size: contain
+
+class: animated, slideInRight
+### Variáveis dummies (ou indicadoras) - VI
+
+
+---
+class: animated, slideInRight
+
+### Variáveis dummies (ou indicadoras) - VII
+
+Pode ser que os dois efeitos (sobre o intercepto e sobre a inclinação) ocurram
+simultaneamente.
+
+Um modelo apropriado seria dado por
+
+`$$\mathbb{E}[C_i]=\beta_{0i}+\beta_{1i}\ r_i,$$`
+onde `\(\beta_{0i}=\beta_0+\gamma\delta_i\)` e `\(\beta_{1i}=\beta_1+\psi\delta_i\)`. 
+Dessa forma,
+
+`$$\mathbb{E}[C_i]=\beta_0+\gamma\delta_i+\beta_1\ r_i+\psi\delta_i\ r_i,$$`
+Dessa forma, pode-se testar se houve de fato alteração no padrão de _consumo_
+durante a guerra da seguinte forma
+
+`$$H_0: \ \gamma=\delta=0 \quad H_1:\ ``\text{Não } H_0".$$`
+Para avaliar `\(H_0\)` use um teste `\(F\)`.
+
+&gt; No caso que use o modelo completo, i.e.  
+`$$C_i=\beta_0+\beta_1\ r_i+\gamma\delta_{1i}+\psi\delta_{2i}+\epsilon_i,$$`
+as colunas da matriz `\(\mathbf{X}\)` são linearmente dependentes, ou seja, a matriz
+`\(\mathbf{X}'\mathbf{X}\)` é **singular**. Isso é chamado de *armadilha das dummies.*
+
+---
+class: animated, slideInRight
+
+### Variáveis dummies (ou indicadoras) - VII
+
+#### Algumas considerações
+
+* Se houver `\(m\)` categorias, use `\(m-1\)` variáveis _dummies_. No caso de usar uma
+_dummy_ para cada categoria será um cenário de **colinearidade perfeita**;
+
+* A categoria para a qual nenhuma _dummy_ é atribuída é chamada de 
+**categoria de controle** ou **categoria de referência**;
+
+* A escolha da categoria de referência fica a critério do pesquisador e será
+determinado pelo cenário sob estudo;
+
+* O valor de `\(\beta_0\)` representa o valor médio da categoria de referência;
+
+* Uma forma de contornar o problema da *armadilha das dummies* é introduzir 
+tantas variáveis _dummies_ quanto número de categorias daquela variável, contanto
+que não seja considerado intercepto no modelo.
+
+
+---
+class: animated, slideInRight
+
+### Variáveis dummies (ou indicadoras) - VII
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
+
+Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_. 5th. McGraw-Hill/Irwin.
+
+Rawlings, J. O., S. G. Pantula, and D. A. Dickey (1998). _Applied regression analysis. a research tool_. 2nd
+ed.. Springer texts in statistics. New York, NY.: Springer.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
