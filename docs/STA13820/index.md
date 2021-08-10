@@ -27,9 +27,8 @@ description: Repositório com material sobre análise de dados e programação c
 * [Programando com R: Funções](https://bit.ly/3iBwnoh)
 * [Geração de números pseudo-aleatórios - I](https://bit.ly/3jxUsLV)
 
-### Notebooks
-[Exercício 1](#)
-
+* **R notebooks**
+  - [Exercicio I](https://bit.ly/3jxUsLV)
 
 ### Referências
 - Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a). Revista da Sociedad Chilena de Estadística, 9, p. 79-95.
@@ -45,14 +44,10 @@ description: Repositório com material sobre análise de dados e programação c
 - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
 
-* **R notebooks**
-  - [R_intro.ipynb](https://bit.ly/2VEoXaB)
-  - [R_introII.ipynb](https://bit.ly/3CBfzG2)
 
 ### Vídeos
 
 * [Primeiros passos no R](https://www.youtube.com/watch?v=AqQ2nyzyOIc). Projeto de extensão **ensinaR** - Coordenadora: Profa. Agatha Rodrigues. 2020.
-
 
 
  ***
