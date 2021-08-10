@@ -22,8 +22,8 @@ description: Repositório com material sobre análise de dados e programação c
 
 ### Tópicos
 * [Introdução](https://bit.ly/3jtNO9m)
-* [Programando com R](https://bit.ly/3lIlEdw)
-* [Funções](https://bit.ly/3jxUsLV)
+* [Programando com R: Estruturas de controle de fluxo](https://bit.ly/3lIlEdw)
+* [Programando com R: Funções](https://bit.ly/3jxUsLV)
 
 ### Notebooks
 [Exercício 1](#)
