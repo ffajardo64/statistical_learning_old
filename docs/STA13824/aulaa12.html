@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding/plotly.js"></script>
+    <script src="libs/typedarray/typedarray.min.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Detecção de dados atípicos
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 11/08/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Dados atípicos (_outliers_) - I
+
+#### Algumas considerações
+
+* Geralmente, a principal razão de identificar dados atípicos é a necessidade 
+de utilizar-se um método adequado para lidar com tais observações. As mesmas
+afetam todas as inferências do ajuste.
+
+* Para lidar com observações atípicas, podemos considerar dois cenários: 
+  - **Simples identificação**: A identificação de tais observações pode levar a 
+  sua rejeição, sua incorporação através da revisão do modelo ou método de 
+  estimação, ou verificação de deficiências no conjunto de dados e necessidade 
+  de novos experimentos;
+  
+  - **Simples acomodação**: Nesse cenário o objetivo é acomodar tais observações
+  no conjunto de dados por meio de modificações apropriadas no modelo ou método 
+  de análise adequado, sem a necessidade de identificar as observações 
+  discrepantes de antemão.
+
+&lt;br&gt;&lt;/br&gt;
+
+Para detalhes Greene (2007), 
+Maronna, Martin, Yohai et al. (2019), Rao (2001),
+Rousseeuw and Leroy (1987),
+Cook and Weisberg (1982).
+
+---
+class: animated, slideInRight
+
+### Dados atípicos (_outliers_) - II
+
+Na análise de regressão linear há três tipos de dados influentes:
+
+1. **Outlier**: Quando a observação é influente somente na direção da **variável resposta**;
+
+1. **Ponto de alavancagem bom**: Quando a observação é influente apenas na direção 
+do espaço das **covariáveis**. Sua presença pode ajudar a diminuir a variabilidade 
+das estimativas;
+
+1. **Ponto de alavancagem ruim**: Quando a observação é influente tanto na direção 
+  da **variável resposta** quanto na direção do espaço das **covariáveis**. Sua 
+  presença fará com que o hiperplano ajustado seja atraido na sua direção;
+
+
+&gt; Independente do tipo de dado influente, pelo fato de influenciarem nas 
+estimativas dos parâmetros, das somas de quadrados e testes de significância,
+torna-se importante avaliar uma maneira de detectá-los.
+
+As medidas de influência estudadas na aula de [Análise residual](https://bit.ly/3jss8dU)
+são bastante úteis para detectar esse tipo de pontos.
+
+
+---
+class: animated, slideInRight
+
+### Dados atípicos (_outliers_) - III
+
+.pull-left[
+<div id="htmlwidget-fc169603570a425172f1" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fc169603570a425172f1">{"x":{"visdat":{"5fd53be92e7c":["function () ","plotlyVisDat"]},"cur_data":"5fd53be92e7c","attrs":{"5fd53be92e7c":{"x":{},"y":{},"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"5fd53be92e7c.1":{"x":{},"y":[5.04741711642248,5.04741711642252,13.9664610639938,13.9664610639938,16.9394757131843,19.9124903623747,22.8855050115652,22.8855050115652,22.8855050115652,25.8585196607556,25.8585196607556,28.831534309946,28.831534309946,28.831534309946,28.831534309946,31.8045489591365,31.8045489591365,31.8045489591365,31.8045489591365,34.7775636083269,34.7775636083269,34.7775636083269,34.7775636083269,37.7505782575173,37.7505782575173,37.7505782575173,40.7235929067078,40.7235929067078,43.6966075558982,43.6966075558982],"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"line","line":{"width":1,"color":"red"},"inherit":true}},"layout":{"width":400,"height":400,"margin":{"b":100,"l":50,"t":100,"r":50,"pad":4},"title":"Sem outliers","xaxis":{"domain":[0,1],"automargin":true,"range":[0,22],"title":"Velocidade"},"yaxis":{"domain":[0,1],"automargin":true,"range":[0,220],"title":"Distância"},"autosize":false,"showlegend":false,"hovermode":"closest"},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17],"y":[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40],"main":"sss","type":"scatter","mode":"markers","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17],"y":[5.04741711642248,5.04741711642252,13.9664610639938,13.9664610639938,16.9394757131843,19.9124903623747,22.8855050115652,22.8855050115652,22.8855050115652,25.8585196607556,25.8585196607556,28.831534309946,28.831534309946,28.831534309946,28.831534309946,31.8045489591365,31.8045489591365,31.8045489591365,31.8045489591365,34.7775636083269,34.7775636083269,34.7775636083269,34.7775636083269,37.7505782575173,37.7505782575173,37.7505782575173,40.7235929067078,40.7235929067078,43.6966075558982,43.6966075558982],"main":"sss","type":"scatter","mode":"line+lines","line":{"color":"red","width":1},"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+<div id="htmlwidget-2b9f26cf264f6560125e" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2b9f26cf264f6560125e">{"x":{"visdat":{"5fd56b213843":["function () ","plotlyVisDat"]},"cur_data":"5fd56b213843","attrs":{"5fd56b213843":{"x":{},"y":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"5fd56b213843.1":{"x":{},"y":[-49.4562106468232,-49.4562106468231,-15.1463938179737,-15.1463938179737,-3.70978820835716,7.72681740125932,19.1634230108758,19.1634230108758,19.1634230108758,30.6000286204923,30.6000286204923,42.0366342301088,42.0366342301088,42.0366342301088,42.0366342301088,53.4732398397252,53.4732398397252,53.4732398397252,53.4732398397253,64.9098454493417,64.9098454493417,64.9098454493417,64.9098454493417,76.3464510589582,76.3464510589582,76.3464510589582,87.7830566685747,87.7830566685747,99.2196622781912,99.2196622781912,122.092873497424,122.092873497424,133.529479107041,133.529479107041,133.529479107041],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"line","line":{"width":1,"color":"blue"},"inherit":true}},"layout":{"width":400,"height":400,"margin":{"b":100,"l":50,"t":100,"r":50,"pad":4},"title":"Com outliers","xaxis":{"domain":[0,1],"automargin":true,"range":[0,22],"title":"Velocidade"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Distância"},"autosize":false,"showlegend":false,"hovermode":"closest"},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,19,19,20,20,20],"y":[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40,190,186,210,220,218],"type":"scatter","mode":"markers","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,19,19,20,20,20],"y":[-49.4562106468232,-49.4562106468231,-15.1463938179737,-15.1463938179737,-3.70978820835716,7.72681740125932,19.1634230108758,19.1634230108758,19.1634230108758,30.6000286204923,30.6000286204923,42.0366342301088,42.0366342301088,42.0366342301088,42.0366342301088,53.4732398397252,53.4732398397252,53.4732398397252,53.4732398397253,64.9098454493417,64.9098454493417,64.9098454493417,64.9098454493417,76.3464510589582,76.3464510589582,76.3464510589582,87.7830566685747,87.7830566685747,99.2196622781912,99.2196622781912,122.092873497424,122.092873497424,133.529479107041,133.529479107041,133.529479107041],"type":"scatter","mode":"line+lines","line":{"color":"blue","width":1},"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+
+
+---
+class: animated, slideInRight
+
+### Modelo de desvio médio atípico (mean-shift outlier model) - I
+
+Considere o seguinte modelo
+`$$Y=\mathbf{X}\beta+\gamma\,\delta_i+\epsilon,$$`
+onde `\(\delta_i\)` é um vetor unitário, cujo `\(i\)`-ésimo elemento é igual a `\(1\)` e os
+outros elementos são `\(0\)` e `\(\gamma\)` o tamanho do desvio.
+
+No modelo, a `\(i\)`-esima observação apresenta o efeito do desvio no intercepto, i.e.
+`$$\mathbb{E}\left[Y_i\right]=\mathbf{x}_i'\beta+\gamma.$$`
+O objetivo é avaliar se a mudança na `\(i\)`-ésima observação pode ser considerada
+dado atípico.
+
+Considere as seguintes hipótesis 
+
+`$$H_0: \gamma=0\quad \text{ou}\quad \mathbb{E}[Y]=\mathbf{X}\beta$$`
+contra
+
+`$$H_1: \gamma\ne0\quad \text{ou}\quad \mathbb{E}[Y]=\mathbf{X}\beta+\gamma\,\delta_i.$$`
+---
+class: animated, slideInRight
+
+### Modelo de desvio médio atípico (mean-shift outlier model) - II
+
+A estatística de teste é dada por
+
+`$$F_i=\frac{SQ_{Res}(H_0)-SQ_{Res}(H_1)}{SQ_{Res}(H_1)/(n-p-1)}.$$`
+Observe que
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    SQ_{Res}(H_0)&amp;=Y'(I-H)Y=(n-p)s^2.
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+Por outra parte,
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    SQ_{Res}(H_1)&amp;=(n-p-1)s_{(i)}^2=Y_{(i)}'(I-H_{(i)})Y_{(i)}=Y'\left(I-H-\frac{(I-H)\delta_i\delta_i'(I-H)}{\delta_i'(I-H)\delta_i}\right)Y\\
+    &amp;=(n-p)s^2-\frac{e_i^2}{1-h_{ii}}=SQ_{Res}(H_0)-\frac{e_i^2}{1-h_{ii}}=(n-p-1)s_{(i)}^2.
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+O último resultado foi apresentado na aula [Análise residual - I](https://ffajardo64.github.io/statistical_learning/STA13824/aula9.html#6).
+
+---
+class: animated, slideInRight
+
+### Modelo de desvio médio atípico (mean-shift outlier model) - II
+
+Dessa forma,
+
+`$$F_i=\frac{SQ_{Res}(H_0)-SQ_{Res}(H_1)}{SQ_{Res}(H_1)/(n-p-1)}=\frac{e_i^2}{(1-h_{ii})s_{(i)}^2}=(r_i^*)^2,$$`
+onde `\(r_i^*\)` é o `\(i\)`-ésimo resíduo estudentizado externamente. Sob `\(H_0\)`, a
+estatística `\(F_i=(r_i^*)^2\)` segue uma distribuição `\(F_{1,n-p-1}\)`.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Regressão robusta
+
+
+---
+class: animated, fadeIn
+
+### Dados atípicos (_outliers_) - IV
+
+.pull-left[
+<div id="htmlwidget-8e75762eb7b5d341a0ed" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8e75762eb7b5d341a0ed">{"x":{"visdat":{"5fd57103941a":["function () ","plotlyVisDat"]},"cur_data":"5fd57103941a","attrs":{"5fd57103941a":{"x":{},"y":{},"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"5fd57103941a.1":{"x":{},"y":[5.04741711642248,5.04741711642252,13.9664610639938,13.9664610639938,16.9394757131843,19.9124903623747,22.8855050115652,22.8855050115652,22.8855050115652,25.8585196607556,25.8585196607556,28.831534309946,28.831534309946,28.831534309946,28.831534309946,31.8045489591365,31.8045489591365,31.8045489591365,31.8045489591365,34.7775636083269,34.7775636083269,34.7775636083269,34.7775636083269,37.7505782575173,37.7505782575173,37.7505782575173,40.7235929067078,40.7235929067078,43.6966075558982,43.6966075558982],"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"line","line":{"width":1,"color":"red"},"inherit":true}},"layout":{"width":400,"height":400,"margin":{"b":100,"l":50,"t":100,"r":50,"pad":4},"title":"Sem outliers","xaxis":{"domain":[0,1],"automargin":true,"range":[0,22],"title":"Velocidade"},"yaxis":{"domain":[0,1],"automargin":true,"range":[0,220],"title":"Distância"},"autosize":false,"showlegend":false,"hovermode":"closest"},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17],"y":[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40],"main":"sss","type":"scatter","mode":"markers","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17],"y":[5.04741711642248,5.04741711642252,13.9664610639938,13.9664610639938,16.9394757131843,19.9124903623747,22.8855050115652,22.8855050115652,22.8855050115652,25.8585196607556,25.8585196607556,28.831534309946,28.831534309946,28.831534309946,28.831534309946,31.8045489591365,31.8045489591365,31.8045489591365,31.8045489591365,34.7775636083269,34.7775636083269,34.7775636083269,34.7775636083269,37.7505782575173,37.7505782575173,37.7505782575173,40.7235929067078,40.7235929067078,43.6966075558982,43.6966075558982],"main":"sss","type":"scatter","mode":"line+lines","line":{"color":"red","width":1},"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+<div id="htmlwidget-cd465fd5d07411002f19" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cd465fd5d07411002f19">{"x":{"visdat":{"5fd53052621c":["function () ","plotlyVisDat"]},"cur_data":"5fd53052621c","attrs":{"5fd53052621c":{"x":{},"y":{},"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"5fd53052621c.1":{"x":{},"y":[-49.4562106468232,-49.4562106468231,-15.1463938179737,-15.1463938179737,-3.70978820835716,7.72681740125932,19.1634230108758,19.1634230108758,19.1634230108758,30.6000286204923,30.6000286204923,42.0366342301088,42.0366342301088,42.0366342301088,42.0366342301088,53.4732398397252,53.4732398397252,53.4732398397252,53.4732398397253,64.9098454493417,64.9098454493417,64.9098454493417,64.9098454493417,76.3464510589582,76.3464510589582,76.3464510589582,87.7830566685747,87.7830566685747,99.2196622781912,99.2196622781912,122.092873497424,122.092873497424,133.529479107041,133.529479107041,133.529479107041],"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"line","line":{"width":1,"color":"blue"},"inherit":true},"5fd53052621c.2":{"x":{},"y":[-15.252399007119,-15.252399007119,3.1332077199051,3.1332077199051,9.26174329557979,15.3902788712545,21.5188144469292,21.5188144469292,21.5188144469292,27.6473500226038,27.6473500226038,33.7758855982785,33.7758855982785,33.7758855982785,33.7758855982785,39.9044211739532,39.9044211739532,39.9044211739532,39.9044211739532,46.0329567496279,46.0329567496279,46.0329567496279,46.0329567496279,52.1614923253026,52.1614923253026,52.1614923253026,58.2900279009773,58.2900279009773,64.418563476652,64.418563476652,76.6756346280013,76.6756346280013,82.804170203676,82.804170203676,82.804170203676],"main":"sss","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","mode":"line","line":{"width":1,"color":"red"},"inherit":true}},"layout":{"width":400,"height":400,"margin":{"b":100,"l":50,"t":100,"r":50,"pad":4},"title":"Com outliers","xaxis":{"domain":[0,1],"automargin":true,"range":[0,22],"title":"Velocidade"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Distância"},"autosize":false,"showlegend":false,"hovermode":"closest"},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,19,19,20,20,20],"y":[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40,190,186,210,220,218],"main":"sss","type":"scatter","mode":"markers","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,19,19,20,20,20],"y":[-49.4562106468232,-49.4562106468231,-15.1463938179737,-15.1463938179737,-3.70978820835716,7.72681740125932,19.1634230108758,19.1634230108758,19.1634230108758,30.6000286204923,30.6000286204923,42.0366342301088,42.0366342301088,42.0366342301088,42.0366342301088,53.4732398397252,53.4732398397252,53.4732398397252,53.4732398397253,64.9098454493417,64.9098454493417,64.9098454493417,64.9098454493417,76.3464510589582,76.3464510589582,76.3464510589582,87.7830566685747,87.7830566685747,99.2196622781912,99.2196622781912,122.092873497424,122.092873497424,133.529479107041,133.529479107041,133.529479107041],"main":"sss","type":"scatter","mode":"line+lines","line":{"color":"blue","width":1},"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,19,19,20,20,20],"y":[-15.252399007119,-15.252399007119,3.1332077199051,3.1332077199051,9.26174329557979,15.3902788712545,21.5188144469292,21.5188144469292,21.5188144469292,27.6473500226038,27.6473500226038,33.7758855982785,33.7758855982785,33.7758855982785,33.7758855982785,39.9044211739532,39.9044211739532,39.9044211739532,39.9044211739532,46.0329567496279,46.0329567496279,46.0329567496279,46.0329567496279,52.1614923253026,52.1614923253026,52.1614923253026,58.2900279009773,58.2900279009773,64.418563476652,64.418563476652,76.6756346280013,76.6756346280013,82.804170203676,82.804170203676,82.804170203676],"main":"sss","type":"scatter","mode":"line+lines","line":{"color":"red","width":1},"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+
+
+---
+class: animated, slideInRight
+
+### M - Estimadores
+
+Podem-se considerar duas formas de de M-estimadores:
+
+* **Forma simples**: `$$\min_{\beta}\sum_{i=1}^n\rho\left(Y_i-\mathbf{x}_i'\beta\right);$$`
+
+* **Forma Geral**: `$$\min_{\beta,\, \sigma}\sum_{i=1}^n\left[\rho\left(\frac{Y_i-\mathbf{x}_i'\beta}{\sigma}\right)+\log\sigma\right].$$`
+
+Quando `\(\rho(\cdot)\)` é diferenciável, as soluções das duas formas são dadas por:
+
+`$$\sum_{i=1}^n\mathbf{x}_i\Psi\left(Y_i-\mathbf{x}_i'\beta\right)=0\quad \text{e}\quad \sum_{i=1}^n\mathbf{x}_i\Psi\left(\frac{Y_i-\mathbf{x}_i'\beta}{\sigma}\right)=0.$$`
+---
+class: animated, slideInRight
+
+### M - Estimadores
+
+#### Alguns exemplos de funções de perda ([Implementadas no R](https://cran.r-project.org/web/packages/robustbase/vignettes/psi_functions.pdf))
+
+* Para `\(\rho(x)=x^2\)`, temos os estimadores de MQO;
+
+* Para `\(\rho(x)=|x|\)`, temos os estimadores de mínimos absolutos;
+
+* Para `\(\rho(x)=x^2\mathbb{I}_{|x|\le k}+(2k|x|-k^2)\mathbb{I}_{|x|&gt;k}(x)\)`, temos 
+os estimadores de Huber;
+
+* Para `\(\rho(x)=\left(1-\left(1-\left(\frac{x}{k}\right)^2\right)^3\right)\mathbb{I}_{|x|\le k}(x)+\mathbb{I}_{|x|&gt; k}(x)\)`, temos os estimadores bisquare de Tukey;
+
+* Para 
+
+`$$\rho(x)=\begin{cases} \frac12x^2/C, &amp; |x|&lt;a;\\ \left(\frac12a^2+a(|x|-a)\right)/C, &amp; a&lt; |x|\le b; \\ \frac{a}{2}\left(2b-a+(|x|-b)\left(1+\frac{r-|x|}{r-b}\right)\right)/C, &amp; b&lt;|x|\le r;\\ 1, &amp; r&lt;|x|\end{cases}$$` 
+temos os estimadores de Hampel.
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Cook, R. D. and S. Weisberg (1982). _Residual and influence in regression_. New York: Chapman and Hall.
+
+Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
+
+Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_. 5th. McGraw-Hill/Irwin.
+
+Maronna, R., D. Martin, V. Yohai, et al. (2019). _Robust Statistics: Theory and Methods (with R)_. 2nd Ed..
+Wiley Series in Probability and Statistics. Wiley.
+
+Rao, C. R. (2001). _Linear Statistical Inference and its Applications_. 2nd. Wiley-Interscience.
+
+Rawlings, J. O., S. G. Pantula, and D. A. Dickey (1998). _Applied regression analysis. a research tool_. 2nd
+ed.. Springer texts in statistics. New York, NY.: Springer.
+
+Rousseeuw, P. and A. Leroy (1987). _Robust regression and outlier detection_. John Wiley &amp; sons.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
