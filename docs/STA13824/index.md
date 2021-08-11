@@ -21,8 +21,8 @@ description: Repositório com material sobre análise de regressão.
   - [Análise residual - I](https://bit.ly/3yvmZbb)
   - [Análise residual - II](https://bit.ly/3jss8dU) (*Atualizado em 04/08/2021 às 01:21*)
   - [Modelos de regressão com variáveis binárias](https://bit.ly/3jFR9Cz)
-  - [Dados atípicos ou _Outliers_](https://bit.ly/3jviHfA)
-  - [Violação de suposições](https://bit.ly/3jviHfA) 
+  - [Dados atípicos ou _Outliers_](https://bit.ly/3AxzjIF)
+  - [Violação de suposições: Linearidade](https://bit.ly/3jviHfA)
 
 
 * **Conjunto de dados**
@@ -46,6 +46,7 @@ description: Repositório com material sobre análise de regressão.
   - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz).
   - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF).
   -  Kuhn, M. (2019) [The caret package (short for Classification And REgression Training)](http://topepo.github.io/caret/).
+  - Dalpiaz D. (2021) [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/applied_statistics.pdf). 2021.
   -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/)
   -  Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/). 2nd Ed.
   -  Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht).
@@ -55,6 +56,7 @@ description: Repositório com material sobre análise de regressão.
   - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/)
   - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
   - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
+  - Faraway, J. (2014) [Linear Models with R](https://julianfaraway.github.io/faraway/LMR/). Rscripts
 
 * **R notebooks**
   - [R_intro.ipynb](https://bit.ly/2VEoXaB)
