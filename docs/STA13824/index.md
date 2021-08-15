@@ -34,10 +34,10 @@ description: Repositório com material sobre análise de regressão.
 
 #### Livros e material online
 
-  - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT).
-  - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv).
+  - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT){:target="_blank"}.
+  - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv){:target="_blank"}.
   - Deisenroth, M. P., Faisal, A. A. and Ong, C. S. (2020) [Mathematics for Machine Learning](https://bit.ly/3gUa1vZ).
-  - Hastie, T., Tibshirani, R. and Friedman, J. (2017) [Elements of Statistical Learning](https://stanford.io/3gPor0n). 2nd Ed. **12a reimpressão**. [ERRATA](https://stanford.io/3wIpcPD).
+  - Hastie, T., Tibshirani, R. and Friedman, J. (2017) [Elements of Statistical Learning](https://stanford.io/3gPor0n){:target="_blank"}. 2nd Ed. **12a reimpressão**. [ERRATA](https://stanford.io/3wIpcPD){:target="_blank"}.
   - Izbicki, R. & Mendoça, T. (2020) [Aprendizado de máquina: uma abordagem estatística](https://bit.ly/3zHVcFJ){:target="_blank"}. 1a Ed.
   - James, G., Witten, D., Hastie, T. and Tibshirani, R. (2021) [An Introduction to Statistical Learning](https://stanford.io/3jTwET3){:target="_blank"}, 2nd ed., **1a impressão (04/08/2021)** A primeira edição, **7a reimpressão (2013)** está disponível [aqui](https://bit.ly/3qjFmwz){:target="_blank"}. [ERRATA](https://www.statlearning.com/errata-first-edition).
 
@@ -55,10 +55,10 @@ description: Repositório com material sobre análise de regressão.
   - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/). Material didático. Equipe EstBas - DEST/UFPR.
   
   **Outros**
-  - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/)
-  - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
-  - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/)
-  - Faraway, J. (2014) [Linear Models with R](https://julianfaraway.github.io/faraway/LMR/). Rscripts
+  - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/){:target="_blank"}
+  - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/){:target="_blank"}
+  - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/){:target="_blank"}
+  - Faraway, J. (2014) [Linear Models with R](https://julianfaraway.github.io/faraway/LMR/){:target="_blank"}. Rscripts
 
 * **R notebooks**
   - [R_intro.ipynb](https://bit.ly/2VEoXaB)
