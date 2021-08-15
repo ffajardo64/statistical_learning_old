@@ -9,20 +9,20 @@ description: Repositório com material sobre análise de regressão.
 ## Análise de regressão
 
 * **Slides**
-  - [Programa da disciplina](https://bit.ly/3jy4Rr1)
-  - [Introdução](https://bit.ly/2U66DqM)
-  - [Estimação de parâmetros](https://bit.ly/3CnTTwR)
-  - [Interpretação geométrica do estimador MQO](https://bit.ly/3fCLn39)
-  - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3lKkq1s)
-  - [Inferência no modelo de regressão linear - I](https://bit.ly/3yJspzL)
-  - [Inferência no modelo de regressão linear - II](https://bit.ly/3CpYXke)
-  - [Inferência no modelo de regressão linear - III](https://bit.ly/3jBSTg7)
-  - [Inferência no modelo de regressão linear - IV](https://bit.ly/2VGT0Pi)
-  - [Análise residual - I](https://bit.ly/3yvmZbb)
-  - [Análise residual - II](https://bit.ly/3jss8dU) (*Atualizado em 04/08/2021 às 01:21*)
-  - [Modelos de regressão com variáveis binárias](https://bit.ly/3jFR9Cz)
-  - [Dados atípicos ou _Outliers_](https://bit.ly/3AxzjIF)
-  - [Violação de suposições: Linearidade](https://bit.ly/3jviHfA)
+  - [Programa da disciplina](https://bit.ly/3jy4Rr1){:target="_blank"}
+  - [Introdução](https://bit.ly/2U66DqM){:target="_blank"}
+  - [Estimação de parâmetros](https://bit.ly/3CnTTwR){:target="_blank"}
+  - [Interpretação geométrica do estimador MQO](https://bit.ly/3fCLn39){:target="_blank"}
+  - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3lKkq1s){:target="_blank"}
+  - [Inferência no modelo de regressão linear - I](https://bit.ly/3yJspzL){:target="_blank"}
+  - [Inferência no modelo de regressão linear - II](https://bit.ly/3CpYXke){:target="_blank"}
+  - [Inferência no modelo de regressão linear - III](https://bit.ly/3jBSTg7){:target="_blank"}
+  - [Inferência no modelo de regressão linear - IV](https://bit.ly/2VGT0Pi){:target="_blank"}
+  - [Análise residual - I](https://bit.ly/3yvmZbb){:target="_blank"}
+  - [Análise residual - II](https://bit.ly/3jss8dU){:target="_blank"}
+  - [Modelos de regressão com variáveis binárias](https://bit.ly/3jFR9Cz){:target="_blank"}
+  - [Dados atípicos ou _Outliers_](https://bit.ly/3AxzjIF){:target="_blank"}
+  - [Violação de suposições: Linearidade](https://bit.ly/3jviHfA){:target="_blank"}
 
 
 * **Conjunto de dados**
