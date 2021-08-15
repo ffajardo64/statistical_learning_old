@@ -38,7 +38,7 @@ description: Repositório com material sobre análise de regressão.
   - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv).
   - Deisenroth, M. P., Faisal, A. A. and Ong, C. S. (2020) [Mathematics for Machine Learning](https://bit.ly/3gUa1vZ).
   - Hastie, T., Tibshirani, R. and Friedman, J. (2017) [Elements of Statistical Learning](https://stanford.io/3gPor0n). 2nd Ed. **12a reimpressão**. [ERRATA](https://stanford.io/3wIpcPD).
-  - Izbicki, R. & Mendoça, T. (2020) [Aprendizado de máquina: uma abordagem estatística](https://bit.ly/3zHVcFJ). 1a Ed.
+  - Izbicki, R. & Mendoça, T. (2020) [Aprendizado de máquina: uma abordagem estatística](https://bit.ly/3zHVcFJ){:target="_blank"}. 1a Ed.
   - James, G., Witten, D., Hastie, T. and Tibshirani, R. (2021) [An Introduction to Statistical Learning](https://stanford.io/3jTwET3){:target="_blank"}, 2nd ed., **1a impressão (04/08/2021)** A primeira edição, **7a reimpressão (2013)** está disponível [aqui](https://bit.ly/3qjFmwz){:target="_blank"}. [ERRATA](https://www.statlearning.com/errata-first-edition).
 
   
