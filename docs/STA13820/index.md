@@ -41,7 +41,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/){:target="_blank"}. 2nd Ed.
 - Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht){:target="_blank"}.
 - Verzani, J. (2001) [simpleR – Using R for Introductory Statistics](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf){:target="_blank"}
-- Wasserman, L. (2001) [All of Statistics](http://www.stat.cmu.edu/~larry/all-of-statistics/index.html){:target="_blank"}
+- Wasserman, L. (2001) [All of Statistics: A Concise Course in Statistical Inference](http://www.stat.cmu.edu/~larry/all-of-statistics/index.html){:target="_blank"}
   
 **Outros**
 - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/){:target="_blank"}
