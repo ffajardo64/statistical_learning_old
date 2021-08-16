@@ -22,7 +22,8 @@ description: Repositório com material sobre análise de regressão.
   - [Análise residual - II](https://bit.ly/3jss8dU){:target="_blank"}
   - [Modelos de regressão com variáveis binárias](https://bit.ly/3jFR9Cz){:target="_blank"}
   - [Dados atípicos ou _Outliers_](https://bit.ly/3AxzjIF){:target="_blank"}
-  - [Violação de suposições: Linearidade](https://bit.ly/3jviHfA){:target="_blank"}
+  - [Violação de suposições: Linearidade](https://bit.ly/3jWbEuH){:target="_blank"}
+  - [Violação de suposições: Multicolinearidade](https://bit.ly/3jviHfA){:target="_blank"}
 
 
 * **Conjunto de dados**
