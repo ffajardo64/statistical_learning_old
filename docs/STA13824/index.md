@@ -65,6 +65,8 @@ description: Repositório com material sobre análise de regressão.
 * **R notebooks**
   - [R_intro.ipynb](https://bit.ly/2VEoXaB)
   - [R_introII.ipynb](https://bit.ly/3CBfzG2)
+  - [reg4_intro.ipynb](https://bit.ly/3xQdEK0)
+  - [reg5_intro.ipynb](https://bit.ly/3k6fQrS)
 
 **Python**
   - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH){:target="_blank"}. Version 2.1.0.
