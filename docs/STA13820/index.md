@@ -9,7 +9,7 @@ description: Repositório com material sobre análise de dados e programação c
 ## Análise de dados com R
 
 ### Informações importantes
-* **Programa da disciplina** [STA13820 - Estatística computacional I](https://bit.ly/3lS8pr0)
+* **Programa da disciplina** [STA13820 - Estatística computacional I](https://bit.ly/3lS8pr0){:target="_blank"}
 * **Atividades avaliativas**: Serão aplicadas 3 provas escritas (40%) e 1 trabalho prático (60%).
 * **Nota final (NF)**: Será calculada como a média ponderada NF das atividades avaliativas realizadas ao longo do período.
 
@@ -25,7 +25,8 @@ description: Repositório com material sobre análise de dados e programação c
 * [Introdução](https://bit.ly/3jtNO9m){:target="_blank"}
 * [Programando com R: Estruturas de controle de fluxo](https://bit.ly/3lIlEdw){:target="_blank"}
 * [Programando com R: Funções](https://bit.ly/3iBwnoh){:target="_blank"}
-* [Geração de números pseudo-aleatórios - I](https://bit.ly/3jxUsLV){:target="_blank"}
+* [Simulação estocástica: Geração de números pseudo-aleatórios](https://bit.ly/3k5KD8n){:target="_blank"}
+* [Simulação estocástica: Geração de números pseudo-aleatórios uniformes e não-uniformes](https://bit.ly/3jxUsLV){:target="_blank"}
 
 * **R notebooks**
   - [Exercicio I](https://bit.ly/3jxUsLV)
