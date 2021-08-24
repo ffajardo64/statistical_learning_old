@@ -22,11 +22,11 @@ description: Repositório com material sobre análise de dados e programação c
    - **Prova final**: 14/10/2021
 
 ### Tópicos
-* [Introdução](https://bit.ly/3jtNO9m){:target="_blank"}
-* [Programando com R: Estruturas de controle de fluxo](https://bit.ly/3lIlEdw){:target="_blank"}
-* [Programando com R: Funções](https://bit.ly/3iBwnoh){:target="_blank"}
-* [Simulação estocástica: Geração de números pseudo-aleatórios](https://bit.ly/3k5KD8n){:target="_blank"}
-* [Simulação estocástica: Geração de números pseudo-aleatórios uniformes e não-uniformes](https://bit.ly/3jxUsLV){:target="_blank"}
+* [Introdução](https://bit.ly/3kmtmYq){:target="_blank"}
+* [Programando com R: Estruturas de controle de fluxo](https://bit.ly/3sU2u6l){:target="_blank"}
+* [Programando com R: Funções](https://bit.ly/3j7BBIG){:target="_blank"}
+* [Simulação estocástica: Geração de números pseudo-aleatórios](https://bit.ly/3grzpKo){:target="_blank"}
+* [Simulação estocástica: Geração de números pseudo-aleatórios uniformes e não-uniformes](https://bit.ly/3mr3cGM){:target="_blank"}
 
 * **R notebooks**
   - [Exercicio I](https://bit.ly/3jxUsLV)

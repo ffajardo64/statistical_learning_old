@@ -1,12 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<title>aula4</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
+<title>aula2 slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
+<!-- General and theme style sheets -->
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/theme/simple.css" id="theme">
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+</script>
+
+<!-- Loading the mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML-full,Safe"> </script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                },
+                "HTML-CSS": {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                }
+            });
+        
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    <!-- End of mathjax configuration -->
 
 <style type="text/css">
     pre { line-height: 125%; }
@@ -13911,16 +13967,15 @@ a.anchor-link {
 .highlight  {
     margin: 0.4em;
 }
-
-/* Input area styling */
-.jp-InputArea {
-    overflow: hidden;
+.jp-Notebook {
+    padding: 0;
 }
-
-.jp-InputArea-editor {
-    overflow: hidden;
+:root {
+    --jp-ui-font-size1: 20px;       /* instead of 14px */
+    --jp-content-font-size1: 20px;  /* instead of 14px */
+    --jp-code-font-size: 19px;      /* instead of 13px */
+    --jp-cell-prompt-width: 110px;  /* instead of 64px */
 }
-
 @media print {
   body {
     margin: 0;
@@ -13928,344 +13983,168 @@ a.anchor-link {
 }
 </style>
 
-<!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML-full,Safe"> </script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    init_mathjax = function() {
-        if (window.MathJax) {
-        // MathJax loaded
-            MathJax.Hub.Config({
-                TeX: {
-                    equationNumbers: {
-                    autoNumber: "AMS",
-                    useLabelIds: true
-                    }
-                },
-                tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                    processEscapes: true,
-                    processEnvironments: true
-                },
-                displayAlign: 'center',
-                CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
-                    }
-                },
-                "HTML-CSS": {
-                    linebreaks: { 
-                    automatic: true 
-                    }
-                }
-            });
-        
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        }
-    }
-    init_mathjax();
-    </script>
-    <!-- End of mathjax configuration --></head>
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+.reveal {
+  font-size: 160%;
+}
+.reveal pre {
+  width: inherit;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+.reveal pre code {
+  padding: 0px;
+}
+.reveal section img {
+  border: 0px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+.reveal i {
+  font-style: normal;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+.reveal .slides {
+  text-align: left;
+}
+.reveal.fade {
+  opacity: 1;
+}
+.reveal .progress {
+  position: static;
+}
+
+div.jp-InputArea-editor {
+  padding: 0.06em;
+}
+
+div.code_cell {
+  background-color: transparent;
+}
+
+div.output_area pre {
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+}
+
+div.jp-OutputPrompt {
+  /* 5px right shift to account for margin in parent container */
+  margin: 5px 5px 0 0;
+}
+
+/* Reveal navigation controls */
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-left.enabled {
+  border-right-color: #727272;
+}
+.reveal .controls .navigate-left.enabled:hover,
+.reveal .controls .navigate-left.enabled.enabled:hover {
+  border-right-color: #dfdfdf;
+}
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-right.enabled {
+  border-left-color: #727272;
+}
+.reveal .controls .navigate-right.enabled:hover,
+.reveal .controls .navigate-right.enabled.enabled:hover {
+  border-left-color: #dfdfdf;
+}
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-up.enabled {
+  border-bottom-color: #727272;
+}
+.reveal .controls .navigate-up.enabled:hover,
+.reveal .controls .navigate-up.enabled.enabled:hover {
+  border-bottom-color: #dfdfdf;
+}
+.reveal .controls .navigate-down,
+.reveal .controls .navigate-down.enabled {
+  border-top-color: #727272;
+}
+.reveal .controls .navigate-down.enabled:hover,
+.reveal .controls .navigate-down.enabled.enabled:hover {
+  border-top-color: #dfdfdf;
+}
+.reveal .progress span {
+  background: #727272;
+}
+
+/* Scrollbars */
+
+::-webkit-scrollbar
+{
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar *
+{
+  background:transparent;
+}
+::-webkit-scrollbar-thumb
+{
+  background: #727272 !important;
+}
+</style>
+
+</head>
+
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="reveal">
+<div class="slides"><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<center><img src="./images/aula4.png" width="1100"></center>
+<center><img src="./images/aula2.png" width="1400"></center>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Estruturas-de-controle-de-fluxo">Estruturas de controle de fluxo<a class="anchor-link" href="#Estruturas-de-controle-de-fluxo">&#182;</a></h1>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Execu%C3%A7%C3%A3o-em-loop-por-instru%C3%A7%C3%B5es-for,-while,-repeat,-replicate">Execu&#231;&#227;o em <em>loop</em> por instru&#231;&#245;es <code>for</code>, <code>while</code>, <code>repeat</code>, <code>replicate</code><a class="anchor-link" href="#Execu%C3%A7%C3%A3o-em-loop-por-instru%C3%A7%C3%B5es-for,-while,-repeat,-replicate">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Algumas-refer%C3%AAncias-bibliogr%C3%A1ficas">Algumas refer&#234;ncias bibliogr&#225;ficas<a class="anchor-link" href="#Algumas-refer%C3%AAncias-bibliogr%C3%A1ficas">&#182;</a></h2><ul>
-<li><p>Bustos, O. H., Frery, A. C., 1992. Reporting Monte Carlo results in statistics: suggestions and an example. Chilean Journal of Statistics, 9, 46–95.</p>
-</li>
-<li><p>Frery, A. e Cribari-Neto, F. (2011) <a href="https://impa.br/wp-content/uploads/2017/04/PM_21.pdf">Elementos de Estatística Computacional Usando Plataformas de Software Livre/Gratuito</a>. 2a impressão. IMPA.</p>
-</li>
-<li><p>Dutang, C. and Wuertz, D.(2009) <a href="http://cran-r.c3sl.ufpr.br/web/packages/randtoolbox/vignettes/fullpres.pdf">A note on random number generation</a>.</p>
-</li>
-</ul>
+<h4 id="Instru%C3%A7%C3%A3o-for">Instru&#231;&#227;o <code>for</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-for">&#182;</a></h4>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>A instrução <code>for</code> permite especificar que uma determinada operação deve ser repetida um número fixo de vezes.</p>
+<p><strong>Sintaxe</strong></p>
+<div class="highlight"><pre><span></span><span class="nf">for</span><span class="p">(</span><span class="n">variable</span> <span class="n">in</span> <span class="n">vector</span><span class="p">){</span>
+    <span class="n">commands</span>
+<span class="p">}</span>
+</pre></div>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Simula%C3%A7%C3%A3o-estoc%C3%A1stica">Simula&#231;&#227;o estoc&#225;stica<a class="anchor-link" href="#Simula%C3%A7%C3%A3o-estoc%C3%A1stica">&#182;</a></h3>
+<h4 id="Instru%C3%A7%C3%A3o-for">Instru&#231;&#227;o <code>for</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-for">&#182;</a></h4>
 </div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>“<strong>Simulação Estocástica</strong>” é uma denominação genérica para um conjunto de teorias, técnicas e procedimentos que utilizam recursos de computação digital para resolver problemas quantitativos por meio do uso de fenômenos que se mostram como estocásticos para um observador casual.</p>
-<p>Simulação estocástica tem muitas aplicações práticas.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Algumas-aplica%C3%A7%C3%B5es">Algumas aplica&#231;&#245;es<a class="anchor-link" href="#Algumas-aplica%C3%A7%C3%B5es">&#182;</a></h3>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Comparação de procedimentos estatı́sticos</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<table>
-<tr>
-<th> <center>Sistemas de recomendação</center> </th>
-<th><center> Reconhecimento de notas falsas </center></th>
-</tr>
-<tr>
-<td>
-
-<center><img src="./images/recommendation_system.png" width="500"></center>
-
-</td>
-<td>
-
-<center><img src="./images/fake_currency.png" width="500"></center>
-
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Cálculo de áreas</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<table>
-<tr>
-<th> <center>Degradação florestal</center> </th>
-<th><center> Evolução de epidemia </center></th>
-</tr>
-<tr>
-<td>
-<center><img src="./images/amazonas.gif" width="400"></center>
-</td>
-<td>
-<center><img src="./images/covid_brasil.gif" width="400"></center>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Cálculo de probabilidades e valores esperados</li>
-</ul>
-$$P[X \le x] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x} e^{-\frac12x^2}\,dx$$<center><img src="./images/normal.png" width="400"></center>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>Estudo e a implementação de jogos</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<table>
-<tr>
-<th> <center>Xadrez</center> </th>
-<th><center> Go </center></th>
-</tr>
-<tr>
-<td>
-<center><img src="./images/xadrez.gif" width="400"></center>
-</td>
-<td>
-<center><img src="./images/Go-board-animated.gif" width="400"></center>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Simula%C3%A7%C3%A3o-estoc%C3%A1stica">Simula&#231;&#227;o estoc&#225;stica<a class="anchor-link" href="#Simula%C3%A7%C3%A3o-estoc%C3%A1stica">&#182;</a></h3>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div style="background-color:rgba(16, 57, 101, 1); text-align:center; vertical-align: middle; padding:40px 0; color:orange; font-size:20pt">
-A princípio, nenhum problema deve ser resolvido por simulação estocástica.
-</div>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><p>A técnica é extremamente <span style="color:rgba(141, 0, 69, 1)">poderosa</span>, porém, por definição, <span style="color:rgba(141, 0, 69, 1)">imprecisa</span>;</p>
-</li>
-<li><p>Por ser de grande generalidade deve ser reservada àqueles problemas para os quais a busca de uma solução exata demandaria tempo e/ou recursos inaceitavelmente caros.</p>
-</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Gera%C3%A7%C3%A3o-de-n%C3%BAmeros-pseudo-aleat%C3%B3rios">Gera&#231;&#227;o de n&#250;meros pseudo-aleat&#243;rios<a class="anchor-link" href="#Gera%C3%A7%C3%A3o-de-n%C3%BAmeros-pseudo-aleat%C3%B3rios">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-de-n%C3%BAmeros-pseudo-aleat%C3%B3rios">Geradores de n&#250;meros pseudo-aleat&#243;rios<a class="anchor-link" href="#Geradores-de-n%C3%BAmeros-pseudo-aleat%C3%B3rios">&#182;</a></h3><ul>
-<li>A geração de eventos de variáveis aleatórias independentes e identicamente distribuidas com distribuição uniforme em $(0,1)$ é essencial para construir eventos de variáveis aleatórias com outras distribuições e/ou outras estruturas de dependência;</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="row">
-    <div class="col-md-4" markdown="1">
-        <center><h3>Distribuição uniforme</h3></center>
-        <br></br>
-        <div class="math">
-            \[
-            \begin{aligned}
-                f(u)&=\begin{cases}1, & \text{ para } u\in(0,1);\\ 0, & \text{ em caso contrário}\end{cases}\\ F(u)&=\mathbb{P}\left[U\le u\right]=u\\
-                \mathbb{E}[U]&=\frac12 \qquad \mathrm{var}[U]=\frac{1}{12}
-            \end{aligned}
-            \]
-        </div>
-    </div>
-    <div class="col-md-8" markdown="1">
-        <center><img src="./images/uniform_distribution.png" width="500"></center>
-    </div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Objetivo">Objetivo<a class="anchor-link" href="#Objetivo">&#182;</a></h3><p>Nosso objetivo é trabalhar com sequências números uniformes $u_1,\ldots, u_n$. Tais valores são realizações da sequência de variáveis aleatórias uniformes no intervalo $(0,1)$, denotadas por $U_1,U_2,\ldots,U_n$, e tal que as variáveis aletórias de qualquer subsequência são independentes.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Um-pouco-de-hist%C3%B3ria">Um pouco de hist&#243;ria<a class="anchor-link" href="#Um-pouco-de-hist%C3%B3ria">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Os-primeiros-dispositivos">Os primeiros dispositivos<a class="anchor-link" href="#Os-primeiros-dispositivos">&#182;</a></h3><p>O inı́cio da simulação estocástica demandava o uso de dispositivos realmente aleatórios. Na história antiga, os conceitos de chance e de aleatoriedade eram interligados ao conceito que era atribuído a destino. Várias pessoas da antiguidade jogavam <a href="https://www.youtube.com/watch?v=M_he30qmmkM"><strong>dados</strong></a> para determinarem o destino, e posteriormente isso se desenvolveu em <span style="color:rgba(141, 0, 69, 1)">jogos de azar</span>. A maioria das culturas usaram vários métodos de adivinhações para tentarem contornar a aleatoriedade e o destino, ou mesmo a dita sorte<font size="5"><sup>1</sup></font>.</p>
-<p><font size="5"><sup>1</sup></font>Tomado da <a href="https://pt.wikipedia.org/wiki/Aleatoriedade">Wikipedia</a>.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Os-primeiros-dispositivos">Os primeiros dispositivos<a class="anchor-link" href="#Os-primeiros-dispositivos">&#182;</a></h3><p>Logo foram publicadas tabelas de números obtidos em condições bastante controladas de aleatoriedade.</p>
-<div class="row">
-    <div class="col-md-4" markdown="1">
-        <center><img src="./images/tabela_numeros_aleatorios.jpeg" width="300"></center>
-    </div>
-    <div class="col-md-8" markdown="1">
-        Porém a demanda crescente de mais e mais valores para experiências mais e mais complexas logo fez com que estas alternativas deixassem de ser práticas, levando à necessidade de construir <span style="color:rgba(141, 0, 69, 1)">algoritmos</span> com este propósito.
-    </div>
-</div><p>,</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Algoritmos">Algoritmos<a class="anchor-link" href="#Algoritmos">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Algoritmos">Algoritmos<a class="anchor-link" href="#Algoritmos">&#182;</a></h3><p><br></br></p>
-<div style="background-color:rgba(16, 57, 101, 1); text-align:center; vertical-align: middle; padding:40px 0; color:orange; font-size:20pt">
-Todo algoritmo é intrı́nsecamente determinı́stico.
-</div>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Algoritmos">Algoritmos<a class="anchor-link" href="#Algoritmos">&#182;</a></h3><p>A solução é construir algoritmos que produzam sequências de números que, vistos por um observador que não conhece a sequência de instruções, pareçam</p>
-<ul>
-<li>realizações da sequência de variáveis aleatórias uniformes no intervalo $(0,1)$;</li>
-<li>e tal que as variáveis aletórias de qualquer subsequência são independentes.</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Algoritmos">Algoritmos<a class="anchor-link" href="#Algoritmos">&#182;</a></h3><p>Tal observador dispõe, em princı́pio, de um <span style="color:rgba(141, 0, 69, 1)">tempo limitado</span> para encontrar evidência que lhe permita rejeitar a sequência gerada por não ter as propriedades desejadas. Estas seqüências são chamadas <strong>pseudo-aleatórias</strong>.</p>
-<center><img src="./images/tirinha_gerador.png" width="600"></center>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Algoritmos">Algoritmos<a class="anchor-link" href="#Algoritmos">&#182;</a></h3><p>As duas propriedades básicas de um algoritmo $f:\mathbb{R}^k\longrightarrow\mathbb{R}$ capaz de gerar sequências <strong>pseudo-aleatórias</strong> são</p>
-<ol>
-<li>A função $u_i = f(u_{i−1},\ldots, u_{i−k})$ deve ser de custo computacional relativamente baixo;</li>
-<li>Deve ser difı́cil conhecer $u_{i−1}$ dado só o conhecimento dos valores $(u_i, u_{i−2},\ldots, u_{i−k})$.</li>
-</ol>
-<p>Outras propriedades desejáveis para um gerador deste tipo de sequências são a repetibilidade, a portabilidade, a periodicidade e a rapidez.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Geradores-uniformes">Geradores uniformes<a class="anchor-link" href="#Geradores-uniformes">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="M%C3%A9todo-Middle-square-ou-Mid-square">M&#233;todo Middle-square ou Mid-square<a class="anchor-link" href="#M%C3%A9todo-Middle-square-ou-Mid-square">&#182;</a></h3><p>Um dos primeiros algoritmos para a geração de seqüências pseudo-aleatórias uniformes foi proposto por von Neumann em 1952 para aplicações de computação a problemas de fı́sica nuclear. O método, também conhecido como <em>mid-square</em>, consiste nas seguintes instruções:</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="M%C3%A9todo-Middle-square-ou-Mid-square">M&#233;todo Middle-square ou Mid-square<a class="anchor-link" href="#M%C3%A9todo-Middle-square-ou-Mid-square">&#182;</a></h3><ol>
-<li>Definir um número $u_0$ de quatro dı́gitos decimais e atribuir $i = 0$;</li>
-<li>Calcular $u_i^2$ e, eventualmente, agregar zeros à esquerda para que o valor calculado possa ser escrito como $u_i^2 = d_7 d_6\cdots d_0$, onde cada $d_j$ é um inteiro entre $0$ e $9$;</li>
-<li>Fazer $u_{i+1} = d_5 d_4 d_3 d_2$;</li>
-<li>Atribuir $i\leftarrow i + 1$ e continuar no Passo 2.</li>
-</ol>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="M%C3%A9todo-Middle-square-ou-Mid-square">M&#233;todo Middle-square ou Mid-square<a class="anchor-link" href="#M%C3%A9todo-Middle-square-ou-Mid-square">&#182;</a></h3>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[136]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">midSquare</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">rand</span> <span class="o">&lt;-</span> <span class="kc">NULL</span>
-    <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
-        <span class="n">square</span> <span class="o">&lt;-</span> <span class="n">seed</span> <span class="o">**</span> <span class="m">2</span>   
-        <span class="n">u_i</span><span class="o">&lt;-</span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">unlist</span><span class="p">(</span><span class="nf">strsplit</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">square</span><span class="p">),</span><span class="n">split</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)))</span>
-        <span class="n">u_i</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">8</span> <span class="o">-</span> <span class="nf">length</span><span class="p">(</span><span class="n">u_i</span><span class="p">)),</span> <span class="n">u_i</span><span class="p">)</span>
-        <span class="n">u_plus_1</span><span class="o">&lt;-</span><span class="n">u_i</span><span class="p">[</span><span class="m">3</span><span class="o">:</span><span class="m">6</span><span class="p">]</span>
-        <span class="n">seed</span><span class="o">&lt;-</span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">u_plus_1</span><span class="p">,</span><span class="n">collapse</span><span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
-        <span class="n">rand</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">rand</span><span class="p">,</span><span class="n">seed</span><span class="p">)</span>
-  <span class="p">}</span>
-  <span class="nf">return</span><span class="p">(</span><span class="n">rand</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="p">(</span><span class="n">x_list</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="m">2</span><span class="p">))</span>
+
+<span class="n">soma_x</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&quot;Iteração\t Soma acumulada\n&quot;</span><span class="p">)</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="n">x_list</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">soma_x</span> <span class="o">&lt;-</span> <span class="n">soma_x</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&quot;  &quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span> <span class="s">&quot;\t\t\t&quot;</span><span class="p">,</span> <span class="n">soma_x</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -14274,21 +14153,134 @@ Todo algoritmo é intrı́nsecamente determinı́stico.
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>1</li><li>3</li><li>5</li><li>7</li><li>9</li></ol>
+
 </div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Iteração	 Soma acumulada
+   1 			 1 
+   3 			 4 
+   5 			 9 
+   7 			 16 
+   9 			 25 
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="M%C3%A9todo-Middle-square-ou-Mid-square">M&#233;todo Middle-square ou Mid-square<a class="anchor-link" href="#M%C3%A9todo-Middle-square-ou-Mid-square">&#182;</a></h3>
+<h4 id="Instru%C3%A7%C3%A3o-for">Instru&#231;&#227;o <code>for</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-for">&#182;</a></h4>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[148]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">a</span><span class="o">&lt;-</span><span class="nf">midSquare</span><span class="p">(</span><span class="m">0000</span><span class="p">,</span> <span class="m">70</span><span class="p">);</span> <span class="n">a</span>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calculando o fatorial de um número</span>
 
-<span class="c1"># Números pseudo-aleatórios uniformes</span>
-<span class="c1"># unif&lt;-a/max(a);unif</span>
+<span class="nf">rm</span><span class="p">(</span><span class="n">list</span><span class="o">=</span><span class="nf">ls</span><span class="p">())</span>
+
+<span class="n">n</span> <span class="o">&lt;-</span> <span class="m">6</span>
+<span class="n">n_fatorial</span> <span class="o">&lt;-</span> <span class="m">1</span>
+
+<span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">n_fatorial</span> <span class="o">&lt;-</span> <span class="n">n_fatorial</span> <span class="o">*</span> <span class="n">i</span> <span class="c1"># Outra forma de escrever `&lt;-`(n_fatorial,`*`(n_fatorial,i))</span>
+<span class="p">}</span>
+
+<span class="nf">show</span><span class="p">(</span><span class="n">n_fatorial</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 720
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Instru%C3%A7%C3%A3o-for">Instru&#231;&#227;o <code>for</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-for">&#182;</a></h4>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calculando os números de Fibonacci</span>
+
+<span class="nf">rm</span><span class="p">(</span><span class="n">list</span><span class="o">=</span><span class="nf">ls</span><span class="p">())</span>
+
+<span class="n">n</span><span class="o">&lt;-</span><span class="m">1e+1</span>
+
+<span class="n">Fibonacci</span> <span class="o">&lt;-</span> <span class="nf">numeric</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># Cria um vetor de zeros</span>
+
+<span class="n">Fibonacci</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">Fibonacci</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="m">1</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">3</span><span class="o">:</span><span class="n">n</span><span class="p">)</span> 
+    <span class="n">Fibonacci</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">Fibonacci</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="m">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">Fibonacci</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="m">1</span><span class="p">]</span>
+
+<span class="n">Fibonacci</span>
 </pre></div>
 
      </div>
@@ -14314,7 +14306,7 @@ Todo algoritmo é intrı́nsecamente determinı́stico.
 .list-inline>li {display: inline-block}
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
-<ol class=list-inline><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li></ol>
+<ol class=list-inline><li>1</li><li>1</li><li>2</li><li>3</li><li>5</li><li>8</li><li>13</li><li>21</li><li>34</li><li>55</li></ol>
 
 </div>
 
@@ -14324,98 +14316,28 @@ Todo algoritmo é intrı́nsecamente determinı́stico.
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="M%C3%A9todo-Middle-square-ou-Mid-square">M&#233;todo Middle-square ou Mid-square<a class="anchor-link" href="#M%C3%A9todo-Middle-square-ou-Mid-square">&#182;</a></h3>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Ainda que muitas das seqüências geradas por este algoritmo sejam interessantes e exibam boas propriedades, nem sempre é possı́vel garantir o bom comportamento a longo prazo das mesmas.</p>
-
+<h4 id="Instru%C3%A7%C3%A3o-for">Instru&#231;&#227;o <code>for</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-for">&#182;</a></h4>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[149]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="p">(</span><span class="nf">midSquare</span><span class="p">(</span><span class="m">3792</span><span class="p">,</span> <span class="m">50</span><span class="p">))</span> <span class="c1"># 2100</span>
-</pre></div>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># A instrução next é usada para pular uma iteração de um laço</span>
 
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li><li>3792</li></ol>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Geradores-congruenciais-lineares">Geradores congruenciais lineares<a class="anchor-link" href="#Geradores-congruenciais-lineares">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3><p>Uma classe interessante de geradores, conhecida como <strong>congruenciais lineares</strong>, é definida pela recursão</p>
-$$u_i \equiv (a\,u_{i−1} + c)\mod M,$$<p>onde $i=1,2,\ldots$, $u_0$ é chamada de <em>semente</em>, $M$ é chamado de módulo, $a$ é o multiplicador e $c$ o incremento. O operador $\equiv$ indica a <a href="https://en.wikipedia.org/wiki/Modular_arithmetic">aritmética modular</a> entre os números.</p>
-<p>Se o incremento é nulo trata-se de um <span style="color:rgba(141, 0, 69, 1)">gerador misto</span>, caso contrário de um gerador <span style="color:rgba(141, 0, 69, 1)">multiplicativo</span>.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[150]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">lcg</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="m">1103515245</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="m">12345</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="m">2</span> <span class="o">**</span> <span class="m">32</span><span class="p">){</span>
-    <span class="c1">#a: multiplicador</span>
-    <span class="c1">#c: incremento</span>
-    <span class="c1">#m: modulo</span>
-    
-    <span class="n">rng</span> <span class="o">&lt;-</span> <span class="nf">numeric</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    
-    <span class="n">seed</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="nf">Sys.time</span><span class="p">())</span> <span class="o">*</span> <span class="m">1000</span> <span class="c1"># Semente em função do relógio do computador</span>
-    
-    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
-        <span class="n">seed</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">seed</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">%%</span> <span class="n">m</span>
-        <span class="n">rng</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">seed</span> <span class="o">/</span> <span class="n">m</span>
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span> <span class="m">21</span><span class="o">:</span><span class="m">30</span><span class="p">)</span>
+<span class="n">soma</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">next</span>
     <span class="p">}</span>
-    <span class="nf">return</span><span class="p">(</span><span class="n">rng</span><span class="p">)</span>
+    <span class="n">soma</span> <span class="o">&lt;-</span> <span class="n">soma</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="p">}</span>
+<span class="n">soma</span>
 </pre></div>
 
      </div>
@@ -14423,18 +14345,71 @@ $$u_i \equiv (a\,u_{i−1} + c)\mod M,$$<p>onde $i=1,2,\ldots$, $u_0$ é chamada
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+255
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Instru%C3%A7%C3%A3o-while">Instru&#231;&#227;o <code>while</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-while">&#182;</a></h3>
+</div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3>
+<p>A instrução <code>while</code> permite repetir determinadas operações, mas o número de repetições não é conhecido com antecedência. Dessa forma, a instrução executará a operação enquanto uma condição for mantida.</p>
+<p><strong>Sintaxe</strong></p>
+<div class="highlight"><pre><span></span><span class="nf">while</span><span class="p">(</span><span class="n">condition</span><span class="p">){</span>
+    <span class="n">commands</span>
+<span class="p">}</span>
+</pre></div>
+<p><code>condition</code> será avaliada e se a sua avaliação for <code>False</code> a execução é interropida.</p>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Instru%C3%A7%C3%A3o-while">Instru&#231;&#227;o <code>while</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-while">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[169]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">lcg</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calculando os números de Fibonacci</span>
+
+<span class="n">Fib1</span> <span class="o">&lt;-</span> <span class="m">1</span>
+<span class="n">Fib2</span> <span class="o">&lt;-</span> <span class="m">1</span>
+<span class="n">n</span> <span class="o">&lt;-</span> <span class="m">234</span>
+
+<span class="n">Fibonacci</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">Fib1</span><span class="p">,</span> <span class="n">Fib2</span><span class="p">)</span>
+
+<span class="nf">while </span><span class="p">(</span><span class="n">Fib2</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Fibonacci</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">Fibonacci</span><span class="p">,</span> <span class="n">Fib2</span><span class="p">)</span>
+    <span class="n">antigo_Fib2</span> <span class="o">&lt;-</span> <span class="n">Fib2</span>
+    <span class="n">Fib2</span> <span class="o">&lt;-</span> <span class="n">Fib1</span> <span class="o">+</span> <span class="n">Fib2</span>
+    <span class="n">Fib1</span> <span class="o">&lt;-</span> <span class="n">antigo_Fib2</span>
+<span class="p">}</span>
+<span class="n">Fibonacci</span><span class="p">[</span><span class="m">-1</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14460,7 +14435,7 @@ $$u_i \equiv (a\,u_{i−1} + c)\mod M,$$<p>onde $i=1,2,\ldots$, $u_0$ é chamada
 .list-inline>li {display: inline-block}
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
-<ol class=list-inline><li>0.72161865234375</li><li>0.937685966491699</li><li>0.0461521148681641</li><li>0.346013084053993</li><li>0.223050773143768</li><li>0.57318776845932</li><li>0.742392778396606</li><li>0.738564729690552</li><li>0.632830858230591</li><li>0.563893556594849</li></ol>
+<ol class=list-inline><li>1</li><li>1</li><li>2</li><li>3</li><li>5</li><li>8</li><li>13</li><li>21</li><li>34</li><li>55</li><li>89</li><li>144</li><li>233</li></ol>
 
 </div>
 
@@ -14470,31 +14445,46 @@ $$u_i \equiv (a\,u_{i−1} + c)\mod M,$$<p>onde $i=1,2,\ldots$, $u_0$ é chamada
 
 </div>
 
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Instru%C3%A7%C3%A3o-repeat">Instru&#231;&#227;o <code>repeat</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-repeat">&#182;</a></h3>
+</div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3>
+<p>A instrução <code>repeat</code> permite executar sucessivas vezes um conjunto de operações até ser interrompido pelo comando <code>break</code>.</p>
+<p><strong>Sintaxe</strong></p>
+<div class="highlight"><pre><span></span><span class="n">repeat</span><span class="p">{</span>
+    <span class="n">commands</span>
+    <span class="nf">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="n">break</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Instru%C3%A7%C3%A3o-repeat">Instru&#231;&#227;o <code>repeat</code><a class="anchor-link" href="#Instru%C3%A7%C3%A3o-repeat">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[170]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">suppressMessages</span><span class="p">(</span><span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">plot3D</span><span class="p">))</span> <span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;plot3D&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;http://cran.us.r-project.org&quot;</span><span class="p">))</span>
-<span class="nf">suppressMessages</span><span class="p">(</span><span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">animation</span><span class="p">))</span> <span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;animation&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;http://cran.us.r-project.org&quot;</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Um exemplo com a instrução repeat</span>
 
-<span class="n">n</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="m">1000</span><span class="p">,</span> <span class="m">2000</span><span class="p">,</span> <span class="m">5000</span><span class="p">,</span> <span class="m">10000</span><span class="p">,</span> <span class="m">20000</span><span class="p">)</span>
-
-<span class="nf">saveGIF</span><span class="p">({</span>
-  <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">lcg</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">y</span> <span class="o">&lt;-</span> <span class="nf">lcg</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">z</span> <span class="o">&lt;-</span> <span class="nf">lcg</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    
-    <span class="nf">scatter3D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colvar</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">main</span> <span class="o">=</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&#39;n = &#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="n">movie.name</span> <span class="o">=</span> <span class="s">&quot;lcg.gif&quot;</span><span class="p">)</span>
+<span class="n">n</span><span class="o">&lt;-</span><span class="m">10</span>
+<span class="n">i</span> <span class="o">&lt;-</span> <span class="nf">numeric</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="n">repeat</span><span class="p">{</span>
+    <span class="n">i</span> <span class="o">&lt;-</span> <span class="n">i</span><span class="m">+1</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="p">){</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">&quot;fim da execução&quot;</span><span class="p">);</span>
+        <span class="n">break</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
      </div>
@@ -14513,62 +14503,47 @@ $$u_i \equiv (a\,u_{i−1} + c)\mod M,$$<p>onde $i=1,2,\ldots$, $u_0$ é chamada
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Output at: lcg.gif
-
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] &#34;fim da execução&#34;
 </pre>
 </div>
 </div>
 
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-TRUE
 </div>
 
 </div>
 
-</div>
-
-</div>
-
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3>
+<h3 id="Fun%C3%A7%C3%A3o-replicate">Fun&#231;&#227;o <code>replicate</code><a class="anchor-link" href="#Fun%C3%A7%C3%A3o-replicate">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<center><img src="lcg.gif" width="600"></center>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3>
+<p>A função <code>replicate</code> é uma função para executar operações repetidamente. A função <code>replicate</code> é basicamente uma função <code>.Internal</code> que é escrita em linguagem <code>C</code> e executa os laços (<em>loops</em>) de forma otimizada. Uma das suas principais vantagens é o gerenciamento eficiente de memória.</p>
+<p><strong>Sintaxe</strong></p>
+<div class="highlight"><pre><span></span><span class="nf">replicate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="kc">...</span><span class="p">)</span>
+</pre></div>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[171]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">n</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="m">1000</span><span class="p">,</span> <span class="m">2000</span><span class="p">,</span> <span class="m">5000</span><span class="p">,</span> <span class="m">10000</span><span class="p">,</span> <span class="m">20000</span><span class="p">)</span>
-
-<span class="nf">saveGIF</span><span class="p">({</span>
-  <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">lcg</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="m">1229</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="m">2048</span><span class="p">)</span> <span class="c1"># Novos parâmetros</span>
-    <span class="n">y</span> <span class="o">&lt;-</span> <span class="nf">lcg</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="m">1229</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="m">2048</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">&lt;-</span> <span class="nf">lcg</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">a</span><span class="o">=</span><span class="m">1229</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="m">2048</span><span class="p">)</span>
-    
-    <span class="nf">scatter3D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colvar</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">main</span> <span class="o">=</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&#39;n = &#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="n">movie.name</span> <span class="o">=</span> <span class="s">&quot;lcg1.gif&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">replicate</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="s">&quot;Olá mundo!&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14587,9 +14562,282 @@ TRUE
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Output at: lcg1.gif
 
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'Olá mundo!'</li><li>'Olá mundo!'</li><li>'Olá mundo!'</li></ol>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Fun%C3%A7%C3%A3o-replicate">Fun&#231;&#227;o <code>replicate</code><a class="anchor-link" href="#Fun%C3%A7%C3%A3o-replicate">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Gera valores pseudo aleatórios binomiais</span>
+
+<span class="n">ranbin</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">valor</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">runif</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">&lt;-</span> <span class="nf">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">prob</span><span class="p">)</span>
+        <span class="n">N</span>
+    <span class="p">}</span>
+    <span class="nf">replicate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nf">valor</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">prob</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="nf">ranbin</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">0.5</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li></ol>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Fun%C3%A7%C3%A3o-replicate">Fun&#231;&#227;o <code>replicate</code><a class="anchor-link" href="#Fun%C3%A7%C3%A3o-replicate">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calcula as médias de amostras bootstrap do vetor x</span>
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="m">30</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+<span class="n">medias</span> <span class="o">&lt;-</span> <span class="nf">replicate</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="m">1e+3</span><span class="p">,</span> 
+                    <span class="n">expr</span> <span class="o">=</span> <span class="p">{</span>
+                            <span class="n">x_i</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">replace</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+                            <span class="nf">mean</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span>
+                    <span class="p">}</span>
+                   <span class="p">)</span>
+<span class="c1">#hist(medias)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">medias</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+-0.118194544907122
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Execu%C3%A7%C3%A3o-condicional-por-instru%C3%A7%C3%B5es-if---else-if--else">Execu&#231;&#227;o condicional por instru&#231;&#245;es <code>if</code> - <code>else if</code>- <code>else</code><a class="anchor-link" href="#Execu%C3%A7%C3%A3o-condicional-por-instru%C3%A7%C3%B5es-if---else-if--else">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>A instrução <code>if</code> permite controlar quais instruções serão executadas.</p>
+<p><strong>Sintaxe</strong></p>
+<div class="highlight"><pre><span></span><span class="nf">if </span><span class="p">(</span><span class="n">condition_1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">commands</span> <span class="n">when</span> <span class="n">condition_1</span> <span class="n">is</span> <span class="kc">TRUE</span>
+<span class="p">}</span> <span class="n">else</span> <span class="nf">if </span><span class="p">(</span><span class="n">condition_2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">commands</span> <span class="n">when</span> <span class="n">condition_2</span> <span class="n">is</span> <span class="kc">TRUE</span>
+<span class="p">}</span> <span class="n">else</span> <span class="p">{</span>
+    <span class="n">commands</span> <span class="n">when</span> <span class="n">conditions</span> <span class="n">are</span> <span class="kc">FALSE</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Execu%C3%A7%C3%A3o-condicional-por-instru%C3%A7%C3%B5es-if---else-if--else">Execu&#231;&#227;o condicional por instru&#231;&#245;es <code>if</code> - <code>else if</code>- <code>else</code><a class="anchor-link" href="#Execu%C3%A7%C3%A3o-condicional-por-instru%C3%A7%C3%B5es-if---else-if--else">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Exemplo com a instrução if</span>
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="m">3</span>
+<span class="nf">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="m">2</span><span class="p">){</span>
+    <span class="p">(</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="m">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">}</span> <span class="n">else</span><span class="p">{</span> 
+    <span class="p">(</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="m">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+6
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Avaliação se un número é par o ímpar</span>
+
+<span class="n">numero</span> <span class="o">&lt;-</span> <span class="nf">as.integer</span><span class="p">(</span><span class="nf">readline</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s">&quot;Escreva um número: &quot;</span><span class="p">))</span>
+
+<span class="nf">if </span><span class="p">(</span><span class="n">numero</span> <span class="o">&lt;</span><span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">&quot;Seu número é negativo&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="n">else</span> <span class="nf">if </span><span class="p">(</span><span class="n">numero</span><span class="o">%%</span><span class="m">2</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">&quot;Seu número é par&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="n">else</span><span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">&quot;Seu número é ímpar&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Escreva um número: 10
+[1] &#34;Seu número é par&#34;
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Fun%C3%A7%C3%A3o-ifelse">Fun&#231;&#227;o <code>ifelse</code><a class="anchor-link" href="#Fun%C3%A7%C3%A3o-ifelse">&#182;</a></h3><p><strong>Sintaxe</strong></p>
+<div class="highlight"><pre><span></span><span class="nf">ifelse</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span><span class="n">commands</span> <span class="n">when</span> <span class="n">condition</span> <span class="n">is</span> <span class="kc">TRUE</span><span class="p">,</span><span class="n">commands</span> <span class="n">when</span> <span class="n">condition</span> <span class="n">is</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+<p>A vantagem do <code>ifelse</code> é que, a diferença <code>if</code>-<code>else</code>, ele é vetorizado, isso torna a execução mais eficiente.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Avaliação se un número é par o ímpar</span>
+<span class="n">numero</span> <span class="o">&lt;-</span> <span class="nf">as.integer</span><span class="p">(</span><span class="nf">readline</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s">&quot;Escreva um número: &quot;</span><span class="p">))</span>
+
+<span class="nf">ifelse</span><span class="p">(</span><span class="n">numero</span> <span class="o">%%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">0</span><span class="p">,</span><span class="s">&quot;Seu número é par&quot;</span><span class="p">,</span><span class="s">&quot;Seu número é ímpar&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Escreva um número: 8
 </pre>
 </div>
 </div>
@@ -14602,7 +14850,7 @@ TRUE
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-TRUE
+'Seu número é par'
 </div>
 
 </div>
@@ -14611,33 +14859,640 @@ TRUE
 
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Exemplo da função ifelse</span>
+<span class="n">g</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;M&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;I&quot;</span><span class="p">,</span><span class="s">&quot;M&quot;</span><span class="p">,</span><span class="s">&quot;H&quot;</span><span class="p">)</span>
+
+<span class="nf">ifelse</span><span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="s">&quot;M&quot;</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="nf">ifelse</span><span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="s">&quot;F&quot;</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>1</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li></ol>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Dicas-para-c%C3%B3digos-mais-eficientes">Dicas para c&#243;digos mais eficientes<a class="anchor-link" href="#Dicas-para-c%C3%B3digos-mais-eficientes">&#182;</a></h2>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Geradores-congruenciais">Geradores congruenciais<a class="anchor-link" href="#Geradores-congruenciais">&#182;</a></h3>
+<p><code>R</code> é projetado para trabalhar com vetores. Dessa forma, operações com vetores são geralmente muito mais rápidas do que trabalhar um elemento por vez.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calculando a soma de dois vetores</span>
+
+<span class="n">n</span><span class="o">&lt;-</span><span class="m">1e+07</span>
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Cenário 1.</span>
+
+<span class="n">z</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">()</span>
+<span class="nf">system.time</span><span class="p">({</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    2.492     0.325     2.818 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Cenário 2.</span>
+
+<span class="n">z</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="nf">system.time</span><span class="p">({</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.605     0.024     0.629 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Cenário 3.</span>
+
+<span class="n">z</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="nf">system.time</span><span class="p">({</span><span class="n">z</span><span class="o">&lt;-</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.014     0.015     0.030 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">n</span> <span class="o">&lt;-</span> <span class="m">1e+07</span>
+
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="m">1</span>
+<span class="nf">system.time</span><span class="p">({</span>
+    <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">2</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">i</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="nf">system.time</span><span class="p">({</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">i</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    2.154     0.221     2.375 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.369     0.021     0.389 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calculando a soma das colunas de uma matriz</span>
+
+<span class="n">n</span><span class="o">&lt;-</span><span class="m">1e+7</span>
+<span class="n">big.matrix</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="m">1000</span><span class="p">)</span>
+<span class="n">colsums</span> <span class="o">&lt;-</span> <span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">dim</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">)[</span><span class="m">2</span><span class="p">])</span>
+
+<span class="c1"># Cenário 1.</span>
+<span class="nf">system.time</span><span class="p">({</span>
+    <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">dim</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">)[</span><span class="m">2</span><span class="p">]){</span>
+        <span class="n">s</span> <span class="o">&lt;-</span> <span class="m">0</span>
+        <span class="nf">for </span><span class="p">(</span><span class="n">j</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">dim</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">)[</span><span class="m">1</span><span class="p">]){</span>
+            <span class="n">s</span> <span class="o">&lt;-</span> <span class="n">s</span> <span class="o">+</span> <span class="n">big.matrix</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="n">colsums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">s</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.356     0.000     0.356 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Cenário 2.</span>
+<span class="nf">system.time</span><span class="p">(</span><span class="n">colsums</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">sum</span><span class="p">))</span>
+
+<span class="c1"># Cenário 3.</span>
+<span class="nf">system.time</span><span class="p">(</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">dim</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">)[</span><span class="m">2</span><span class="p">]){</span>
+        <span class="n">colsums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="nf">sum</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">[,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Cenário 4.</span>
+<span class="nf">system.time</span><span class="p">(</span><span class="n">colsums</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">big.matrix</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.060     0.028     0.088 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.033     0.000     0.033 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.008     0.000     0.008 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="fragment">
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Note que usar <code>apply</code> não torna o código mais eficiente do que quando usamos o <code>for</code>. Isto é porque, em <code>R</code>, <code>apply</code> cria seu próprio loop <code>for</code>.</p>
+
+</div>
+</div></div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">oddcount</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+    <span class="nf">return</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="nf">which</span><span class="p">(</span><span class="n">x</span><span class="o">%%</span><span class="m">2</span><span class="o">==</span><span class="m">1</span><span class="p">)))</span>
+
+<span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">1000000</span><span class="p">,</span><span class="m">100000</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+
+<span class="nf">system.time</span><span class="p">(</span><span class="nf">oddcount</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="nf">system.time</span><span class="p">({</span>
+    <span class="n">c</span> <span class="o">&lt;-</span> <span class="m">0</span>
+    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="nf">if </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span> 
+            <span class="n">c</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="m">+1</span>
+    <span class="p">}</span>
+           <span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.002     0.000     0.002 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.019     0.000     0.019 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Calculando as médias das colunas de uma matriz</span>
+
+<span class="n">m</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">1e7</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="m">1e5</span><span class="p">))</span>
+
+<span class="c1"># Cenário 1.</span>
+<span class="nf">system.time</span><span class="p">(</span><span class="nf">colMeans</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+<span class="c1"># Cenário 2.</span>
+<span class="nf">system.time</span><span class="p">(</span><span class="nf">sapply</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mean</span><span class="p">))</span>
+
+<span class="c1"># Cenário 3.</span>
+<span class="nf">system.time</span><span class="p">(</span><span class="nf">apply</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">))</span>
+
+<span class="c1"># Cenário 4.</span>
+<span class="nf">system.time</span><span class="p">(</span><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">ncol</span><span class="p">(</span><span class="n">m</span><span class="p">))</span> <span class="nf">mean</span><span class="p">(</span><span class="n">m</span><span class="p">[,</span> <span class="n">i</span><span class="p">]))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.369     0.012     0.381 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.269     0.000     0.269 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    0.868     0.012     0.880 </pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>  usuário   sistema decorrido 
+    8.534     0.000     8.537 </pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Programa%C3%A7%C3%A3o-baseada-em-vetores">Programa&#231;&#227;o baseada em vetores<a class="anchor-link" href="#Programa%C3%A7%C3%A3o-baseada-em-vetores">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<center><img src="lcg1.gif" width="600"></center>
+<p>Para aumentar a eficiência dos scripts sempre opte por usar <strong>funções vetorizadas</strong>. Algumas funções vetorizadas no <code>R</code> são:</p>
+<p><code>ifelse</code>, <code>which</code>, <code>where</code>, <code>any</code>, <code>all</code>, <code>outer</code>, <code>lower.tri</code>, <code>upper.tri</code>, <code>expand.grid</code></p>
+<p>No caso da matricial temos: <code>rowSums</code>, <code>colSums</code>, <code>colMeans</code>.</p>
+<ul>
+<li>Embora <code>apply</code> elimine um loop explícito, a função é na verdade implementada em <code>R</code> e não em <code>C</code> e, portanto, não deixa o código mais rápido. No entanto, as outras funções da familia <code>apply</code>, por exemplo, <code>lapply</code>, <code>vapply</code> podem ser muito úteis.</li>
+</ul>
+<p>Para detalhes sugiro a leitura da documentação <a href="https://bit.ly/3yuuijm">The R Inferno</a> do Patrick Burns.</p>
+
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Exerc%C3%ADcio:-Problema-de-Monty-hall">Exerc&#237;cio: Problema de Monty hall<a class="anchor-link" href="#Exerc%C3%ADcio:-Problema-de-Monty-hall">&#182;</a></h3><center><img src="./images/The_Monty_Hall_Problem.gif" width="600"></center>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Problema-de-Monty-Hall">Problema de Monty Hall<a class="anchor-link" href="#Problema-de-Monty-Hall">&#182;</a></h3><ul>
-<li><p>Uma referência: <a href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall">Wikipedia</a></p>
-</li>
-<li><p>Assista o vídeo: <a href="https://youtu.be/K0zrUomGGHY">Monty Hall</a></p>
-</li>
-<li><p>Trecho do filme <a href="https://youtu.be/DSbtIa8NM5E">Quebrando a banca</a></p>
+<h1 id="Exerc%C3%ADcio">Exerc&#237;cio<a class="anchor-link" href="#Exerc%C3%ADcio">&#182;</a></h1><p>Sejam $U_1,U_2,\ldots,U_n$ variáveis aleatórias independentes e identicamente distribuidas com distribuição uniforme em $(0,1)$, e seja $S_n=\sum_{i=1}^nU_i$. Defina a variável aleatória $N$ por</p>
+\begin{equation*}
+N=\min\{k:S_k&gt;1\}.
+\end{equation*}<p>Aproxime $\mathbb{E}[N]$ e $\textrm{Var}[N]$. (Dica: Para geração dos valores uniformes podem usar a função <code>runif</code>)</p>
+<p><strong>Obs</strong>:</p>
+<ul>
+<li>A solução correta do exercício terá valor de 2 pontos na nota final da prova 1. Para avaliação <ins>**serão consideradas as primeiras 5 soluções**</ins>;</li>
+<li>Para a avaliação do exercícios serão considerados os seguintes itens:<ul>
+<li>Número de casas decimais para a aproximação;</li>
+<li>Eficiência do código;</li>
+<li>Outros critérios de desempate referentes às boas práticas de programação.</li>
+</ul>
 </li>
 </ul>
 
+</div>
+</div></section></section>
 </div>
 </div>
 </body>
@@ -14647,5 +15502,55 @@ TRUE
 
 
 
+
+<script>
+require(
+    {
+      // it makes sense to wait a little bit when you are loading
+      // reveal from a cdn in a slow connection environment
+      waitSeconds: 15
+    },
+    [
+      "https://unpkg.com/reveal.js@4.0.2/dist/reveal.js",
+      "https://unpkg.com/reveal.js@4.0.2/plugin/notes/notes.js"
+    ],
+
+    function(Reveal, RevealNotes){
+        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            transition: "slide",
+            plugins: [RevealNotes]
+        });
+
+        var update = function(event){
+          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
+            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
+          }
+        };
+
+        Reveal.addEventListener('slidechanged', update);
+
+        function setScrollingSlide() {
+            var scroll = false
+            if (scroll === true) {
+              var h = $('.reveal').height() * 0.95;
+              $('section.present').find('section')
+                .filter(function() {
+                  return $(this).height() > h;
+                })
+                .css('height', 'calc(95vh)')
+                .css('overflow-y', 'scroll')
+                .css('margin-top', '20px');
+            }
+        }
+
+        // check and set the scrolling slide every time the slide change
+        Reveal.addEventListener('slidechanged', setScrollingSlide);
+    }
+);
+</script>
 
 </html>
