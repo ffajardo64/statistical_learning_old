@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Violação de suposições: Multicolinearidade
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 23/08/2021
+### Vitória, ES. - 24/08/2021
 
 ---
 
@@ -588,8 +588,23 @@ class: animated, slideInRight
 ### Exemplo: Multicolinearidade
 
 
+```r
+set.seed(12345)
+n &lt;- 100
+x1 &lt;- rnorm(n)
+x2 &lt;- rnorm(n)
+x3 &lt;- (x1+x2)/2
+y &lt;- 5 + 2*x1 + 4*x2 + rnorm(n)
+cat("Resultados usando o pacote MASS\n")
+```
+
 ```
 ## Resultados usando o pacote MASS
+```
+
+```r
+fit &lt;- MASS::lm.ridge(y ~ x1 + x2 + x3,lambda=.1)
+coef(fit)
 ```
 
 ```
@@ -602,7 +617,57 @@ class: animated, slideInRight
 
 ### Exemplo: Multicolinearidade
 
-&lt;img src="aula14_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+```r
+set.seed(12345)
+n &lt;- 100
+x1 &lt;- rnorm(n)
+x2 &lt;- rnorm(n)
+x3 &lt;- (x1+x2)/2
+y &lt;- 5 + 2*x1 + 4*x2 + rnorm(n)
+lambdas = 10^seq(3, -2, by = -.1)
+X &lt;- cbind(x1,x2,x3)
+cvfit &lt;- glmnet::cv.glmnet(X, y, alpha = 0, lambda = lambdas)
+plot(cvfit)
+```
+
+```r
+melhor_lambda &lt;- cvfit$lambda.min ### Melhor lambda
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+&lt;img src="aula14_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+
+```r
+set.seed(12345)
+n &lt;- 100
+x1 &lt;- rnorm(n)
+x2 &lt;- rnorm(n)
+x3 &lt;- (x1+x2)/2
+y &lt;- 5 + 2*x1 + 4*x2 + rnorm(n)
+lambdas = 10^seq(3, -2, by = -.1)
+X &lt;- cbind(x1,x2,x3)
+cat("Resultados usando o pacote glmnet\n")
+cat("Melhor lambda: ", melhor_lambda)
+fit &lt;- glmnet::glmnet(X,y,alpha=0,lambda=melhor_lambda)
+coef(fit)
+
+cat("Resultados usando o pacote ridge\n")
+out &lt;- ridge::linearRidge(y ~ x1 + x2 + x3,lambda="automatic")
+coefficients(out)
+```
+
+
 
 ---
 class: animated, slideInRight
@@ -642,14 +707,8 @@ class: animated, lightSpeedIn
 
 Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
 
-Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_. 5th. McGraw-Hill/Irwin.
-
-Harville, D. A. (1997). _Matrix algebra from a statistician's perspective_. New York: Springer.
-
-Magnus, J. R. and H. Neudecker (2019). _Matrix Differential Calculus with Applications in Statistics and
-Econometrics_. 3rd edition. John Wiley.
-
-Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_. 2nd edition. Wiley.
+Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_.
+5th. McGraw-Hill/Irwin.
 
 ---
 class: animated, hide-logo, bounceInDown
