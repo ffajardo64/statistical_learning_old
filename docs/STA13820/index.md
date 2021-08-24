@@ -14,7 +14,7 @@ description: Repositório com material sobre análise de dados e programação c
 * **Nota final (NF)**: Será calculada como a média ponderada NF das atividades avaliativas realizadas ao longo do período.
 
 #### Datas importantes
-   - **Prova I**: 12 de agosto de 2021
+   - **Prova I**: <s>12 de agosto de 2021</s>
    - **Prova II**: 16 de setembro de 2021
    - **Prova III**: 07 de outubro de 2021
    - **Trabalho prático**: 07 de outubro de 2021
