@@ -22,7 +22,7 @@ da variável dependente.
 ### Sobre o relatório
 O relatório deverá ser tipografado em `LaTeX` ou Markdown. 
 Os autores devem apresentar por seções, os principais resultados das análises realizadas para a obtenção dos modelos.
-O prazó de entrega será de 7 dias a partir da divulgação do exercício.
+O prazo de entrega será de **7 dias a partir da divulgação do exercício**.
 
 **Sugestão**: 
 
