@@ -26,7 +26,8 @@ description: Repositório com material sobre análise de dados e programação c
 * [Programando com R: Estruturas de controle de fluxo](https://bit.ly/3sU2u6l){:target="_blank"}
 * [Programando com R: Funções](https://bit.ly/3j7BBIG){:target="_blank"}
 * [Simulação estocástica: Geração de números pseudo-aleatórios](https://bit.ly/3grzpKo){:target="_blank"}
-* [Simulação estocástica: Geração de números pseudo-aleatórios uniformes e não-uniformes](https://bit.ly/3mr3cGM){:target="_blank"}
+* [Simulação estocástica: Geração de números pseudo-aleatórios uniformes e não-uniformes - I](https://bit.ly/3mr3cGM){:target="_blank"}
+* [Simulação estocástica: Geração de números pseudo-aleatórios uniformes e não-uniformes - II](https://bit.ly/3B9iWT0){:target="_blank"}
 
 * **R notebooks**
   - [Exercicio I](https://bit.ly/3jxUsLV)
@@ -34,6 +35,7 @@ description: Repositório com material sobre análise de dados e programação c
 ### Referências
 - Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a){:target="_blank"}. Revista da Sociedad Chilena de Estadística, 9, p. 79-95.
 - Data Science Lab - DaSLab - [Primeiros passos no R](https://bit.ly/3AmiwYW). Projeto de extensão **ensinaR** - Coordenadora: Profa. Dra. Agatha Rodrigues. 2020.
+- Gillespi, C. and Lovelace, R. (2016) [Efficient R programming](https://bookdown.org/csgillespie/efficientR/){:target="_blank"}.
 - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF){:target="_blank"}.
 - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/){:target="_blank"}. Material didático. Equipe EstBas - DEST/UFPR.
 - Paradis, E. (2005) [R for Beginners](https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf){:target="_blank"}
