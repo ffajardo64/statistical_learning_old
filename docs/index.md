@@ -62,7 +62,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 - Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.	
 
-### Vídeos (*novo*)
+### Vídeos
 * [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy){:target="_blank"}.
 * [Data Science - ML](https://bit.ly/3yIJ1Hc){:target="_blank"}.
 * [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg){:target="_blank"}.
