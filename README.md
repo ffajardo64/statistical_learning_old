@@ -9,6 +9,7 @@ A teoria da aprendizagem estatística é dos pilares da aprendizagem de máquina
 # Tópicos em Estatística
 
 [Análise de dados com R](https://bit.ly/3jxUsLV)
+[Análise de dados com python](https://bit.ly/3sX7bfA)
 
 
 # Aprendizado supervisionado

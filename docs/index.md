@@ -26,7 +26,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 * [Análise de dados com R](https://bit.ly/3jxUsLV)
 
-* [Introdução ao Python](https://bit.ly/3jviHfA)
+* [Introdução ao Python](https://bit.ly/3sX7bfA)
 
 
 
@@ -35,6 +35,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Data Science - ML](https://bit.ly/3yIJ1Hc)
 * [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg)
 * [Machine Learning University](https://bit.ly/3zVEvWq)
+* [Machine Learning Course for Beginners](https://www.youtube.com/watch?v=NWONeJKn6kc) - freeCodeCamp
 
 ### Datasets
 * [UCI - Machine learning repository](https://archive.ics.uci.edu/ml/index.php)
