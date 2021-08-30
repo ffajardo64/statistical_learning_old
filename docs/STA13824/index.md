@@ -38,16 +38,6 @@ description: Repositório com material sobre análise de regressão.
 
 
 #### Livros e material online
-
-  - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT){:target="_blank"}.
-  - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv){:target="_blank"}.
-  - Deisenroth, M. P., Faisal, A. A. and Ong, C. S. (2020) [Mathematics for Machine Learning](https://bit.ly/3gUa1vZ).
-  - Hastie, T., Tibshirani, R. and Friedman, J. (2017) [Elements of Statistical Learning](https://stanford.io/3gPor0n){:target="_blank"}. 2nd Ed. **12a reimpressão**. [ERRATA](https://stanford.io/3wIpcPD){:target="_blank"}.
-  - Izbicki, R. & Mendoça, T. (2020) [Aprendizado de máquina: uma abordagem estatística](https://bit.ly/3zHVcFJ){:target="_blank"}. 1a Ed.
-  - James, G., Witten, D., Hastie, T. and Tibshirani, R. (2021) [An Introduction to Statistical Learning](https://stanford.io/3jTwET3){:target="_blank"}, 2nd ed., **1a impressão (04/08/2021)**. A primeira edição, **7a reimpressão (2013)** está disponível [aqui](https://bit.ly/3qjFmwz){:target="_blank"}. [ERRATA](https://www.statlearning.com/errata-first-edition).
-
-  
-  - Petersen, K. B. and Pedersen, M. S. (2012) [The Matrix Cookbook](http://www2.imm.dtu.dk/pubdb/edoc/imm3274.pdf)
   
 **R**
   - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz).
@@ -63,6 +53,7 @@ description: Repositório com material sobre análise de regressão.
   - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/){:target="_blank"}
   - Faraway, J. (2002) [Practical Regression and Anova using R](https://cran.r-project.org/doc/contrib/Faraway-PRA.pdf)
   - Faraway, J. (2014) [Linear Models with R](https://julianfaraway.github.io/faraway/LMR/){:target="_blank"}. Rscripts
+  - Petersen, K. B. and Pedersen, M. S. (2012) [The Matrix Cookbook](http://www2.imm.dtu.dk/pubdb/edoc/imm3274.pdf)
   - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/){:target="_blank"}
   - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/){:target="_blank"}
 
@@ -73,15 +64,6 @@ description: Repositório com material sobre análise de regressão.
   - [reg5_intro.ipynb](https://bit.ly/3k6fQrS)
 
 **Python**
-  - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH){:target="_blank"}. Version 2.1.0.
-  - Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3xzvf9D){:target="_blank"} Notas de aula. Jul 21.
-  - Kosmaczewski, A. [The State Of Python In 2021](https://deprogrammaticaipsum.com/the-state-of-python-in-2021/?utm_source=newsshowcase&utm_medium=discover&utm_campaign&utm_content). Acessado em 25/08/2021.
-  - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V){:target="_blank"}. Version 1.3.0. Jul 02.
-  - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J){:target="_blank"}
-  - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8)  (Atenção: Versão Python 2.x)
-  - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW).
-  - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ).
-  - Tagliaferri, L., Morales, M., Birbeck, E. and Wan, A. [Python Machine Learning Projects](https://bit.ly/3yyNyfS). Versão 2021.
 
    
 * **Python notebooks**
