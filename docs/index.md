@@ -63,14 +63,17 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 ### Vídeos (*novo*)
-* [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy)
-* [Data Science - ML](https://bit.ly/3yIJ1Hc)
-* [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg)
-* [Machine Learning University](https://bit.ly/3zVEvWq)
-* [Machine Learning Course for Beginners](https://www.youtube.com/watch?v=NWONeJKn6kc) - freeCodeCamp
+* [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy){:target="_blank"}
+* [Data Science - ML](https://bit.ly/3yIJ1Hc){:target="_blank"}
+* [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg){:target="_blank"}
+* [Machine Learning University](https://bit.ly/3zVEvWq){:target="_blank"}
+* [Machine Learning Course for Beginners](https://www.youtube.com/watch?v=NWONeJKn6kc){:target="_blank"} - freeCodeCamp
 
 ### Datasets
-* [UCI - Machine learning repository](https://archive.ics.uci.edu/ml/index.php)
-* [Kaggle datasets](https://www.kaggle.com/datasets)
-* [Coronavirus datasets](https://www.worldometers.info/coronavirus/)
+* [UCI - Machine learning repository](https://archive.ics.uci.edu/ml/index.php){:target="_blank"}
+* [Kaggle datasets](https://www.kaggle.com/datasets){:target="_blank"}
+* [Coronavirus datasets](https://www.worldometers.info/coronavirus/){:target="_blank"}
+
+
+<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> <script> var x = document.getElementsByClassName("site-footer-credits"); setTimeout(() => { x[0].remove(); }, 10); </script>
 
