@@ -9,18 +9,7 @@ description: Repositório com material sobre teoria estatística, estimação po
 ## Inferência Estatística I
 
 ### Informações importantes
-* **Programa da disciplina** [STA13820 - Estatística computacional I](https://bit.ly/3lS8pr0){:target="_blank"}
-* **Atividades avaliativas**: Serão aplicadas 3 provas escritas (40%) e 1 trabalho prático (60%).
-* **Nota final (NF)**: Será calculada como a média ponderada NF das atividades avaliativas realizadas ao longo do período.
-
-
-#### Datas importantes
-   - **Prova I**: <s>12 de agosto de 2021</s>
-   - **Prova II**: 16 de setembro de 2021
-   - **Prova III**: 07 de outubro de 2021
-   - **Trabalho prático**: 07 de outubro de 2021
-   - **Fim das aulas**: 07/10/2021
-   - **Prova final**: 14/10/2021
+* **Programa da disciplina** [STA13817 - Inferência Estatística I](https://estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13820_inferencia_estatistica_i_0.pdf){:target="_blank"}
 
 ### Tópicos
 - [Momentos amostrais](https://bit.ly/3jviHfA){:target="_blank"}
