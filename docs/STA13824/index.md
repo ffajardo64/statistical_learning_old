@@ -28,13 +28,13 @@ description: Repositório com material sobre análise de regressão.
 
 
 * **Conjunto de dados**
-  - [distância.csv](https://bit.ly/3iuUMfi)
-  - [dureza.csv](https://bit.ly/3AkmzVB)
-  - [Câncer de próstata](https://bit.ly/3jvuGrD)
-  - [Biomassa](https://bit.ly/3xtpmdu)
-  - [Artificial data](https://bit.ly/3kvRdF9)
-  - [vinhos](https://bit.ly/2Y7EBwG)
-  - [gasolina](https://bit.ly/3Bo8zuB)
+  - [distância.csv](https://bit.ly/3iuUMfi){:target="_blank"}
+  - [dureza.csv](https://bit.ly/3AkmzVB){:target="_blank"}
+  - [Câncer de próstata](https://bit.ly/3jvuGrD){:target="_blank"}
+  - [Biomassa](https://bit.ly/3xtpmdu){:target="_blank"}
+  - [Artificial data](https://bit.ly/3kvRdF9){:target="_blank"}
+  - [vinhos](https://bit.ly/2Y7EBwG){:target="_blank"}
+  - [gasolina](https://bit.ly/3Bo8zuB){:target="_blank"}
 
 
 #### Livros e material online
