@@ -3,19 +3,4 @@ title: "Statistical Learning"
 description: Repositório exclusivo para Apredizado Estatístico. Informações sobre métodos, códigos em R e Python, datasets e entre outros.
 github:
   is_project_page: false
-output:
-  html_document:
-    theme: united
-    highlight: default
-    number_sections: true
-    toc: true
-    toc_depth: 3
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
-    includes:
-#      in_header: config/MathJax.html
-#      before_body: config/header.html
-      after_body: config/footer.html
-#    css: config/style-site.css
 
