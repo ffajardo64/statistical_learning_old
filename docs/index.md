@@ -26,6 +26,8 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 * [Análise de dados com R](https://bit.ly/3jxUsLV)
 
+* [Introdução ao Python](https://bit.ly/3jviHfA)
+
 
 
 ### Vídeos (*novo*)

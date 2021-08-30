@@ -33,6 +33,8 @@ description: Repositório com material sobre análise de regressão.
   - [Câncer de próstata](https://bit.ly/3jvuGrD)
   - [Biomassa](https://bit.ly/3xtpmdu)
   - [Artificial data](https://bit.ly/3kvRdF9)
+  - [vinhos](https://bit.ly/2Y7EBwG)
+  - [gasolina](https://bit.ly/3Bo8zuB)
 
 
 #### Livros e material online
