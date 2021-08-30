@@ -59,7 +59,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Githug repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
 - Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
 - Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
-- Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/){:target="_blank"}.
+- Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 - Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
 
 ### Vídeos (*novo*)
