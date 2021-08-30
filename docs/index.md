@@ -19,12 +19,12 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ### Inferência Estatística
 
-* [Inferência Estatística I](https://bit.ly/3jviHfA) (*Em construção*)
+* [Inferência Estatística I](https://bit.ly/3jxUsLV) (*Em construção*)
 
 
 ### Estatística computacional
 
-* [Análise de dados com R](https://bit.ly/3jxUsLV)
+* [Análise de dados com R](https://bit.ly/3zxiNbt)
 
 * [Introdução ao Python](https://bit.ly/3sX7bfA)
 
