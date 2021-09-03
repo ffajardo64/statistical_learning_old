@@ -9,7 +9,7 @@ description: Repositório com material sobre teoria estatística, estimação po
 ## Inferência Estatística I
 
 ### Informações importantes
-* **Programa da disciplina** [STA13817 - Inferência Estatística I](https://estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13820_inferencia_estatistica_i_0.pdf){:target="_blank"}
+* **Programa da disciplina** [STA13820 - Inferência Estatística I](https://estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13820_inferencia_estatistica_i_0.pdf){:target="_blank"}
 
 ### Tópicos
 - [Momentos amostrais](https://bit.ly/3jviHfA){:target="_blank"}
