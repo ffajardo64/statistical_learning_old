@@ -41,20 +41,21 @@ description: Repositório com material sobre análise de regressão.
 #### Livros e material online
   
 **R**
-  - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz).
-  - Dalpiaz D. (2021) [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/applied_statistics.pdf). 2021.
-  - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF).
-  - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/). Material didático. Equipe EstBas - DEST/UFPR.
-  - Kuhn, M. (2019) [The caret package (short for Classification And REgression Training)](http://topepo.github.io/caret/).
-  - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/). 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/)
-  - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/). 2nd Ed.
-  - Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht).
+  - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz){:target="_blank"}.
+  - Dalpiaz D. (2021) [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/applied_statistics.pdf){:target="_blank"}.
+  - Hanck, C., Arnold, M., Gerber, A. and Schmelzer, M. (2020) [Introduction to Econometrics with R](https://bit.ly/38V2F80){:target="_blank"}.
+  - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF){:target="_blank"}.
+  - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/){:target="_blank"}. Material didático. Equipe EstBas - DEST/UFPR.
+  - Kuhn, M. (2019) [The caret package (short for Classification And REgression Training)](http://topepo.github.io/caret/){:target="_blank"}.
+  - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/){:target="_blank"}. 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/){:target="_blank"}.
+  - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/){:target="_blank"}. 2nd Ed.
+  - Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht){:target="_blank"}.
   
   **Outros**
   - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/){:target="_blank"}
-  - Faraway, J. (2002) [Practical Regression and Anova using R](https://cran.r-project.org/doc/contrib/Faraway-PRA.pdf)
+  - Faraway, J. (2002) [Practical Regression and Anova using R](https://cran.r-project.org/doc/contrib/Faraway-PRA.pdf){:target="_blank"}.
   - Faraway, J. (2014) [Linear Models with R](https://julianfaraway.github.io/faraway/LMR/){:target="_blank"}. Rscripts
-  - Petersen, K. B. and Pedersen, M. S. (2012) [The Matrix Cookbook](http://www2.imm.dtu.dk/pubdb/edoc/imm3274.pdf)
+  - Petersen, K. B. and Pedersen, M. S. (2012) [The Matrix Cookbook](http://www2.imm.dtu.dk/pubdb/edoc/imm3274.pdf){:target="_blank"}.
   - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/){:target="_blank"}
   - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/){:target="_blank"}
 
