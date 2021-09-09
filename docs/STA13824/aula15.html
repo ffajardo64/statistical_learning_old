@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Violação de suposições: Heteroscedasticidade
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 02/09/2021
+### Vitória, ES. - 08/09/2021
 
 ---
 
@@ -84,7 +84,7 @@ e viceversa.
 
 &lt;br&gt;&lt;/br&gt;
 
-Sugestão de leitura,  Goldberger, Arthur S. (1964). Econometric Theory. New York: John Wiley &amp; Sons. pp. 238–243..
+Sugestão de leitura,  Goldberger, A. S. (1964). Econometric Theory. New York: John Wiley &amp; Sons. pp. 238–243.
 
 
 ---
@@ -417,7 +417,7 @@ valores de `\(X_1\)` (o grupo com a maior variabilidade), respectivamente;
 
 `\(v.\)` Calcule a estatística `\(F\)`
 
-`$$F=\frac{SQ_{Res2}/gl}{SQ_{Res2}/gl},$$`
+`$$F=\frac{SQ_{Res1}/gl}{SQ_{Res2}/gl},$$`
 onde `\(gl=\frac{n-c-2(k+1)}{2}\)`, `\(k\)` é o número de parâmetros a serem estimados 
 (incluindo o intercepto);
 
@@ -454,6 +454,235 @@ class: inverse, hide-logo, middle, center
 
 # Medidas corretivas
 
+---
+class: animated, fadeIn
+
+### Estimação de matrizes de covariâncias - I
+
+Considere o modelo
+ 
+`$$Y=\mathbf{X}\beta+\epsilon.$$`
+
+No cenário heteroscedástico, suponha que `\(\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]=\sigma^2_i\mathbf{I}=\Omega\)`, com `\(i=1,2,3\ldots,n\)`. Dessa forma, a covariância do estimador é dada por
+
+&lt;div class="math"&gt;
+$$
+  \begin{aligned}
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\Omega\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}=\Psi.
+  \end{aligned}
+$$
+&lt;/div&gt;
+
+--
+&lt;br&gt;&lt;/br&gt;
+
+.center[
+### &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Objetivo:&lt;/span&gt;  obter um estimador de consistente para `\(\Psi\)` tanto sob homoscedasticidade quanto sob heteroscedasticidade de forma desconhecida.
+]
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - II
+
+* **Estimador `\(\textrm{HC}0\)`**: Proposto por White (1980)&lt;sup&gt;1&lt;/sup&gt;, sugere o
+seguinte estimador para `\(\Psi\)`
+
+`$$\widehat{\Psi}_0=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\textrm{diag}\left(e^2_i\right)\)`.
+
+&gt; Este estimador é amplamente usado na literatura e é fácil para implementar. 
+O estimador é consistente tanto na homoscedasticidade, quanto na 
+heteroscedasticidade. No entanto, tende a ser viesado (_subestima as variâncias_) 
+e não confiável na presença de pontos de alavancagem e, portanto, os testes 
+quase-t associados tendem a ser liberais (_rejeitam `\(H_0\)` quando a mesma é 
+verdadeira com uma frequência superior ao nivel de significância `\(\alpha\)`._)
+
+&lt;br&gt;&lt;/br&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;White, H. (1980) A heteroskedasticity-consistent covariance matrix
+estimator and a direct test for heteroskedasticity. Econometrica,
+48(4), p. 817–838. &lt;font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - II
+
+**Teste quase-t**: Suponha que deseja-se testar a seguinte 
+hipótese `\(H_0: \beta_i=\beta_i^{(0)}\)` vs `\(H_1: \beta_i\ne\beta_i^{(0)}\)`, para
+algum `\(i=1,2,\ldots, k\)`. Podemos usar a estatística 
+
+`$$\tau=\frac{\widehat{\beta}_i-\beta_i^{(0)}}{\widehat{\textrm{var}}\left[\widehat{\beta}_i\right]},$$` 
+onde `\(\widehat{\textrm{var}}\left[\widehat{\beta}_i\right]\)` é o `\(i\)`-ésimo elemento
+diagonal da matriz `\(\widehat{\Psi}_0\)`.
+
+White (1980) mostrou que `\(\tau\overset{\textrm{d}}{\longrightarrow}N(0,1)\)` quando
+`\(n\to\infty\)`. Dessa forma, use quantis de uma normal-padrão para avaliar o teste.
+Assim, rejeita-se `\(H_0\)` quando `\(|\tau|&gt;z_{\alpha/2}\)`.
+
+&gt; **Obs:** Não foi necessária a suposição de normalidade no vertor de erro.
+
+
+---
+class: animated, slideInRight
+
+
+### Estimação de matrizes de covariâncias - III
+
+Para melhorar o estimador de White (1980), várias variantes do `\(\textrm{HC}0\)` 
+foram propostas na literatura.
+
+* **Estimador `\(\textrm{HC}1\)`**: Proposto por Hinkley (1977)&lt;sup&gt;1&lt;/sup&gt;, sugere o
+seguinte estimador para `\(\Psi\)`
+
+`$$\widehat{\Psi}_1=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\frac{n}{n-p}\textrm{diag}\left(e^2_i\right)\)`.
+
+&gt; O estimador propõe uma correção dos graus de liberdade. Embora o viés do 
+estimador seja menor do que `\(\textrm{HC}0\)`, ele ainda existe.
+
+
+&lt;br&gt;&lt;/br&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Hinkley, D.V. (1977) Jackknifing in unbalanced 
+situations. Technometrics, 19(3), p. 285–292. &lt;font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - IV
+
+* **Estimador `\(\textrm{HC}2\)`**: Proposto por McKinnon &amp; White (1985)&lt;sup&gt;1&lt;/sup&gt;, 
+sugerem o seguinte estimador para `\(\Psi\)`
+
+`$$\widehat{\Psi}_2=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde 
+
+`$$\widehat{\Omega}=\textrm{diag}\left(\frac{e^2_i}{(1-h_{ii})^{\delta_{i}}}\right),$$`
+com `\(h_{ii}\)` o `\(i\)`-ésimo elemento diagonal da matriz `\(\mathbf{H}\)` e `\(\delta_i=1\)`.
+
+&gt; O estimador leva em consideração os pontos de alavancagem. Embora seja
+imparcial sob homocedasticidade, irá produzir viés devido aos pontos de alta 
+alavancagem.
+
+&lt;br&gt;&lt;/br&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;McKinnon, J.G. and White, H. (1985) Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample
+properties. Journal of Econometrics, 29(3), p. 305–325. &lt;font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - V
+
+* **Estimador `\(\textrm{HC}3\)`**: Proposto por Davidson &amp; McKinnon (1993)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando `\(\delta_i=2\)`.
+
+&gt; A proposta é um ligeiro ajuste do estimador `\(\textrm{HC}2\)`, que desconta mais
+os efeitos dos pontos de alavancagem. O `\(\textrm{HC}3\)` apresenta melhor desempenho
+em termos da distribuição assintótica de teste quase-t. Recomenda-se para cenários
+com pequena amostra, no entanto, para grandes amostras os estimadores `\(\textrm{HC}0\)`,
+`\(\textrm{HC}1\)`, `\(\textrm{HC}2\)` e `\(\textrm{HC}3\)` têm quase o mesmo comportamento. 
+Na presença de pontos de alavancagem o estimador tende a ser mais tendencioso e, 
+portanto, o os testes quase-t associados tendem a ser mais liberais.
+
+* **Estimador `\(\textrm{HC}4\)`**: Proposto por Cribari-Neto (2004)&lt;sup&gt;2&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+`\(\delta_i=\min\left\{\dfrac{h_{ii}}{\bar{h}},4\right\}\)`, onde 
+`\(\bar{h}=\frac{1}{n}\sum_{i=1}^nh_{ii}=\frac{1}{n}\textrm{tr}(\mathbf{H})=\frac{1}{n}p\)`,
+daí, `\(\delta_i=\min\left\{\frac{n\, h_{ii}}{p},4\right\}\)`.
+
+
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Davidson, R. and McKinnon, J. (1993) Estimation and Inference in
+Econometrics. New York, Oxford University Press. &lt;font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Cribari-Neto, F. (2004) Asymptotic inference under heteroskedasticity of unknown form. Computational Statistics &amp; Data Analysis, 45(2), p. 215–233. &lt;font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - VI
+
+* **Estimador `\(\textrm{HC}4m\)`**: Proposto por Cribari-Neto &amp; Silva (2011)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+`\(\delta_i=\min\left\{\frac{n\,h_{ii}}{p},\gamma_1\right\}+\min\left\{\frac{n\,h_{ii}}{p},\gamma_2\right\}\)`, onde `\(\gamma_1=1\)` e `\(\gamma_2=1.5\)`.
+
+* **Estimador `\(\textrm{HC}5\)`**: Proposto por Cribari-Neto, Souza &amp; Vasconcellos (2007)&lt;sup&gt;2&lt;/sup&gt;, 
+sugere o seguinte estimador para `\(\Psi\)`
+
+  `$$\widehat{\Psi}_5=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\textrm{diag}\left(\dfrac{e^2_i}{\sqrt{(1-h_{ii})^{\delta_{i}}}}\right)\)`, onde
+`\(\delta_i=\min\left\{\dfrac{n\,h_{ii}}{p},\max\left\{4,\dfrac{n\,k\,h_{\max}}{p}\right\}\right\}\)`, com
+`\(k=0.7\)` e `\(h_{\max}=\max\{h_{ii}, i=1,2,\ldots,n\}\)`.
+
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Cribari-Neto, F. and da Silva, W. B. (2011) A new heteroskedasticity-
+consistent covariance matrix estimator for the linear regression
+model. AStA Advances in Statistical Analysis, 95(2), p. 129–146.&lt;font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Cribari-Neto, F., Souza, T. C. and Vasconcellos, K. L. (2007) Inference under heteroskedasticity and leveraged data. Communications in Statistics—Theory and Methods, 36(10), p. 1877–1888.&lt;font&gt;
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - VII
+
+* **Estimador `\(\textrm{HC}5m\)`**: Proposto por Li, Zhang, Zhang &amp; Wang (2017)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+
+`$$\delta_i=k_1\min\left\{\frac{n\,h_{ii}}{p},\gamma_1\right\}+k_2\min\left\{\frac{n\,h_{ii}}{p},\gamma_2\right\}+k_3\min\left\{\frac{n\,h_{ii}}{p},\max\left\{4,\frac{nkh_{\max}}{p}\right\}\right\},$$`
+onde `\(h_{\max}=\max\{h_{ii}, i=1,2,\ldots,n\}\)`, `\(\gamma_1=1\)` e `\(\gamma_2=1.5\)` e `\(k_i\ge0\)`. Os autores sugerem `\(k_1=1, k_2=0, k_3=1\)`.
+
+
+* **Estimador `\(\textrm{HC}6\)`**: Proposto por Aftab &amp; Chand (2018)&lt;sup&gt;2&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+`\(\delta_i=\min\left\{\frac{n\, h_{ii}}{p},\sqrt{\frac{n\,h_{\max}}{2p}}\right\}\)`.
+
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Li, S., Zhang, N., Zhang, X. and Wang, G. (2017) A new
+heteroskedasticity-consistent covariance matrix estimator and inference under heteroskedasticity. Journal of Statistical Computation and Simulation, 87(1), p. 198–210.&lt;font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Aftab, N. and Chand, S. (2018) A simulation-based evidence on
+the improved performance of a new modified leverage adjusted heteroskedastic consistent covariance matrix estimator in the linear regression model. Kuwait Journal of Science, 45(3), p. 29–38.&lt;font&gt;
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - VIII
+
+* **Estimador `\(\textrm{HC}7\)`**: Proposto por Aftab &amp; Chand (2016)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere o seguinte estimador para `\(\Psi\)`
+
+  `$$\widehat{\Psi}_7=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\textrm{diag}\left(\sqrt{d_{ii}e^2_i}\right)\)`, onde `\(d_{ii}=\dfrac{r^2_ih_{ii}}{p\,(1-h_{ii})}\)` e `\(r^2_i=\dfrac{e^2_ i}{s^2(1-h_{ii})}\)`
+são os [resíduos estudentizados internamente](https://ffajardo64.github.io/statistical_learning/STA13824/aula9.html#3).
+
+&gt; Outras variantes são apresentadas em Salem, M., Fattah, A. A. and Rady, E. H. (2019) [A New Heteroscedasticity Consistent Covariance Matrix Estimator and Inference Based on Robust Methods](https://scholar.cu.edu.eg/sites/default/files/elhoussainy/files/16ctn07-pp2687_0.pdf).
+Journal of Computational and Theoretical Nanoscience, 16(7), p. 2687–2694.
+
+&lt;br&gt;&lt;/br&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Aftab, N. and Chand, S. (2016) A new heteroskedastic consistent
+covariance matrix estimator using deviance measure. Pakistan Journal of Statistics and Operation Research, 12(2), p. 235–244.&lt;font&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Autocorrelação
+
+---
+class: animated, slideInRight
+
+### Autocorrelação - I
 
 
 ---
@@ -462,18 +691,16 @@ class: animated, lightSpeedIn
 
 Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
 
-Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_.
-5th. McGraw-Hill/Irwin.
+Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_. 5th. McGraw-Hill/Irwin.
 
-Montgomery, D. and E. Peck (2007). _Introduction to Linear Regression
-Analysis_. 4th. Wiley-Interscience.
+Montgomery, D. and E. Peck (2007). _Introduction to Linear Regression Analysis_. 4th.
+Wiley-Interscience.
 
-Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
-Alternatives_. 2nd ed.. Springer Series in Statistics. Springer New
-York.
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and Alternatives_. 2nd ed..
+Springer Series in Statistics. Springer New York.
 
-Yan, X. and X. G. Su (2009). _Linear Regression Analysis: Theory and
-Computing_. World Scientific Publishing Company.
+Yan, X. and X. G. Su (2009). _Linear Regression Analysis: Theory and Computing_. World Scientific
+Publishing Company.
 
 ---
 class: animated, hide-logo, bounceInDown

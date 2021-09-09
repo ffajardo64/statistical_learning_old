@@ -25,6 +25,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8){:target="_blank"}  (Atenção: Versão Python 2.x)
 - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW){:target="_blank"}.
 - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ){:target="_blank"}.
+- Sweigart, A.(2013) [Hacking Secret Ciphers with Python](https://bit.ly/3h7uNJu){:target="_blank"}. [More books by A. Sweigart](http://inventwithpython.com/){:target="_blank"}.
 - Tagliaferri, L., Morales, M., Birbeck, E. and Wan, A. [Python Machine Learning Projects](https://bit.ly/3yyNyfS){:target="_blank"}. Versão 2021.
 
 ### Vídeos
