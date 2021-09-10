@@ -36,6 +36,7 @@ description: Repositório com material sobre análise de regressão.
   - [Artificial data](https://bit.ly/3kvRdF9){:target="_blank"}
   - [vinhos](https://bit.ly/2Wt4GpB){:target="_blank"}
   - [gasolina](https://bit.ly/3sUVfe4){:target="_blank"}
+  - [food](https://bit.ly/3tudE1A){:target="_blank"}
 
 
 #### Livros e material online
@@ -43,13 +44,14 @@ description: Repositório com material sobre análise de regressão.
 **R**
   - Caffo, B. (2015) [Regression Models for Data Science in R](https://bit.ly/35FkZAz){:target="_blank"}.
   - Dalpiaz D. (2021) [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/applied_statistics.pdf){:target="_blank"}.
-  - Hanck, C., Arnold, M., Gerber, A. and Schmelzer, M. (2020) [Introduction to Econometrics with R](https://bit.ly/38V2F80){:target="_blank"}.
+  - Hanck, C., Arnold, M., Gerber, A. and Schmelzer, M. (2020) [Introduction to Econometrics with R](https://www.econometrics-with-r.org){:target="_blank"}. [PDF version](https://bit.ly/38V2F80){:target="_blank"}.
   - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF){:target="_blank"}.
   - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/){:target="_blank"}. Material didático. Equipe EstBas - DEST/UFPR.
   - Kuhn, M. (2019) [The caret package (short for Classification And REgression Training)](http://topepo.github.io/caret/){:target="_blank"}.
   - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/){:target="_blank"}. 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/){:target="_blank"}.
   - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/){:target="_blank"}. 2nd Ed.
   - Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht){:target="_blank"}.
+  - Zeileis, A. (2021) [Econometric Computing with HC and HAC Covariance Matrix Estimators](https://cran.r-project.org/web/packages/sandwich/vignettes/sandwich.pdf){:target="_blank"}. Acesso em 09/09/2021.
   
   **Outros**
   - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/){:target="_blank"}
@@ -64,6 +66,7 @@ description: Repositório com material sobre análise de regressão.
   - [R_introII.ipynb](https://bit.ly/3CBfzG2)
   - [reg4_intro.ipynb](https://bit.ly/3xQdEK0)
   - [reg5_intro.ipynb](https://bit.ly/3k6fQrS)
+  - [reg6_intro.ipynb](https://bit.ly/3tu9M0B)
 
 **Python**
 

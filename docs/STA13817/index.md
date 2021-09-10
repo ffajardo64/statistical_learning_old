@@ -31,7 +31,7 @@ description: Repositório com material sobre análise de dados e programação c
 
 
 ### Referências
-- Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a){:target="_blank"}. Revista da Sociedad Chilena de Estadística, 9, p. 79-95.
+- Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a){:target="_blank"}. Revista de la Sociedad Chilena de Estadística, 9, p. 79-95.
 - Data Science Lab - DaSLab - [Primeiros passos no R](https://bit.ly/3AmiwYW). Projeto de extensão **ensinaR** - Coordenadora: Profa. Dra. Agatha Rodrigues. 2020.
 - Gillespi, C. and Lovelace, R. (2016) [Efficient R programming](https://bookdown.org/csgillespie/efficientR/){:target="_blank"}.
 - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF){:target="_blank"}.
