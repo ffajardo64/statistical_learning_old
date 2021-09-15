@@ -781,14 +781,14 @@ onde `\(\{\varepsilon_t\}\)` é um processo de ruído branco com média `\(0\)` 
 Nesse caso, 
 * `\(\mathbb{E}[X_t]=\dfrac{\phi_0}{1-\phi_1}\)` e `\(\textrm{var}[X_t]=\dfrac{\sigma^2}{1-\phi_1^2}\)`;
 * A função de autocovariância é dada por 
-`$$\gamma(h)=\dfrac{\sigma^2}{1-\phi^2}\phi^{|h|}, \quad h\in\mathbb{Z},$$`
+`$$\gamma(h)=\dfrac{\sigma^2}{1-\phi_1^2}\phi^{|h|}, \quad h\in\mathbb{Z},$$`
   assim a função de autocorrelação (FAC) é dada por
-  `$$\rho(h)=\phi^{|h|}, \quad h\in\mathbb{Z}.$$`
+  `$$\rho(h)=\phi_1^{|h|}, \quad h\in\mathbb{Z}.$$`
   
 ---
 class: animated, slideInRight
 
-### Exemplo:  AR(1) com `\(\phi=0.3\)`
+### Exemplo:  AR(1) com `\(\phi_1=0.3\)`
 .pull-left[
 &lt;img src="aula15_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
@@ -801,7 +801,7 @@ class: animated, slideInRight
 ---
 class: animated, slideInRight
 
-### Exemplo:  AR(1) com `\(\phi=0.9\)`
+### Exemplo:  AR(1) com `\(\phi_1=0.9\)`
 .pull-left[
 &lt;img src="aula15_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
@@ -872,7 +872,7 @@ class: animated, fadeIn
 Considere o modelo
 
 `$$Y_t=\beta_0+\beta_1x_{t}+\varepsilon_t, \quad t=1,2,3,\ldots, n,$$`
-onde `\(\varepsilon=\rho\,\varepsilon_{t-1}+\epsilon_t\)` e `\(|\rho|&lt;1\)`.
+onde `\(\varepsilon_t=\rho\,\varepsilon_{t-1}+\epsilon_t\)` e `\(|\rho|&lt;1\)`.
 
 Observe que,
 
@@ -973,7 +973,7 @@ class: animated, slideInRight
 
 Para estimar `\(\rho\)`, sugere-se o seguinte procedimento:
 
-1. Tome a equação de autocorrelação `\(\varepsilon_t=\rho\,\varepsilon_t+\epsilon_t\)`;
+1. Tome a equação de autocorrelação `\(\varepsilon_t=\rho\,\varepsilon_{t-1}+\epsilon_t\)`;
 1. `\(\varepsilon_t\)` pode ser aproximado por `\(e_t=Y_t-\widehat{\beta}_0-\widehat{\beta_1}x_1\)`. Dessa forma, `\(e_t=\rho\,e_{t-1}+u_t\)`;
 1. Estime `\(\rho\)` por MQO,
   
@@ -1019,7 +1019,7 @@ Para incorporar a primeira observação, minimize
 
 `$$S(\rho,\beta_0,\beta_1)=S^*(\rho,\beta_0,\beta_1)+\left(\sqrt{1-\rho^2}\,\varepsilon_1\right)^2=S^*(\rho,\beta_0,\beta_1)+(1-\rho^2)(Y_1-\beta_0-\beta_1x_1).$$`
 Daí, os estimadores não tem forma fechada e precisam ser obtidos usando algoritmos de otimização
-não-linear, por exemplo: Newton-Rapshon, BHHH, DFP, etc.
+não-linear, por exemplo: Newton-Rapshon, BHHH, BFGS, DFP, etc.
 
 
 ---
@@ -1028,18 +1028,16 @@ class: animated, lightSpeedIn
 
 Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
 
-Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_.
-5th. McGraw-Hill/Irwin.
+Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_. 5th. McGraw-Hill/Irwin.
 
-Montgomery, D. and E. Peck (2007). _Introduction to Linear Regression
-Analysis_. 4th. Wiley-Interscience.
+Montgomery, D. and E. Peck (2007). _Introduction to Linear Regression Analysis_. 4th.
+Wiley-Interscience.
 
-Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
-Alternatives_. 2nd ed.. Springer Series in Statistics. Springer New
-York.
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and Alternatives_. 2nd ed..
+Springer Series in Statistics. Springer New York.
 
-Yan, X. and X. G. Su (2009). _Linear Regression Analysis: Theory and
-Computing_. World Scientific Publishing Company.
+Yan, X. and X. G. Su (2009). _Linear Regression Analysis: Theory and Computing_. World Scientific
+Publishing Company.
 
 ---
 class: animated, hide-logo, bounceInDown
