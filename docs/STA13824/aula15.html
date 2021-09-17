@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Violação de suposições: Heteroscedasticidade e Autocorrelação
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória, ES. - 16/09/2021
+### Vitória, ES. - 17/09/2021
 
 ---
 
@@ -1047,13 +1047,12 @@ class: animated, slideInRight
 
 #### Métodos para detecção - I
 
-* **Estatística de Durbin-Watson**: Proposto por Durbin &amp; Watson (1950)&lt;sup&gt;1&lt;/sup&gt;, o teste
-tem como objetivo avaliar a ausência de autocorrelação, i.e., `\(H_0: \rho=0\)` vs `\(H_1:\rho\ne0\)`.
-
-A estatística de teste é dada por
+* **Estatística de Durbin-Watson**: Proposto por Durbin &amp; Watson (1950)&lt;sup&gt;1&lt;/sup&gt;, a estatística
+permitirá avaliar a ausência de autocorrelação com as seguintes hipóteses
+`\(H_0: \rho=0\)` vs `\(H_1:\rho\ne0\)`. A estatística `\(d\)` é dada por
 
 `$$d=\dfrac{\sum_{t=2}^n\left(e_t-e_{t-1}\right)^2}{\sum_{t=2}^ne_{t-1}^2}.$$`
-&gt; A estatística `\(d\)` pode ser aproximada pela expressão `\(d=2(1-\widehat{\rho})\)`. Dessa forma,
+&gt; A estatística `\(d\)` pode ser aproximada pela expressão `\(d\approx 2(1-\widehat{\rho})\)`. Dessa forma,
 as realizações de `\(d\)` variam no intervalo `\([0,4]\)`.
   - Quando a realização de `\(d\)` é próxima de `\(2\)` existe evidência de ausência de autocorrelação;
   - Quando a realização de `\(d\)` é próxima de `\(0\)` existe evidência de autocorrelação positiva;
