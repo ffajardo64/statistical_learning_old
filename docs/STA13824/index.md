@@ -37,6 +37,7 @@ description: Repositório com material sobre análise de regressão.
   - [vinhos](https://bit.ly/2Wt4GpB){:target="_blank"}
   - [gasolina](https://bit.ly/3sUVfe4){:target="_blank"}
   - [food](https://bit.ly/3tudE1A)
+  - [filip](https://bit.ly/3lzW4FU){:target="_blank"}
 
 
 #### Livros e material online
