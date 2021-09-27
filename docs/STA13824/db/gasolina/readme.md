@@ -29,6 +29,7 @@ x10: Weight (lb)
 
 x11: Type of transmission (1=automatic, 0=manual)
 
+### Questões
 
 1. Realize uma análise exploratória das variáves envolvidas no estudo;
 2. Quais fatores determinam o consumo de gasolina nos veículos considerados no estudo?
@@ -36,7 +37,9 @@ x11: Type of transmission (1=automatic, 0=manual)
 4. Crie uma nova variável dependente dada por W=100/Y (galões por 100 milhas). Considerando essa nova variável, quais fatores determinam o consumo de gasolina nos veículos considerados no estudo?
 5. De acordo com os resultados obtidos nos itens acima, qual modelo recomenda para prever o consumo de gasolina dos veículos?
 
+Valendo 40% da nota da prova III.
 
 ### Data de entrega
 
 1 de outubro de 2021 (Não haverá mudança na data de entrega).
+
