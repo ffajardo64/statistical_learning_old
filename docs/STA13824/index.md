@@ -34,11 +34,11 @@ description: Repositório com material sobre análise de regressão.
   - [Câncer de próstata](https://bit.ly/3jvuGrD){:target="_blank"}
   - [Biomassa](https://bit.ly/3xtpmdu){:target="_blank"}
   - [Artificial data](https://bit.ly/3kvRdF9){:target="_blank"}
-  - [vinhos](https://bit.ly/2Wt4GpB){:target="_blank"}
-  - [gasolina](https://bit.ly/3sUVfe4){:target="_blank"}
+  - [Vinhos](https://bit.ly/2Wt4GpB){:target="_blank"}
+  - [Consumo de Gasolina](https://bit.ly/3sUVfe4){:target="_blank"}
   - [food](https://bit.ly/3tudE1A)
   - [filip](https://bit.ly/3lzW4FU){:target="_blank"}
-
+  - [](){:target="_blank"}
 
 #### Livros e material online
   

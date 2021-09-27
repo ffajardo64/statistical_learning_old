@@ -31,6 +31,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ### Referências
 
+- Baumer, B. S., Kaplan, D. T. and Horton, N. J. (2021) [Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/) 
 - Bruce, P. and Bruce, A. (2017) [Practical Statistics for Data Scientists](https://drive.google.com/file/d/1qzAxnbceWs4z4ABClf0rS8IUq-MZkC1M/view){:target="_blank"}.
 - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT){:target="_blank"}.
 - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv){:target="_blank"}.
@@ -57,10 +58,13 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ### Outras referências
 - Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Githug repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
+- Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
+- Cleveland, W. (2001) Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
 - Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
 - Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
 - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
-- Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.	
+- Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1 (Mar., 1962), p. 1-67
+
 
 ### Vídeos
 * [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy){:target="_blank"}.
