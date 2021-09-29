@@ -11,9 +11,22 @@ O conjunto de dados é composto por 2240 registros de 28 variáveis coletados pe
 
 <img src="columns_names.png" width="800"/>
 
+### Questionamentos
 
-Quais fatores estão significativamente relacionados ao número de compras na loja?
-    Os EUA se saem significativamente melhor do que o resto do mundo em termos de compras totais?
-    Seu supervisor insiste que as pessoas que compram ouro são mais conservadoras. Portanto, as pessoas que gastaram uma quantia acima da média em ouro nos últimos 2 anos teriam mais compras nas lojas. Justifique ou refute esta afirmação usando um teste estatístico apropriado
-    O peixe tem ácidos graxos ômega 3, que são bons para o cérebro. Nesse sentido, os "candidatos ao doutorado casados" têm uma relação significativa com o valor gasto com peixes? Que outros fatores estão significativamente relacionados ao valor gasto com peixes? (Dica: use seu conhecimento de variáveis ​​/ efeitos de interação)
-    Existe uma relação significativa entre a região geográfica e o sucesso de uma campanha?
+* Quais fatores estão significativamente relacionados ao número de compras na loja?
+* Os EUA (US) se saem significativamente melhor do que o resto do mundo em termos de compras totais?
+* Seu supervisor insiste que as pessoas que compram ouro são mais conservadoras. Portanto, as pessoas que gastaram uma quantia acima da 
+média em ouro nos últimos 2 anos teriam mais compras nas lojas. Justifique ou refute esta afirmação.
+* O peixe tem ômega 3, que são bons para o cérebro. Nesse sentido, os "candidatos ao doutorado casados" têm uma relação significativa com o valor gasto com peixes? Que outros fatores estão significativamente relacionados ao valor gasto com peixes? 
+* Existe uma relação significativa entre a região geográfica e o sucesso de uma campanha?
+* Qual campanha de marketing é mais bem-sucedida?
+* Qual é a aparência do cliente médio para esta empresa?
+* Quais produtos têm o melhor desempenho?
+* Quais canais estão com baixo desempenho?
+
+### Objetivo
+
+Você deverá entregar um relatório técnico com as respostas aos questionamentos realizados no item anterior. Todas as respostas deve apresentar a sua respectiva análise estatística para justificar a sua resposta. O relatório deve ser entregue em documento PDF, junto ao arquivo fonte do script utilizado para a execução dos métodos estatísticos utilizados para resolver os questionamentos.
+
+Prazo de entrega: 06/10/2021 às 23:59.
+

@@ -38,6 +38,7 @@ description: Repositório com material sobre análise de regressão.
   - [Consumo de Gasolina](https://bit.ly/3sUVfe4){:target="_blank"}
   - [food](https://bit.ly/3tudE1A)
   - [filip](https://bit.ly/3lzW4FU){:target="_blank"}
+  - [Marketing](https://bit.ly/3ukcTsx){:target="_blank"}
 
 #### Livros e material online
   
