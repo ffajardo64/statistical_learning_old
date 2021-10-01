@@ -25,7 +25,7 @@ description: Repositório com material sobre análise de regressão.
   - [Violação de suposições: Linearidade](https://bit.ly/3jWbEuH){:target="_blank"}
   - [Violação de suposições: Multicolinearidade](https://bit.ly/3zgmzpJ){:target="_blank"}
   - [Violação de suposições: Heteroscedasticidade e Autocorrelação](https://bit.ly/3jDqK9t){:target="_blank"}
-  - [Violação de suposições: normalidade](https://bit.ly/3jviHfA){:target="_blank"}
+  - [Violação de suposições: normalidade](https://bit.ly/39WPMeh){:target="_blank"}
 
 
 * **Conjunto de dados**
@@ -79,13 +79,6 @@ description: Repositório com material sobre análise de regressão.
   - [Online Graph Maker](https://bit.ly/3fl6RBG) - Plotly Chart Studio
 
 
-#### Exercícios (*novo*)
-  - Exercícios Cap 3 *Multiple Linear Regression* - Montgomery, Peck & Vining (2006)
-  - [Exercícios Cap 4 *Econometric Analysis* - Greene (2012)](https://bit.ly/36LbX5r) --> [Rabiscos da aula](https://bit.ly/3kDgQFN) 
-  - [Exercícios aula 23/07/2021](https://bit.ly/3zGOcYX) (**Novo**)
-  - [Ex 3](https://bit.ly/3xUckXl)
-  - [Gujarati](https://bit.ly/3rFQzs4)
-  
   
   ***
   [Inicio](https://bit.ly/3jviHfA)
