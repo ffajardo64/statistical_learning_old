@@ -68,7 +68,8 @@ description: Repositório com material sobre análise de regressão.
   - [reg4_intro.ipynb](https://bit.ly/3xQdEK0)
   - [reg5_intro.ipynb](https://bit.ly/3k6fQrS)
   - [reg6_intro.ipynb](https://bit.ly/3tu9M0B)
-
+  - [reg7_intro.ipynb](https://bit.ly/3Df6l1A) **novo**
+  
 **Python**
 
    
