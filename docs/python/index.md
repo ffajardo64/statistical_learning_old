@@ -18,10 +18,11 @@ description: Repositório com material sobre análise de dados e programação c
 ### Referências
 
 - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH){:target="_blank"}. Version 2.1.0.
-- Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3xzvf9D){:target="_blank"} Notas de aula. Jul 21.
+- Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3C6DD2H){:target="_blank"} Notas de aula. Jul 21.
 - Kosmaczewski, A. [The State Of Python In 2021](https://deprogrammaticaipsum.com/the-state-of-python-in-2021/?utm_source=newsshowcase&utm_medium=discover&utm_campaign&utm_content). Acessado em 25/08/2021.
 - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V){:target="_blank"}. Version 1.3.0. Jul 02.
 - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J){:target="_blank"}
+- Severance, C. R. (2020) [Python para todos: Explorando dados com python 3](http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf){:target="_blank"}. Outras traduções [aqui](https://www.py4e.com/book.php){:target="_blank"}
 - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8){:target="_blank"}  (Atenção: Versão Python 2.x)
 - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW){:target="_blank"}.
 - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ){:target="_blank"}.
