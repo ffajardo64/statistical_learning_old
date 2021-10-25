@@ -8,19 +8,6 @@ description: Repositório com material sobre análise de dados e programação c
 
 ## Análise de dados com R
 
-### Informações importantes
-* **Programa da disciplina** [STA13817 - Estatística computacional I](https://bit.ly/3lS8pr0){:target="_blank"}
-* **Atividades avaliativas**: Serão aplicadas 3 provas escritas (40%) e 1 trabalho prático (60%).
-* **Nota final (NF)**: Será calculada como a média ponderada NF das atividades avaliativas realizadas ao longo do período.
-
-#### Datas importantes
-   - **Prova I**: <s>12 de agosto de 2021</s>
-   - **Prova II**: 16 de setembro de 2021
-   - **Prova III**: 07 de outubro de 2021
-   - **Trabalho prático**: 07 de outubro de 2021
-   - **Fim das aulas**: 07/10/2021
-   - **Prova final**: 14/10/2021
-
 ### Tópicos
 * [Introdução](https://bit.ly/3ypiXk1){:target="_blank"}
 * [Programando com R: Estruturas de controle de fluxo](https://bit.ly/3sXBfHK){:target="_blank"}
