@@ -84,6 +84,8 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [UCI - Machine learning repository](https://archive.ics.uci.edu/ml/index.php){:target="_blank"}.
 * [Kaggle datasets](https://www.kaggle.com/datasets){:target="_blank"}.
 * [Coronavirus datasets](https://www.worldometers.info/coronavirus/){:target="_blank"}.
+* [Our world in data](https://ourworldindata.org/){:target="_blank"}.
+* [Generate test data](https://generatedata.com/){:target="_blank"}.
 
 
 <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> <script> var x = document.getElementsByClassName("site-footer-credits"); setTimeout(() => { x[0].remove(); }, 10); </script>
