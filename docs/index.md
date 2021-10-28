@@ -36,6 +36,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Bruce, P. and Bruce, A. (2017) [Practical Statistics for Data Scientists](https://drive.google.com/file/d/1qzAxnbceWs4z4ABClf0rS8IUq-MZkC1M/view){:target="_blank"}.
 - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT){:target="_blank"}.
 - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv){:target="_blank"}.
+- Chan, S. (2021) [Introduction to Probability for Data Science](https://probability4datascience.com/){:target="_blank"}.
 - Cielen, D. , Meysman, A. and Ali, M. (2016) [Introducing Data Science: Big Data, Machine Learning and more, using python tools](https://drive.google.com/file/d/1hbjLZrFkKi8Cp-hgn__Gzxw1ftFyCeLj/view){:target="_blank"}.
 - Das, S. R. (2016) [Data Science: Theories, Models, Algorithms, and Analytics](https://drive.google.com/file/d/1B851rJrpHZJiS2p4QadLhwgXfv3_87v2/view){:target="_blank"}.
 - Dean, J. (2014) [Big Data, Data Mining, and Machine Learning](https://drive.google.com/file/d/1cA9-GNgGBU22jPmCio6FFclTIz4nh9Jl/view){:target="_blank"}.
