@@ -26,7 +26,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Paradis, E. (2005) [R for Beginners](https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf){:target="_blank"}
 - R Development Core Team (2021) [The R manuals](https://cran.r-project.org/manuals.html){:target="_blank"}
 - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/){:target="_blank"}. 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/){:target="_blank"}
-- Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/){:target="_blank"}. 2nd Ed.
+- Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/){:target="_blank"}. 2nd Ed. [R for Data Science: Exercise Solutions](https://jrnold.github.io/r4ds-exercise-solutions/){:target="_blank"} by *Jeffrey B. Arnold*.
 - Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht){:target="_blank"}.
 - Verzani, J. (2001) [simpleR – Using R for Introductory Statistics](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf){:target="_blank"}
 - Wasserman, L. (2001) [All of Statistics: A Concise Course in Statistical Inference](http://www.stat.cmu.edu/~larry/all-of-statistics/index.html){:target="_blank"}
