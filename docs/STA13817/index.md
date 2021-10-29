@@ -20,18 +20,18 @@ description: Repositório com material sobre análise de dados e programação c
 ### Referências
 - Bustos, O. and Frery, A. (1991) [Reporting Monte Carlo experiences in statistics: suggestions and an example](https://bit.ly/2VB905a){:target="_blank"}. Revista de la Sociedad Chilena de Estadística, 9, p. 79-95.
 - Data Science Lab - DaSLab - [Primeiros passos no R](https://bit.ly/3AmiwYW). Projeto de extensão **ensinaR** - Coordenadora: Profa. Dra. Agatha Rodrigues. 2020.
+- Fay, C., Rochette, S., Guyader, V., Girard, C. (2021)[Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/){:target="_blank"}.
 - Gillespi, C. and Lovelace, R. (2016) [Efficient R programming](https://bookdown.org/csgillespie/efficientR/){:target="_blank"}.
 - Irizarry, R. (2021) [Introduction to Data Science](https://bit.ly/2SRBJBK). [Online version](https://bit.ly/3zEySwF){:target="_blank"}.
 - Justiniano, P. (2021) [Estatística Básica](http://www.leg.ufpr.br/~paulojus/estbas/){:target="_blank"}. Material didático. Equipe EstBas - DEST/UFPR.
 - Paradis, E. (2005) [R for Beginners](https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf){:target="_blank"}
 - R Development Core Team (2021) [The R manuals](https://cran.r-project.org/manuals.html){:target="_blank"}
+- Wasserman, L. (2001) [All of Statistics: A Concise Course in Statistical Inference](http://www.stat.cmu.edu/~larry/all-of-statistics/index.html){:target="_blank"}
+- Wickham, H. (2021) [Mastering Shiny: Build Interactive Apps, Reports, and Dashboards Powered by R](https://mastering-shiny.org/){:target="_blank"}. 
 - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.had.co.nz/){:target="_blank"}. 1st Ed. [Versão em Espanhol](https://es.r4ds.hadley.nz/){:target="_blank"}
 - Wickham, H. and Grolemund, G. (2017) [R for data science](https://r4ds.hadley.nz/){:target="_blank"}. 2nd Ed. [R for Data Science: Exercise Solutions](https://jrnold.github.io/r4ds-exercise-solutions/){:target="_blank"} by *Jeffrey B. Arnold*.
 - Wright, C., Ellis, S., Hicks, S. and Peng, R. (2021) [Tidyverse Skills for Data Science in R](https://bit.ly/3qhUDht){:target="_blank"}.
 - Verzani, J. (2001) [simpleR – Using R for Introductory Statistics](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf){:target="_blank"}
-- Wasserman, L. (2001) [All of Statistics: A Concise Course in Statistical Inference](http://www.stat.cmu.edu/~larry/all-of-statistics/index.html){:target="_blank"}
-- Wickham, H. (2021) [Mastering Shiny: Build Interactive Apps, Reports, and Dashboards Powered by R](https://mastering-shiny.org/){:target="_blank"}. 
-- Fay, C., Rochette, S., Guyader, V., Girard, C. (2021)[Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/){:target="_blank"}.
   
 **Outros**
 - [Livros gratuitos feitos com o pacote Bookdown](https://bookdown.org/){:target="_blank"}
