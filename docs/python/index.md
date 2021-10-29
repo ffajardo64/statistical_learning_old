@@ -30,7 +30,11 @@ description: Repositório com material sobre análise de dados e programação c
 - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW){:target="_blank"}.
 - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ){:target="_blank"}.
 - Sweigart, A.(2013) [Hacking Secret Ciphers with Python](https://bit.ly/3h7uNJu){:target="_blank"}. [More books by A. Sweigart](http://inventwithpython.com/){:target="_blank"}.
+- Swaroop, C. H. (2013) [A Byte of Python](https://python.swaroopch.com/){:target="_blank"}.
 - Tagliaferri, L., Morales, M., Birbeck, E. and Wan, A. [Python Machine Learning Projects](https://bit.ly/3yyNyfS){:target="_blank"}. Versão 2021.
+- VanderPlas, J. (2016) [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/){:target="_blank"}. [Github repository](https://github.com/jakevdp/PythonDataScienceHandbook){:target="_blank"}.
+- Zaki, M. and Meira, W. (2020) [Data Mining and Machine Learning: Fundamental Concepts and Algorithms](https://dataminingbook.info/book_html/){:target="_blank"}. 2nd Ed. , Cambridge University Press. [Errata](https://dataminingbook.info/){:target="_blank"}
+
 
 ### Vídeos
 
