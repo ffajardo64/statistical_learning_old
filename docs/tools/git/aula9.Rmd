@@ -1,0 +1,350 @@
+---
+title: "STA13824 - Análise de regressão"
+subtitle: "Análise residual - I"
+author: "<br/><br/>"
+institute: "LECON/DEST - UFES"
+date: "Vitória, ES. - `r format(Sys.Date(), format='%d/%m/%Y')`"
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: ["insert-logo.html"]
+    css: [xaringan-themer.css, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9' 
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: animated, fadeIn
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library("xaringanthemer"); library("dplyr"); library("DT"); library("plotly")
+style_mono_light(base_color = "#23395b")
+```
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+```{r, load_refs, include=FALSE, cache=FALSE}
+library("RefManageR"); library("bibtex")
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("ref_ementa.bib", check = FALSE)
+```
+
+<style> body {text-align: justify} </style> <!-- Justify text. -->
+
+### Análise residual
+
+Considere o modelo é linear, dado por
+
+$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$
+O vetor de erros $\epsilon$ é uma variável aleatória não-observável. A diferença
+do vetor de erros, o vetor de resíduos é uma variável observável e será 
+importante para avaliar a proximidade entre os valores ajustados do modelo e os
+valores observados. Por definição, o vetor de resíduos é dado por
+
+$$e=Y-\widehat{Y}=(I-H)Y,$$
+onde $H=\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'$.
+
+Os resíduos podem ser usados para aproximar o vetor de erros no modelo de regressão, 
+e a distribuição empírica dos resíduos pode ser utilizada para verificar a 
+suposição de normalidade (Suposição **A5**), a suposição de exogeneidade e 
+esfericidade dos erros (Suposições **A3** e **A4**), sobreajuste do modelo 
+(*overfitting*), subajuste do modelo (*underfitting*) e detecção de valores 
+discrepantes ou atípicos (*outliers*). No geral, a **análise residual** é útil 
+detectar especificações incorretas do modelo e permitir a verificação das 
+suposições do modelo.
+
+> É importante saber que tanto os erros quanto os resı́duos são variáveis
+aleatórias diferentes e inclusive com distribuições diferentes, mas 
+com igual distribuição assintótica.
+
+---
+class: animated, slideInRight
+
+### Resíduos estudentizados - I
+
+Algumas propriedades do vetor de resíduos foram exploradas anteriormente, em 
+particular temos que
+
+$$\mathrm{cov}[e] = \sigma^2(I - H).$$
+Um estimador não-viesado para $\sigma^2$ é dado por $QM_{Res}=\frac{SQ_{Res}}{n-p}$.
+Por simplicidade, denotaremos $QM_{Res}$ como $s^2$. Daí, $\mathrm{cov}[e]$ pode
+ser estimado por
+
+$$\widehat{\mathrm{cov}[e]}=s^2(I - H).$$
+Esse resultado indica que,  mesmo quando a suposição de esfericidade dos erros 
+é válida, os elementos na diagonal são diferentes, isso significa que 
+**os resíduos não são homogêneos** (igual variância) e os elementos fora da 
+diagonal são não-nulos, o que sugere que **os resíduos não são independentes**.
+
+  > **Resíduos estudentizados internamente.** As variâncias heterogêneas nos 
+  resíduos são facilmente corrigidas padronizando cada resíduo da seguinte forma
+
+$$r_i=\frac{e_i}{s\sqrt{1-h_{ii}}}, \quad i=1,2,\ldots,n,$$
+onde $h_{ii}$ é o $i$-ésimo elemento diagonal da matriz $\mathbf{H}$.
+
+---
+class: animated, fadeIn
+
+### Resíduos estudentizados - II
+
+#### Algumas considerações - I
+
+* Todos os resíduos padronizados com $\sigma$, ao invés de $s$, têm variância uno; 
+
+--
+
+* O comportamento probabilístico dos resíduos padronizados $r_i$ é próximo do
+comportamento de uma variável aleatória com distribuição $t$ de Student. Ainda, 
+**não há independência** entre o numerador e o denominador de $r_i$ ;
+
+--
+
+> `r Citet(myBib, "belsley:2005")` sugerem padronizar cada resíduo com uma 
+estimativa do desvio padrão omitindo a $i$-ésima observação. Assim, o estimatidor 
+de $\sigma^2$ para o $i$-ésimo resíduo, é o quadrado médio residual omitindo a 
+$i$-ésima observação. Dessa forma, o estimador de $\sigma^2$ é dado por 
+$s^2_{(i)}\sqrt{1-h_{ii}}$, onde
+$$s_{(i)}^2=\frac{1}{n-p-1}\left[(n-p)s^2-\frac{e_i^2}{1-h_{ii}}\right].$$
+
+
+---
+class: animated, fadeIn
+
+### Resíduos estudentizados - III
+
+#### Algumas considerações - II
+
+> **Resíduos estudentizados externamente.** Os resíduos são padronizados considerando
+$s_{(i)}^2$, onde $i$ indica que a $i$-ésima observação foi omitida para o 
+estimador de $\sigma^2_i$. Daí,
+$$r_i^*=\frac{e_i}{s_{(i)}\sqrt{1-h_{ii}}}.$$
+
+--
+
+* Sob a Suposição **A5**, cada resíduo estudentizado externamente segue uma 
+distribuíção $t_{n-p-1}$. Tal como acontece 
+com $e_i$ e $r_i$, os resíduos  $r_i^∗$ não são independentes;
+
+--
+
+* `r Citet(myBib, "belsley:2005")` mostram que tanto $s_{(i)}$ quanto os
+resíduos estudentizados externamente podem ser obtidos a partir dos resíduos 
+ordinários sem repetir a regressão com a observação omitida;
+
+--
+
+* Apesar dos problemas associados ao seu uso, os resíduos observados, 
+padronizados e estudentizados têm se mostrado úteis na prática para avaliar a 
+qualidade do ajuste do modelo de regressão e a detecção de inadequações e 
+outliers. Para a maioria dos casos, os três tipos de resíduos fornecem
+padrões muito semelhantes e levam a conclusões semelhantes.
+
+---
+class: animated, fadeIn
+
+### Resíduos estudentizados - IV
+
+#### Algumas considerações - III
+
+* As variâncias heterogêneas de $e_i$ podem *confundir* um pouco as comparações 
+e, por essa razão, o uso de um dos resíduos estudentizados $r_i$ ou $r_i^*$ deve 
+ser considerado;
+
+--
+
+* A principal vantagem do residuais estudentizados é sua conexão mais próxima 
+com o distribuição $t$ de Student. Isso permite o uso da estatística $t$ 
+como um critério conveniente para julgar se os resíduos são excessivamente grandes.
+
+<br></br>
+
+Para detalhes, ver, e.g., `r Citet(myBib, "searle2017")`, 
+`r Citet(myBib, "rawlings:1998")` e `r Citet(myBib, "rao:1999")`.
+
+---
+class: animated, slideInRight
+
+### Resíduos recursivos (*recursive residuals*) - I
+
+Os *resíduos recursivos* são construídos de modo que eles são independentes e 
+identicamente distribuídos quando o modelo está correto.  *Resíduos recursivos*
+são calculados a partir de uma sequência de regressões começando com uma base 
+de $p$ observações, onde $p$ é o número de parâmetros a serem estimados, e 
+adicionando uma observação a cada etapa. 
+
+A equação de regressão calculada em cada etapa é usada para calcular o resíduo
+para a próxima observação a ser adicionada. Esse procedimento continua até que o 
+último resíduo tenha sido calculado. Dessa forma, no final do procedimento 
+haverá $n - p$ resíduos recursivos.
+
+Suponha que uma ordem particular dos dados tenha sido adotada com o propósito 
+de calcular os *resíduos recursivos*. Considere $\mathbf{X}_r$ a matriz com as
+primeiras $r$ linhas da matriz $\mathbf{X}$ e 
+$\widehat{\beta}_r=(\mathbf{X}_r'\mathbf{X}_r)^{-1}\mathbf{X}'_rY_r$ o estimador
+de MQO usando as primeiras $r$ observações, onde $Y'_r=\left[Y_1,Y_2,\ldots,Y_r\right]$,
+então, os *resíduos recursivos* são definidos como
+
+$$w_r=\frac{Y_r-X'_r\widehat{\beta}_{r-1}}{\sqrt{1+X'_r\left(\mathbf{X}'_{r-1}\mathbf{X}_{r-1}\right)^{-1}X_r}}, \quad r=p,p+1,\ldots,n,$$
+onde $X_r$ representa a $r$-ésima linha de $\mathbf{X}$.
+
+
+
+---
+class: animated, fadeIn
+
+### Resíduos recursivos (*recursive residuals*) - II
+
+#### Algumas considerações - I
+
+* $w_p,w_{p+1},\ldots,w_n$ são independentes e identicamente distribuidos com
+distribuição $N(0,\sigma^2)$;
+
+--
+
+* A geração de cada resíduo está explicitamente associada a uma observação 
+particular e, consequentemente, *resíduos recursivos* parecem evitar algumas das 
+"propagações" de defeitos do modelo, uma vez que os resíduos recursivos são 
+independentes e identicamente distribuídos, assim os testes exatos de normalidade 
+e outliers podem ser usados;
+
+--
+
+* Algumas desvantagens dos *resíduos recursivos*:
+  - Alto custo computacional;
+  - Nenhum resíduo está associado com as primeiras $p-1$ observações usadas 
+como base;
+  - Os resíduos não são únicos, pois depende da ordem dos dados.
+
+> Programas de computador apropriados podem remover o primeiro problema. Os dois 
+últimos são parcialmente superados pelo cálculo dos *resíduos recursivos* para 
+diferentes ordenações dos dados.
+
+Para detalhes, ver, e.g., `r Citet(myBib, "brown:1975")`.
+
+---
+class: inverse, hide-logo, middle, center
+
+# Técnicas gráficas
+
+---
+class: animated, fadeIn
+
+### Gráfico de *Resíduos* vs *Valores ajustados* - I
+
+O gráfico dos resíduos contra os valores ajustados, pois permite identificar
+alguns padrões úteis que podem ser indicativos de violação de alguma suposição
+do modelo. 
+
+* Uma dispersão aleatória dos pontos acima e abaixo a linha $\mathbb{E}[e] = 0$ 
+com quase todos os pontos de dados dentro da banda definida a $\pm2$ dois desvios 
+padrão ( $\pm2s$ ) é esperado se as suposições forem satisfeitas. 
+
+> $\widehat{Y}$ é usado em vez de $Y$ porque $e$ é ortogonal a $\widehat{Y}$, 
+mas não a $Y$. Um gráfico de $e$ versus $Y$ mostrará um padrão devido à falta de 
+ortogonalidade.
+
+* Qualquer padrão na magnitude da dispersão em torno de zero associado
+com a mudança dos valores ajustados sugere **variâncias heterogêneas** de $e$. 
+O formato de *cone* é o padrão típico quando a variância aumenta com a média da 
+variável dependente. Este é o padrão esperado se a variável dependente tem uma 
+distribuição *Poisson* ou *log-normal*, por exemplo. Dados com distribuição
+binomial mostrariam maior dispersão quando a probabilidade de sucessos está 
+próxima de $\frac12$.
+
+---
+background-image: url("images/res1.png")
+background-size: contain
+
+class: fadeIn
+### Resíduos vs valores ajustados - cenário I
+
+
+---
+background-image: url("images/res2.png")
+background-size: contain
+
+class: fadeIn
+### Resíduos vs valores ajustados - cenário II
+
+
+---
+class: animated, fadeIn
+
+### Gráfico de *Resíduos* vs *Valores ajustados* - II
+
+ * Qualquer assimetria da distribuição dos resíduos em torno de zero sugere um
+problema com o modelo ou com os pressupostos básicos;
+
+* Uma maioria de resíduos negativos relativamente pequenos e poucos resíduos com
+valores positivos grandes sugeririam uma distribuição assimétrica no lado positivo;
+
+* Um evidente padrão incomum nos resíduos sugere um erro sistemático nos dados 
+ou a ausência de uma importante covariável no modelo;
+
+* Um dado atípico residual apareceria em qualquer um dos gráficos dos resíduos
+como um ponto bem fora da banda que contém a maioria dos resíduos. No entanto, 
+um outlier em $Y$ não terá necessariamente um dado atípico residual.
+
+
+---
+background-image: url("images/res3.png")
+background-size: contain
+
+class: fadeIn
+### Resíduos vs valores ajustados - cenário III
+
+
+---
+background-image: url("images/resid_plots.gif")
+background-size: contain
+
+class: fadeIn
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib, .opts = list(check.entries = FALSE))
+```
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+> <span style="color:grey">O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5<sup>o</sup>, inciso XXVII, da Constituição Federal
+e os Artigos 7<sup>o</sup> e 28<sup>o</sup>, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184<sup>o</sup>, §1<sup>o</sup> a 3<sup>o</sup>, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.</span>
+
+.pull-left[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_lecon.png")
+```
+]
+.pull-right[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_neaest.png")
+```
+]
+<br></br>
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &emsp; &emsp;  &emsp; &emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+<font size="2"><span style="color:grey">Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.</span></font>

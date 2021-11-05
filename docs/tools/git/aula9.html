@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Análise residual - I
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 01/08/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Análise residual
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+O vetor de erros `\(\epsilon\)` é uma variável aleatória não-observável. A diferença
+do vetor de erros, o vetor de resíduos é uma variável observável e será 
+importante para avaliar a proximidade entre os valores ajustados do modelo e os
+valores observados. Por definição, o vetor de resíduos é dado por
+
+`$$e=Y-\widehat{Y}=(I-H)Y,$$`
+onde `\(H=\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\)`.
+
+Os resíduos podem ser usados para aproximar o vetor de erros no modelo de regressão, 
+e a distribuição empírica dos resíduos pode ser utilizada para verificar a 
+suposição de normalidade (Suposição **A5**), a suposição de exogeneidade e 
+esfericidade dos erros (Suposições **A3** e **A4**), sobreajuste do modelo 
+(*overfitting*), subajuste do modelo (*underfitting*) e detecção de valores 
+discrepantes ou atípicos (*outliers*). No geral, a **análise residual** é útil 
+detectar especificações incorretas do modelo e permitir a verificação das 
+suposições do modelo.
+
+&gt; É importante saber que tanto os erros quanto os resı́duos são variáveis
+aleatórias diferentes e inclusive com distribuições diferentes, mas 
+com igual distribuição assintótica.
+
+---
+class: animated, slideInRight
+
+### Resíduos estudentizados - I
+
+Algumas propriedades do vetor de resíduos foram exploradas anteriormente, em 
+particular temos que
+
+`$$\mathrm{cov}[e] = \sigma^2(I - H).$$`
+Um estimador não-viesado para `\(\sigma^2\)` é dado por `\(QM_{Res}=\frac{SQ_{Res}}{n-p}\)`.
+Por simplicidade, denotaremos `\(QM_{Res}\)` como `\(s^2\)`. Daí, `\(\mathrm{cov}[e]\)` pode
+ser estimado por
+
+`$$\widehat{\mathrm{cov}[e]}=s^2(I - H).$$`
+Esse resultado indica que,  mesmo quando a suposição de esfericidade dos erros 
+é válida, os elementos na diagonal são diferentes, isso significa que 
+**os resíduos não são homogêneos** (igual variância) e os elementos fora da 
+diagonal são não-nulos, o que sugere que **os resíduos não são independentes**.
+
+  &gt; **Resíduos estudentizados internamente.** As variâncias heterogêneas nos 
+  resíduos são facilmente corrigidas padronizando cada resíduo da seguinte forma
+
+`$$r_i=\frac{e_i}{s\sqrt{1-h_{ii}}}, \quad i=1,2,\ldots,n,$$`
+onde `\(h_{ii}\)` é o `\(i\)`-ésimo elemento diagonal da matriz `\(\mathbf{H}\)`.
+
+---
+class: animated, fadeIn
+
+### Resíduos estudentizados - II
+
+#### Algumas considerações - I
+
+* Todos os resíduos padronizados com `\(\sigma\)`, ao invés de `\(s\)`, têm variância uno; 
+
+--
+
+* O comportamento probabilístico dos resíduos padronizados `\(r_i\)` é próximo do
+comportamento de uma variável aleatória com distribuição `\(t\)` de Student. Ainda, 
+**não há independência** entre o numerador e o denominador de `\(r_i\)` ;
+
+--
+
+&gt; Belsley, Kuh, and Welsch (2005) sugerem padronizar cada resíduo com uma 
+estimativa do desvio padrão omitindo a `\(i\)`-ésima observação. Assim, o estimatidor 
+de `\(\sigma^2\)` para o `\(i\)`-ésimo resíduo, é o quadrado médio residual omitindo a 
+`\(i\)`-ésima observação. Dessa forma, o estimador de `\(\sigma^2\)` é dado por 
+`\(s^2_{(i)}\sqrt{1-h_{ii}}\)`, onde
+`$$s_{(i)}^2=\frac{1}{n-p-1}\left[(n-p)s^2-\frac{e_i^2}{1-h_{ii}}\right].$$`
+
+
+---
+class: animated, fadeIn
+
+### Resíduos estudentizados - III
+
+#### Algumas considerações - II
+
+&gt; **Resíduos estudentizados externamente.** Os resíduos são padronizados considerando
+`\(s_{(i)}^2\)`, onde `\(i\)` indica que a `\(i\)`-ésima observação foi omitida para o 
+estimador de `\(\sigma^2_i\)`. Daí,
+`$$r_i^*=\frac{e_i}{s_{(i)}\sqrt{1-h_{ii}}}.$$`
+
+--
+
+* Sob a Suposição **A5**, cada resíduo estudentizado externamente segue uma 
+distribuíção `\(t_{n-p-1}\)`. Tal como acontece 
+com `\(e_i\)` e `\(r_i\)`, os resíduos  `\(r_i^∗\)` não são independentes;
+
+--
+
+* Belsley, Kuh, and Welsch (2005) mostram que tanto `\(s_{(i)}\)` quanto os
+resíduos estudentizados externamente podem ser obtidos a partir dos resíduos 
+ordinários sem repetir a regressão com a observação omitida;
+
+--
+
+* Apesar dos problemas associados ao seu uso, os resíduos observados, 
+padronizados e estudentizados têm se mostrado úteis na prática para avaliar a 
+qualidade do ajuste do modelo de regressão e a detecção de inadequações e 
+outliers. Para a maioria dos casos, os três tipos de resíduos fornecem
+padrões muito semelhantes e levam a conclusões semelhantes.
+
+---
+class: animated, fadeIn
+
+### Resíduos estudentizados - IV
+
+#### Algumas considerações - III
+
+* As variâncias heterogêneas de `\(e_i\)` podem *confundir* um pouco as comparações 
+e, por essa razão, o uso de um dos resíduos estudentizados `\(r_i\)` ou `\(r_i^*\)` deve 
+ser considerado;
+
+--
+
+* A principal vantagem do residuais estudentizados é sua conexão mais próxima 
+com o distribuição `\(t\)` de Student. Isso permite o uso da estatística `\(t\)` 
+como um critério conveniente para julgar se os resíduos são excessivamente grandes.
+
+&lt;br&gt;&lt;/br&gt;
+
+Para detalhes, ver, e.g., Searle and Khuri (2017), 
+Rawlings, Pantula, and Dickey (1998) e Rao and Toutenburg (1999).
+
+---
+class: animated, slideInRight
+
+### Resíduos recursivos (*recursive residuals*) - I
+
+Os *resíduos recursivos* são construídos de modo que eles são independentes e 
+identicamente distribuídos quando o modelo está correto.  *Resíduos recursivos*
+são calculados a partir de uma sequência de regressões começando com uma base 
+de `\(p\)` observações, onde `\(p\)` é o número de parâmetros a serem estimados, e 
+adicionando uma observação a cada etapa. 
+
+A equação de regressão calculada em cada etapa é usada para calcular o resíduo
+para a próxima observação a ser adicionada. Esse procedimento continua até que o 
+último resíduo tenha sido calculado. Dessa forma, no final do procedimento 
+haverá `\(n - p\)` resíduos recursivos.
+
+Suponha que uma ordem particular dos dados tenha sido adotada com o propósito 
+de calcular os *resíduos recursivos*. Considere `\(\mathbf{X}_r\)` a matriz com as
+primeiras `\(r\)` linhas da matriz `\(\mathbf{X}\)` e 
+`\(\widehat{\beta}_r=(\mathbf{X}_r'\mathbf{X}_r)^{-1}\mathbf{X}'_rY_r\)` o estimador
+de MQO usando as primeiras `\(r\)` observações, onde `\(Y'_r=\left[Y_1,Y_2,\ldots,Y_r\right]\)`,
+então, os *resíduos recursivos* são definidos como
+
+`$$w_r=\frac{Y_r-X'_r\widehat{\beta}_{r-1}}{\sqrt{1+X'_r\left(\mathbf{X}'_{r-1}\mathbf{X}_{r-1}\right)^{-1}X_r}}, \quad r=p,p+1,\ldots,n,$$`
+onde `\(X_r\)` representa a `\(r\)`-ésima linha de `\(\mathbf{X}\)`.
+
+
+
+---
+class: animated, fadeIn
+
+### Resíduos recursivos (*recursive residuals*) - II
+
+#### Algumas considerações - I
+
+* `\(w_p,w_{p+1},\ldots,w_n\)` são independentes e identicamente distribuidos com
+distribuição `\(N(0,\sigma^2)\)`;
+
+--
+
+* A geração de cada resíduo está explicitamente associada a uma observação 
+particular e, consequentemente, *resíduos recursivos* parecem evitar algumas das 
+"propagações" de defeitos do modelo, uma vez que os resíduos recursivos são 
+independentes e identicamente distribuídos, assim os testes exatos de normalidade 
+e outliers podem ser usados;
+
+--
+
+* Algumas desvantagens dos *resíduos recursivos*:
+  - Alto custo computacional;
+  - Nenhum resíduo está associado com as primeiras `\(p-1\)` observações usadas 
+como base;
+  - Os resíduos não são únicos, pois depende da ordem dos dados.
+
+&gt; Programas de computador apropriados podem remover o primeiro problema. Os dois 
+últimos são parcialmente superados pelo cálculo dos *resíduos recursivos* para 
+diferentes ordenações dos dados.
+
+Para detalhes, ver, e.g., Brown, Durbin, and Evans (1975).
+
+---
+class: inverse, hide-logo, middle, center
+
+# Técnicas gráficas
+
+---
+class: animated, fadeIn
+
+### Gráfico de *Resíduos* vs *Valores ajustados* - I
+
+O gráfico dos resíduos contra os valores ajustados, pois permite identificar
+alguns padrões úteis que podem ser indicativos de violação de alguma suposição
+do modelo. 
+
+* Uma dispersão aleatória dos pontos acima e abaixo a linha `\(\mathbb{E}[e] = 0\)` 
+com quase todos os pontos de dados dentro da banda definida a `\(\pm2\)` dois desvios 
+padrão ( `\(\pm2s\)` ) é esperado se as suposições forem satisfeitas. 
+
+&gt; `\(\widehat{Y}\)` é usado em vez de `\(Y\)` porque `\(e\)` é ortogonal a `\(\widehat{Y}\)`, 
+mas não a `\(Y\)`. Um gráfico de `\(e\)` versus `\(Y\)` mostrará um padrão devido à falta de 
+ortogonalidade.
+
+* Qualquer padrão na magnitude da dispersão em torno de zero associado
+com a mudança dos valores ajustados sugere **variâncias heterogêneas** de `\(e\)`. 
+O formato de *cone* é o padrão típico quando a variância aumenta com a média da 
+variável dependente. Este é o padrão esperado se a variável dependente tem uma 
+distribuição *Poisson* ou *log-normal*, por exemplo. Dados com distribuição
+binomial mostrariam maior dispersão quando a probabilidade de sucessos está 
+próxima de `\(\frac12\)`.
+
+---
+background-image: url("images/res1.png")
+background-size: contain
+
+class: fadeIn
+### Resíduos vs valores ajustados - cenário I
+
+
+---
+background-image: url("images/res2.png")
+background-size: contain
+
+class: fadeIn
+### Resíduos vs valores ajustados - cenário II
+
+
+---
+class: animated, fadeIn
+
+### Gráfico de *Resíduos* vs *Valores ajustados* - II
+
+ * Qualquer assimetria da distribuição dos resíduos em torno de zero sugere um
+problema com o modelo ou com os pressupostos básicos;
+
+* Uma maioria de resíduos negativos relativamente pequenos e poucos resíduos com
+valores positivos grandes sugeririam uma distribuição assimétrica no lado positivo;
+
+* Um evidente padrão incomum nos resíduos sugere um erro sistemático nos dados 
+ou a ausência de uma importante covariável no modelo;
+
+* Um dado atípico residual apareceria em qualquer um dos gráficos dos resíduos
+como um ponto bem fora da banda que contém a maioria dos resíduos. No entanto, 
+um outlier em `\(Y\)` não terá necessariamente um dado atípico residual.
+
+
+---
+background-image: url("images/res3.png")
+background-size: contain
+
+class: fadeIn
+### Resíduos vs valores ajustados - cenário III
+
+
+---
+background-image: url("images/resid_plots.gif")
+background-size: contain
+
+class: fadeIn
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Belsley, D., E. Kuh, and R. Welsch (2005). _Regression Diagnostics:
+Identifying Influential Data and Sources of Collinearity_. Wiley Series
+in Probability and Statistics. Wiley.
+
+Brown, R. L., J. Durbin, and J. M. Evans (1975). "Techniques for
+Testing the Constancy of Regression Relationships over Time". In:
+_Journal of the Royal Statistical Society. Series B (Methodological)_
+37.2, pp. 149 - 192.
+
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
+Alternatives_. Springer Series in Statistics. Springer New York.
+
+Rawlings, J. O., S. G. Pantula, and D. A. Dickey (1998). _Applied
+regression analysis. a research tool_. 2nd ed.. Springer texts in
+statistics. New York, NY.: Springer.
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_.
+2nd edition. Wiley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

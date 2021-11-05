@@ -1,0 +1,355 @@
+---
+title: "STA13824 - Análise de regressão"
+subtitle: "Inferência no modelo de regressão linear - IV"
+author: "<br/><br/>"
+institute: "LECON/DEST - UFES"
+date: "Vitória, ES. - `r format(Sys.Date(), format='%d/%m/%Y')`"
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    css: [xaringan-themer.css, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9' 
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: animated, fadeIn
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library("xaringanthemer"); library("dplyr"); library("DT"); library("plotly")
+style_mono_light(base_color = "#23395b")
+```
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+```{r, load_refs, include=FALSE, cache=FALSE}
+library("RefManageR"); library("bibtex")
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("ref_ementa.bib", check = FALSE)
+```
+
+<style> body {text-align: justify} </style> <!-- Justify text. -->
+
+### Hipótese linear geral - I
+
+A estatística de teste $F=\frac{QM_{Reg}}{QM_{Res}}$ permite avaliar a hipótese 
+nula de que todos os $\beta_j$, com $j=1,2,3,\ldots,k$, são 
+simultaneamente iguais a zero. Mas, algumas situações específicas, por exemplo: 
+quando a hipótese nula pode envolver uma única função linear, uma hipótese 
+simples, ou pode envolver vários funções lineares simultaneamente ou uma hipótese 
+composta, entre outras situações. Todos esses cenários **não** podem ser 
+avaliadas com a estatística $F$ e uma nova contrução dos testes será
+necessária. A seguir será apresentada um método geral de construção de testes 
+para qualquer hipótese envolvendo funções lineares do vetor $\beta$. 
+
+A hipótese linear geral define-se como
+
+<div class="math">
+  $$
+  \begin{aligned}
+  H_0&:\mathbf{K}'\beta=m & H_1&:\mathbf{K}'\beta\ne m,
+  \end{aligned}
+  $$
+</div>
+
+onde $\mathbf{K}'$ é uma matriz $l\times p$ e representa a matriz de coeficientes
+que define as $l$ funções lineares dos $\beta_j$ a serem testadas. O vetor $m$,
+de dimensão $l\times1$, é um vetor de constantes. No caso de avaliar a
+significância das funções lineares, o vetor $m$ frequentemente é o vetor nulo.
+
+> As $l$ equações lineares em $H_0$ devem ser linearmente independentes (mas não 
+precisam ser ortogonais). Essa independência linear implica que a matriz 
+$\mathbf{K}'$ tem posto coluna completo, i.e., $\textrm{posto}(\mathbf{K}')=l$.
+Isso garante que as equações em $H_0$ sejam consistentes para cada escolha de $m$.
+
+---
+class: animated, slideInRight
+
+### Hipótese linear geral - II
+
+> **Exemplo**
+
+Suponha o vetor de parâmetros dado por $\beta'=\left[\beta_0\ \ \beta_1\ \ \beta_2\ \ \beta_3\right]$
+e temos interesse em avaliar a seguinte hipótese:
+
+<div class="math">
+  $$
+  \begin{aligned}
+  H_0&:&\beta_1-\beta_2&=0\\
+     & &\beta_1+\beta_2-2\beta_3&=0\\
+     & &\beta_0&=20.
+  \end{aligned}
+  $$
+</div>
+
+$H_0$ pode ser escrita no formato matricial da seguinte forma:
+
+<div class="math">
+  $$
+  \begin{aligned}
+  H_0:\mathbf{K}'\beta=\left[
+  \begin{array}{cccc}
+  0 & 1 & -1 & 0 \\
+  0 & 1 & 1 & -2 \\
+  1 & 0 & 0 & 0
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{c}
+  \beta_0 \\
+  \beta_1 \\
+  \beta_2 \\
+  \beta_3
+  \end{array}
+  \right]=
+  \left[
+  \begin{array}{c}
+  0 \\
+  0 \\
+  20
+  \end{array}
+  \right]
+  \end{aligned}
+  $$
+</div>
+
+A hipótese alternativa é dada por $H_1:\mathbf{K}'\beta\ne m$.
+
+---
+class: animated, slideInRight
+
+### Hipótese linear geral - III
+
+Para encontrar uma estatística de teste para avaliar a hipótese linear
+
+<div class="math">
+  $$
+  \begin{aligned}
+  H_0&:\mathbf{K}'\beta=m & H_1&:\mathbf{K}'\beta\ne m,
+  \end{aligned}
+  $$
+</div>
+
+considere as Suposições **A1-A5**. Dessa forma, o estimador de MQO de 
+$\mathbf{K}'\beta-m$ é dado por $\mathbf{K}'\widehat{\beta}-m$ segue uma
+distribuição normal $l$-variada com
+
+<div class="math">
+  $$
+  \begin{aligned}
+  \mathbf{E}\left[\mathbf{K}'\widehat{\beta}-m\right]&=\mathbf{K}'\beta-m & \text{e} & & \mathrm{cov}\left[\mathbf{K}'\widehat{\beta}-m\right]&=\sigma^2\mathbf{K}'(\mathbf{X}'\mathbf{X})^{-1}\mathbf{K}.
+  \end{aligned}
+  $$
+</div>
+
+
+A soma de quadrados associada à hipótese nula é dada por
+
+$$SQ_{HLG}=\left(\mathbf{K}'\widehat{\beta}-m\right)'\left[\mathbf{K}'(\mathbf{X}'\mathbf{X})^{-1}\mathbf{K}\right]^{-1}\left(\mathbf{K}'\widehat{\beta}-m\right).$$
+Daí, $\frac{SQ_{HLG}}{\sigma^2}$ segue uma distribuição $\chi^2_{l,\lambda}$, com
+parâmetro de não-centralidade dado por
+
+$$\lambda=\frac{1}{\sigma^2}\left(\mathbf{K}'\beta-m\right)'\left[\mathbf{K}'(\mathbf{X}'\mathbf{X})^{-1}\mathbf{K}\right]^{-1}\left(\mathbf{K}'\beta-m\right).$$
+---
+class: animated, slideInRight
+
+### Hipótese linear geral - IV
+
+Dessa forma, a estatística de teste é dada por
+
+$$F=\frac{QM_{HLG}}{QM_{Res}}$$
+segue uma distribuição $F_{l,n-p,\lambda}$. Sob $H_0$, a distribuição da 
+estatística $F$ torna-se centralizada, i.e., $\lambda=0$. Assim, rejeita-se $H_0$,
+em favor de $H_1$, se $F>F_{l,n-p,\alpha}$.
+
+> Esta formulação geral fornece um método conveniente para testar **qualquer**
+hipótese de interesse.
+
+---
+class: animated, fadeIn
+
+### Hipótese linear geral - IV
+
+#### Algumas considerações
+
+* O valor esperado das formas quadráticas dependem do formato funcional do modelo.
+Dessa forma, se o modelo usado é incorreto, o valor esperado da formas quadráticas
+é incorreto e isso é particularmente crítico para o estimador de $\sigma^2$;
+
+--
+
+* A suposição de normalidade é necessária para a construção dos testes de hipóteses,
+intervalos e regiões de confiança para avaliar a significância do vetor de parâmetros.
+Embora os testes de significância pareçam ser razoavelmente robustos contra a 
+não-normalidade, eles devem ser considerados como aproximações quando o pressuposto 
+de normalidade não está satisfeita.
+
+--
+
+* É importante ressaltar que todas as somas dos quadrados para hipóteses 
+estão vínculadas ao modelo específico que está sendo usado. Em geral, a exclusão 
+de uma covariável ou adicionar uma covariável ao modelo mudará a soma de 
+quadrados para todas as hipóteses;
+
+--
+
+* O formato matricial do teste de hipótese geral torna muito pratica a sua 
+implementação computacional.
+
+<br></br>
+
+Para detalhes, ver, e.g., `r Citet(myBib, "greene2012")`, 
+`r Citet(myBib, "montgomery2006")` e `r Citet(myBib, "searle2017")`
+
+---
+class: animated, slideInRight
+
+### Somas de quadrados parciais - I
+
+O interesse agora é avaliar hipóteses referentes à significância de um 
+subconjunto do vetor de coeficientes. Para isso será necessária a análise das 
+somas de quadrados parciais vínculadas à $H_0$. Em outras palavras, será analisada
+a variação parcial explicada do modelo que contém apenas uma ou mais covariáveis.
+
+Seja $SQ_{Reg}=R(\beta_0,\beta_1, \beta_2, \ldots,\beta_k)$ a soma de 
+quadrados da regressão, contendo os parâmetros listados entre parênteses. Essa
+soma de quadrados também é denotada como $SQ_{MC}$ e é chamada de 
+*soma de quadrados do modelo completo*.
+
+A soma de quadrados para avaliar a hipótese que um subconjunto do $\beta$ é o 
+vetor nulo, pode ser obtida como
+
+$$SQ=SQ_{MC}-SQ_{MR}=R(\beta_0,\beta_1, \beta_2, \ldots,\beta_{k-q},\beta_{k-q+1},\ldots,\beta_k)-R(\beta_0,\beta_1, \beta_2, \ldots,\beta_{k-q}),$$
+onde $SQ_{MR}$ representa a *soma de quadrados do modelo reduzido*. Uma outra
+forma de escrever a soma de quadrados acime é dada por
+
+$$SQ=R\left(\beta_{k-q+1},\ldots,\beta_k|\beta_0,\beta_1, \beta_2, \ldots,\beta_{k-q}\right).$$
+> Seguindo essa notação,
+$$SQ_{Reg}=SQ_{Modelo}-SQ_\mu=R\left(\beta_1,\ldots,\beta_k|\beta_0\right).$$
+
+
+---
+class: animated, fadeIn
+
+### Somas de quadrados parciais - II
+
+> **Interpretação**
+
+* Suponha o modelo linear com duas covariáveis, sejam elas $x_1$ e $x_2$. Nesse
+  cenário, $SQ_{Reg}(x_1)$ representa a variação explicada do modelo que contem 
+  apenas a variável preditiva $x_1$. 
+
+  Por outra parte, $SQ_{Reg}(x_1,x_2)$ representa a variação explicada do modelo 
+  que contem as variáveis preditivas $x_1$ e $x_2$ e assim por diante.
+
+--
+
+* A inclusão de uma covariável no modelo diminui o valor de $SQ_{Res}$, no pior 
+  dos casos fica igual (nunca maior) e não altera o valor da $SQ_{Total}$. Assim,
+  pode-se concluir que o valor da $SQ_{Reg}$ aumenta com a inclusão de uma 
+  covariável no modelo, uma vez que $SQ_{Total}=SQ_{Reg}+SQ_{Res}$.
+  
+  Dessa forma, 
+  
+  $$SQ_{Reg}(x_2|x_1)=SQ_{Reg}(x_1,x_2)-SQ_{Reg}(x_1)$$
+  
+  representa o aumento da soma de quadrados com a inclusão da covariável $x_2$
+  no modelo, dado que já tinha a covariável $x_1$. 
+
+---
+class: animated, fadeIn
+
+### Somas de quadrados parciais - III
+
+> **Interpretação**
+
+* A ideia pode-se estender para o caso de três covariáveis $x_1,x_2$ e $x_3$.
+  Dessa forma
+
+  $$SQ_{Reg}\left(x_3|x_1,x_2\right)=SQ_{Reg}(x_1,x_2,x_3)-SQ_{Reg}(x_1,x_2)$$
+  representa o aumento da soma de quadrados com a inclusão da da covariável $x_3$
+  no modelo, dado que já tinha as covariáveis $x_1$ e $x_2$. 
+
+  - Reescrevendo as equações acima, temos que
+
+  <div class="math">
+  $$
+    \begin{aligned}
+      SQ_{Reg}(x_1,x_2)&=SQ_{Reg}(x_1)+SQ_{Reg}(x_2|x_1)\\ \\
+      SQ_{Reg}(x_1,x_2,x_3)&=SQ_{Reg}(x_1,x_2)+SQ_{Reg}(x_3|x_1,x_2)\\
+                           &=SQ_{Reg}(x_1)+SQ_{Reg}(x_2|x_1)+SQ_{Reg}(x_3|x_1,x_2)
+    \end{aligned}
+  $$
+  </div>
+
+---
+class: animated, slideInRight
+
+### Somas de quadrados parciais - IV
+
+Dessa forma, para o cenário com três covariáveis, a tabela para a 
+**Análise de Variância**, com a soma de quadrados parciais é dada por:
+
+
+ | Fonte                | Graus de liberdade |  Somas de quadrados           | Quadrados médios               |
+ |:--------------------:|:------------------:|:-----------------------------:|:------------------------------:|
+ |    $x_1$             |         $1$        | $SQ_{Reg}(x_1)$               |  $QM_{Reg}(x_1)$               |
+ |    $x_2\mid x_1$     |         $1$        | $SQ_{Reg}(x_2\mid x_1)$       |  $QM_{Reg}(x_2\mid x_1)$       |
+ |    $x_3\mid x_1,x_2$ |         $1$        | $SQ_{Reg}(x_3 \mid x_1,x_2)$ |  $QM_{Reg}(x_3 \mid x_1,x_2)$ |
+ |     Resíduos         |         $n-4$      | $SQ_{Res}$                    |  $QM_{Res}$                    |
+ |                      |                    |                               |                                |
+ |        Total         |         $n-1$      | $SQ_{Total}$                  |                                |
+ 
+
+Tabela acima é a mesma fornecida pela função **anova** do ``R`` (ver, e.g., `r Citet(myBib, "Rlang:2021")`).
+
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib, .opts = list(check.entries = FALSE))
+```
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+> <span style="color:grey">O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5<sup>o</sup>, inciso XXVII, da Constituição Federal
+e os Artigos 7<sup>o</sup> e 28<sup>o</sup>, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184<sup>o</sup>, §1<sup>o</sup> a 3<sup>o</sup>, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.</span>
+
+.pull-left[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_lecon.png")
+```
+]
+.pull-right[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_neaest.png")
+```
+]
+<br></br>
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &emsp; &emsp;  &emsp; &emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+<font size="2"><span style="color:grey">Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.</span></font>

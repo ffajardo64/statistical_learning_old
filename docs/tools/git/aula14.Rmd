@@ -1,0 +1,713 @@
+---
+title: "STA13824 - Análise de regressão"
+subtitle: "Violação de suposições: Multicolinearidade"
+author: "<br/><br/>"
+institute: "LECON/DEST - UFES"
+date: "Vitória, ES. - `r format(Sys.Date(), format='%d/%m/%Y')`"
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: ["insert-logo.html"]
+    css: [xaringan-themer.css, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9' 
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: animated, fadeIn
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library("xaringanthemer"); library("dplyr"); library("DT"); library("plotly")
+style_mono_light(base_color = "#23395b")
+```
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+```{r, load_refs, include=FALSE, cache=FALSE}
+library("RefManageR"); library("bibtex")
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("ref_ementa.bib", check = FALSE)
+```
+
+<style> body {text-align: justify} </style> <!-- Justify text. -->
+
+### A2. A matriz de regressores tem posto coluna completo
+
+
+
+De acordo com **A2.**, a matriz $\mathbf{X}$ tem posto coluna completo, então
+$\mathbf{X}'\mathbf{X}$ é uma matrix simétrica e não-singular, ou seja,
+$\mathbf{X}'\mathbf{X}$ tem inversa. Dessa forma,
+
+<div class="math">
+$$
+  \begin{aligned}
+    \mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.
+  \end{aligned}
+$$
+</div>
+
+#### Considerações
+
+1. E se o posto coluna da matriz  não for completo?
+
+--
+
+1. E se o posto coluna da matriz for completo, mas a matriz $\mathbf{X}'\mathbf{X}$ é próxima da singularidade?
+
+--
+
+1. E se uma ou mais covariáveis são altamente correlacionadas?
+
+
+
+<br></br>
+
+Para detalhes `r Citet(myBib, "greene:2007")` e `r Citet(myBib, "gujarati:porter:gunasekar:2017")`.
+
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - I
+
+A **Multicolinearidade** refere-se apenas às relações lineares entre as colunas
+da matriz $\mathbf{X}$, i.e., existem constantes $\lambda_1,\lambda_2,\ldots,\lambda_k$
+nem todas nulas, tal que
+
+$$\lambda_0\mathbf{1}+\lambda_1\mathbf{x}_1+\cdots+\lambda_k\mathbf{x}_k=0 \qquad \text{(multicolinearidade perfeita)}$$
+ou
+
+$$\lambda_0\mathbf{1}+\lambda_1\mathbf{x}_1+\cdots+\lambda_k\mathbf{x}_k+u_i=0,  \qquad \text{(multicolinearidade quase perfeita)}$$
+onde $u_i$ é uma variável aleatória que representa um termo de erro.
+
+> De outra forma, considere por exemplo a $i$-ésima linha da matriz $\mathbf{X}$
+e  suponha que $\lambda_1\ne0$, assim
+
+$$X_{1i}=-\frac{\lambda_0}{\lambda_1}-\frac{\lambda_2}{\lambda_1}X_{2i}-\cdots-\frac{\lambda_k}{\lambda_1}X_{ki}.$$
+A relação acima evidencia que $X_{1i}$ pode ser escrito em função das outras 
+covariáveis.
+<br></br>
+
+Sugestão de leitura, **Farrar, D. E. and Glauber, R. R.** (1964) [Multicollinearity in regression analysis: the problem revisited](https://dspace.mit.edu/bitstream/handle/1721.1/48530/multicollinearit00farr.pdf;jsessionid=7F9FD70B6154894136399A91F9BF7DA1?sequence=1). MIT. p. 1-50.
+
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - II
+
+#### Estimação dos parâmetros
+
+No cenário com multicolinearidade perfeita, a solução das equações normais
+
+<div class="math">
+$$
+  \begin{aligned}
+    \left(\mathbf{X}'\mathbf{X}\right)\mathbf{\widehat{\beta}}=\mathbf{X}'Y
+  \end{aligned}
+$$
+</div>
+
+não é **única**, pois o posto da matriz $\mathbf{X}$ não é completo, em outras
+palavras, existe dependência linear entre as colunas da matriz $\mathbf{X}$.
+
+> Uma alternativa é o uso de *pseudoinversas* ou *inversas generalizadas* da matrix
+$\mathbf{X}'\mathbf{X}$.
+
+No cenário com multicolinearidade quase perfeita os algoritmos de computador podem
+não ter sucesso em obter uma inversa aproximada e, se obtiver uma, pode ser 
+numericamente impreciso. Assim, as estimativas dos coeficientes, embora 
+determinados, possuirão erros padrão grandes, isso significa que significa que 
+os coeficientes não podem ser estimados com precisão.
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - III
+
+#### Exemplo
+
+Considere o seguinte modelo
+
+$$Y_i=\beta_2x_{2i}+\beta_3x_{3i}+\epsilon_i, \qquad i=1,2,\ldots,n.$$
+Para encontrarmos os estimadores de MQO para $\beta_2$  e $\beta_3$ minimizamos
+a soma dos quadrados do erro, i.e.
+
+$$\min_{\beta_2,\beta_3}\sum_{i=1}^{n}\epsilon_i^2=\min_{\beta_2,\beta_3}\sum_{i=1}^{n}(Y_i-\beta_2x_{2i}-\beta_3x_{3i})^2.$$
+Daí, o sistema de equações normais é dado por
+
+<div class="math">
+$$
+  \begin{aligned}
+    \sum_{i=1}Y_ix_{2i}&=\widehat{\beta}_2\sum_{i=1}^nx_{2i}^2+\widehat{\beta}_3\sum_{i=1}^nx_{2i}x_{3i}\\
+    \sum_{i=1}^nY_ix_{3i}&=\widehat{\beta}_2\sum_{i=1}^nx_{2i}x_{3i}+\widehat{\beta}_3\sum_{i=1}^nx_{3i}^2
+  \end{aligned}
+$$
+</div>
+
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - III
+
+<div class="math">
+$$
+  \begin{aligned}
+    \widehat{\beta}_2&=\frac{\left(\sum_{i=1}^nY_ix_{2i}\right)\left(\sum_{i=1}^nx_{3i}^2\right)-\left(\sum_{i=1}^nY_ix_{3i}\right)\left(\sum_{i=1}^nx_{2i}x_{3i}\right)}{\left(\sum_{i=1}^nx_{2i}^2\right)\left(\sum_{i=1}^nx_{3i}^2\right)-\left(\sum_{i=1}^nx_{2i}x_{3i}\right)^2}\\ \\
+    \widehat{\beta}_3&=\frac{\left(\sum_{i=1}^nY_ix_{3i}\right)\left(\sum_{i=1}^nx_{2i}^2\right)-\left(\sum_{i=1}^nY_ix_{2i}\right)\left(\sum_{i=1}^nx_{2i}x_{3i}\right)}{\left(\sum_{i=1}^nx_{2i}^2\right)\left(\sum_{i=1}^nx_{3i}^2\right)-\left(\sum_{i=1}^nx_{2i}x_{3i}\right)^2}.
+  \end{aligned}
+$$
+</div>
+
+Suponha que $x_{3i}=\lambda x_{2i}$, sendo $\lambda\ne0$, daí
+
+<div class="math">
+$$
+  \begin{aligned}
+    \widehat{\beta}_2&=\frac{\left(\sum_{i=1}^nY_ix_{2i}\right)\left(\lambda^2\sum_{i=1}^nx_{2i}^2\right)-\left(\lambda^2\sum_{i=1}^nY_ix_{2i}\right)\left(\sum_{i=1}^nx_{2i}^2\right)}{\left(\sum_{i=1}^nx_{2i}^2\right)\left(\lambda^2\sum_{i=1}^nx_{2i}^2\right)-\left(\lambda\sum_{i=1}^nx_{2i}^2\right)^2}=\frac{0}{0}.
+  \end{aligned}
+$$
+</div>
+
+Igual acontece com $\widehat{\beta}_3$. O coeficiente de correlação entre 
+$\mathbf{x}_2$ e $\mathbf{x}_3$ é $1$.
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - III
+
+
+Supondo $x_{3i}=\lambda x_{2i}$, temos que
+
+<div class="math">
+$$
+  \begin{aligned}
+    Y_i&=\beta_2x_{2i}+\beta_3x_{3i}+\epsilon_i=\beta_2x_{2i}+\beta_3\left(\lambda x_{2i}\right)+\epsilon_i=\left(\beta_2+\lambda\beta_3\right) x_{2i}+\epsilon_i=\alpha x_{2i}+\epsilon_i
+  \end{aligned}
+$$
+</div>
+
+O estimador de MQO para $\alpha$ é dado por
+
+$$\widehat{\alpha}=\widehat{\beta}_2+\lambda\widehat{\beta}_3=\frac{\sum_{i=1}^nx_{2i}y_i}{\sum_{i=1}^nx_{2i}^2}.$$
+O resultado acima indica que não é possível estimar um único valor para $\beta_2$
+e $\beta_3$.
+
+
+
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - IV
+
+#### Consequências
+
+* A estimativas do vetor $\beta$ torna-se difícil, pois o sistema de equações
+normais não terá solução única;
+
+* Existe um aumento na variância do estimador do vetor $\beta$, isso reflete
+nas somas de quadrados e, como consequência, os intervalos de confiança se tornam
+mais amplos e os testes de significância sugerem a não-significância dos parâmetros,
+mas o teste $F$ eventualmente pode sugerir a significância de todas as covariáveis 
+em conjunto;
+
+* As estimativas mostram-se sensíveis à retirada ou inclusão de poucas observações;
+
+* Devido à alta correlação, o coeficiente de determinação tende a ser alto;
+
+* O principal perigo dessa redundância de dados é o *overfitting*. Os "melhores" 
+modelos de regressão são aqueles em que as covariáveis se correlacionam altamente 
+com a variável dependente, mas se correlacionam minimamente com as outras covariáveis. 
+Esse modelo é freqüentemente chamado de "baixo ruído" e será estatisticamente robusto 
+(ou seja, fará previsões confiáveis).
+
+* A multicolinearidade em modelos que envolvem três ou mais variáveis pode-se
+tornar totalmente invisível em gráficos de dispersão por pares.
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - IV
+
+Considere um modelo com covariáveis $\mathbf{x}_1$ e $\mathbf{x}_2$ com distribuição
+normal com variância $\sigma^2$. Seja $\mathbf{x}_3=\frac{\mathbf{x}_1+\mathbf{x}_2}{2}$,
+então
+
+$$\mathrm{corr}[\mathbf{x}_1,\mathbf{x}_3]=\frac{\mathrm{cov}[\mathbf{x}_1,\mathbf{x}_3]}{\sqrt{\mathrm{var}[\mathbf{x}_1]\mathrm{var}[\mathbf{x}_3]}}=\frac{1}{\sqrt{2}}.$$
+
+```{r,echo=FALSE}
+set.seed(3587)
+x1 <- rnorm(100,70,15)
+x2 <- rnorm(100,70,15)
+x3 <- (x1 + x2)/2
+X <- cbind(x1,x2,x3)
+#pairs(X)
+cor(X)
+```
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - IV
+
+
+```{r,echo=FALSE,fig.align='center'}
+pairs(X)
+
+```
+
+---
+class: animated, slideInRight
+
+### Multicolinearidade - IV
+
+Lembre que, se as covariáveis estiverem correlacionadas umas com as outras, os 
+erros padrão das estimativas de coeficiente serão maiores do que se as covariáveis 
+não estivessem correlacionadas. 
+
+Dessa forma, aparece uma quantidade  para avaliar o impacto da dependência linear
+entre as covariáveis do modelo, essa medida é chadama de **Fator de inflação da variância**
+(VIF) e é dada por
+
+$$VIF_i=\frac{1}{1-R_i^2},$$
+onde $R^2_i$ representa o coeficiente de determinação entre $X_i$ e as outras 
+covariáveis. 
+
+> Na literatura pode-se encontrar a seginte "regra":
+se $VIF>10$ a multicolinearidade é alta. 
+
+O $VIF$ mostra como a variância de um estimador é inflacionada pela presença da 
+multicolinearidade. Quanto mais próximo o $R^2$ de 1, maior se torna o $VIF$, i.e.,
+quando o grau de multicolinearidade aumenta, a variância do estimado de $\beta$
+aumento e pode-se tornar infinita. Por outra parte, se o $VIF=1$, isso sugere
+ausência de multicolinearidade.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Medidas corretivas
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - I
+
+Para realizar a melhor seleção de covariáveis, ajustamos uma regressão linear
+para cada combinação possível das $p$ covariáveis, i.e., ajustamos todos os 
+modelos possíveis que contêm exatamente uma covariável, todos os modelos 
+$\binom{p}{2} = \frac{p(p - 1)}{2}$ que contêm exatamente duas covariáveis e 
+assim por diante, totalizando $2^p$ possíveis modelos. Em seguida, olhamos para 
+todos os resultados modelos, com o objetivo de identificar aquele que é "*melhor*".
+
+> O processo de seleção deve ser realizado com muito cuidado, pois as medidas 
+comumente utilizadas para verificar adequação dos modelos, o quadrado médio dos 
+resíduos e o coeficiente de determinação, são facilmente influenciadas pelo número 
+de parâmetros envolvidos no ajuste. Enquanto que o quadrado médio dos resíduos 
+tende a diminuir, o $R^2$ tende aumentar conforme o aumenta o número de 
+covariáveis consideradas nos modelos. Dessa forma, essas medidas sempre 
+sugerirão um modelo envolvendo todas as variáveis.
+
+Portanto, nem o quadrado médio dos resíduos nem o coeficiente de determinação são 
+medidas apropriadas para selecionar o "*melhor*" modelo entre uma coleção de modelos 
+com diferente números de covariáveis.
+
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - II
+
+Uma forma alternativa para a escolha de um modelo adequado é o uso de medidas de
+*penalização*. A ideia de "penalizar" é justamente para diminuir a influência do
+número de parâmetros envolvidos no ajusto. 
+
+* **Critério de informação de Akaike (_AIC_)**: Proposto por 
+Akaike(1974)<font size="4"><sup>1</sup></font>, o critério é baseado na 
+maximização da *entropia* esperada do modelo. A *entropia* não é mais do que 
+uma medida da informação esperada.
+
+  Quando um modelo estatístico é usado para representar o processo que gerou 
+  os dados, a representação quase nunca será exata; portanto, algumas informações 
+  serão perdidas usando o modelo para representar o processo. Dessa forma, O _AIC_ 
+  estima a quantidade relativa de informações perdidas por um determinado 
+  modelo: **quanto menos informações um modelo perde, maior é a qualidade desse modelo.**
+
+Essencialmente, o _AIC_ é uma medida de log-verossimilhança penalizada. Seja L a 
+função de verossimilhança para um modelo específico, dada por
+
+$$AIC=-2\ln L+2p,$$
+onde $L$ é a função de verossimilhança para um modelo específico, $p$ representa
+o número de parâmetros no modelo.
+
+
+<font size="3"><sup>1</sup>Akaike, H. (1974), "A new look at the statistical model identification", IEEE Transactions on Automatic Control, 19 (6): 716–723.<font>
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - III
+
+No caso dos modelos de regressão linear, cujos parâmetros são estimados usando
+MQO, a representação do _AIC_ é
+
+$$AIC=n\ln\left(\frac{SQ_{Res}}{n}\right)+2p.$$
+> No cenário normal, o $AIC$ é equivalente ao $C_p$ de Mallows.
+
+
+* **Critério de informação Bayesiano ou de Schwarz**: O _BIC_ é uma variante do 
+_AIC_ proposta por Schwarz(1978)<sup>1</sup>. No cenário de MQO,
+  $$BIC=n\ln\left(\frac{SQ_{Res}}{n}\right) +p\ln n.$$
+Assim como o $AIC$, quanto menor for $SQ_{Res}$ menor será o valor do $BIC$ 
+e quanto menor for $p$ menor o valor do $BIC$. Dessa forma também queremos
+modelos com medida $BIC$ pequenas.
+
+<font size="3"><sup>1</sup>Schwarz, Gideon E. (1978), "Estimating the dimension of a model", Annals of Statistics, 6 (2): 461–464.<font>
+
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - IV
+
+#### Métodos de seleção passo-a-passo
+
+Os métodos da seleção passo-a-passo são recomendados para realizar a seleção do 
+modelo quando o número de modelos possı́veis é muito grande e a comparação entre
+pode ser realizada de forma automática. Entre esse tipo de métodos temos:
+
+* **Método de inclusão progressiva (_Forward_)**: Suponha que temos $p$ covariáveis
+para realizar o ajuste do modelo. 
+
+a. Ajuste os $p$ modelos lineares simples para cada uma das $p$ covariáveis.
+Para cada modelo ajustado avalie a significância dos parâmetros estimados.
+Se nenhum parâmetro for significativo, nenhuma variável será incluı́da no
+modelo e paramos o procedimento. Caso contrário, se algum parâmetro for 
+significativo, inclui-se no modelo. Denotemos por $x_{(1)}$;
+
+b. No próximo passo ajuste todos os modelos com duas covariáveis, sendo uma 
+delas $x_{(1)}$. Para cada modelo ajustado avalie a significância dos parâmetros
+para determinar qual covariável deve ser incluída no modelo. Se nenhum parâmetro
+for significativo paramos o procedimento e o modelo final é da forma
+
+$$y=\widehat{\beta}_0+\widehat{\beta}_1x_{(1)}.$$
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - IV
+
+c. Caso contrário, se algum parâmetro for significativo, inclui-se no modelo. 
+Denotemos por $x_{(2)}$. O modelo final é da forma
+
+$$y=\widehat{\beta}_0+\widehat{\beta}_1x_{(1)}+\widehat{\beta}_2x_{(2)}.$$
+O algoritmo continua até que todas as variáveis sejam incluı́das no modelo ou até
+que nenhum outro parâmetro for significativo.
+
+
+* **Método de eliminação progressiva (_Backward_)**: Suponha que temos $p$ 
+covariáveis para realizar o ajuste do modelo. 
+
+a. Ajuste modelo linear completo com todas as covariáveis. Avalie a significância 
+dos parâmetros estimados. Se todos os parâmetros são significativos, nenhuma 
+variável será eliminada e paramos o procedimento. Caso contrário, se algum
+parâmetro não for significativo, elimine a covariável correspondente ao parâmetro
+com maior valor p;
+
+b. Ajuste um novo modelo com as covariáveis que restaram e novamente verifique
+a significância dos parâmetros.
+
+O algoritmo continua até que todas as variáveis sejam eliminadas do modelo ou até
+que todos os parâmetros sejam significativos.
+
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - V
+
+#### Regressão Lasso
+
+Proposto por Tibshirani(1996)<sup>1</sup>, o objetivo é encontrar um estimador 
+do vetor $\beta$ com menor variância que o de mínimos quadrados.
+
+O estimador Lasso é obtido como
+
+$$\widehat{\beta}_{Lasso}=\arg\min_\beta\sum_{i=1}^n\left(Y_i-\beta_0\sum_{j=1}^k\beta_jx_{ij}\right)^2+\lambda\sum_{j=1}^k|\beta_j|,$$
+onde $\lambda\ge0$ é chamado de parâmetro de sintonização (_tuning parameter_),
+Quando $\lambda$ é muito grande, o estimador dado pelo Lasso tem variância próxima 
+de zero, mas um viés muito grande. A escolha de $\lambda$ é em geral feita por 
+métodos de [validação cruzada](https://web.archive.org/web/20110905044421/http://www.public.asu.edu/~ltang9/papers/ency-cross-validation.pdf).
+
+Note que, a solução induzida pela equação acima possui muitos zeros (i.e., o 
+vetor $\widehat{\beta}_{Lasso}$ é esparso). Assim, a regressão Lasso pode ser útil
+para selecionar covariáveis no modelo.
+
+
+
+<font size="3"><sup>1</sup>Tibshirani, R. (1996). Regression shrinkage and 
+selection via the lasso. Journal of the Royal Statistical Society: Series B 
+(Methodological), 58(1), 267–288.<font>
+
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - VI
+
+#### Regressão Ridge
+
+Proposta por Hoerl e Kennard(1970)<sup>1</sup>, a regressão ridge tem como 
+objetivo reduzir a variância do estimador de mínimos quadrados do vetor
+$\beta$, quando as colunas da matriz $\mathbf{X}$ não são ortogonais.
+Dessa forma, o estimador de $\beta$ é dado por
+
+$$\widehat{\beta}_R=\left(\mathbf{X}'\mathbf{X}+\lambda\mathbf{I}_0\right)^{-1}\mathbf{X}'Y,$$
+onde $\mathbf{I}_0$ é uma matriz "identidade" modificada cujo elemento na primeira
+linha e primeira coluna é igual a zero.
+
+> Uma outra forma funcional para encontrar o estimador ridge do vetor $\beta$ é 
+dada por
+
+$$\widehat{\beta}_R=\arg\min_\beta\sum_{i=1}^n\left(Y_i-\beta_0-\sum_{j=1}^k\beta_jx_{ij}\right)^2+\lambda\sum_{j=1}^k\beta_j^2.$$
+Apesar da variância da regressão ridge ser menor, seu viés é maior. 
+Assim, $\lambda$ deve ser escolhido de modo a controlar o balanço entre viés e
+variância. 
+
+
+<font size="3"><sup>1</sup>Hoerl, A. E. & Kennard, R. W. (1970). Ridge regression: 
+Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55–67.<font>
+
+
+---
+class: animated, slideInRight
+
+### Seleção adequada das covariáveis - IV
+
+#### Regressão Elastic Net
+
+Proposta por Zou e Hastie(2005)<sup>1</sup>, a regressão Elastic Net estende a 
+ideia da regressão Lasso adicionando um termo quadrático de penalidade, tal que
+
+$$\widehat{\beta}_{EN}=\arg\min_\beta\sum_{i=1}^n\left(Y_i-\beta_0\sum_{j=1}^k\beta_jx_{ij}\right)^2+\lambda_1\sum_{j=1}^k|\beta_j|+\lambda_2\sum_{j=1}^k\beta_j^2.$$
+Quando $p>n$ (o número de covariáveis é maior que o tamanho da amostra) a 
+regressão Lasso pode selecionar apenas $n$ covariáveis e tende a selecionar 
+uma covariável de qualquer conjunto de covariáveis altamente correlacionadas. 
+Além disso, mesmo quando $n>p$, a regressão ridge tende a ter um desempenho 
+melhor dadas as covariáveis fortemente correlacionadas. Portanto, o resultado 
+da penalidade da regessão Elastic Net rede é uma combinação dos efeitos das 
+penalidades da regressões Lasso e Ridge.
+
+
+
+<font size="3"><sup>1</sup>Zou, H. and Hastie, T. (2005). "Regularization and Variable Selection via the Elastic Net". Journal of the Royal Statistical Society. Series B (statistical Methodology). Wiley. 67 (2): 301–20.<font>
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=TRUE,results='hide'}
+set.seed(12345)
+n <- 100 
+x1 <- rnorm(n) 
+x2 <- rnorm(n) 
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+summary(fit <- lm(y ~ x1 + x2 + x3))
+```
+
+```{r, echo=TRUE}
+# Determinante da matrix X'X
+one <- rep(1,n)
+X <- cbind(one,x1,x2,x3)
+det(t(X)%*%X)
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=FALSE}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+fit <- lm(y ~ x1 + x2 + x3)
+summary(fit)
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=FALSE}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+fit <- lm(y ~ x1 + x2)
+summary(fit)
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=TRUE}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+cat("Resultados usando o pacote MASS\n")
+fit <- MASS::lm.ridge(y ~ x1 + x2 + x3,lambda=.1)
+coef(fit)
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=TRUE,fig.show='hide'}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+lambdas = 10^seq(3, -2, by = -.1)
+X <- cbind(x1,x2,x3)
+cvfit <- glmnet::cv.glmnet(X, y, alpha = 0, lambda = lambdas)
+plot(cvfit)
+melhor_lambda <- cvfit$lambda.min ### Melhor lambda
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=FALSE,fig.align='center'}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+lambdas = 10^seq(3, -2, by = -.1)
+X <- cbind(x1,x2,x3)
+cvfit <- glmnet::cv.glmnet(X, y, alpha = 0, lambda = lambdas)
+plot(cvfit)
+melhor_lambda <- cvfit$lambda.min ### Melhor lambda
+```
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=TRUE,results='hide'}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+lambdas = 10^seq(3, -2, by = -.1)
+X <- cbind(x1,x2,x3)
+cat("Resultados usando o pacote glmnet\n")
+cat("Melhor lambda: ", melhor_lambda)
+fit <- glmnet::glmnet(X,y,alpha=0,lambda=melhor_lambda)
+coef(fit)
+
+cat("Resultados usando o pacote ridge\n")
+out <- ridge::linearRidge(y ~ x1 + x2 + x3,lambda="automatic")
+coefficients(out)
+```
+
+
+
+---
+class: animated, slideInRight
+
+### Exemplo: Multicolinearidade
+
+```{r, echo=FALSE}
+set.seed(12345)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- (x1+x2)/2
+y <- 5 + 2*x1 + 4*x2 + rnorm(n)
+lambdas = 10^seq(3, -2, by = -.1)
+X <- cbind(x1,x2,x3)
+cat("Resultados usando o pacote glmnet\n")
+cat("Melhor lambda: ",melhor_lambda)
+fit <- glmnet::glmnet(X,y,alpha=0,lambda=melhor_lambda)
+coef(fit)
+
+cat("Resultados usando o pacote ridge\n")
+out <- ridge::linearRidge(y ~ x1 + x2 + x3,lambda="automatic")
+coefficients(out)
+```
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib, .opts = list(check.entries = FALSE))
+```
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+> <span style="color:grey">O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5<sup>o</sup>, inciso XXVII, da Constituição Federal
+e os Artigos 7<sup>o</sup> e 28<sup>o</sup>, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184<sup>o</sup>, §1<sup>o</sup> a 3<sup>o</sup>, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.</span>
+
+.pull-left[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_lecon.png")
+```
+]
+.pull-right[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_neaest.png")
+```
+]
+<br></br>
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &emsp; &emsp;  &emsp; &emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+<font size="2"><span style="color:grey">Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.</span></font>
