@@ -17,6 +17,10 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 # Tópicos em Estatística
 
+### Análise exploratória
+
+* [Estatística aplicada às ciências sociais I](https://bit.ly/3GZgkuz)
+
 ### Inferência Estatística
 
 * [Inferência Estatística I](https://bit.ly/3jxUsLV) (*Em construção*)
@@ -62,6 +66,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Silge, J. and Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
 - Skiena, S. (2017) [The Data Science Design Manual](https://drive.google.com/file/d/126LDK3z2GcvlJC0Fi_wcPYMrjbkqZUbh/view){:target="_blank"}.
 
+- Bargagliotti, A. and Franklin, C. (2021) [Statistics and Data Science for Teachers](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook.pdf){:target="_blank"}. Versão para [impressão](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook-highres.pdf){:target="_blank"}.
 
 ### Outras referências
 - Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Githug repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
