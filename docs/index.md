@@ -35,6 +35,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ### Referências
 
+- Bargagliotti, A. and Franklin, C. (2021) [Statistics and Data Science for Teachers](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook.pdf){:target="_blank"}. Versão para [impressão](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook-highres.pdf){:target="_blank"}.
 - Baumer, B. S., Kaplan, D. T. and Horton, N. J. (2021) [Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/){:target="_blank"}. 
 - Blum, A., Hopcroft, J. and Kannan, R. (2019) [Foundations of Data Science](https://www.cs.cornell.edu/jeh/book%20no%20so;utions%20March%202019.pdf){:target="_blank"}.
 - Bruce, P. and Bruce, A. (2017) [Practical Statistics for Data Scientists](https://drive.google.com/file/d/1qzAxnbceWs4z4ABClf0rS8IUq-MZkC1M/view){:target="_blank"}.
@@ -66,7 +67,6 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Silge, J. and Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
 - Skiena, S. (2017) [The Data Science Design Manual](https://drive.google.com/file/d/126LDK3z2GcvlJC0Fi_wcPYMrjbkqZUbh/view){:target="_blank"}.
 
-- Bargagliotti, A. and Franklin, C. (2021) [Statistics and Data Science for Teachers](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook.pdf){:target="_blank"}. Versão para [impressão](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook-highres.pdf){:target="_blank"}.
 
 ### Outras referências
 - Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Githug repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
