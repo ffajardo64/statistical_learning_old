@@ -1,0 +1,587 @@
+---
+title: "STA13820 - Inferência Estatística I"
+subtitle: "Amostragem e distribuições amostrais"
+author: "<br/><br/>"
+institute: "LECON/DEST - UFES"
+date: "Vitória. ES - `r format(Sys.Date(), format='%d/%m/%Y')`"
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    css: [xaringan-themer.css, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9' 
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+[//]: <> (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: <> (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: <> (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: <> (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: <> (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: <> (https://github.com/yihui/xaringan/issues/26)
+class: animated, fadeIn
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer); library(dplyr); library("DT"); library(plotly) #library(icons)
+style_mono_light(base_color = "#23395b")
+```
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+```{r, load_refs, include=FALSE, cache=FALSE}
+library("RefManageR"); library("bibtex")
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("ref_ementa.bib", check = FALSE)
+```
+
+<style> body {text-align: justify} </style> <!-- Justify text. -->
+
+### Algumas definições básicas - I
+
+* **Definição 1.** *População alvo* é o conjunto de unidade experimentais.
+
+* **Definição 2.** Uma *amostra aleatória* define-se como uma sequência 
+de variáveis aleatórias $X_1,X_2,\ldots,X_n$ independentes e 
+identicamente distribuidas.
+
+> **Observação**: Se as variáveis aleatórias (va's) $X_1,X_2,\ldots,X_n$
+são contínuas e sua função de densidade conjunta é dada por
+$$f_X(x_1,x_2,\ldots,x_n)=f(x_1)f(x_2)\cdots f(x_n)=\prod_{i=1}^nf(x_i),$$
+então $f(\cdot)$ é a função de densidade marginal para cada $X_i$, onde
+$i=1,2,3,\ldots,n$.
+
+* **Definição 3.** Seja $X_1,X_2,\ldots,X_n$ uma amostra aleatória de 
+tamanho $n$. A *distribuição da amostra* define-se como a distribuição 
+conjunta da sequência de variáveis aleatórias.
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - II
+
+* **Definição 4.** Seja $\Omega$ qualquer conjunto com elementos 
+$\omega$ e $A$ um subconjunto de $\Omega$. A *Função Indicadora* de 
+um conjunto $A$ define-se tal que 
+
+  $$\mathbb{I}_A(\omega)=\begin{cases}1, & \text{se } \omega\in A;\\\
+  0, & \text{se } \omega\notin A. \end{cases}$$ 
+ - **Propriedades.** Seja $\Omega$ qualquer conjunto com elementos 
+$\omega$ e $A, A_1,A_2,\ldots,A_n$ uma sequência de subconjuntos de $\Omega$.
+Temos que:
+      - $\mathbb{I}_A^2(\omega)=\mathbb{I}_A(\omega)$;
+      - $\mathbb{I}_A(\omega)=1-\mathbb{I}_{A^c}(\omega)$, onde $A^c$ é
+      o complementar de $A$;
+      - $\mathbb{I}_{A_1\cap A_2}(\omega)=\min\{\mathbb{I}_{A_1}(\omega),\mathbb{I}_{A_2}(\omega)\}$. Em geral, $\mathbb{I}_{A_1\cap A_2\cap\cdots\cap A_n}(\omega)=\mathbb{I}_{A_1}(\omega)\mathbb{I}_{A_2}(\omega)\cdots\mathbb{I}_{A_n}(\omega)$;
+      - $\mathbb{I}_{A_1\cup A_2}(\omega)=\max\{\mathbb{I}_{A_1}(\omega),\mathbb{I}_{A_2}(\omega)\}=\mathbb{I}_{A_1}(\omega)+\mathbb{I}_{A_2}(\omega)-\mathbb{I}_{A_1}(\omega)\mathbb{I}_{A_2}(\omega)$. Em geral, temos que $\mathbb{I}_{A_1\cup A_2\cup\cdots\cup A_n}(\omega)=\max\left\{\mathbb{I}_{A_1}(\omega),\mathbb{I}_{A_2}(\omega),\cdots,\mathbb{I}_{A_n}(\omega)\right\}$;
+      - $\mathbb{I}_{A_1\Delta A_2}(\omega)=\left(\mathbb{I}_{A_1}(\omega)-\mathbb{I}_{A_2}(\omega)\right)^2$, onde $A_1\Delta A_2$ representa a diferença simétrica entre $A_1$ e $A_2$.
+
+> **<span style="color:#8f0e04">Exercício.</span>** Verifique todas 
+as propiedades acima.
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - III
+
+#### Exemplo I
+
+Seja $X$ uma variável aleatória de uma população com densidade $f(\cdot)$
+e se seja $X_1,X_2$ uma amostra aleatória de tamanho $2$.
+Por definição, a distribuição conjunta de $X_,X_2$ é dada por
+$$f_{X_1,X_2}(x_2,x_2)=f(x_1)f(x_2).$$
+Suponha que $X$ é uma variável aleatória de uma população com 
+distribuição Bernoulli com parâmetro $p$, ou seja
+$$\mathbb{P}\left[X=x\right]=p^x(1-p)^{1-x}\mathbb{I}_{\{0,1\}}(x).$$
+Dessa forma,
+
+<div class="math">
+  \begin{align*}
+    \mathbb{P}\left[X_1=x_1,X_2=x_2\right]&=\mathbb{P}[X_1=x_1]\mathbb{P}[X_2=x_2]
+    =p^{x_1}(1-p)^{1-x_1}p^{x_2}(1-p)^{1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2)\\
+    &=p^{x_1+x_2}(1-p)^{2-x_1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2).
+  \end{align*}
+</div>
+
+---
+class: animated, fadeIn
+
+### Algumas definições básicas - III
+  
+> **Observação**: Note que a distribuição da amostra é diferente da 
+distribuição do número de sucessos, i.e., a natureza probabilística
+de $Y=X_1+X_2$ é dada por
+$$\mathbb{P}[Y=y]=\binom{2}{y}p^y(1-p)^{2-y}\mathbb{I}_{\{0,1,2\}}(y).$$
+Observe que, no primeiro caso, $\mathbb{P}[X_1=x_1, X_2=x_2]$ representa
+a distribuição da amostra na ordem da coleta, i.e., 
+$\mathbb{P}[X_1=0,X_2=1]$ é a probabilidade de coletar primeiro $0$ e
+depois $1$.
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - IV
+
+#### Tipos de convergência
+
+* **Definição 5.** Uma sequência $X_1,X_2,\ldots,X_n$ de variáveis 
+aleatórias *converge em probabilidade* para uma variável aleatória $X$ 
+se, para todo $\epsilon>0$,
+$$\lim_{n\to\infty}\mathbb{P}\left[\left|X_n-X\right|\ge0\right]=0.$$
+Denotamos $X_n\overset{p}{\longrightarrow}X.$
+
+* **Definição 6.** Uma sequência $X_1,X_2,\ldots,X_n$ de variáveis 
+aleatórias *converge quase-certamente* para uma variável aleatória $X$ 
+se 
+$$\mathbb{P}\left[\lim_{n\to\infty} X_n=X\right]=1.$$
+Denotamos $X_n\overset{q.c}{\longrightarrow}X.$
+
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - V
+
+#### Tipos de convergência
+
+* **Definição 7.** Uma sequência $X_1,X_2,\ldots$ de variáveis 
+aleatórias *converge em distribuição* para uma variável aleatória $X$ 
+se
+$$\lim_{n\to\infty}F_n(x)=F(x),$$
+para todo $x\in\mathbb{R}$ no qual $F$ é contínua. As funções $F_n$ e 
+$F$ são as funções de distribuição acumulada das variáveis aleatórias
+$X_n$ e $X$, respectivamente. Denotamos $X_n\overset{d}{\longrightarrow}X.$
+
+
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Estatísticas e Momentos Amostrais
+
+
+---
+class: animated, fadeIn
+
+###  Momentos amostrais - I
+No estudo de populações com densidade $f(\cdot;\theta)$, onde a forma
+analítica da densidade é conhecida, mas depende de um parâmetro 
+desconhecido, é um problema muito comum na **Estatística**.
+
+Um caminho para solucionar o problema é coletar uma smotra de tamanho
+$n$ e encontrar uma função da amostra que permita aproximar ou estimar 
+o verdadeiro valor do parâmetro $\theta$.
+
+--
+
+> **Objetivo:** Nosso interesse é determinar a "melhor" função que permita <b>estimar</b>
+o parâmetro $\theta$, usando a informação proporcionada pela amostra.
+
+--
+
+* **Definição 5.** Uma **Estatística** é uma função de variáveis 
+aleatórias (observáveis), a qual é variável aleatória e não depende de
+parâmetros desconhecidos.
+
+  **Exemplos:** Sendo $X, X_1,X_2,\ldots,X_n$ variáveis aleatórias, então
+  $$X,\, X^2,\, X+ 3,\, X+\log X,\, \frac1n\sum_{i=1}^nX_i,\, \min\{X_1,X_2,\ldots,X_n\},$$
+  são *Estatísticas*.
+
+  > Funções do tipo $X-\mu, \, \frac{X}{\sigma}, \,X+\log \theta$ não
+  são consideradas *Estatísticas*.
+
+
+---
+class: animated, slideInRight
+
+### Momentos amostrais - II
+* **Definição 5.** Seja $X_1,X_2,\ldots,X_n$ uma amostra aleatória
+de uma população com função de densidade de probabilidade (ou função
+de probabilidade de massa),
+denotada por $f(\cdot;\theta)$<sup><font size="3">1</font></sup>.
+
+O $r$-ésimo momento amostral em torno de zero define-se como
+
+$$M_r'=\frac1n\sum_{i=1}^nX_i^r.$$
+> O $r$-ésimo momento amostral em torno da média amostral define-se como
+
+$$M_r=\frac1n\sum_{i=1}^n\left(X_i-M_1'\right)^r=\frac1n\sum_{i=1}^n\left(X_i-\bar{X}\right)^r.$$
+
+***
+
+<font size="4">Tanto para o caso contínuo, quanto para o caso discreto
+usaremos a mesma notação, pois as definições podem ser aplicadas da 
+mesma em ambos contextos.</font>
+
+---
+class: animated, fadeIn
+
+### Momentos amostrais - III
+
+* **Teorema 1.** Seja $X_1,X_2,\ldots,X_n$ uma amostra aleatória
+de uma população com função de densidade de probabilidade $f(\cdot;\theta)$.
+O valor esperado do $r$-ésimo momento amostral (em torno de zero) é 
+igual ao $r$-ésimo momento populacional (se existe), ou seja
+
+$$\mathbb{E}M_r'=\mathbb{E}\left[\frac1n\sum_{i=1}^nX_i^r\right]=\frac1n\sum_{i=1}^n\mathbb{E}\left[X_r'\right]=\mathbb{E}\left[X_r'\right]=\mu_r'.$$
+> **Observação:** No caso da variância, a mesma tem a seguinte forma
+analítica
+
+$$\mathrm{var}\left[M_r'\right]=\mathrm{var}\left[\frac1n\sum_{i=1}^nX_i^r\right]=\frac{1}{n^2}\sum_{i=1}^n\mathrm{var}\left[X_i^r\right]=\frac1n\left[\mathbb{E}X^{2r}-\left(\mathbb{E}X^r\right)^2\right].$$
+* **Corolario 1.** Seja $X_1,X_2,\ldots,X_n$ uma amostra aleatória
+de uma população com função de densidade de probabilidade $f(\cdot;\theta)$.
+Seja $\bar{X}_n=\bar{X}=\frac1n\sum_{i=1}^nX_i$ a média amostral, então
+$\mathbb{E}\bar{X}=\mathbb{E}X=\mu$ e 
+
+<div class="math">
+  \begin{align*}
+    \mathrm{var}\left[\bar{X}\right]&=\frac1n\left[\mathbb{E}X^2-\left(\mathbb{E}X\right)^2\right]=\frac1n\sigma^2.
+  \end{align*}
+</div>
+
+---
+class: animated, fadeIn
+
+### Momentos amostrais - IV
+* **Definição 7.** Seja $X_1,X_2,\ldots,X_n$  uma amostra aleatória
+de uma população com função de densidade de probabilidade $f(\cdot;\theta)$.
+A *variância amostral* define-se como:
+$$S^2=\frac{1}{n-1}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2, \quad n>1.$$
+
+> **<span style="color:#8f0e04">Exercício.</span>** Mostre que 
+$\mathbb{E}\left[S^2\right]=\sigma^2$ e 
+$$\mathrm{var}\left[S^2\right]=\frac1n\left(\mu_4-\frac{n-3}{n-1}\sigma^4\right), \quad n>1,$$
+onde $\mu_r = \mathbb{E}[X-\mu]^r$.
+
+---
+class: animated, fadeIn
+
+### Exemplo II
+Considere um estudo cujo objetivo é avaliar como a distância com que motoristas 
+conseguem distinguir um determinado objeto varia com a idade. 
+Nesse caso, a variável <ins>resposta</ins> é a distância e a variável 
+<ins>explicativa</ins> é a idade. (Tomado de: Morettin & Singer(2020) 
+[*Introdução à Ciência de Dados: Fundamentos e aplicações*.](https://bityli.com/ahLca)).
+
+.pull-left[
+* O gráfico de dispersão sugere uma tendência decrescente da distância com a idade;
+
+* Como a resposta para motoristas com a mesma idade (ou com idades bem
+próximas) varia, o foco da análise é a estimação de uma tendência média;
+ 
+* O objetivo da análise de regressão é quantificar essa tendência.
+]
+
+---
+class: animated, slideInRight
+
+### Recursos computacionais 
+
+Ao longo da disciplina usaremos preferencialmente a linguagem `R`. O repositório
+de pacotes está disponível no site do [projeto R](ohttp://CRAN.R-project.org).
+Dentre os pacotes estatı́sticos disponı́veis na linguagem R, aqueles mais
+utilizados neste texto são: `car`, `stats`, `MASS`, `e1071`, `forecast`, `ggplot2`, 
+`caret`, `robust`, `glmnet`, `Lars`, entre outros. As funções de cada pacote 
+necessárias para a realização das análises serão indicadas ao longo da disciplina.
+
+```{r, out.width='25%', fig.align='center', echo=FALSE}
+knitr::include_graphics("https://www.r-project.org/Rlogo.png")
+```
+
+> Sugere-se a leitura do livro [`r Citet(myBib, "fox2019")` An R Companion to Applied Regression. 3rd Edition](https://bityli.com/gTnsQ).
+
+---
+class: animated, bounceInDown
+
+### Notação
+
+* **Variável resposta**: A variável $Y$ será denotada como
+
+<div class="math">
+\[Y=
+\left[
+\begin{array}{c}
+Y_1 \\
+Y_2 \\
+\vdots\\
+Y_n
+\end{array}
+\right]_{n\times1}=[Y_1,Y_2,\ldots,Y_n]'
+\]
+</div>
+
+* **Variáveis explicativas**: As variáveis explicativas serão denotadas como
+
+<div class="math">
+\[\textbf{X}=
+\left[
+\begin{array}{ccccc}
+1&x_{11}&x_{12}&\cdots&x_{1k} \\
+1&x_{21}&x_{22}&\cdots&x_{2k} \\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+1&x_{n1}&x_{n2}&\cdots&x_{nk} \\
+\end{array}
+\right]_{n\times (k+1)}=[\mathbf{1} \quad \mathbf{x}_1\quad\cdots\quad \mathbf{x}_k], \qquad
+\textbf{X}_1=
+\left[\mathbf{x}_1\quad\cdots\quad \mathbf{x}_k\right],
+\]
+</div>
+
+onde $\mathbf{x}_j$ representa o $j$-ésimo vetor coluna da matriz.
+
+> Para detalhes, `r Citet(myBib, "searle2017")`.
+
+
+---
+class: animated, fadeIn
+
+### Modelo de regressão linear
+Consideremos o modelo de regressão linear dado por
+$$Y=f(\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_k)+\mathbf{\epsilon},$$
+onde $f(\cdot)$ é uma função desconhecida. O objetivo será estudar a relação entre
+a variável dependente e as variáveis independentes, i.e., estimar a função $f$.
+
+Dessa forma, para estimar a função $f$ são necessárias um conjunto de suposições 
+a respeito da natureza do dados, a seguir:
+
+**A1.** O modelo é linear, i.e. $Y=\beta_0\mathbf{1}+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k+\mathbf{\epsilon}$;
+
+--
+
+**A2.** A matriz de regressores tem posto coluna completo;
+
+--
+
+**A3.** Exogeneidade das variáveis independentes, i.e. $\mathbb{E}[\mathbf{\epsilon}|\mathbf{X}]=\mathbf{0}$;
+
+--
+
+**A4.** Esfericidade dos erros, i.e. $\mathbb{E}[\mathbf{\epsilon\epsilon}'|\mathbf{X}]=\sigma^2\mathbf{I}$;
+
+--
+
+**A5.** Os erros são normalmente distribuidos, i.e. $\mathbf{\epsilon|\mathbf{X}}$ segue uma distribuição
+normal multivariada com vetor de médias $\mathbf{0}$ e matriz de covariâncias $\sigma^2\mathbf{I}$.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# A1. Linearidade
+
+
+---
+class: animated, slideInRight
+
+## A1. Linearidade
+Ao longo da disciplina assumiremos que o modelo é linear, tal que
+
+$$Y=\mathbf{X}\mathbf{\beta}+\mathbf{\epsilon}$$
+ou
+$$Y=\beta_0\mathbf{1}+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k+\mathbf{\epsilon}$$
+ou
+
+<div class="math">
+\[\left[
+\begin{array}{c}
+Y_1 \\
+Y_2 \\
+\vdots\\
+Y_n
+\end{array}
+\right]_{n\times1}=
+\left[
+\begin{array}{ccccc}
+1&x_{11}&x_{12}&\cdots&x_{1k} \\
+1&x_{21}&x_{22}&\cdots&x_{2k} \\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+1&x_{n1}&x_{n2}&\cdots&x_{nk} \\
+\end{array}
+\right]_{n\times (k+1)}
+\left[
+\begin{array}{c}
+\mathbf{\beta}_0 \\
+\mathbf{\beta}_1 \\
+\vdots\\
+\mathbf{\beta}_k
+\end{array}
+\right]_{(k+1)\times1}+
+\left[
+\begin{array}{c}
+\mathbf{\epsilon}_1 \\
+\mathbf{\epsilon}_2 \\
+\vdots\\
+\mathbf{\epsilon}_n
+\end{array}
+\right]_{n\times1}.
+\]
+</div>
+
+A $i$-ésima equação simultânea é dada por
+
+$$Y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_kx_{ik}+\epsilon_i, \qquad i=1,2,\ldots,n.$$
+---
+class: animated, bounceInDown
+### Interpretação do termo "Linear"
+
+O termo "<em>linear</em>" pode ser interpretado de duas maneiras:
+
+* **Linearidade nas variáveis**:  a linearidade em termos das variáveis sugere 
+que a função de regressão é do tipo
+
+$$r(\mathbf{x})=\mathbb{E}[\mathbf{Y}|\mathbf{X}=\mathbf{x}]=\beta_0+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k.$$
+Em particular, para $k=1$
+$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\beta_1x_i, \quad i=1,2,\ldots,n$$
+a função de regressão é uma <ins>reta</ins>.
+
+De acordo com essa interpretação, funções de regressão do tipo
+
+$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\beta_1x^2_i, \quad i=1,2,\ldots,n$$
+não são funções lineares, pois a covariável $x_i$ é quadrática.
+
+
+---
+class: animated, fadeIn
+### Interpretação do termo "Linear"
+
+* **Linearidade nos parâmetros**:  A diferença com a interpretação anterior, as 
+covariáveis não são necessariamente lineares, por exemplo, mesmo que as 
+covariáveis sejam quadráticas, a função de regressão é linear.
+
+Em particular, para $k=1$
+$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\beta_1x^2_i, \quad i=1,2,\ldots,n$$
+a função de regressão é uma função <ins>linear</ins>. Mas, a função
+
+$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\sqrt{\beta_1}x_i, \quad i=1,2,\ldots,n$$
+não é uma função de regressão linear. Este último caso é classificado no conjunto
+de funções de regressão não-lineares.
+
+>Das duas interpretações, a **linearidade nos parâmetros** é considerada a mais 
+relevante para o desenvolvimento teórico que nos interessa. Dessa forma, de agora
+em diante, o termo <em>regressão linear</em> será relativo a uma <ins>regressão
+linear nos parâmetros</ins>.
+
+
+---
+class: animated, lightSpeedIn
+###  Termo de erro (ou perturbação estocástica) - I
+
+Considere o modelo linear dado por
+
+$$Y=\mathbf{X}\mathbf{\beta}+\mathbf{\epsilon},$$
+o vetor de erros $\mathbf{\epsilon}$ considera-se uma variável aleatória 
+**não-observável** e de certa forma considera-se um substituto daquelas 
+variáveis "omitidas" no modelo que certamente afetam o vetor $Y$.
+Essa "omissão" de variáveis pode ser causada, entre outras coisas, por 
+
+* *indisponibilidade de dados*: as vezes não é possível dispor das informações 
+que idealmente gostariamos de ter no modelo, mesmo sabendo da relevância de
+certas covariáveis; 
+
+* *considerar uma forma funcional errada*: mesmo que tenhamos as variáveis 
+teoricamente certas para explicar um fenômeno, muitas vezes podemos assumir um
+formato funcional errado. Por exemplo: No modelo de uma covariável,
+a forma funcional correta pode ser dada por $Y_i=\beta_0+\beta_1x_i+\epsilon_i$, 
+$i=1,2,\ldots,n$, mas o pesquisador pode assumir 
+$Y_i=\beta_0+\beta_1x_i+\beta_2x^2_i+\epsilon_i$. Nesse contexto, parece evidente
+avaliar a forma funcional usando um diagrama de dispersão, mas em modelos que
+envolvem mais covariáveis não é simples determinar o formato funcional graficamente,
+dada a limitação na visualização de diagramas de dispersão em múltiplas dimensões.
+
+---
+class: animated, fadeIn
+### Termo de erro (ou perturbação estocástica) - II
+
+* *Princípio da parcimônia*: Este princípio sugere que 
+**modelos mais simples devem ser escolhidos** em detrimento dos mais complexos,
+desde que a qualidade do ajuste seja similar. É claro que devemos evitar excluir 
+variáveis importantes apenas para manter um modelo simples.
+
+
+```{r, out.width='70%', fig.align='center', echo=FALSE}
+knitr::include_graphics("images/overfitting.png")
+```
+
+> Quando avaliamos a qualidade de um ajuste, a utilização exclusiva do termo de 
+erro pode levar a resultados enganosos. Um "bom" modelo não pode sofrer de 
+_underfitting_ (subajuste) nem de overfitting (sobreajuste). Nesse último, o
+modelo se ajusta muito bem aos dados, mas o seu desempenho para previsão é ruim.
+
+
+---
+class: animated, fadeIn
+
+###  Termo de erro (ou perturbação estocástica) - III
+.pull-left[
+#### Underfitting
+
+Neste cenário o desempenho do modelo já é <ins>ruim</ins> no próprio treinamento. 
+O modelo não consegue encontrar relações entre as variáveis e o teste nem precisa 
+acontecer. Este modelo já pode ser **descartado**, pois não terá utilidade.
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+knitr::include_graphics("images/underfitting.png")
+```
+]
+
+--
+
+.pull-right[
+#### Overfitting
+Neste cenário, o modelo tem um desempenho excelente com os dados de *treino*, 
+porém quando utilizamos os dados de *teste* o resultado é <ins>ruim</ins>. 
+É comum ouvirmos que neste cenário o modelo *treinado* não tem capacidade de 
+*generalização*.
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+knitr::include_graphics("images/overfitting2.png")
+```
+
+]
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib, .opts = list(check.entries = FALSE))
+```
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+> <span style="color:grey">O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5<sup>o</sup>, inciso XXVII, da Constituição Federal
+e os Artigos 7<sup>o</sup> e 28<sup>o</sup>, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184<sup>o</sup>, §1<sup>o</sup> a 3<sup>o</sup>, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.</span>
+
+.pull-left[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_lecon.png")
+```
+]
+.pull-right[
+```{r, out.width='50%', fig.align='center', fig.cap='',echo=FALSE}
+knitr::include_graphics("images/logo_neaest.png")
+```
+]
+<br></br>
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &emsp; &emsp;  &emsp; &emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+<font size="2"><span style="color:grey">Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.</span></font>
