@@ -12,7 +12,7 @@ description: Repositório com material sobre teoria estatística, estimação po
 * **Programa da disciplina** [STA13820 - Inferência Estatística I](https://estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13820_inferencia_estatistica_i_0.pdf){:target="_blank"}
 
 ### Tópicos
-- [Momentos amostrais](https://bit.ly/3jviHfA){:target="_blank"}
+- [Momentos amostrais](https://bit.ly/3omMCYG){:target="_blank"}
 - [Tipos de convergência](https://bit.ly/3jviHfA){:target="_blank"}
 - [Lei dos grandes números e Teorema central do limite](https://bit.ly/3jviHfA){:target="_blank"}
 - [Distribuições amostrais](https://bit.ly/3jviHfA){:target="_blank"}
