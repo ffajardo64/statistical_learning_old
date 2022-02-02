@@ -158,9 +158,6 @@ para todo $x\in\mathbb{R}$ no qual $F$ é contínua. As funções $F_n$ e
 $F$ são as funções de distribuição acumulada das variáveis aleatórias
 $X_n$ e $X$, respectivamente. Denotamos $X_n\overset{d}{\longrightarrow}X.$
 
-
-
-
 ---
 class: inverse, hide-logo, middle, center
 
