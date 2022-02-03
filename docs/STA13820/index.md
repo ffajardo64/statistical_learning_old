@@ -13,9 +13,9 @@ description: Repositório com material sobre teoria estatística, estimação po
 
 ### Tópicos
 - [Momentos amostrais](https://bit.ly/3omMCYG){:target="_blank"}
-- [Tipos de convergência](https://bit.ly/3jviHfA){:target="_blank"}
-- [Lei dos grandes números e Teorema central do limite](https://bit.ly/3jviHfA){:target="_blank"}
-- [Distribuições amostrais](https://bit.ly/3jviHfA){:target="_blank"}
+- [Aula 2](https://bit.ly/3jviHfA){:target="_blank"}
+- [Aula 3](https://bit.ly/3jviHfA){:target="_blank"}
+- [Aula 4](https://bit.ly/3jviHfA){:target="_blank"}
 
 
 ### Referências

@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Amostragem e distribuições amostrais
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória. ES - 02/02/2022
+### Vitória. ES - 03/02/2022
 
 ---
 
@@ -51,6 +51,43 @@ então `\(f(\cdot)\)` é a função de densidade marginal para cada `\(X_i\)`, o
 tamanho `\(n\)`. A *distribuição da amostra* define-se como a distribuição 
 conjunta da sequência de variáveis aleatórias.
 
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - I
+
+**Exemplo 1.** Seja `\(X\)` uma variável aleatória de uma população com densidade `\(f(\cdot)\)`
+e se seja `\(X_1,X_2\)` uma amostra aleatória de tamanho `\(2\)`.
+Por definição, a distribuição conjunta de `\(X_1,X_2\)` é dada por
+`$$f_{X_1,X_2}(x_2,x_2)=f(x_1)f(x_2).$$`
+Suponha que `\(X\)` é uma variável aleatória de uma população com 
+distribuição Bernoulli com parâmetro `\(p\)`, ou seja
+`$$\mathbb{P}\left[X=x\right]=p^x(1-p)^{1-x}\mathbb{I}_{\{0,1\}}(x).$$`
+Dessa forma,
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{P}\left[X_1=x_1,X_2=x_2\right]&amp;=\mathbb{P}[X_1=x_1]\mathbb{P}[X_2=x_2]
+    =p^{x_1}(1-p)^{1-x_1}p^{x_2}(1-p)^{1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2)\\
+    &amp;=p^{x_1+x_2}(1-p)^{2-x_1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2).
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Algumas definições básicas - I
+  
+&gt; **Observação**: Note que a distribuição da amostra é diferente da 
+distribuição do número de sucessos, i.e., a natureza probabilística
+de `\(Y=X_1+X_2\)` é dada por
+`$$\mathbb{P}[Y=y]=\binom{2}{y}p^y(1-p)^{2-y}\mathbb{I}_{\{0,1,2\}}(y).$$`
+Observe que, no primeiro caso, `\(\mathbb{P}[X_1=x_1, X_2=x_2]\)` representa
+a distribuição da amostra na ordem da coleta, i.e., 
+`\(\mathbb{P}[X_1=0,X_2=1]\)` é a probabilidade de coletar primeiro `\(0\)` e
+depois `\(1\)`.
+
 ---
 class: animated, slideInRight
 
@@ -76,47 +113,45 @@ Temos que:
 as propiedades acima.
 
 ---
-class: animated, slideInRight
+class: animated, fadeIn
 
-### Algumas definições básicas - III
+### Algumas definições básicas - II
 
-#### Exemplo I
+**Exemplo 2.** Seja `\(f(\cdot)\)` dada por 
+`\(f(x)=\begin{cases}0, &amp; \text{ para } x\le0; \\ x, &amp; \text{ para } 0&lt;x\le1; \\ 2-x, &amp; \text{ para } 1&lt;x\le2; \\ , 0 &amp; \text{ para } 2&lt;x. \end{cases}\)`
 
-Seja `\(X\)` uma variável aleatória de uma população com densidade `\(f(\cdot)\)`
-e se seja `\(X_1,X_2\)` uma amostra aleatória de tamanho `\(2\)`.
-Por definição, a distribuição conjunta de `\(X_,X_2\)` é dada por
-`$$f_{X_1,X_2}(x_2,x_2)=f(x_1)f(x_2).$$`
-Suponha que `\(X\)` é uma variável aleatória de uma população com 
-distribuição Bernoulli com parâmetro `\(p\)`, ou seja
-`$$\mathbb{P}\left[X=x\right]=p^x(1-p)^{1-x}\mathbb{I}_{\{0,1\}}(x).$$`
-Dessa forma,
+Usando a função indicadora, `\(f(x)\)` pode ser escrita como
 
 &lt;div class="math"&gt;
   \begin{align*}
-    \mathbb{P}\left[X_1=x_1,X_2=x_2\right]&amp;=\mathbb{P}[X_1=x_1]\mathbb{P}[X_2=x_2]
-    =p^{x_1}(1-p)^{1-x_1}p^{x_2}(1-p)^{1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2)\\
-    &amp;=p^{x_1+x_2}(1-p)^{2-x_1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2).
+    f(x)&amp;=x\mathbb{I}_{(0,1]}(x)+(2-x)\mathbb{I}_{(1,2]}(x)=(1-|1-x|)\mathbb{I}_{(0,2]}(x).
   \end{align*}
 &lt;/div&gt;
 
----
-class: animated, fadeIn
+--
 
-### Algumas definições básicas - III
-  
-&gt; **Observação**: Note que a distribuição da amostra é diferente da 
-distribuição do número de sucessos, i.e., a natureza probabilística
-de `\(Y=X_1+X_2\)` é dada por
-`$$\mathbb{P}[Y=y]=\binom{2}{y}p^y(1-p)^{2-y}\mathbb{I}_{\{0,1,2\}}(y).$$`
-Observe que, no primeiro caso, `\(\mathbb{P}[X_1=x_1, X_2=x_2]\)` representa
-a distribuição da amostra na ordem da coleta, i.e., 
-`\(\mathbb{P}[X_1=0,X_2=1]\)` é a probabilidade de coletar primeiro `\(0\)` e
-depois `\(1\)`.
+**Exemplo 3.** Seja `\((\Omega,\cal{F}, \mathbb{P})\)` um espaço de 
+probabilidade. Considere os eventos `\(A\in\cal{F}\)` e `\(B\in\cal{F}\)`, 
+então, a função indicadora do evento `\(A\)` é uma variável aleatória 
+definida como
+
+&lt;div class="math"&gt;
+ \begin{align*}
+    \mathbb{I}_A(\omega)=\begin{cases}
+    1, &amp; \text{ se } \omega\in A; \\ 
+    0, &amp; \text{ se } \omega\notin A.
+    \end{cases}
+ \end{align*}
+&lt;/div&gt;
+
+Dessa forma, temos que  `\(\mathbb{E}\left[\mathbb{I}_A(\omega)\right]=\mathbb{P}\left[A\right]\)`,
+`\(\mathrm{var}\left[\mathbb{I}_A(\omega)\right]=\mathbb{P}\left[A\right](1-\mathbb{P}\left[A\right])\)` e `\(\mathrm{cov}\left[\mathbb{I}_A(\omega), \mathbb{I}_B(\omega)\right]=\mathbb{P}\left[A\cap B\right]-\mathbb{P}\left[A\right]\mathbb{P}\left[B\right]\)`.
+
 
 ---
 class: animated, slideInRight
 
-### Algumas definições básicas - IV
+### Algumas definições básicas - III
 
 #### Tipos de convergência
 
@@ -126,17 +161,73 @@ se, para todo `\(\epsilon&gt;0\)`,
 `$$\lim_{n\to\infty}\mathbb{P}\left[\left|X_n-X\right|\ge0\right]=0.$$`
 Denotamos `\(X_n\overset{p}{\longrightarrow}X.\)`
 
+**Teorema 1.** Seja `\(g:\mathbb{R}^k\longrightarrow\mathbb{R}^m\)` uma 
+função contínua em cada ponto `\(a\in C\)`, tal que `\(\mathbb{P}[X\in C]=1\)`.
+Se `\(X_n\overset{p}{\longrightarrow}X\)`, então `\(g\left(X_n\right)\overset{p}{\longrightarrow}g\left(X\right).\)`
+
+&lt;/br&gt;
+
+&gt; &lt;span style="color:gray"&gt;Uma outra notação que será usada para sequências de 
+variáveis aleatórias é `\(\{X_n; n=1,2,3,\ldots\}\)` ou 
+simplesmente `\(\{X_n\}\)`.&lt;/span&gt;
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - III
+
+#### Tipos de convergência
+
+**Corolario 1.** Se `\(X_n\overset{p}{\longrightarrow}X\)` e 
+`\(Y_n\overset{p}{\longrightarrow}Y\)`, então
+  
+  - `\(X_n\pm W_n\overset{p}{\longrightarrow}X\pm W\)`;
+  - `\(X_n W_n\overset{p}{\longrightarrow}X W\)`;
+  - `\(aX_n\pm bW_n\overset{p}{\longrightarrow}aX\pm bW\)`, com `\(a,b\)` constantes;
+  - `\(\frac{X_n}{W_n}\overset{p}{\longrightarrow}\frac{X}{W}\)`, com `\(\mathbb{P}[W_n\ne0]=\mathbb{P}[W\ne0]=1\)`;
+  - `\(X_n^2\overset{p}{\longrightarrow}X^2\)`;
+  - `\(\frac{1}{X_n}\overset{p}{\longrightarrow}\frac{1}{X}\)`, com `\(\mathbb{P}[X_n\ne0]=\mathbb{P}[X\ne0]=1.\)`
+  
+
+---
+class: animated, fadeIn
+
+### Algumas definições básicas - III
+
 * **Definição 6.** Uma sequência `\(X_1,X_2,\ldots,X_n\)` de variáveis 
 aleatórias *converge quase-certamente* para uma variável aleatória `\(X\)` 
 se 
 `$$\mathbb{P}\left[\lim_{n\to\infty} X_n=X\right]=1.$$`
 Denotamos `\(X_n\overset{q.c}{\longrightarrow}X.\)`
 
+**Exemplo 4.** (*convergência quase-certa*) Seja `\(\{X_n\}\)` uma 
+sequência de variáveis aleatórias definidas por
+
+  &lt;div class="math"&gt;
+    \begin{align*}
+      X_n&amp;=\begin{cases}
+        0, &amp; \text{ com probabilidade } 1-\frac{1}{2^n};\\
+        1, &amp; \text{ com probabilidade } \frac{1}{2^n},
+      \end{cases}.
+    \end{align*}
+  &lt;/div&gt;
+  
+para `\(n=1,2,3,\ldots\)`.
+
+Sabemos que `\(\mathbb{E}X_n=\mathbb{E}X_n^2=\frac{1}{2^n}\)` e 
+`\(\mathrm{var}[X_n]=\frac{1}{2^n}-\frac{1}{2^{2n}}=\frac{2^{2n}-1}{2^{2n}}\)`.
+
+--
+Pela desigualdade de Tchebyshev, temos que
+`$$\mathbb{P}[X_n\ge\epsilon]\le\frac{\mathbb{E}X_n^2}{\epsilon^2}=\frac{1}{2^n\epsilon^2}.$$`
+Daí, `\(\lim_{n\to\infty}\mathbb{P}[X_n\ge\epsilon]=0\)`, ou seja 
+`\(X_n\overset{p}{\longrightarrow}0\)`. Ainda, 
+`\(\mathbb{P}\left[\lim_{n\to\infty}X_n=0\right]=1\)`, então `\(X_n\overset{q.c}{\longrightarrow}0\)`.
 
 ---
 class: animated, slideInRight
 
-### Algumas definições básicas - V
+### Algumas definições básicas - III
 
 #### Tipos de convergência
 
@@ -173,7 +264,7 @@ o parâmetro `\(\theta\)`, usando a informação proporcionada pela amostra.
 
 --
 
-* **Definição 5.** Uma **Estatística** é uma função de variáveis 
+* **Definição 8.** Uma **Estatística** é uma função de variáveis 
 aleatórias (observáveis), a qual é variável aleatória e não depende de
 parâmetros desconhecidos.
 
@@ -181,7 +272,7 @@ parâmetros desconhecidos.
   `$$X,\, X^2,\, X+ 3,\, X+\log X,\, \frac1n\sum_{i=1}^nX_i,\, \min\{X_1,X_2,\ldots,X_n\},$$`
   são *Estatísticas*.
 
-  &gt; Funções do tipo `\(X-\mu, \, \frac{X}{\sigma}, \,X+\log \theta\)` **não
+  &gt; Funções do tipo `\(X-\mu, \, \frac{X}{\sigma}, \,X+\log \theta\,\)` **não
   são consideradas *Estatísticas***.
 
 
@@ -189,12 +280,12 @@ parâmetros desconhecidos.
 class: animated, slideInRight
 
 ### Momentos amostrais - II
-* **Definição 5.** Seja `\(X_1,X_2,\ldots,X_n\)` uma amostra aleatória
+* **Definição 9.** Seja `\(X_1,X_2,\ldots,X_n\)` uma amostra aleatória
 de uma população com função de densidade de probabilidade (ou função
 de probabilidade de massa),
 denotada por `\(f(\cdot;\theta)\)`&lt;sup&gt;&lt;font size="3"&gt;1&lt;/font&gt;&lt;/sup&gt;.
 
-O `\(r\)`-ésimo momento amostral em torno de zero define-se como
+  O `\(r\)`-ésimo momento amostral em torno de zero define-se como
 
 `$$M_r'=\frac1n\sum_{i=1}^nX_i^r.$$`
 &gt; O `\(r\)`-ésimo momento amostral em torno da média amostral define-se como
@@ -203,7 +294,7 @@ O `\(r\)`-ésimo momento amostral em torno de zero define-se como
 
 ***
 
-&lt;font size="3"&gt;Tanto para o caso contínuo, quanto para o caso discreto
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Tanto para o caso contínuo, quanto para o caso discreto
 usaremos a mesma notação, pois as definições podem ser aplicadas da 
 mesma em ambos contextos.&lt;/font&gt;
 
@@ -237,7 +328,7 @@ Seja `\(\bar{X}_n=\bar{X}=\frac1n\sum_{i=1}^nX_i\)` a média amostral, então
 class: animated, fadeIn
 
 ### Momentos amostrais - IV
-* **Definição 7.** Seja `\(X_1,X_2,\ldots,X_n\)`  uma amostra aleatória
+* **Definição 10.** Seja `\(X_1,X_2,\ldots,X_n\)`  uma amostra aleatória
 de uma população com função de densidade de probabilidade `\(f(\cdot;\theta)\)`.
 A *variância amostral* define-se como:
 `$$S^2=\frac{1}{n-1}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2, \quad n&gt;1.$$`
@@ -282,203 +373,6 @@ necessárias para a realização das análises serão indicadas ao longo da disc
 
 &gt; Sugere-se a leitura do livro [Fox and Weisberg (2019) An R Companion to Applied Regression. 3rd Edition](https://bityli.com/gTnsQ).
 
----
-class: animated, bounceInDown
-
-### Notação
-
-* **Variável resposta**: A variável `\(Y\)` será denotada como
-
-&lt;div class="math"&gt;
-\[Y=
-\left[
-\begin{array}{c}
-Y_1 \\
-Y_2 \\
-\vdots\\
-Y_n
-\end{array}
-\right]_{n\times1}=[Y_1,Y_2,\ldots,Y_n]'
-\]
-&lt;/div&gt;
-
-* **Variáveis explicativas**: As variáveis explicativas serão denotadas como
-
-&lt;div class="math"&gt;
-\[\textbf{X}=
-\left[
-\begin{array}{ccccc}
-1&amp;x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1k} \\
-1&amp;x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2k} \\
-\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
-1&amp;x_{n1}&amp;x_{n2}&amp;\cdots&amp;x_{nk} \\
-\end{array}
-\right]_{n\times (k+1)}=[\mathbf{1} \quad \mathbf{x}_1\quad\cdots\quad \mathbf{x}_k], \qquad
-\textbf{X}_1=
-\left[\mathbf{x}_1\quad\cdots\quad \mathbf{x}_k\right],
-\]
-&lt;/div&gt;
-
-onde `\(\mathbf{x}_j\)` representa o `\(j\)`-ésimo vetor coluna da matriz.
-
-&gt; Para detalhes, Searle and Khuri (2017).
-
-
----
-class: animated, fadeIn
-
-### Modelo de regressão linear
-Consideremos o modelo de regressão linear dado por
-`$$Y=f(\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_k)+\mathbf{\epsilon},$$`
-onde `\(f(\cdot)\)` é uma função desconhecida. O objetivo será estudar a relação entre
-a variável dependente e as variáveis independentes, i.e., estimar a função `\(f\)`.
-
-Dessa forma, para estimar a função `\(f\)` são necessárias um conjunto de suposições 
-a respeito da natureza do dados, a seguir:
-
-**A1.** O modelo é linear, i.e. `\(Y=\beta_0\mathbf{1}+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k+\mathbf{\epsilon}\)`;
-
---
-
-**A2.** A matriz de regressores tem posto coluna completo;
-
---
-
-**A3.** Exogeneidade das variáveis independentes, i.e. `\(\mathbb{E}[\mathbf{\epsilon}|\mathbf{X}]=\mathbf{0}\)`;
-
---
-
-**A4.** Esfericidade dos erros, i.e. `\(\mathbb{E}[\mathbf{\epsilon\epsilon}'|\mathbf{X}]=\sigma^2\mathbf{I}\)`;
-
---
-
-**A5.** Os erros são normalmente distribuidos, i.e. `\(\mathbf{\epsilon|\mathbf{X}}\)` segue uma distribuição
-normal multivariada com vetor de médias `\(\mathbf{0}\)` e matriz de covariâncias `\(\sigma^2\mathbf{I}\)`.
-
-
----
-class: inverse, hide-logo, middle, center
-
-# A1. Linearidade
-
-
----
-class: animated, slideInRight
-
-## A1. Linearidade
-Ao longo da disciplina assumiremos que o modelo é linear, tal que
-
-`$$Y=\mathbf{X}\mathbf{\beta}+\mathbf{\epsilon}$$`
-ou
-`$$Y=\beta_0\mathbf{1}+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k+\mathbf{\epsilon}$$`
-ou
-
-&lt;div class="math"&gt;
-\[\left[
-\begin{array}{c}
-Y_1 \\
-Y_2 \\
-\vdots\\
-Y_n
-\end{array}
-\right]_{n\times1}=
-\left[
-\begin{array}{ccccc}
-1&amp;x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1k} \\
-1&amp;x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2k} \\
-\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
-1&amp;x_{n1}&amp;x_{n2}&amp;\cdots&amp;x_{nk} \\
-\end{array}
-\right]_{n\times (k+1)}
-\left[
-\begin{array}{c}
-\mathbf{\beta}_0 \\
-\mathbf{\beta}_1 \\
-\vdots\\
-\mathbf{\beta}_k
-\end{array}
-\right]_{(k+1)\times1}+
-\left[
-\begin{array}{c}
-\mathbf{\epsilon}_1 \\
-\mathbf{\epsilon}_2 \\
-\vdots\\
-\mathbf{\epsilon}_n
-\end{array}
-\right]_{n\times1}.
-\]
-&lt;/div&gt;
-
-A `\(i\)`-ésima equação simultânea é dada por
-
-`$$Y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_kx_{ik}+\epsilon_i, \qquad i=1,2,\ldots,n.$$`
----
-class: animated, bounceInDown
-### Interpretação do termo "Linear"
-
-O termo "&lt;em&gt;linear&lt;/em&gt;" pode ser interpretado de duas maneiras:
-
-* **Linearidade nas variáveis**:  a linearidade em termos das variáveis sugere 
-que a função de regressão é do tipo
-
-`$$r(\mathbf{x})=\mathbb{E}[\mathbf{Y}|\mathbf{X}=\mathbf{x}]=\beta_0+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k.$$`
-Em particular, para `\(k=1\)`
-`$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\beta_1x_i, \quad i=1,2,\ldots,n$$`
-a função de regressão é uma &lt;ins&gt;reta&lt;/ins&gt;.
-
-De acordo com essa interpretação, funções de regressão do tipo
-
-`$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\beta_1x^2_i, \quad i=1,2,\ldots,n$$`
-não são funções lineares, pois a covariável `\(x_i\)` é quadrática.
-
-
----
-class: animated, fadeIn
-### Interpretação do termo "Linear"
-
-* **Linearidade nos parâmetros**:  A diferença com a interpretação anterior, as 
-covariáveis não são necessariamente lineares, por exemplo, mesmo que as 
-covariáveis sejam quadráticas, a função de regressão é linear.
-
-Em particular, para `\(k=1\)`
-`$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\beta_1x^2_i, \quad i=1,2,\ldots,n$$`
-a função de regressão é uma função &lt;ins&gt;linear&lt;/ins&gt;. Mas, a função
-
-`$$r(x_i)=\mathbb{E}[Y_i|X=x_i]=\beta_0+\sqrt{\beta_1}x_i, \quad i=1,2,\ldots,n$$`
-não é uma função de regressão linear. Este último caso é classificado no conjunto
-de funções de regressão não-lineares.
-
-&gt;Das duas interpretações, a **linearidade nos parâmetros** é considerada a mais 
-relevante para o desenvolvimento teórico que nos interessa. Dessa forma, de agora
-em diante, o termo &lt;em&gt;regressão linear&lt;/em&gt; será relativo a uma &lt;ins&gt;regressão
-linear nos parâmetros&lt;/ins&gt;.
-
-
----
-class: animated, lightSpeedIn
-###  Termo de erro (ou perturbação estocástica) - I
-
-Considere o modelo linear dado por
-
-`$$Y=\mathbf{X}\mathbf{\beta}+\mathbf{\epsilon},$$`
-o vetor de erros `\(\mathbf{\epsilon}\)` considera-se uma variável aleatória 
-**não-observável** e de certa forma considera-se um substituto daquelas 
-variáveis "omitidas" no modelo que certamente afetam o vetor `\(Y\)`.
-Essa "omissão" de variáveis pode ser causada, entre outras coisas, por 
-
-* *indisponibilidade de dados*: as vezes não é possível dispor das informações 
-que idealmente gostariamos de ter no modelo, mesmo sabendo da relevância de
-certas covariáveis; 
-
-* *considerar uma forma funcional errada*: mesmo que tenhamos as variáveis 
-teoricamente certas para explicar um fenômeno, muitas vezes podemos assumir um
-formato funcional errado. Por exemplo: No modelo de uma covariável,
-a forma funcional correta pode ser dada por `\(Y_i=\beta_0+\beta_1x_i+\epsilon_i\)`, 
-`\(i=1,2,\ldots,n\)`, mas o pesquisador pode assumir 
-`\(Y_i=\beta_0+\beta_1x_i+\beta_2x^2_i+\epsilon_i\)`. Nesse contexto, parece evidente
-avaliar a forma funcional usando um diagrama de dispersão, mas em modelos que
-envolvem mais covariáveis não é simples determinar o formato funcional graficamente,
-dada a limitação na visualização de diagramas de dispersão em múltiplas dimensões.
 
 ---
 class: animated, fadeIn
