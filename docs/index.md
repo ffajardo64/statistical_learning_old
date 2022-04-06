@@ -5,32 +5,34 @@ author: Laboratório de Estatística e Computação Natural - LECON -
 description: Repositório exclusivo para Aprendizado Estatístico. Informações sobre métodos, modelagem estatística, códigos em R e Python, datasets e entre outros.
 ---
 
+# Ferramentas computacionais
+
+* [Controle de versões: Git e GitHub](https://bit.ly/38q8PzX){:target="_blank"}.
+* [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
+* [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
+
 # Aprendizado supervisionado
 
-* [Análise de regressão](https://bit.ly/3jvVHvg)
-* [Modelos de classificação](https://bit.ly/3jviHfA) (*Em construção*)
+* [Análise de regressão](https://bit.ly/3jvVHvg){:target="_blank"}.
+* [Modelos de classificação](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
 # Aprendizado não-supervisionado
-* [Redução de dimensionalidade](https://bit.ly/3jviHfA) (*Em construção*)
-* [Análise de agrupamentos](https://bit.ly/3jviHfA) (*Em construção*)
-* [Detecção de anomalias](https://bit.ly/3jviHfA) (*Em construção*)
+* [Redução de dimensionalidade](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Análise de agrupamentos](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Detecção de anomalias](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+
+
 
 # Tópicos em Estatística
 
 ### Análise exploratória
 
-* [Estatística aplicada às ciências sociais I](https://bit.ly/3GZgkuz)
+* [Estatística aplicada às ciências sociais I](https://bit.ly/3GZgkuz){:target="_blank"}.
+
 
 ### Inferência Estatística
 
-* [Inferência Estatística I](https://bit.ly/3jxUsLV) (*Em construção*)
-
-
-### Estatística computacional
-
-* [Análise de dados com R](https://bit.ly/3zxiNbt)
-
-* [Introdução ao Python](https://bit.ly/3sX7bfA)
+* [Inferência Estatística I](https://bit.ly/3jxUsLV){:target="_blank"}. (*Em construção*)
 
 
 ### Referências

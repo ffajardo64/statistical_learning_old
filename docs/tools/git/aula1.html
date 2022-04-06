@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Uma introdução
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória. ES - 05/11/2021
+### Vitória. ES - 06/04/2022
 
 ---
 
@@ -71,14 +71,11 @@ class: animated, slideInRight
 ### Instalando o Git
 
 Antes de começar a usar o `Git`, o primeiro é torná-lo disponível no 
-seu computador. A instalação é bastante simples. Você poderá instalá-lo 
-como um pacote ou por meio de outro instalador, ou baixar o código fonte 
-e compilá-lo. 
+seu computador. A instalação é bastante simples. Você poderá instalá-lo como um pacote ou por meio de outro instalador, ou baixar o código fonte e compilá-lo. 
 
 * **Linux**: Se você usa uma distribuição baseada no `Debian`, como
-por exemplo `Ubuntu`, a instalação pode ser feita via linha de comando
-usando:
-          $ sudo apt-get install git-all
+por exemplo `Ubuntu`, a instalação pode ser feita via linha de comando usando:
+&lt;img src="images/install_linux.png" width="35%" style="display: block; margin: auto;" /&gt;
 Para mais opções de instalação em outros sistemas `Unix`, consulte em
 [http://git-scm.com/download/linux](http://git-scm.com/download/linux).
 
@@ -88,7 +85,7 @@ executá-lo.
 
 * **Mac**: No caso do Mac, você pode usar o administrador de pacotes `homebrew`
 e usar a seguinte linha de comando
-          $ brew install git
+&lt;img src="images/install_mac.png" width="23%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, hide-logo, middle, center
@@ -120,10 +117,10 @@ forma:
 &lt;img src="images/username.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ***
-&lt;font size="2"&gt;&lt;sup&gt;1&lt;/sup&gt; Muitas Interfaces Gráficas de Usuário 
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt; Muitas Interfaces Gráficas de Usuário 
 (Graphical User Interface  - GUI) o ajudarão com essa configuração
 quando forem usadas pela primeira vez. Um quadro comparativo dessas
-ferramentas para `Git` pode ser encontrado na 
+ferramentas para &lt;TT&gt;Git&lt;/TT&gt; pode ser encontrado na 
 &lt;a href="https://en.wikipedia.org/wiki/Comparison_of_Git_GUIs"&gt;Wikipedia&lt;/a&gt;.&lt;/font&gt;
 
 ---
@@ -143,7 +140,7 @@ você pode usar uma das seguintes linhas de comando:
 &lt;img src="images/editor.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ***
-&lt;font size="2"&gt;&lt;sup&gt;1&lt;/sup&gt; Para mais opções de editores, consulte a
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt; Para mais opções de editores, consulte a
 documentação oficial do `Git` disponível em 
 &lt;a href="https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config"&gt;A3.1 Appendix C: Git Commands - Setup and Config&lt;/a&gt;.&lt;/font&gt;
 
@@ -160,7 +157,7 @@ Para revisar a sua listagem de configurações basta usar o comando
 
 ***
 &lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt; Outras opções de configuração podem ser
-revisadas na documentação oficial do `Git` disponível em 
+revisadas na documentação oficial do &lt;TT&gt;Git&lt;/TT&gt; disponível em 
 &lt;a href="http://git-scm.com/docs/git-config/pt_BR"&gt;http://git-scm.com/docs/git-config/pt_BR&lt;/a&gt;.&lt;/font&gt;
 
 ---
@@ -204,14 +201,13 @@ realizar alguma ação indesejada, fique atento aos três estados
 principais do `Git`:
 **Committed** (Consolidado), **Modified** (modificado) e **Staged** (preparado). 
 
-* **Committed**: Consolidado significa que os dados estão armazenados 
+* **Committed**: _Consolidado_ significa que os dados estão armazenados 
 de forma segura em seu banco de dados local;
 
-* **Modified**: Modificado significa que você alterou o arquivo, mas 
+* **Modified**: _Modificado_ significa que você alterou o arquivo, mas 
 ainda não fez o *commit* no seu banco de dados;
 
-* **Staged**: Preparado significa que você marcou a versão atual de um 
-arquivo modificado para fazer parte de seu próximo *commit*.
+* **Staged**: _Preparado_ significa que você marcou a versão atual de um arquivo modificado para fazer parte de seu próximo *commit*.
 
 
 &gt;Os três estados nos levam a três seções principais de um projeto `Git`: 
@@ -232,8 +228,8 @@ class: animated, fadeIn
 ### Fluxo de trabalho
 
 &lt;img src="images/fluxo1.png" width="70%" style="display: block; margin: auto;" /&gt;
-&lt;font size= 3&gt;  Você modifica arquivos no seu diretório de trabalho e 
-prepara eles adicionando as imagens deles à sua área de preparo.&lt;/font&gt;
+Você modifica arquivos no diretório de trabalho e 
+prepara eles adicionando imagens deles à sua área de preparo.
 
 ---
 class: animated, fadeIn
@@ -242,16 +238,16 @@ class: animated, fadeIn
 
 &lt;img src="images/fluxo2.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-&lt;font size= 3&gt; Você leva os arquivos da área de preparo e armazena essas
-imagens para o diretório do Git.&lt;/font&gt;
+Você leva os arquivos da área de preparo e armazena essas
+imagens para o diretório do `Git`.
+
 ---
 class: animated, fadeIn
 
 ### Fluxo de trabalho
 
 &lt;img src="images/fluxo3.png" width="70%" style="display: block; margin: auto;" /&gt;
-
-&lt;font size= 3&gt; E tudo se repete!&lt;/font&gt;
+**E tudo se repete!**
 
 ---
 class: inverse, hide-logo, middle, center
@@ -274,9 +270,10 @@ comandos do `Git`.
 descobrirá como rodar versões GUI.
 
 
-Dessa forma, você pode obter um projeto `Git` utilizando duas formas 
-principais:
+Dessa forma, você pode obter um projeto `Git` utilizando duas formas principais:
+
 - &lt;ins&gt;Transformando&lt;/ins&gt; um diretório local em um *repositório*;
+
 - Fazendo um &lt;ins&gt;clone&lt;/ins&gt; de um *repositório* `Git` existente em outro lugar.
 
 
@@ -314,7 +311,7 @@ class: animated, bounceInDown
 &lt;img src="images/git_init3.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 &lt;font size="3"&gt; Para mais informações sobre quais arquivos 
-estão contidos no diretório `.git`, vide 
+estão contidos no diretório &lt;TT&gt;.git&lt;/TT&gt;, vide 
 &lt;a href="http://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain"&gt;Git Internals&lt;/a&gt;.&lt;/font&gt;
 
 ---
@@ -329,8 +326,7 @@ imediatamente após criar um repositório, você vai ver algo assim:
 &lt;img src="images/git_status.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 Isso significa que nenhum de seus arquivos rastreados foi modificado. 
-O `Git` também não está vendo nenhum arquivo não rastreado, senão eles 
-estariam listados aqui. 
+O `Git` também não está vendo nenhum arquivo não rastreado, senão eles estariam listados aqui. 
 
 ---
 class: animated, fadeIn
@@ -343,6 +339,9 @@ o comando `git status` para verificar o novo estado do arquivo.
 
 &lt;img src="images/git_add1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
+--
+
+Para criar um novo arquivo basta usar o comando `touch` seguido do nome do arquivo, e.g. `touch README.md`.
 
 ---
 class: animated, fadeIn
@@ -354,7 +353,6 @@ arquivo. Em outras palavras, o comando `git add` permite enviar o
 arquivo para o `stage` (área de preparo).
 
 &lt;img src="images/git_add2.png" width="70%" style="display: block; margin: auto;" /&gt;
-
 
 ---
 class: animated, fadeIn
@@ -377,6 +375,35 @@ class: animated, fadeIn
 &lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
+class: animated, fadeIn
+
+### `git commit`
+
+#### Algumas considerações - I
+
+* **SEMPRE** tente deixar mensagens explícitas nos *commits*.         Tente usar descrições simples e objetivas para que você 
+    e/ou seu time de trabalho consigam entender o que aquele            *commit* faz. Para definir uma mensagem use a seguinte opção:
+
+&lt;img src="images/commit_msg.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+* Para incluir automaticamente, no seu *commit*, todos os arquivos modificados use a opção:
+
+&lt;img src="images/commit_msg_all.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+Dessa forma, você adicionará os arquivos direto na área de *commit* sem passar pela área de preparo (*staging area*). Entretanto, novos arquivos, que ainda não são acompanhados pelo `Git`, não serão incluídos.
+
+---
+class: animated, bounceInDown
+
+### `git commit`
+
+#### Algumas considerações - II
+
+* `git log` lista os *commits* feitos no repositório em ordem cronológica inversa; i.e., o *commit* mais recente aparece primeiro. Esse comando lista cada *commit* com o seu `checksum SHA-1`, o **nome** e **email do autor**, **data de inserção**, e **a mensagem do commit**.
+
+&lt;img src="images/commit_log.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
 class: inverse, hide-logo, middle, center
 
 # GitHub
@@ -384,10 +411,33 @@ class: inverse, hide-logo, middle, center
 
 
 ---
+class: animated, bounceInDown
+
+# Algumas ferramentas
+
+* **.gitignore**: O arquivo `.gitignore` informa ao `Git` quais arquivos
+devem ser ignorados intencionalmente.
+
+site para criação automática dos arquivos [gitignore.io](https://www.toptal.com/developers/gitignore)
+
+
+---
 class: animated, lightSpeedIn
 # Referências
 
+Breiman, L. (2001). "Statistical Modeling: The Two Cultures (with comments and a
+rejoinder by the author)". In: _Statistical Science_ 16.3, pp. 199 - 231.
+
 Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition. Apress.
+
+Chollet, F. (2018). _Deep learning with R_. 1st edition. Shelter Island, NY:
+Manning Publications. ISBN: 1-61729-554-X.
+
+Fox, J. and S. Weisberg (2019). _An R Companion to Applied Regression_. 3rd
+edition. Sage publications. ISBN: 978-1-5443-3647-3.
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_. 2nd
+edition. Wiley.
 
 ---
 class: animated, hide-logo, bounceInDown
