@@ -36,9 +36,13 @@ disponível em [http://git-scm.com/book/pt-br/v2](https://github.com/progit/prog
 
 
 ### Versão do Git
-Este material foi preparado usando a versão `2.33.1` do `Git`. 
+Este material foi preparado usando a versão `2.35.1` do `Git`. 
 Como o `Git` é excelente para preservar compatibilidade com versões 
 anteriores, qualquer versão após `2.0` deve funcionar muito bem.
+
+&lt;br/&gt;
+
+&lt;img src="images/git_version.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: animated, slideInRight
@@ -455,7 +459,7 @@ class: animated, bounceInDown
 * `git log` disponibiliza uma grande variedade de opções a fim de lhe proporcionar exatamente aquilo pelo que está procurando. A seguir algumas das opções mais populares:
 
 
- | &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Opções &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; | Descrição  |      
+ |Opções| Descrição  |      
  |:--------------: |:-------------:|
  |  `-p`      | Mostra o patch introduzido com cada commit.|
  |  `--stat`  | Mostra estatísticas de arquivos modificados em cada commit.| 
@@ -466,10 +470,81 @@ class: animated, bounceInDown
 
 &lt;font size="3"&gt; Mais detalhes em 
 &lt;a href="http://git-scm.com/book/pt-br/v2/Fundamentos-de-Git-Vendo-o-hist%C3%B3rico-de-Commits"&gt;Git Documentation&lt;/a&gt;.&lt;/font&gt;
+
 ---
 class: inverse, hide-logo, middle, center
 
-# GitHub
+# Alguns tópicos
+
+---
+class: animated, fadeIn
+
+### Algumas tarefas muito comuns - I
+
+#### Como retirar um arquivo da área de preparo (`staging area`)
+
+Suponha que você alterou dois arquivos e deseja realizar o `commit` deles **separadamente**, porém você comete um erro e adiciona ambos no `stage` usando o comando **`git add .`**. Para corrigir o problema pode visualizar a saída do comando `git status` que lhe indicará como resolver:
+
+&lt;img src="images/git_status_reset.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Algumas tarefas muito comuns - I
+
+#### Como retirar um arquivo da área de preparo (`staging area`)
+
+.pull-left[
+&lt;img src="images/git_status_reset2.png" width="110%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- O arquivo **`capitulo1.md`** volta ao estado de *modificado* porém está fora da área de preparo;
+
+- O comando `git reset` pode ser perigoso, especialmente se você 
+usar a opção `--hard`. Entretanto, no cenário descrito no exemplo, 
+o arquivo no diretório de trabalho está inalterado, então é
+relativamente seguro utilizar o comando.
+
+- Se o `commit` já estiver no ambiente remoto, lembre-se sempre de comunicar ao seu time de trabalho que colaboram no seu repositório. Mas se o `commit` só estiver no ambiente local, essa opção é bem mais segura.
+]
+
+---
+class: animated, fadeIn
+
+### Algumas tarefas muito comuns - II
+
+#### Desfazendo as modificações de um arquivo
+
+Suponha que você não quer manter as modificações realizadas no arquivo **`capitulo1.md`** e deseja reverter tais modificações, deixando como era quando foi realizado o último `commit`. Felizmente, `git status` diz a você como fazer isso também!
+
+
+&lt;img src="images/git_checkout.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Algumas tarefas muito comuns - II
+
+#### Desfazendo as modificações de um arquivo
+
+Suponha que você não quer manter as modificações realizadas no arquivo **`capitulo1.md`** e deseja reverter tais modificações, deixando como era quando foi realizado o último `commit`. Felizmente, `git status` diz a você como fazer isso também!
+
+.pull-left[
+&lt;img src="images/git_checkout2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- Você pode notar que as modificações foram revertidas;
+- Note que o `git checkout -- &lt;arquivo&gt;` é um a comando **perigoso**. O `Git` substitui o arquivo pela versão mais recente que sofreu `commit`. **Qualquer modificação que você fez no arquivo se foi**. &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Nunca use este comando a não ser que você saiba com certeza que não quer salvar as modificações do arquivo&lt;/span&gt;.
+- Qualquer coisa que sobre `commit` pode *quase* sempre ser recuperada. Contudo, qualquer coisa que você perder que **nunca** sofreu `commit` pode ser considerada praticamente perdida.
+]
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Github
 
 ---
 class: animated, bounceInDown
