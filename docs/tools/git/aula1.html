@@ -276,7 +276,7 @@ Dessa forma, você pode obter um projeto `Git` utilizando duas formas principais
 
 - Fazendo um &lt;ins&gt;clone&lt;/ins&gt; de um *repositório* `Git` existente em outro lugar.
 
-
+&lt;img src="images/clone.png" width="30%" style="display: block; margin: auto;" /&gt;
 ---
 class: animated, fadeIn
 
@@ -371,6 +371,11 @@ class: animated, fadeIn
 &lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
+class: inverse, hide-logo, middle, center
+
+# git commit
+
+---
 class: animated, fadeIn
 
 ### `git commit`
@@ -421,9 +426,14 @@ para realizar o `commit`. Dessa forma, se você não fez nenhuma alteração des
 &gt; - Caso tenha esquecido de colocar na área de preparo as modificações de um arquivo que você quer adicionar no `commit` e você deseja resolver o impasse, então pode fazer o seguinte:
   &lt;img src="images/commit_amend_forgotten.png" width="90%" style="display: block; margin: auto;" /&gt;
 
-&gt; - **Evite** de usar a opção `--amend` quando o último 
+&gt; - **Não usar** a opção `--amend` quando o último 
 `commit` já está no repositório remoto, ou seja, já está 
 público e pode ter sido usado como referência para outras pessoas. 
+
+---
+class: inverse, hide-logo, middle, center
+
+# git log
 
 ---
 class: animated, slideInRight
@@ -436,7 +446,26 @@ class: animated, slideInRight
 
 &lt;img src="images/commit_log.png" width="55%" style="display: block; margin: auto;" /&gt;
 
+---
+class: animated, bounceInDown
 
+### `git log`
+
+#### Algumas considerações - II
+* `git log` disponibiliza uma grande variedade de opções a fim de lhe proporcionar exatamente aquilo pelo que está procurando. A seguir algumas das opções mais populares:
+
+
+ | &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Opções &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; | Descrição  |      
+ |:--------------: |:-------------:|
+ |  `-p`      | Mostra o patch introduzido com cada commit.|
+ |  `--stat`  | Mostra estatísticas de arquivos modificados em cada commit.| 
+ | `--shortstat`     | Exibe apenas a linha informando a alteração, inserção e exclusão do comando `--stat`.| 
+ |  `--pretty`  | Mostra os `commits` em um formato alternativo. As opções incluem **oneline**, **short**, **full**, **fuller** e **format**.| 
+|  `--abbrev-commit`  | Mostra apenas os primeiros caracteres da soma de verificação SHA-1 em vez de todos os 40.|
+|  `--name-status`  | Mostra a lista de arquivos que sofreram modificação com informações adicionadas / modificadas / excluídas.|
+
+&lt;font size="3"&gt; Mais detalhes em 
+&lt;a href="http://git-scm.com/book/pt-br/v2/Fundamentos-de-Git-Vendo-o-hist%C3%B3rico-de-Commits"&gt;Git Documentation&lt;/a&gt;.&lt;/font&gt;
 ---
 class: inverse, hide-logo, middle, center
 
