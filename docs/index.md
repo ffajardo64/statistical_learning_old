@@ -75,16 +75,18 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 #### Git
 * Chacon, S. (2008) [Git Internals](https://github.com/pluralsight/git-internals-pdf/raw/master/drafts/peepcode-git.pdf){:target="_blank"}.
 * Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
-* Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 * McCullough, M. and Collins, K. (2016) [Getting startes with Git - DZone RefCard](https://dzone.com/refcardz/getting-started-git?utm_source=devfreebooks&utm_medium=medium&utm_campaign=DevFreeBooks){:target="_blank"}.
 * Sande, D. (2014) [Git for Everyone](https://anotheruiguy.gitbooks.io/gitforeveryone/content/){:target="_blank"}.
+* Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 
 #### Artículos
 - Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Github repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
-- Cleveland, W. (2001) Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
+- Cleveland, W. (2001) [Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics](https://zhanksun.github.io/files/DataScience.pdf){:target="_blank"}. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
 - Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
 - Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
+- NG, A. (2019) [Deep Learning Course Notes](https://www.dropbox.com/s/nfv5w68c6ocvjqf/0-2.pdf?dl=0){:target="_blank"}. [Visual Notes](https://www.dropbox.com/s/j2pjnybkm91wgdf/visual_notes.pdf?dl=0){:target="_blank"}.
 - Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1 (Mar., 1962), p. 1-67
+
 
 ### Links de interesses
 * [CODE](https://code.org/){:target="_blank"}.
