@@ -7,7 +7,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 # Ferramentas computacionais
 
-* [Controle de versões: Git e GitHub](https://bit.ly/38q8PzX){:target="_blank"}.
+* Controle de versões: [Git](https://bit.ly/38q8PzX){:target="_blank"} e [GitHub](https://bit.ly/3NYo0R8){:target="_blank"}.
 * [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
 * [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
 
