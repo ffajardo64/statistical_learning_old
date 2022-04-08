@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Uma introdução
 ### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória. ES - 07/04/2022
+### Vitória. ES - 08/04/2022
 
 ---
 
@@ -373,6 +373,31 @@ class: animated, fadeIn
 ### Controlando o versionamento dos arquivos - II
 
 &lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# git add
+
+---
+class: animated, fadeIn
+
+### `git add`
+
+#### Algumas considerações - I
+
+* O comando `git add` adiciona uma alteração no diretório 
+ativo à área de preparo (*staging area*). Ele informa ao `Git` 
+que você quer incluir atualizações a um arquivo específico no próximo `commit`. No entanto, `git add` não tem efeito no repositório até você executar `git commit`;
+
+* O comando `git add` pode ser utilizado a qualquer momento 
+durante o desenvolvimento do seu projeto, porém, a melhor 
+prática é realizar **todas** as alterações dos arquivos de 
+trabalho e quando tudo estiver pronto, você prepara as alterações com `git add`. Caso queira examinar o estado atual do repositório utilize o comando `git status`;
+
+* O **modo interativo** permitirá escolher opções de mudanças que você deseja realizar de forma prática e rápida. Para ingresar no modo interativo digite o comando `git add –i` e digitar o número da opção desejada:
+
+&lt;img src="images/git_add_i.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, hide-logo, middle, center
