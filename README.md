@@ -7,7 +7,7 @@ A teoria da aprendizagem estatística lida com o problema de encontrar uma funç
 
 # Ferramentas computacionais
 
-* Controle de versões: [Git](https://bit.ly/38q8PzX){:target="_blank"} e [GitHub](https://bit.ly/3NYo0R8){:target="_blank"}.
+* Controle de versões: [Git](https://bit.ly/38q8PzX) e [GitHub](https://bit.ly/3NYo0R8).
 * [Análise de dados com R](https://bit.ly/3zxiNbt)
 * [Análise de dados com python](https://bit.ly/3sX7bfA)
 
