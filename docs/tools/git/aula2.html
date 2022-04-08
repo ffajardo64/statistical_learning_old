@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STA13824 - Análise de regressão</title>
+    <title>Github</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Fabio A. Fajardo Molinares" />
+    <meta name="author" content="  " />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
@@ -12,11 +12,11 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# STA13824 - Análise de regressão
-## Estimação dos parâmetros
-### Fabio A. Fajardo Molinares
+# Github
+## Uma introdução
+### <br/><br/>
 ### LECON/DEST - UFES
-### Vitória. ES - 20/08/2021
+### Vitória. ES - 08/04/2022
 
 ---
 
@@ -29,297 +29,25 @@ class: animated, fadeIn
 &lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
 
 
-### Alguns resultados da álgebra matricial - I
-* **Trasposta**: A trasposta de uma matriz `\(\mathbf{A}\)` é a matriz que se obtém 
-da troca das linhas pelas colunas da matriz, ou seja, se 
-`\(\mathbf{A}=(a_{ij})_{i,j=1}^{m,n}\)`, então `\(\mathbf{A}'=(a_{ij})_{i,j=1}^{n,m}\)`.
-Em outras palavras,
+# Algumas ferramentas
 
-&lt;div class="math"&gt;
-\[\mathbf{A}=\left[
-\begin{array}{ccccc}
-a_{11}&amp;a_{12}&amp;a_{13}&amp;\cdots&amp;a_{1n} \\
-a_{21}&amp;a_{22}&amp;a_{23}&amp;\cdots&amp;a_{2n} \\
-\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
-a_{m1}&amp;a_{m2}&amp;a_{m3}&amp;\cdots&amp;a_{mn} \\
-\end{array}
-\right]
-\qquad 
-\mathbf{A}'=\left[
-\begin{array}{ccccc}
-a_{11}&amp;a_{21}&amp;a_{31}&amp;\cdots&amp;a_{m1} \\
-a_{12}&amp;a_{22}&amp;a_{32}&amp;\cdots&amp;a_{m2} \\
-\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
-a_{1n}&amp;a_{2n}&amp;a_{3n}&amp;\cdots&amp;a_{mn} \\
-\end{array}
-\right]
-\]
-&lt;/div&gt;
+* **.gitignore**: O arquivo `.gitignore` informa ao `Git` quais arquivos
+devem ser ignorados intencionalmente.
 
-**Propriedades**: Sejam `\(\mathbf{A}\)` e `\(\mathbf{B}\)` matrizes com dimensões adequadas.
-1. `\(\left(\mathbf{A}'\right)'=\mathbf{A}\)`;
-1. `\((\mathbf{A}+\mathbf{B})'=\mathbf{A}'+\mathbf{B}'\)`;
-1. `\(\left(c\mathbf{A}\right)'=c\mathbf{A}'\)`;
-1. `\(\left(\mathbf{AB}\right)'=\mathbf{B}'\mathbf{A}'\)`;
-1. `\(\left(\mathbf{A}'\right)^{-1}=\left(\mathbf{A}^{-1}\right)'\)`, `\(\, \mathbf{A}\)` 
-não-singular;
-1. `\(\det\left(\mathbf{A}'\right)=\det\left(\mathbf{A}\right)\)`;
+site para criação automática dos arquivos [gitignore.io](https://www.toptal.com/developers/gitignore)
 
-
----
-class: animated, slideInRight
-
-### Alguns resultados da álgebra matricial - II
-* **Simétrica**: Uma matriz quadrada `\(\mathbf{A}\)` é simétrica se `\(\mathbf{A}=\mathbf{A}'\)`.
-
-**Exemplos**: Seja `\(\mathbf{A}\)` uma matriz quadrada, então as matrizes
-`\(\mathbf{A}'+\mathbf{A}\)` e `\(\mathbf{A}\mathbf{A}'=\mathbf{A}'\mathbf{A}\)` são
-simétricas.
-
-* **Autovalores**: Seja `\(\lambda\)` um escalar. Dizemos que `\(\lambda\)` é *autovalor*
-de uma matriz quadrada `\(\mathbf{A}\)`, se existe um vetor não-nulo `\(\mathbf{x}\)`,
-tal que
-
-`$$\mathbf{Ax}=\lambda\mathbf{x}$$`
-ou equivalentemente
-
-`$$\left(\mathbf{A}-\lambda\mathbf{I}\right)\mathbf{x}=\mathbf{0}.$$`
-Fica evidente que `\(\lambda\)` é *autovalor* de `\(\mathbf{A}\)` see a matriz
-`\(\mathbf{A}-\lambda\mathbf{I}\)` é singular, i.e., `\(\lambda\)` é *autovalor* da
-`\(\mathbf{A}\)` see 
-`$$\det\left(\mathbf{A}-\lambda\mathbf{I}\right)=\left|\mathbf{A}-\lambda\mathbf{I}\right|=0.$$`
----
-class: animated, slideInRight
-
-### Alguns resultados da álgebra matricial - III
-
-* **Formas quadráticas**:  Uma forma quadrática em `\(\mathbb{R}^n\)` é uma função 
-polinomial em que todos os termos são de segundo grau. Em outras palavras,
-seja `\(\mathbf{A}\)` uma matriz simétrica e considere um vetor 
-`\(\mathbf{x}=\left(x_1,x_2,\ldots,x_n\right)'\)`, então
-
-`$$\mathbf{x}'\mathbf{Ax}=\sum_{i,j}a_{ij}x_ix_j=\sum_{i=1}^na_{ii}x_i^2+2\sum_{i&lt;j}a_{ij}x_ix_j$$`
-é uma *forma quadrática*.
-
-* **Derivada de formas quadráticas**&lt;sup&gt;1&lt;/sup&gt;: Seja `\(\mathbf{A}\)` uma matriz simétrica e 
-`\(\mathbf{x}'\mathbf{Ax}\)` a forma quadrática associada à matriz. Então:
-  - `\(\frac{\partial\mathbf{x}'\mathbf{Ax}}{\partial\mathbf{x}}=2\mathbf{Ax}\)`;
-  - `\(\frac{\partial^2\mathbf{x}'\mathbf{Ax}}{\partial\mathbf{x}\partial\mathbf{x}'}=2\mathbf{A}\)`;
-  - `\(\frac{\partial\mathbf{x}'\mathbf{Ax}}{\partial\mathbf{A}}=\mathbf{x}\mathbf{x}'\)`.
-   
-&gt; Para formas lineares, considere `\(\mathbf{Ax}\)`, então 
-`\(\frac{\partial\mathbf{Ax}}{\partial\mathbf{x}'}=\mathbf{A}\)` e
-`\(\frac{\partial\left(\mathbf{Ax}\right)'}{\partial\mathbf{x}}=\mathbf{A}'\)`. 
-
-
-&lt;font size="2"&gt; &lt;sup&gt;1&lt;/sup&gt;Para detalhes ver Magnus and Neudecker (2019) e 
-Harville (1997).&lt;/font&gt;
-
----
-class: animated, slideInRight
-
-### Alguns resultados da álgebra matricial - IV
-
-* **Matriz definida positiva**: Uma matriz quadrada `\(\mathbf{A}\)` se diz *definida positiva*
-se a forma quadrática associada à matriz é positiva, isto é, `\(\mathbf{x}'\mathbf{Ax}&gt;0\)`,
-para todo `\(\mathbf{x}\ne\mathbf{0}\)`.
-
-  - Uma matriz simétrica `\(\mathbf{A}\)` se diz *definida negativa* se `\(-\mathbf{A}\)` é
-definida positiva;
-  -  Uma matriz simétrica `\(\mathbf{A}\)` se diz *semidefinida positiva* se 
-  `\(\mathbf{x}'\mathbf{Ax}\ge0\)`, para todo `\(\mathbf{x}\ne\mathbf{0}\)`;
-  - Uma matriz simétrica `\(\mathbf{A}\)` se diz *semidefinida negativa* se `\(-\mathbf{A}\)` é
-semidefinida positiva.
-
-* **Propriedades**&lt;sup&gt;2&lt;/sup&gt;: Seja `\(\mathbf{A}\)` uma matriz 
-simétrica definida positiva, então
-  - `\(\mathbf{A}\)` é não-singular;
-  - Os autovalores de `\(\mathbf{A}\)` são todos positivos;
-  - `\(\mathbf{A}^{-1}\)` é positiva definida.
-
-
-&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;
-
-&lt;font size="2"&gt; &lt;sup&gt;2&lt;/sup&gt; Para detalhes ver Searle and Khuri (2017).&lt;/font&gt;
-
-
----
-class: inverse, hide-logo, middle, center
-
-# A2. A matriz `\(\mathbf{X}\)` tem posto coluna completo 
-
----
-class: animated, bounceInDown
-
-### Mínimos quadrados ordinários (MQO) - I
-
-Considere o modelo é linear, dado por
-
-`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
-ou
-`$$Y=\beta_0\mathbf{1}+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k+\mathbf{\epsilon}.$$`
-Nosso objetivo é estimar o vetor de parâmetros `\(\mathbf{\beta}\)`. O método de
-mínimos quadrados é um dos tantos métodos existentes na literatura, que 
-permitirá atingir nosso objetivo. 
-
-O método MQO tem como meta minimizar a seguinte função objetivo
-
-&lt;div class="math"&gt;
-$$
-\begin{aligned}
-S(\mathbf{\beta})=\mathbf{\epsilon}'\mathbf{\epsilon}&amp;=(Y-\mathbf{X\,\beta})'(Y-\mathbf{X\,\beta}) \\
-&amp;=Y'Y-Y'\mathbf{X\beta}-\mathbf{\beta}'\mathbf{X}'Y+\mathbf{\beta}'\mathbf{X}'\mathbf{X\beta}\\
-&amp;=Y'Y-2Y'\mathbf{X\beta}+\mathbf{\beta}'\mathbf{X}'\mathbf{X\beta}.
-\end{aligned}
-$$
-&lt;/div&gt;
-
-Dessa forma,
-$$
-\widehat{\mathbf{\beta}}=\underset{\mathbf{\beta}\,\in\,\Theta}{\arg\min}\, S(\mathbf{\beta}).
-$$
-
----
-class: animated, slideInRight
-
-### Mínimos quadrados ordinários (MQO) - II
-
-A minimização se dá ao derivar `\(S(\mathbf{\beta})\)` em relação ao `\(\mathbf{\beta}\)`
-e igualar a vetor `\(\mathbf{0}\)`, daí
-
-$$
-\frac{\partial S(\mathbf{\beta})}{\partial\beta}=-2\mathbf{X}'Y+2\mathbf{X}'\mathbf{X\beta}.
-$$
-Igualando a `\(\mathbf{0}\)`, temos que
-
-$$
-\mathbf{X}'\mathbf{X\widehat{\beta}}=\mathbf{X}'Y.
-$$
-O sistema de equações acima é denominado **equações normais**. O nome deve-se
-a que podemos reescrever o sistema de equações como
-
-$$
-\mathbf{X}'\left(\mathbf{X\widehat{\beta}}-Y\right)=\mathbf{0}.
-$$
-O vetor `\(\mathbf{X\widehat{\beta}}-Y\)` é chamado de *vetor de resíduos* e, segundo
-a equação acima, esse vetor é *normal* (ortogonal) aos vetores linha de `\(\mathbf{X}\)`.
-
----
-class: animated, slideInRight
-
-### Mínimos quadrados ordinários (MQO) - III
-
-
-De acordo com **A2.**, a matriz `\(\mathbf{X}\)` tem posto coluna completo, então
-`\(\mathbf{X}'\mathbf{X}\)` é uma matrix simétrica e não-singular, ou seja,
-`\(\mathbf{X}'\mathbf{X}\)` tem inversa. Dessa forma,
-
-&lt;div class="math"&gt;
-$$
-\begin{aligned}
-\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.
-\end{aligned}
-$$
-&lt;/div&gt;
-
-Para o ponto crítico ser ponto de mínimo, calcula-se a segunda derivada da função 
-objetivo `\(S(\mathbf{\beta})\)` e verifica-se se a matriz resultante é definida
-positiva. Dessa forma,
-
-`$$\frac{\partial^2 S(\mathbf{\beta})}{\partial\beta\partial\beta'}=2\mathbf{X}'\mathbf{X}.$$`
-Seja `\(\mathbf{v}=\mathbf{Xc}\)`, para algum vetor não-nulo `\(\mathbf{c}\)`. Seja 
-`\(q=\mathbf{v}'\mathbf{v}\)`. Observe que, a menos que cada elemento de 
-`\(\mathbf{v}\)` seja zero, `\(q\)` é positivo. Por outra parte, se `\(\mathbf{v}\)` pudesse 
-ser zero, então `\(\mathbf{v}\)` seria uma combinação linear das colunas de `\(\mathbf{X}\)`
-iguai a zero, o que contradiz a suposição **A2**. Dessa forma `\(q&gt;0\)`, i.e., 
-`\(\mathbf{X}'\mathbf{X}\)` é definida positiva.
-
-&gt; Se `\(\mathbf{X}\)` tem posto coluna completo, então a solução das **equações normais**
-é &lt;ins&gt;única&lt;/ins&gt; e minimiza `\(S(\mathbf{\beta})\)`.
-
-
----
-class: inverse, hide-logo, middle, center
-
-# A3. Exogeneidade das variáveis independentes
-
----
-class: animated, bounceInDown
-
-### Mínimos quadrados ordinários (MQO) - IV
-
-#### Propriedades do estimador
-
-Sabemos que o estimador MQO é dado por
-
-&lt;div class="math"&gt;
-$$
-\begin{aligned}
-\mathbf{\widehat{\beta}}&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y
-=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\left(\mathbf{X\beta}+\mathbf{\epsilon}\right)\\
-&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{X\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}.
-\end{aligned}
-$$
-&lt;/div&gt;
-
-Daí, pela Suposição **A3.**, i.e., `\(\mathbb{E}[\mathbf{\epsilon}|\mathbf{X}]=\mathbf{0}\)`,
-temos que:
-
-`$$\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\mathbb{E}\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}.$$`
-&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`.
-
----
-class: inverse, hide-logo, middle, center
-
-# A4. Esfericidade dos erros
-
----
-class: animated, bounceInDown
-
-### Mínimos quadrados ordinários (MQO) - IV
-
-#### Propriedades do estimador - II
-
-Sabemos que,
-
-`$$\mathbf{\widehat{\beta}}-\mathbf{\beta}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}.$$`
-Dessa forma,
-
-&lt;div class="math"&gt;
-$$
-\begin{aligned}
-\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\mathbb{E}\left[\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)'\,\Big|\,\mathbf{X}\right]=\mathbb{E}\left[\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)'\,\Big|\,\mathbf{X}\right]\\
-&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
-\end{aligned}
-$$
-&lt;/div&gt;
-
-Pela Suposição **A4.**, i.e., `\(\mathbb{E}[\mathbf{\epsilon\epsilon}'|\mathbf{X}]=\sigma^2\mathbf{I}\)`,
-temos que
-
-
-&lt;div class="math"&gt;
-$$
-\begin{aligned}
-\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\sigma^2\mathbf{I}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\\
-&amp;=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
-\end{aligned}
-$$
-&lt;/div&gt;
-
-&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
 
 
 ---
 class: animated, lightSpeedIn
 # Referências
 
-Harville, D. A. (1997). _Matrix algebra from a statistician's perspective_. New York: Springer.
 
-Magnus, J. R. and H. Neudecker (2019). _Matrix Differential Calculus with Applications in Statistics and
-Econometrics_. 3rd edition. John Wiley.
+```
+## You haven't cited any references in this bibliography yet.
+```
 
-Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_. 2nd edition. Wiley.
+NULL
 
 ---
 class: animated, hide-logo, bounceInDown
