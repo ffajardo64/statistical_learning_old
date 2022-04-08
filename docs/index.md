@@ -71,14 +71,29 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 ### Outras referências
-- Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Githug repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
-- Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
+
+#### Git
+* Chacon, S. (2008) [Git Internals](https://github.com/pluralsight/git-internals-pdf/raw/master/drafts/peepcode-git.pdf){:target="_blank"}.
+* Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
+* Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
+* McCullough, M. and Collins, K. (2016) [Getting startes with Git - DZone RefCard](https://dzone.com/refcardz/getting-started-git?utm_source=devfreebooks&utm_medium=medium&utm_campaign=DevFreeBooks){:target="_blank"}.
+* Sande, D. (2014) [Git for Everyone](https://anotheruiguy.gitbooks.io/gitforeveryone/content/){:target="_blank"}.
+
+#### Artículos
+- Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Github repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
 - Cleveland, W. (2001) Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
 - Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
 - Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
-- Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 - Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1 (Mar., 1962), p. 1-67
 
+### Links de interesses
+* [CODE](https://code.org/){:target="_blank"}.
+* [Code Conquest](https://www.codeconquest.com/){:target="_blank"}.
+* [Codewars](https://www.codewars.com/){:target="_blank"}.
+* [HackerRank](https://www.hackerrank.com/dashboard){:target="_blank"}.
+* [Hackr.io](https://hackr.io/){:target="_blank"}.
+* [Katacoda: Interactive Browser Based Labs, Courses & Playgrounds](https://www.katacoda.com/learn){:target="_blank"}.
+* [Khan Academy](https://www.khanacademy.org/){:target="_blank"}.
 
 ### Vídeos
 * [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy){:target="_blank"}.
