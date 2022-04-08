@@ -35,6 +35,9 @@ description: Repositório com material sobre análise de dados e programação c
 - VanderPlas, J. (2016) [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/){:target="_blank"}. [Github repository](https://github.com/jakevdp/PythonDataScienceHandbook){:target="_blank"}.
 - Zaki, M. and Meira, W. (2020) [Data Mining and Machine Learning: Fundamental Concepts and Algorithms](https://dataminingbook.info/book_html/){:target="_blank"}. 2nd Ed. , Cambridge University Press. [Errata](https://dataminingbook.info/){:target="_blank"}
 
+### Links de interesses
+* [Tutorial interativo de Python](https://www.learnpython.org/){:target="_blank"}.
+* [Google's Python Class](https://developers.google.com/edu/python/){:target="_blank"}.
 
 ### Vídeos
 
