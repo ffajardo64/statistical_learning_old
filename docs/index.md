@@ -11,12 +11,12 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ## Uma breve introdução
 
-* [Introdução](https://bit.ly/3jviHfA){:target="_blank"}.
+* [Introdução](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
-* [Criação de um projeto em ciência de dados](https://bit.ly/3jviHfA){:target="_blank"}.
+* [Criação de um projeto em ciência de dados](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
 * <span style="color:rgba(21, 153, 87)">Ferramentas computacionais</span>
-	- Controle de versões: [Git](https://bit.ly/38q8PzX){:target="_blank"} e [GitHub](https://bit.ly/3NYo0R8){:target="_blank"}.
+	- Controle de versões: [Git](https://bit.ly/38q8PzX){:target="_blank"} e [GitHub](https://bit.ly/3NYo0R8){:target="_blank"}.(*Em construção*)
 	- [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
 	- [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
 

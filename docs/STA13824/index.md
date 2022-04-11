@@ -9,8 +9,6 @@ description: Repositório com material sobre análise de regressão.
 ## Análise de regressão
 
 * **Slides**
-  - [Programa da disciplina](https://bit.ly/3jy4Rr1){:target="_blank"}
-  - [Introdução](https://bit.ly/2U66DqM){:target="_blank"}
   - [Estimação de parâmetros](https://bit.ly/3CnTTwR){:target="_blank"}
   - [Interpretação geométrica do estimador MQO](https://bit.ly/3fCLn39){:target="_blank"}
   - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3lKkq1s){:target="_blank"}
@@ -68,7 +66,7 @@ description: Repositório com material sobre análise de regressão.
   - [reg4_intro.ipynb](https://bit.ly/3xQdEK0)
   - [reg5_intro.ipynb](https://bit.ly/3k6fQrS)
   - [reg6_intro.ipynb](https://bit.ly/3tu9M0B)
-  - [reg7_intro.ipynb](https://bit.ly/3Df6l1A) **novo**
+  - [reg7_intro.ipynb](https://bit.ly/3Df6l1A)
   
 **Python**
 
