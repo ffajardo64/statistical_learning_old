@@ -5,34 +5,49 @@ author: Laboratório de Estatística e Computação Natural - LECON -
 description: Repositório exclusivo para Aprendizado Estatístico. Informações sobre métodos, modelagem estatística, códigos em R e Python, datasets e entre outros.
 ---
 
-# Ferramentas computacionais
+# Introdução à Ciência de dados
+
+* Plano de ensino
+
+## Introdução
+
+### Ferramentas computacionais
 
 * Controle de versões: [Git](https://bit.ly/38q8PzX){:target="_blank"} e [GitHub](https://bit.ly/3NYo0R8){:target="_blank"}.
 * [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
 * [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
 
-# Aprendizado supervisionado
+## Análise Exploratória
+
+## Inferência Estatística
+
+* [Inferência Estatística I](https://bit.ly/3jxUsLV){:target="_blank"}. (*Em construção*)
+
+## Aprendizado Estatístico
+
+### Aprendizado supervisionado
 
 * [Análise de regressão](https://bit.ly/3jvVHvg){:target="_blank"}.
 * [Modelos de classificação](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
-# Aprendizado não-supervisionado
+### Aprendizado não-supervisionado
 * [Redução de dimensionalidade](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 * [Análise de agrupamentos](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 * [Detecção de anomalias](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
 
+## Processamento de Linguagem Natural (*Em construção*)
 
-# Tópicos em Estatística
+## Sistemas Recomendadores (*Em construção*)
+
+
+
+# Outros Tópicos em Estatística
 
 ### Análise exploratória
 
 * [Estatística aplicada às ciências sociais I](https://bit.ly/3GZgkuz){:target="_blank"}.
 
-
-### Inferência Estatística
-
-* [Inferência Estatística I](https://bit.ly/3jxUsLV){:target="_blank"}. (*Em construção*)
 
 
 ### Referências
@@ -63,9 +78,9 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Molnar, C. (2021)[Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/){:target="_blank"}.
 - Overton, J. (2016) [Going Pro in Data Science](https://drive.google.com/file/d/1RjgDVqs9G53QvIw4CQkt5cKyVHnWvoir/view){:target="_blank"}.
 - Peng, R. (2015) [R Programming for Data Science](https://drive.google.com/file/d/1RQEjlDfGdNEWxyMxXt9OtHOtIY_oGG86/view){:target="_blank"}.
-- Raschka, S. and Mirjalili, V. (2019)  [Python Machine Learning: Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2](https://github.com/rasbt/python-machine-learning-book-3rd-edition){:target="_blank"}, 3rd ed. A segunda edição está disponível [aqui](https://bit.ly/3vdmAJG){:target="_blank"}.
+- Raschka, S. and Mirjalili, V. (2019) [Python Machine Learning: Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2](https://github.com/rasbt/python-machine-learning-book-3rd-edition){:target="_blank"}, 3rd ed. A segunda edição está disponível [aqui](https://bit.ly/3vdmAJG){:target="_blank"}.
 - Saxe, J. and Sandres, H. (2018) [Malware Data Science: Attack Detection and Attribution](https://drive.google.com/file/d/1jtnH_536WoWAh7XRAwnbGEmDRCzJsFee/view){:target="_blank"}.
-- Shalev-Shwartz, S. and Ben-David, S. (2014)[Understanding Machine Learning: From Theory to Algorithms](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf){:target="_blank"}.[Errata](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/copy.html){:target="_blank"}.
+- Shalev-Shwartz, S. and Ben-David, S. (2014) [Understanding Machine Learning: From Theory to Algorithms](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf){:target="_blank"}.[Errata](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/copy.html){:target="_blank"}.
 - Silge, J. and Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
 - Skiena, S. (2017) [The Data Science Design Manual](https://drive.google.com/file/d/126LDK3z2GcvlJC0Fi_wcPYMrjbkqZUbh/view){:target="_blank"}.
 
