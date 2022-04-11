@@ -31,26 +31,20 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ### Aprendizado supervisionado
 
 * [Análise de regressão](https://bit.ly/3jvVHvg){:target="_blank"}.
+
 * [Modelos de classificação](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
 ### Aprendizado não-supervisionado
 * [Redução de dimensionalidade](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+
 * [Análise de agrupamentos](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
-* [Detecção de anomalias](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+
+* [Análise de associação](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
 
 ## Processamento de Linguagem Natural (*Em construção*)
 
 ## Sistemas Recomendadores (*Em construção*)
-
-
-
-# Outros Tópicos em Estatística
-
-### Análise exploratória
-
-* [Estatística aplicada às ciências sociais I](https://bit.ly/3GZgkuz){:target="_blank"}.
-
 
 
 ### Referências
