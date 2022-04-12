@@ -71,7 +71,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Shalev-Shwartz, S. and Ben-David, S. (2014) [Understanding Machine Learning: From Theory to Algorithms](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf){:target="_blank"}.[Errata](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/copy.html){:target="_blank"}.
 - Skiena, S. (2017) [The Data Science Design Manual](https://drive.google.com/file/d/126LDK3z2GcvlJC0Fi_wcPYMrjbkqZUbh/view){:target="_blank"}.
 
-# R
+#### R
 - Baumer, B. S., Kaplan, D. T. and Horton, N. J. (2021) [Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/){:target="_blank"}. 
 - Hastie, T., Tibshirani, R. and Friedman, J. (2017) [Elements of Statistical Learning](https://stanford.io/3gPor0n){:target="_blank"}. 2nd Ed. **12a reimpressão**. [ERRATA](https://stanford.io/3wIpcPD){:target="_blank"}.
 - Izbicki, R. & Mendoça, T. (2020) [Aprendizado de máquina: uma abordagem estatística](https://bit.ly/3zHVcFJ){:target="_blank"}. 1a Ed.
@@ -79,14 +79,14 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Peng, R. (2015) [R Programming for Data Science](https://drive.google.com/file/d/1RQEjlDfGdNEWxyMxXt9OtHOtIY_oGG86/view){:target="_blank"}.
 - Silge, J. and Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
 
-# Python
+#### Python
 - Chan, S. (2021) [Introduction to Probability for Data Science](https://probability4datascience.com/){:target="_blank"}.
 - Cielen, D. , Meysman, A. and Ali, M. (2016) [Introducing Data Science: Big Data, Machine Learning and more, using python tools](https://drive.google.com/file/d/1hbjLZrFkKi8Cp-hgn__Gzxw1ftFyCeLj/view){:target="_blank"}.
 - Grus, J. (2015) [Data Science from Scratch](https://drive.google.com/file/d/19NUMa-6H-taFc92M3gDT8QxDOT2EfVCr/view){:target="_blank"}, O’Reilly Media.
 - Madhavan, S. (2015) [Mastering Python for Data Science](https://drive.google.com/file/d/15NQ3z_mdcrUOteHCwUc61jdChMwT4Mez/view){:target="_blank"}.
 - Raschka, S. and Mirjalili, V. (2019) [Python Machine Learning: Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2](https://github.com/rasbt/python-machine-learning-book-3rd-edition){:target="_blank"}, 3rd ed. A segunda edição está disponível [aqui](https://bit.ly/3vdmAJG){:target="_blank"}.
 
-# Julia
+#### Julia
 - Klok, H. and Nazarathy, Y. (2019) [Statistics with Julia: Fundamentals for Data Science, Machine Learning and Artificial Intelligence](https://drive.google.com/file/d/1usOfQ9jnFgBMvsqVzeAnc428JLa4RB_y/view){:target="_blank"}.
 
 
