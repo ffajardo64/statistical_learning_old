@@ -84,10 +84,10 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Cielen, D. , Meysman, A. and Ali, M. (2016) [Introducing Data Science: Big Data, Machine Learning and more, using python tools](https://drive.google.com/file/d/1hbjLZrFkKi8Cp-hgn__Gzxw1ftFyCeLj/view){:target="_blank"}.
 - Grus, J. (2015) [Data Science from Scratch](https://drive.google.com/file/d/19NUMa-6H-taFc92M3gDT8QxDOT2EfVCr/view){:target="_blank"}, O’Reilly Media.
 - Madhavan, S. (2015) [Mastering Python for Data Science](https://drive.google.com/file/d/15NQ3z_mdcrUOteHCwUc61jdChMwT4Mez/view){:target="_blank"}.
+- Raschka, S. and Mirjalili, V. (2019) [Python Machine Learning: Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2](https://github.com/rasbt/python-machine-learning-book-3rd-edition){:target="_blank"}, 3rd ed. A segunda edição está disponível [aqui](https://bit.ly/3vdmAJG){:target="_blank"}.
 
 # Julia
 - Klok, H. and Nazarathy, Y. (2019) [Statistics with Julia: Fundamentals for Data Science, Machine Learning and Artificial Intelligence](https://drive.google.com/file/d/1usOfQ9jnFgBMvsqVzeAnc428JLa4RB_y/view){:target="_blank"}.
-- Raschka, S. and Mirjalili, V. (2019) [Python Machine Learning: Machine Learning and Deep Learning with Python, scikit-learn, and TensorFlow 2](https://github.com/rasbt/python-machine-learning-book-3rd-edition){:target="_blank"}, 3rd ed. A segunda edição está disponível [aqui](https://bit.ly/3vdmAJG){:target="_blank"}.
 
 
 ### Outras referências
