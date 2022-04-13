@@ -77,7 +77,9 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Izbicki, R. & Mendoça, T. (2020) [Aprendizado de máquina: uma abordagem estatística](https://bit.ly/3zHVcFJ){:target="_blank"}. 1a Ed.
 - James, G., Witten, D., Hastie, T. and Tibshirani, R. (2021) [An Introduction to Statistical Learning](https://stanford.io/3jTwET3){:target="_blank"}, 2nd ed., **1a impressão (04/08/2021)**. A primeira edição, **7a reimpressão (2013)** está disponível [aqui](https://bit.ly/3qjFmwz){:target="_blank"}. [ERRATA](https://www.statlearning.com/errata-first-edition).
 - Peng, R. (2015) [R Programming for Data Science](https://drive.google.com/file/d/1RQEjlDfGdNEWxyMxXt9OtHOtIY_oGG86/view){:target="_blank"}.
+- Peng, R. (2019) [Report Writing for Data Science in R](https://leanpub.com/s/5D8DCC251BC04436ADFBC1F7AEAEED0B.pdf){:target="_blank"}.
 - Silge, J. and Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
+
 
 #### Python
 - Chan, S. (2021) [Introduction to Probability for Data Science](https://probability4datascience.com/){:target="_blank"}.
