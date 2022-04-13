@@ -12,11 +12,21 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Git
+]
+.subtitle[
 ## Trabalhando com repositórios remotos
+]
+.author[
 ### <br/><br/>
+]
+.institute[
 ### LECON/DEST - UFES
-### Vitória. ES - 11/04/2022
+]
+.date[
+### Vitória. ES - 12/04/2022
+]
 
 ---
 
@@ -29,7 +39,194 @@ class: animated, fadeIn
 &lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
 
 
-# Algumas ferramentas
+### Serviços de hospedagem de projetos
+
+&gt; Existem alguns serviços para hospedagem de projetos na internet, que 
+permitem a utilização de ferramentas de controle de versão. Tais serviços
+permitem que você possa hospedar seus projetos, e os mesmos poderão ser
+acessados de qualquer lugar do mundo.  Alguns desses serviços são: 
+[GitHub](http://github.com/), [GitLab](https://gitlab.com), [DAGsHub](https://dagshub.com) ou [Bitbucket](http://Bitbucket.org).
+
+* `GitHub` é um serviço de Web Hosting compartilhado para projetos que usam o `Git`. Possui planos comerciais e gratuitos para projetos de código aberto. Por outra parte, o `GitLab` é um serviço similar ao GitHub, mas ele permite armazenamento do código em seus próprios servidores, ao invés de servidores de terceiros.
+
+* `DagsHub` é uma plataforma para que cientistas de dados e engenheiros de aprendizado de máquina criem versões de seus dados, modelos, experimentos e códigos. Ele permite compartilhamento, revisão e reutilização fácil do seu trabalho, fornecendo a experiência do `GitHub` para aprendizado de máquina.
+
+* `Bitbucket` é um serviço de hospedagem de projetos controlados desenvolvido pela [Atlassian](https://www.atlassian.com/). É similar ao `GitHub`, mas também
+suporta uma integração com outras ferramentas.
+
+&lt;img src="images/github.png" width="30%" style="float:left; padding:5px" /&gt;
+
+&lt;img src="images/dagshub.png" width="30%" style="float:right; padding:15px" /&gt;&lt;img src="images/bitbucket.png" width="30%" style="float:right; padding:15px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Criando um usuário no `GitHub`
+
+A criação de um novo usuário deve ser realizada na página
+inicial do `GitHub` - [https://github.com/](https://github.com/).
+
+&lt;img src="images/homepage_github.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Criando um usuário no `GitHub`
+
+.pull-left[
+
+Devemos informar um nome de usuário, o e-mail e uma senha. 
+
+Caso já exista um outro usuário cadastrado com o mesmo nome de 
+usuário e/ou e-mail informado, o `GitHub` nos mostrará um alerta indicando tal 
+situação, e só permitirá que continuemos o cadastro após a alteração 
+dessa(s) informação(ões).
+
+Após informar os dados e clicar no botão **Continue**, você será
+redirecionado para uma página de boas-vindas, onde devemos escolher qual
+o plano a ser contratado.
+]
+
+.pull-right[
+&lt;img src="images/sign_up_github.png" width="100%" style="float:left; padding:20px" /&gt;
+]
+
+
+
+---
+class: animated, bounceInDown
+
+### Criando um repositório do projeto - I
+
+&gt; Um *repositório* remoto é simplesmente uma coleção de todos os arquivos que contém as diferentes versões de um projeto, hospedado em algum lugar que não seja sua máquina local. 
+
+Para criar um novo repositório no `GitHub`, devemos acessar a `URL` 
+[https://github.com/new](https://github.com/new) ou clicar no botão 
+**New**.
+
+&lt;p align="center" width="600" height="100"&gt;
+  &lt;img src="images/new_repository_github.png" alt="New repository GitHub"/&gt;
+&lt;/p&gt;
+
+---
+class: animated, bounceInDown
+
+&lt;p align="center" width="600" height="100"&gt;
+  &lt;img src="images/new_repository_github2.png" alt="New repository GitHub"/&gt;
+&lt;/p&gt;
+
+---
+class: animated, fanceIn
+background-image: url("images/repositorio_introGit.png")
+background-size: contain
+
+### Criando um repositório do projeto - I
+
+---
+class: animated, fadeIn
+
+### Clonando um repositório remoto - I
+
+Agora que o nosso repositório remoto está hospedado no `GitHub`, podemos 
+sincronizar nossos repositórios locais desde qualquer lugar do mundo.
+É possível **clonar** o repositório para criar uma cópia local no seu 
+computador e sincronizar entre os dois locais.
+
+**Clonar** um repositório extrai uma cópia &lt;ins&gt;completa&lt;/ins&gt; de todos
+os dados do repositório remoto tem nesse momento, incluindo todas as 
+versões de cada arquivo e pasta do projeto. Você pode fazer `push` 
+das alterações no repositório remoto no `GitHub` ou extrair as 
+alterações de outras pessoas no `GitHub`. Detalhes em [GitHub Docs](https://docs.github.com/pt/enterprise-cloud@latest/repositories).
+
+Para que um novo usuário obtenha uma cópia do repositório, ele
+agora deverá usar o comando `git clone`:
+
+&lt;img src="images/clone_repo.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+background-image: url("images/repositorio_introGit2.png")
+background-size: contain
+
+### Clonando um repositório remoto - I
+
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - I
+
+&lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Controlando o versionamento dos arquivos - I
+
+&lt;img src="images/controle4.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - I
+
+&lt;img src="images/controle5.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# Branches
+
+
+---
+class: animated, fadeIn
+
+### Trabalhando em paralelo com branches - I
+
+* A maioria dos sistemas de controle de versão permite trabalho em 
+paralelo por meio de `branches`. Um `branch` é uma ramificação da sua
+"árvore" principal de desenvolvimento, geralmente criada para
+isolar o seu trabalho sem afetar outros `branches` no 
+seu repositório.
+
+  &lt;img src="images/branch1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+  Os `branches` permitem que você desenvolva recursos, corrija erros ou 
+  experimente com segurança novas ideias em uma área contida do seu 
+  repositório.
+
+---
+class: animated, fadeIn
+
+### Trabalhando em paralelo com branches - I
+
+* Cada repositório tem um `branch` padrão e pode ter vários outros
+`branches`. Você sempre cria um `branch` a partir de um `branch` 
+existente.  Você então poderá trabalhar nesse novo `branch` isolado 
+das mudanças que outras pessoas estão fazendo no repositório.
+
+  &lt;img src="images/branch2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+ Você pode fazer um **merge** ("mescla") de um `branch` em outro `branch` 
+ usando um **pull request**.
+
+  Em muitos sistemas de controle de versão, utilizar branches é algo 
+  bastante lento e trabalhoso. Porém, a estrutura interna do `Git` 
+  permite lidarmos com branches de maneira muito rápida e leve.
+
+
+
+---
+class: animated, slideInRight
+
+### Clonando um repositório remoto - II
+
+
+
+---
+class: animated, bounceInDown
+
+## Ignorando arquivos no `Git` - I
 
 * **.gitignore**: O arquivo `.gitignore` informa ao `Git` quais arquivos
 devem ser ignorados intencionalmente.
@@ -42,38 +239,12 @@ site para criação automática dos arquivos [gitignore.io](https://www.toptal.c
 class: animated, lightSpeedIn
 # Referências
 
-Breiman, L. (2001). "Statistical Modeling: The Two Cultures (with comments and a
-rejoinder by the author)". In: _Statistical Science_ 16.3, pp. 199 - 231.
 
-Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition. Apress.
+```
+## You haven't cited any references in this bibliography yet.
+```
 
-Chollet, F. (2018). _Deep learning with R_. 1st edition. Shelter Island, NY:
-Manning Publications. ISBN: 1-61729-554-X.
-
-Fox, J. and S. Weisberg (2019). _An R Companion to Applied Regression_. 3rd
-edition. Sage publications. ISBN: 978-1-5443-3647-3.
-
-Harville, D. A. (1997). _Matrix algebra from a statistician's perspective_. New
-York: Springer.
-
-Loeliger, J. and M. McCullough (2012). _Version control with Git_. 2nd Edition.
-O'Reilly Media.
-
-Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General Public License version 3.
-
-Magnus, J. R. and H. Neudecker (2019). _Matrix Differential Calculus with
-Applications in Statistics and Econometrics_. 3rd edition. John Wiley.
-
-Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_. 2nd
-edition. Wiley.
-
-Xie, Y., J. Allaire, and G. Grolemund (2021). _R Markdown: The Definitive
-Guide_. ISBN 9781138359338. Boca Raton, Florida: Chapman and Hall/CRC. URL:
-[https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown).
-
-Xie, Y., C. Dervieux, and E. Riederer (2020). _R Markdown Cookbook_. ISBN
-9780367563837. Boca Raton, Florida: Chapman and Hall/CRC. URL:
-[https://bookdown.org/yihui/rmarkdown-cookbook](https://bookdown.org/yihui/rmarkdown-cookbook).
+NULL
 
 ---
 class: animated, hide-logo, bounceInDown
@@ -151,6 +322,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
