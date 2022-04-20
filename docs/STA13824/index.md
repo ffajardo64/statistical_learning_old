@@ -9,6 +9,7 @@ description: Repositório com material sobre análise de regressão.
 ## Análise de regressão
 
 * **Slides**
+  - [Introdução](https://bit.ly/2U66DqM){:target="_blank"}
   - [Estimação de parâmetros](https://bit.ly/3CnTTwR){:target="_blank"}
   - [Interpretação geométrica do estimador MQO](https://bit.ly/3fCLn39){:target="_blank"}
   - [Caso particular: Modelo de regressão linear simples](https://bit.ly/3lKkq1s){:target="_blank"}
