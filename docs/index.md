@@ -5,15 +5,15 @@ author: Laboratório de Estatística e Computação Natural - LECON -
 description: Repositório exclusivo para Aprendizado Estatístico. Informações sobre métodos, modelagem estatística, códigos em R e Python, datasets e entre outros.
 ---
 
-# Introdução à Ciência de dados
+## Introdução à Ciência de dados
 
 * [Plano de ensino](https://bit.ly/3KCKV2I){:target="_blank"}.
 
 ## Uma breve introdução
 
-* [Introdução](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Introdução](https://bit.ly/3xztooi){:target="_blank"}. (*Em construção*)
 
-* [Criação de um portfólio em ciência de dados](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Criação de um portfólio em ciência de dados](https://bit.ly/38WPo21){:target="_blank"}. (*Em construção*)
 
 * <span style="color:rgba(21, 153, 87)">Ferramentas computacionais</span>
 	- [Git: Uma breve introdução](https://bit.ly/38q8PzX){:target="_blank"}
@@ -56,6 +56,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Caffo, B. (2017) [Advanced Linear Models for Data Science](https://bit.ly/3gIfHKT){:target="_blank"}.
 - Caffo, B. (2016) [Statistical inference for data science](https://bit.ly/3qsjgbv){:target="_blank"}.
 - Das, S. R. (2016) [Data Science: Theories, Models, Algorithms, and Analytics](https://drive.google.com/file/d/1B851rJrpHZJiS2p4QadLhwgXfv3_87v2/view){:target="_blank"}.
+- Daumé, H. (2017) [A Course in Machine Learning](https://tinyurl.com/ML-HD3){:target="_blank"}.
 - Dean, J. (2014) [Big Data, Data Mining, and Machine Learning](https://drive.google.com/file/d/1cA9-GNgGBU22jPmCio6FFclTIz4nh9Jl/view){:target="_blank"}.
 - Deisenroth, M. P., Faisal, A. A. and Ong, C. S. (2021) [Mathematics for Machine Learning](https://bit.ly/3gUa1vZ){:target="_blank"}. [Errata](https://mml-book.github.io/){:target="_blank"}.
 - Fernandez-Granda, C. (2017) [Probability and Statistics for Data Science](https://drive.google.com/file/d/1h6ViUfuD_CE4GacHvjb0jaZTYQPhBzap/view){:target="_blank"}.
@@ -102,12 +103,13 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 
 #### Artículos
-- Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Github repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
-- Cleveland, W. (2001) [Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics](https://zhanksun.github.io/files/DataScience.pdf){:target="_blank"}. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
-- Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
-- Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
-- NG, A. (2019) [Deep Learning Course Notes](https://www.dropbox.com/s/nfv5w68c6ocvjqf/0-2.pdf?dl=0){:target="_blank"}. [Visual Notes](https://www.dropbox.com/s/j2pjnybkm91wgdf/visual_notes.pdf?dl=0){:target="_blank"}.
-- Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1 (Mar., 1962), p. 1-67
+* Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Github repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
+* Cleveland, W. (2001) [Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics](https://zhanksun.github.io/files/DataScience.pdf){:target="_blank"}. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
+* Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
+* Donoho, D. (2017) [50 Years of Data Science](http://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf), Journal of Computational and Graphical Statistics, 26:4, 745-766.
+* Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
+* NG, A. (2019) [Deep Learning Course Notes](https://www.dropbox.com/s/nfv5w68c6ocvjqf/0-2.pdf?dl=0){:target="_blank"}. [Visual Notes](https://www.dropbox.com/s/j2pjnybkm91wgdf/visual_notes.pdf?dl=0){:target="_blank"}.
+* Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1 (Mar., 1962), p. 1-67
 
 
 ### Links de interesses
