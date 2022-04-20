@@ -21,6 +21,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 	- [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
 	- [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
 
+
 ## Análise Exploratória
 
 ## Inferência Estatística
@@ -33,17 +34,19 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 * [Análise de regressão](https://bit.ly/3jvVHvg){:target="_blank"}.
 
-* [Modelos de classificação](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Modelos de classificação](https://bit.ly/3EwyyTe){:target="_blank"}. (*Em construção*)
 
 ### Aprendizado não-supervisionado
+
 * [Redução de dimensionalidade](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
 
-* [Análise de agrupamentos](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Análise de agrupamentos](https://bit.ly/3rE48cI){:target="_blank"}. (*Em construção*)
 
-* [Análise de associação](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Análise de associação](https://bit.ly/3L4hiaz){:target="_blank"}. (*Em construção*)
 
 
 ## Processamento de Linguagem Natural (*Em construção*)
+
 
 ## Sistemas Recomendadores (*Em construção*)
 
