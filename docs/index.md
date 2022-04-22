@@ -26,7 +26,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 
-## [Datasets](https://bit.ly/3rE48cI){:target="_blank"}
+## [Datasets](https://bit.ly/3xKx6LV){:target="_blank"}
 
 
 ## Inferência Estatística
