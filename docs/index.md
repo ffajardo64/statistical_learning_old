@@ -24,6 +24,11 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ## Análise Exploratória
 
+
+
+## [Datasets](https://bit.ly/3rE48cI){:target="_blank"}
+
+
 ## Inferência Estatística
 
 * [Inferência Estatística I](https://bit.ly/3jxUsLV){:target="_blank"}. (*Em construção*)
@@ -137,7 +142,6 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Teaching Statistics and Data Science Online](https://bit.ly/3k4tHPZ){:target="_blank"}
 
 
-### [Datasets](https://bit.ly/3rE48cI){:target="_blank"}
 
 
 <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> <script> var x = document.getElementsByClassName("site-footer-credits"); setTimeout(() => { x[0].remove(); }, 10); </script>
