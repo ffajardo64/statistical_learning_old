@@ -99,20 +99,23 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ### Outras referências
 
 #### Git
+* Bryan, J. (2021)[Happy Git and GitHub for the UseR](https://happygitwithr.com/){:target="_blank"}.
 * Chacon, S. (2008) [Git Internals](https://github.com/pluralsight/git-internals-pdf/raw/master/drafts/peepcode-git.pdf){:target="_blank"}.
 * Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
 * McCullough, M. and Collins, K. (2016) [Getting startes with Git - DZone RefCard](https://dzone.com/refcardz/getting-started-git?utm_source=devfreebooks&utm_medium=medium&utm_campaign=DevFreeBooks){:target="_blank"}.
 * Sande, D. (2014) [Git for Everyone](https://anotheruiguy.gitbooks.io/gitforeveryone/content/){:target="_blank"}.
 * Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
 
+
 #### Artículos
+* Beckman, M. D., Çetinkaya-Rundel, M., Horton, N. J., Rundel, C. W., Sullivan, A. J., & Tackett, M. (2021) [Implementing Version Control With Git and GitHub as a Learning Objective in Statistics and Data Science Courses](https://bit.ly/3OwZHtT){:target="_blank"}. Journal of Statistics and Data Science Education, Vol. 29, No. sup1, S132-S144
 * Booz Allen Hamilton Holding Corporation (2015) [The Field Guide to Data Science](https://drive.google.com/file/d/1bl_j3hzFgnUxg9OSS6o4Yw9Ilpcb9NFD/view){:target="_blank"}. [Github repository](https://github.com/booz-allen-hamilton/The-Field-Guide-to-Data-Science){:target="_blank"}.
 * Cleveland, W. (2001) [Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics](https://zhanksun.github.io/files/DataScience.pdf){:target="_blank"}. International Statistical Review, Vol. 69, No. 1 (Apr., 2001), p. 21-26.
 * Data Analytics Team Jigsaw [Beginners’ Guide to Analytics](https://drive.google.com/file/d/1_E14FyacFKSkIXgg4R_JQhf9R4lRQwjl/view){:target="_blank"} - Acesso em 28/08/2021.
 * Donoho, D. (2017) [50 Years of Data Science](http://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf), Journal of Computational and Graphical Statistics, 26:4, 745-766.
 * Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
 * NG, A. (2019) [Deep Learning Course Notes](https://www.dropbox.com/s/nfv5w68c6ocvjqf/0-2.pdf?dl=0){:target="_blank"}. [Visual Notes](https://www.dropbox.com/s/j2pjnybkm91wgdf/visual_notes.pdf?dl=0){:target="_blank"}.
-* Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1 (Mar., 1962), p. 1-67
+* Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1, p. 1-67
 
 
 ### Links de interesses
@@ -124,19 +127,17 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Katacoda: Interactive Browser Based Labs, Courses & Playgrounds](https://www.katacoda.com/learn){:target="_blank"}.
 * [Khan Academy](https://www.khanacademy.org/){:target="_blank"}.
 
-### Vídeos
+### Cursos em vídeos
 * [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy){:target="_blank"}.
+* [Data Science in a Box](https://bit.ly/38bFSYy){:target="_blank"}.
 * [Data Science - ML](https://bit.ly/3yIJ1Hc){:target="_blank"}.
 * [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg){:target="_blank"}.
 * [Machine Learning University](https://bit.ly/3zVEvWq){:target="_blank"}.
 * [Machine Learning Course for Beginners](https://www.youtube.com/watch?v=NWONeJKn6kc){:target="_blank"} - freeCodeCamp.
+* [Teaching Statistics and Data Science Online](https://bit.ly/3k4tHPZ){:target="_blank"}
 
-### Datasets
-* [UCI - Machine learning repository](https://archive.ics.uci.edu/ml/index.php){:target="_blank"}.
-* [Kaggle datasets](https://www.kaggle.com/datasets){:target="_blank"}.
-* [Coronavirus datasets](https://www.worldometers.info/coronavirus/){:target="_blank"}.
-* [Our world in data](https://ourworldindata.org/){:target="_blank"}.
-* [Generate test data](https://generatedata.com/){:target="_blank"}.
+
+### [Datasets](https://bit.ly/3rE48cI){:target="_blank"}
 
 
 <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> <script> var x = document.getElementsByClassName("site-footer-credits"); setTimeout(() => { x[0].remove(); }, 10); </script>
