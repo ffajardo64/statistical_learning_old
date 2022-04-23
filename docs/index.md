@@ -8,10 +8,8 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ## Introdução à Ciência de dados
 
 * [Plano de ensino](https://bit.ly/3KCKV2I){:target="_blank"}.
-
-* [Introdução](https://bit.ly/3xztooi){:target="_blank"}. (*Em construção*)
-
-* [Criação de um portfólio em ciência de dados](https://bit.ly/38WPo21){:target="_blank"}. (*Em construção*)
+* [Introdução I: Uma breve história](https://bit.ly/3xztooi){:target="_blank"}. (*Em construção*)
+* [Introdução II: Criação de um portfólio em ciência de dados](https://bit.ly/38WPo21){:target="_blank"}. (*Em construção*)
 
 * <span style="color:rgba(21, 153, 87)">Ferramentas computacionais</span>
 	- [Git: Uma breve introdução](https://bit.ly/38q8PzX){:target="_blank"}
