@@ -9,8 +9,6 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 * [Plano de ensino](https://bit.ly/3KCKV2I){:target="_blank"}.
 
-## Uma breve introdução
-
 * [Introdução](https://bit.ly/3xztooi){:target="_blank"}. (*Em construção*)
 
 * [Criação de um portfólio em ciência de dados](https://bit.ly/38WPo21){:target="_blank"}. (*Em construção*)
