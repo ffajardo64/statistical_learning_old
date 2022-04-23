@@ -102,7 +102,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ### Outras referências
 
 #### Git
-* Bryan, J. (2021)[Happy Git and GitHub for the UseR](https://happygitwithr.com/){:target="_blank"}.
+* Bryan, J. (2021) [Happy Git and GitHub for the UseR](https://happygitwithr.com/){:target="_blank"}.
 * Chacon, S. (2008) [Git Internals](https://github.com/pluralsight/git-internals-pdf/raw/master/drafts/peepcode-git.pdf){:target="_blank"}.
 * Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
 * McCullough, M. and Collins, K. (2016) [Getting startes with Git - DZone RefCard](https://dzone.com/refcardz/getting-started-git?utm_source=devfreebooks&utm_medium=medium&utm_campaign=DevFreeBooks){:target="_blank"}.
