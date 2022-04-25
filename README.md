@@ -3,7 +3,6 @@ Repositório exclusivo para informação de métodos estatísticos, códigos e c
 
 A teoria da aprendizagem estatística é um dos pilares da aprendizagem de máquina baseada na teoría estatística e da análise funcional. 
 A teoria da aprendizagem estatística lida com o problema de encontrar uma função preditiva baseada em dados.
-[_Em construção_]
 
 # Ferramentas computacionais
 
