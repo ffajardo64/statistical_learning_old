@@ -19,7 +19,8 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 ## Análise Exploratória
-	- [Tipos de dados](https://bit.ly/3xztooi){:target="_blank"}.
+
+* [Tipos de dados](https://bit.ly/3xztooi){:target="_blank"}.
 
 
 ## [Datasets](https://bit.ly/3xKx6LV){:target="_blank"}
