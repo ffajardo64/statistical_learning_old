@@ -8,7 +8,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ## Introdução à Ciência de dados
 
 * [Plano de ensino](https://bit.ly/3KCKV2I){:target="_blank"}.
-* [Introdução I: Uma breve história](https://bit.ly/3xztooi){:target="_blank"}. (*Em construção*)
+* [Introdução I: Uma breve história](https://bit.ly/3LewPos){:target="_blank"}.
 * [Introdução II: Criação de um portfólio em ciência de dados](https://bit.ly/38WPo21){:target="_blank"}. (*Em construção*)
 
 * <span style="color:rgba(21, 153, 87)">Ferramentas computacionais</span>
@@ -19,7 +19,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 ## Análise Exploratória
-
+	- [Tipos de dados](https://bit.ly/3xztooi){:target="_blank"}.
 
 
 ## [Datasets](https://bit.ly/3xKx6LV){:target="_blank"}
@@ -28,6 +28,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ## Inferência Estatística
 
 * [Inferência Estatística I](https://bit.ly/3jxUsLV){:target="_blank"}. (*Em construção*)
+
 
 ## Aprendizado Estatístico
 
@@ -39,7 +40,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 ### Aprendizado não-supervisionado
 
-* [Redução de dimensionalidade](https://bit.ly/3jviHfA){:target="_blank"}. (*Em construção*)
+* [Redução de dimensionalidade](https://bit.ly/3EwyyTe){:target="_blank"}. (*Em construção*)
 
 * [Análise de agrupamentos](https://bit.ly/3rE48cI){:target="_blank"}. (*Em construção*)
 
@@ -75,6 +76,8 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Saxe, J. and Sandres, H. (2018) [Malware Data Science: Attack Detection and Attribution](https://drive.google.com/file/d/1jtnH_536WoWAh7XRAwnbGEmDRCzJsFee/view){:target="_blank"}.
 - Shalev-Shwartz, S. and Ben-David, S. (2014) [Understanding Machine Learning: From Theory to Algorithms](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf){:target="_blank"}.[Errata](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/copy.html){:target="_blank"}.
 - Skiena, S. (2017) [The Data Science Design Manual](https://drive.google.com/file/d/126LDK3z2GcvlJC0Fi_wcPYMrjbkqZUbh/view){:target="_blank"}.
+- Stanton, J. (2012) [An Introduction to Data Science](https://digital.library.unt.edu/ark:/67531/metadc463528/m2/1/high_res_d/DataScienceBook1_1.pdf){:target="_blank"}.
+
 
 #### R
 - Baumer, B. S., Kaplan, D. T. and Horton, N. J. (2021) [Modern Data Science with R](https://mdsr-book.github.io/mdsr2e/){:target="_blank"}. 
@@ -83,7 +86,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - James, G., Witten, D., Hastie, T. and Tibshirani, R. (2021) [An Introduction to Statistical Learning](https://stanford.io/3jTwET3){:target="_blank"}, 2nd ed., **1a impressão (04/08/2021)**. A primeira edição, **7a reimpressão (2013)** está disponível [aqui](https://bit.ly/3qjFmwz){:target="_blank"}. [ERRATA](https://www.statlearning.com/errata-first-edition).
 - Peng, R. (2015) [R Programming for Data Science](https://drive.google.com/file/d/1RQEjlDfGdNEWxyMxXt9OtHOtIY_oGG86/view){:target="_blank"}.
 - Peng, R. (2019) [Report Writing for Data Science in R](https://leanpub.com/s/5D8DCC251BC04436ADFBC1F7AEAEED0B.pdf){:target="_blank"}.
-- Silge, J. and Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
+- Silge, J. & Robinson, D. (2021) [Text Mining with R](https://www.tidytextmining.com/index.html){:target="_blank"}. [Errata](){:target="_blank"}.
 
 
 #### Python
@@ -137,7 +140,9 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Machine Learning Course for Beginners](https://www.youtube.com/watch?v=NWONeJKn6kc){:target="_blank"} - freeCodeCamp.
 * [Teaching Statistics and Data Science Online](https://bit.ly/3k4tHPZ){:target="_blank"}
 
+### Dashboards
 
+- [Common Online Data Analysis Platform (CODAP)](https://codap.concord.org/){:target="_blank"}
 
 
 <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> <script> var x = document.getElementsByClassName("site-footer-credits"); setTimeout(() => { x[0].remove(); }, 10); </script>
