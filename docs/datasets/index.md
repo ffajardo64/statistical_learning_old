@@ -8,6 +8,7 @@ description: Repositório com conjuntos de dados para análise de dados.
 
 ### Links
 
+- [Portal Brasileiro de Dados Abertos](https://dados.gov.br/){:target="_blank"}
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday){:target="_blank"}
 - [NHS Scotland Open Data](https://www.opendata.nhs.scot/){:target="_blank"}
 - [Edinburgh Open Data](https://edinburghopendata.info/){:target="_blank"}
