@@ -51,9 +51,6 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 ## Processamento de Linguagem Natural (*Em construção*)
 
 
-## Sistemas Recomendadores (*Em construção*)
-
-
 ### Referências
 
 - Bargagliotti, A. and Franklin, C. (2021) [Statistics and Data Science for Teachers](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook.pdf){:target="_blank"}. Versão para [impressão](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook-highres.pdf){:target="_blank"}.
