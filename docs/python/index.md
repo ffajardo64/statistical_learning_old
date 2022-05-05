@@ -25,6 +25,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Kosmaczewski, A. [The State Of Python In 2021](https://deprogrammaticaipsum.com/the-state-of-python-in-2021/?utm_source=newsshowcase&utm_medium=discover&utm_campaign&utm_content). Acessado em 25/08/2021.
 - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V){:target="_blank"}. Version 1.3.0. Jul 02.
 - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J){:target="_blank"}
+- Rougier, N. (2021) [Scientific Visualization: Python + Matplotlib](https://hal.inria.fr/hal-03427242/document){:target="_blank"}
 - Severance, C. R. (2020) [Python para todos: Explorando dados com python 3](http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf){:target="_blank"}. Outras traduções [aqui](https://www.py4e.com/book.php){:target="_blank"}
 - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8){:target="_blank"}  (Atenção: Versão Python 2.x)
 - Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW){:target="_blank"}.
