@@ -517,7 +517,7 @@ arquivo `README.md` com a mensagem "Primeiro arquivo `README.md` sem
 alterações" e o arquivo `Intro.md` com a mensagem "Novo texto para 
 verificação". Uma vez corrigidas as mensagens, faça um novo registro.
 
-<div class="countdown" id="timer_6273e2bd" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62744bc2" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -559,9 +559,29 @@ class: animated, bounceInDown
 &lt;a href="http://git-scm.com/book/pt-br/v2/Fundamentos-de-Git-Vendo-o-hist%C3%B3rico-de-Commits"&gt;Git Documentation&lt;/a&gt;.&lt;/font&gt;
 
 ---
+class: animated, fadeIn
+
+### `git log`
+
+#### Algumas considerações - III
+
+Uma opção interessante do `Git` é a possibilidade de combinar várias
+opções do mesmo comando. Observe por exemplo o seguinte exemplo:
+
+* **`git log --parents`**: Mostra os *commits* com seus respectivos 
+pais. O *commit* pai é o *commit* que foi efetuado anteriormente;
+
+* **`git log --decorate`**: Mostra o *commit* para o qual a ramificação
+`main` está apontando;
+
+* **`git log --oneline`**: Mostra um resumo compacto dos *commits*.
+
+&lt;img src="images/git_log_combine.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
 class: inverse, hide-logo, middle, center
 
-# Alguns tópicos
+# Alguns tarefas muito comuns
 
 ---
 class: animated, fadeIn
@@ -644,6 +664,9 @@ with Git_. 2nd Edition. O'Reilly Media.
 
 Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General
 Public License version 3.
+
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
+Taylor &amp; Francis Group. CRC Press.
 
 ---
 class: animated, hide-logo, bounceInDown
