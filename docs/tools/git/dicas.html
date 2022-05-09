@@ -153,8 +153,6 @@ arquivo ao seu repositório, e que o mesmo deve fazer parte do seu
 
 &lt;img src="images/commit_amend_forgotten.png" width="80%" style="display: block; margin: auto;" /&gt;
 
-&lt;a href="#" onclick="close_window();return false;"&gt;Fechar&lt;/a&gt;
-
 ---
 class: animated, slideInRight
 
@@ -183,7 +181,7 @@ para as mais recentes;
 * Depois dos *commits*, o `Git` informa a você o intervalo de *commits* 
 com os quais estamos trabalhando;
 
-* No final, o `Git` fornece um texto informando os comandosque estão 
+* No final, o `Git` fornece um texto informando os comandos que estão 
 disponíveis ao fazer **rebase** dos *commits*.
 
 ---
@@ -196,10 +194,22 @@ class: animated, slideInRight
 class: animated, slideInRight
 ### Corrigindo a mensagem de um *commit* antigo - III
 
+Para alterar a mensagem de um *commit* altere **pick** para **reword**
+nos *commits* que precisa editar. Salve e feche o arquivo. Depois disso
+o `Git` vai abrir cada um dos *commits* marcados com **reword** para 
+edição. Nesse caso é só editar e salvar as alterações.
 
+**Comandos disponíveis ao fazer rebase**
 
+ |Opções           | Descrição     |      
+ |:--------------: |:-------------|
+ |  **pick**       | Indica que o *commit* está incluído. Alterar a ordem de `pick` dos comandos muda a ordem dos *commits*. Se você optar por não incluir um *commit*, será preciso excluir a linha toda.|
+ |  **reword**     | Quando usa `reword` o **rebase** dá a chance de você alterar a mensagem do *commit*.| 
+ |  **edit**       | Permite corrigir o *commit*, i.e. é possível adicionar ou alterar o *commit* por inteiro. | 
+ |  **squash**  | Combina dois ou mais *commits* em um único *commit*. Um *commit* é combinado no *commit* acima dele.| 
+|  **fixup**  | Semelhante ao `squash`, mas o *commit* a sofrer *merge* tem sua mensagem descartada. O *commit* simplesmente sofre *merge* no *commit* acima dele, e a mensagem do commit anterior é usado para descrever ambas as alterações.|
+|  **exec**  | Permite que você execute comandos de shell arbitrários em um *commit*.|
 
-&lt;a href="#" onclick="close_window();return false;"&gt;Fechar&lt;/a&gt;
 
 ---
 class: animated, fadeIn
@@ -400,7 +410,7 @@ este *branch* em seu estado atual. Por quê?
 1. Siga a sugestão que o Git lhe dá para ver se você pode deletar este 
 *branch*.
 
-<div class="countdown" id="timer_62785716" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6278612d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
