@@ -5,8 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="  " />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/countdown/countdown.css" rel="stylesheet" />
-    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
   </head>
@@ -332,223 +330,18 @@ class: animated, fanceIn
 ### Copiar *commits* de um *branch* para outro - I
 
 
----
-class: inverse, hide-logo, middle, center
-
-# Branches
-
----
-class: animated, fadeIn
-
-### Trabalhando em paralelo com branches - I
-
-* A maioria dos sistemas de controle de versão permite trabalho em 
-paralelo por meio de `branches`. Um `branch` é uma ramificação da sua
-"árvore" principal de desenvolvimento, geralmente criada para
-isolar o seu trabalho sem afetar outros `branches` no 
-seu repositório.
-
-  &lt;img src="images/branch1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-  Os `branches` permitem que você desenvolva recursos, corrija erros ou 
-  experimente com segurança novas ideias em uma área contida do seu 
-  repositório.
-
----
-class: animated, fadeIn
-
-### Trabalhando em paralelo com branches - II
-
-* Cada repositório tem um `branch` padrão e pode ter vários outros
-`branches`. Você sempre cria um `branch` a partir de um `branch` 
-existente.  Você então poderá trabalhar nesse novo `branch` isolado 
-das mudanças que outras pessoas estão fazendo no repositório.
-
-  &lt;img src="images/branch2.png" width="100%" style="display: block; margin: auto;" /&gt;
-
- Você pode fazer um **merge** ("mescla") de um `branch` em outro `branch` 
- usando um **pull request**.
-
-  Em muitos sistemas de controle de versão, utilizar *branches* é algo 
-  bastante lento e trabalhoso. Porém, a estrutura interna do `Git` 
-  permite lidarmos com branches de maneira muito rápida e leve.
-
-
----
-class: animated, slideInRight
-
-### Criando um branch - I
-O conceito de *branch* é extremamente simples no `Git`. Um *branch*
-não é mais do que uma **referência** (ou rótulo) para um registro 
-(*commit*) em seu repositório.
-
-Para listar as *branches* do nosso repositório, execute o comando 
-**`git branch`**:
-
-&lt;img src="images/git_branch1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-`Git` possui por padrão uma *branch* principal chamada `main`. Em 
-ausência de outras referências, o `Git` realizará todos os registros
-na *branch* principal.
-
-&gt; O asterisco indica que é a *branch* atual na que estamos trabalhando.
-
-***
-
-Para detalhes veja Uzayr (2022).
-
----
-class: animated, slideInLeft
-
-### Criando um branch - II
-
-Para criar um novo *branch* use o comando **`git branch`** da seguinte 
-forma:
-
-&lt;img src="images/git_branch2.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-Outra forma de você visualizar os nomes dos seus *branches* é com o
-comando `ls .git/refs/heads/`:
-
-&lt;img src="images/git_branch3.png" width="90%" style="display: block; margin: auto;" /&gt;
-
----
-class: animated, slideInRight
-
-### Criando um branch - III
-
-&lt;iframe src="https://git-school.github.io/visualizing-git/" height="500" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
-
----
-class: animated, slideInLeft
-
-### Algumas tarefas muito comuns com `branches` - I
-
-* **`git branch -v`**: lista todas as *branches* existentes no seu 
-repositório com os *commits* associados;
-
-* **`git checkout [branch]`**&lt;sup&gt;1&lt;/sup&gt;: Permite alternar ramificações, por exemplo 
-`git checkout novoBranch` alterna para a ramificação *novoBranch*; 
-
-&gt; **O que é HEAD?**
-
-&gt; O **HEAD** é simplesmente um ponteiro para um *commit* 
-específico, i.e. ele pode apontar para qualquer *commit*, 
-inclusive algum que não esteja sendo referenciado por nenhum *branch*.
-* Para alternar o **HEAD** (ou seja, para mudar o *branch* para o 
-qual ele aponta), usamos **`git checkout [branch]`**.
-
-&gt; Existem várias formas de visualizar qual o valor do **HEAD**. Os 
-seguintes comandos realizam essa tarefa: **`git show HEAD`** ou **`git log -1`**.
-Mas não são as unicas formas de visualizar.
-
-***
-&lt;sup&gt;1&lt;/sup&gt;`[branch]` é usado para indicar o nome da ramificação.
-
----
-class: animated, slideInLeft
-
-### Algumas tarefas muito comuns com `branches` - II
-
-* **`git branch -d [branch]`**: Permite deletar uma *branch*. Em caso 
-de termos feito algum *commit* no *branch* a ser deletado, é possível 
-que o `Git` mostre uma mensagem de erro indicando que existem *commits* 
-não aplicados ainda em outras *branches*. Nesse caso, use o comando 
-`git branch -D [branch]`.
-
-  &gt; Para deletar o *branch* remoto você pode utilizar o seguinte 
-  comando: 
-  
-  &gt; `git push origin :[branch]`
-  
-  &gt; Os dois pontos na frente do nome da *branch* (**:**) são importantes
-  e não devem ser esquecidos, pois são eles que indicam que o *branch*
-  será deletado. &lt;ins&gt;Caso você esqueça os dois pontos, você estaria 
-  atualizando o *branch* remoto.&lt;/ins&gt;
-  
-* **`git branch --all`**: Permite visualizar todos os *branches* que 
-o `Git` conhece neste repositório, seja local ou remoto;
-
-* **`git branch -m [branch_antigo] [branch_novo]`**: Permite renomear 
-um *brach*;
-
-
----
-class: animated, slideInLeft
-
-### Exemplo prático
-
-**Excluir um branch com commits**. Você não quer estragar suas 
-ramificações existentes, então você precisará para criar uma 
-ramificação local temporária, alterne para ela, faça um commit e 
-exclua essa ramificação.
-
-1. Crie um branch temporário com o nome de **novoBranch**;
-1. Alterne para essa ramificação;
-1. Crie um novo arquivo `READMEnew.md` vazio, na raiz diretório do 
-seu projeto;
-1. Adicione esse novo arquivo `READMEnew.md` à área de preparo;
-1. Confirme essa mudança com uma mensagem apropriada;
-1. Faça o *check-out* do *branch* `main`;
-1. Exclua **novoBranch** — mas o `Git` não permitirá que você exclua 
-este *branch* em seu estado atual. Por quê?
-1. Siga a sugestão que o Git lhe dá para ver se você pode deletar este 
-*branch*.
-
-<div class="countdown" id="timer_6279d548" style="right:0;bottom:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
----
-class: animated, slideInRight
-
-### **`git stash`**
-Considerando que você tenha arquivos pendentes para *commitar*, ao 
-utilizar o comando **`git stash`**, o `Git` vai criar uma *branch* 
-&lt;ins&gt;temporária&lt;/ins&gt; contendo a versão atual do seu projeto e após 
-isso vai desfazer essas modificações feitas nos arquivos da sua 
-*branch* atual.
-
-&lt;img src="images/git_stash.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-&gt; O arquivo **index.html** não consta como modificado.
-
-O `Git` cria uma ramificação temporária com as alterações realizadas
-e para recuperar basta usar o comando **`git stash apply`**. Dessa forma,
-todos os arquivos que você modificou no momento do `apply` vão ser 
-restaurados, exatamente como você deixou.
-
----
-class: animated, fadeIn
-
-### **`git stash`**
-
-&lt;ol start="3"&gt;
-  &lt;li&gt;item 3&lt;/li&gt;
-  &lt;li&gt;item 4&lt;/li&gt;
-&lt;/ol&gt;
-
-
----
-class: animated, slideInRight
-
-## Ignorando arquivos no `Git` - I
-
-* **.gitignore**: O arquivo `.gitignore` informa ao `Git` quais arquivos
-devem ser ignorados intencionalmente.
-
-site para criação automática dos arquivos [gitignore.io](https://www.toptal.com/developers/gitignore)
-
-[CS Visualized: Useful Git Commands](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1)
-
 
 
 ---
 class: animated, lightSpeedIn
 # Referências
 
-Uzayr, S. (2022). _Mastering Git: A beginner's guide_. Taylor &amp; Francis
-Group. CRC Press.
+
+```
+## You haven't cited any references in this bibliography yet.
+```
+
+NULL
 
 ---
 class: animated, hide-logo, bounceInDown
