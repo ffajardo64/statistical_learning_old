@@ -568,7 +568,7 @@ verificação". Uma vez corrigidas as mensagens, faça um novo registro.
 
 [&lt;div style="text-align: right"&gt; **Dica**&lt;/div&gt;](https://bit.ly/3sk3OQC)
 
-<div class="countdown" id="timer_627a6fe4" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_627a726e" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -607,7 +607,7 @@ class: animated, slideInRight
 
 
 ---
-class: animated, slideInRight
+class: animated, fadeIn
 
 ### Exemplo prático - II
 
@@ -615,20 +615,30 @@ class: animated, slideInRight
 edite o arquivo escrevendo o seguinte texto: `Primeiro item`. Use 
 **`git commit`** para enviar ao repositório. 
 
+--
+
 * Edite novamente o arquivo, inserindo mais um texto: Repita`Segundo item` 
 e envie novamente ao repositório. Repita essa ação mais duas vezes;
 
+--
+
 * Use **`git log --oneline`** e **`git status`** para verificar o 
 histórico de *commits* e o estado do diretório de trabalho;
+
+--
 
 * Use **`git diff [SHA1_1] [SHA1_2]`** para verificar as diferenças 
 entre o primeiro *commit* e o segundo. Repita essa ação para verificar
 as diferenção entre os outros *commits*;
 
+--
+
 * Edite o arquivo `bugFix.txt` adicionando uma nova linha: `Quarto item`
 e use **`git add`** para enviar o arquivo para a área de preparo. Note 
 que o arquivo está marcado para ser *commitado*.
 &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Segure a tentação e não commite&lt;/span&gt;;
+
+--
 
 * Mais uma vez edite o arquivo e adicione a linha: `Quinto item`. Use
 **`git status`** para verificar o estado do arquivo;
