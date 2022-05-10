@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 09/05/2022
+### Vitória. ES - 10/05/2022
 ]
 
 ---
@@ -467,6 +467,17 @@ arquivos, que ainda não são acompanhados pelo `Git`, não serão incluídos.
 ---
 class: inverse, hide-logo, middle, center
 
+# git diff
+
+---
+class: animated, slideInRight
+
+### `git diff`
+
+
+---
+class: inverse, hide-logo, middle, center
+
 # git log
 
 ---
@@ -535,7 +546,7 @@ pais. O *commit* pai é o *commit* que foi efetuado anteriormente;
 ---
 class: animated, slideInRight
 
-### Exemplo prático
+### Exemplo prático - I
 
 * Inicialize um repositório em um diretório da sua preferência;
 
@@ -557,7 +568,7 @@ verificação". Uma vez corrigidas as mensagens, faça um novo registro.
 
 [&lt;div style="text-align: right"&gt; **Dica**&lt;/div&gt;](https://bit.ly/3sk3OQC)
 
-<div class="countdown" id="timer_6279d568" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_627a6fe4" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -596,6 +607,138 @@ class: animated, slideInRight
 
 
 ---
+class: animated, slideInRight
+
+### Exemplo prático - II
+
+* No seu repositório local crie um arquivo chamado `bugFix.txt` e 
+edite o arquivo escrevendo o seguinte texto: `Primeiro item`. Use 
+**`git commit`** para enviar ao repositório. 
+
+* Edite novamente o arquivo, inserindo mais um texto: Repita`Segundo item` 
+e envie novamente ao repositório. Repita essa ação mais duas vezes;
+
+* Use **`git log --oneline`** e **`git status`** para verificar o 
+histórico de *commits* e o estado do diretório de trabalho;
+
+* Use **`git diff [SHA1_1] [SHA1_2]`** para verificar as diferenças 
+entre o primeiro *commit* e o segundo. Repita essa ação para verificar
+as diferenção entre os outros *commits*;
+
+* Edite o arquivo `bugFix.txt` adicionando uma nova linha: `Quarto item`
+e use **`git add`** para enviar o arquivo para a área de preparo. Note 
+que o arquivo está marcado para ser *commitado*.
+&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Segure a tentação e não commite&lt;/span&gt;;
+
+* Mais uma vez edite o arquivo e adicione a linha: `Quinto item`. Use
+**`git status`** para verificar o estado do arquivo;
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+&gt; **Lembre**: O diretório de trabalho é o local onde estão seus 
+arquivos. Também chamado de *working directory* ou *working dir* ou 
+*working tree*. No exemplo: o arquivo `bugFix.txt` encontra-se no
+seu diretório de trabalho.
+
+--
+
+&gt; As alterações no arquivo só estarão no próximo *commit* se você as
+manda para a área de preparo. Também chamada de *staging area* ou 
+*index* ou *cache*. No exemplo: o conteúdo do arquivo `bugFix.txt` é
+enviado à área de preparo com o comando **`git add`**.
+
+&lt;br/&gt;
+
+--
+
+* Use o comando **`git diff`** para verificar as diferenças entre o 
+diretório de trabalho e a área de preparo;
+
+--
+
+* Use o comando **`git diff --cached`** para verificar as diferenças 
+entre a área de preparo e o último *commit*;
+
+--
+
+&lt;br/&gt;
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;A quinta linha está no diretório
+de trabalho mas não está na área de preparo e não irá no próximo *commit*.
+Em outras palavras, Na área de preparo temos a quarta linha do arquivo, 
+e no diretório de trabalho temos a quarta e quinta linhas.&lt;/span&gt;
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+Agora usaremos as opções do comando **`git reset`** para esclarecer
+as diferenças.
+
+* Aplique o comando **`git reset --soft`** no segundo *commit* e 
+verifique o histório com **`git log --oneline`**.
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Observe que o ponteiro
+**HEAD** aponta para o commit indicado e o arquivo no seu diretório
+de trabalho não sofreu alterações.&lt;/span&gt;
+
+&gt; Com o comando **`git diff --cached`** verifique que na área de 
+preparo o arquivo continua com 4 linhas e que a terceira e quarta 
+linhas foram adicionadas.
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Repare que o SHA-1 do 
+arquivo continua o mesmo, o que indica que a área de preparo não foi 
+alterada.&lt;/span&gt;** Dessa forma, o arquivo que está na área de preparo
+continua com a quarta linha, pois o comando **`git reset --soft`** não
+alterou seu conteúdo.
+
+--
+
+* Repita o mesmo procedimento com o comando **`git reset --mixed`**.
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Observe que o ponteiro
+**HEAD** aponta para o commit indicado e a área de preparo foi 
+atualizada com o mesmo conteúdo do *commit*.&lt;/span&gt;
+
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+&gt; Com o comando **`git diff --cached`** verifique que na área de 
+preparo não são informadas mais diferenças. Ou seja, a área de preparo
+está igual ao último *commit* (i.e. o segundo *commit*).
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Repare que o SHA-1 do 
+arquivo mudou, o que indica que a área de preparo foi 
+alterada.&lt;/span&gt;** Dessa forma, o arquivo que está na área de preparo
+está com apenas duas linhas e o arquivo no diretório de trabalho 
+continua sem alterações.
+
+--
+
+* Repita o mesmo procedimento com o comando **`git reset --hard`**. 
+Verifique que o comando faz o mesmo que o **`--mixed`**, ou seja, 
+o **HEAD** está apontando para o segundo *commit* e a área de preparo
+está igual a este *commit*, i.e. está com duas linhas só. 
+
+&gt; Use os comandos **`git log --oneline`** e **`git diff --cached`** para
+verificar o hitórico de *commits* e as diferenças na área de preparo,
+respectivamente.
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Repare que a opção `--hard` fez o mesmo que `--mixed`, mas também alterou o diretório de trabalho com o mesmo conteúdo do segundo *commit*.&lt;/span&gt;**
+
+***
+
+Uma discussão mais detalhada pode ser revisada na Documentação Oficial do 
+Git, na seção [Git Tools - Reset Demystified](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
+
+---
 class: center, middle, hide-logo
 background-image: url("images/git_cheatsheet.jpeg")
 background-size: contain
@@ -604,13 +747,17 @@ background-size: contain
 class: animated, lightSpeedIn
 # Referências
 
-Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition. Apress.
+Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition.
+Apress.
 
-Loeliger, J. and M. McCullough (2012). _Version control with Git_. 2nd
-Edition. O'Reilly Media.
+Loeliger, J. and M. McCullough (2012). _Version control
+with Git_. 2nd Edition. O'Reilly Media.
 
-Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General Public License
-version 3.
+Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General
+Public License version 3.
+
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
+Taylor &amp; Francis Group. CRC Press.
 
 ---
 class: animated, hide-logo, bounceInDown
