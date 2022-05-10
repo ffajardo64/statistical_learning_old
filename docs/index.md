@@ -104,6 +104,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * Bryan, J. (2021) [Happy Git and GitHub for the UseR](https://happygitwithr.com/){:target="_blank"}.
 * Chacon, S. (2008) [Git Internals](https://github.com/pluralsight/git-internals-pdf/raw/master/drafts/peepcode-git.pdf){:target="_blank"}.
 * Chacon, S. and Straub, B. (2021) [Pro Git ](https://git-scm.com/book/pt-br/v2). Versão em português.
+* Lynn, B. (2007) [Git Magic](http://www-cs-students.stanford.edu/~blynn/gitmagic/){:target="_blank"}. 2nd Ed. Versão em português [aqui](http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/pt_br/){:target="_blank"}.
 * McCullough, M. and Collins, K. (2016) [Getting startes with Git - DZone RefCard](https://dzone.com/refcardz/getting-started-git?utm_source=devfreebooks&utm_medium=medium&utm_campaign=DevFreeBooks){:target="_blank"}.
 * Sande, D. (2014) [Git for Everyone](https://anotheruiguy.gitbooks.io/gitforeveryone/content/){:target="_blank"}.
 * Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/workshop-git-github-rstudio/slides/pres_short_course_git_github_rstudio.html){:target="_blank"}.
