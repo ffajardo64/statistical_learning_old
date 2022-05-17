@@ -337,15 +337,52 @@ algumas opções proporcionadas pelo comando:
 
 
 ---
+class: animated, fanceIn
+
+### Deletar um arquivo de um repositório - I
+
+&gt; **Repositório local**
+
+* Para remover um arquivo no diretório de trabalho basta executar o 
+comando **git rm [nome_do_arquivo]** e *commitar* a remoção. 
+Por exemplo, se quisermos excluir o arquivo `README.md`, execute os 
+seguintes comandos:
+
+&lt;img src="images/git_rm1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+* No cenário em que o arquivo foi alterado e adicionado à área de preparo, 
+precisamos usar a opção `--cached`: **git rm --cached [nome_do_arquivo]**.
+
+---
+class: animated, fanceIn
+
+### Deletar um arquivo de um repositório - I
+
+&gt; **Repositório remoto**
+
+* Para remover o arquivo só do repositório remoto:
+
+&lt;img src="images/git_rm2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Se quiser deletar o arquivo 
+tanto do do repositório local, quanto do repositório remoto, simplesmente
+omita a opção `--cached`.&lt;/span&gt;
+
+---
 class: animated, lightSpeedIn
 # Referências
 
+Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition.
+Apress.
 
-```
-## You haven't cited any references in this bibliography yet.
-```
+Loeliger, J. and M. McCullough (2012). _Version control
+with Git_. 2nd Edition. O'Reilly Media.
 
-NULL
+Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General
+Public License version 3.
+
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
+Taylor &amp; Francis Group. CRC Press.
 
 ---
 class: animated, hide-logo, bounceInDown
