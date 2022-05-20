@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 05/05/2022
+### Vitória. ES - 20/05/2022
 ]
 
 ---
@@ -160,7 +160,7 @@ class: animated, fadeIn
 &lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-class: animated, slideInLeft
+class: animated, fadeIn
 
 ### Controlando o versionamento dos arquivos - I
 
@@ -230,9 +230,11 @@ Para listar as *branches* do nosso repositório, execute o comando
 
 `Git` possui por padrão uma *branch* principal chamada `main`. Em 
 ausência de outras referências, o `Git` realizará todos os registros
-na *branch* principal.
+na *branch* principal. **O asterisco indica que é a *branch* atual na 
+que estamos trabalhando.**
 
-&gt; O asterisco indica que é a *branch* atual na que estamos trabalhando.
+&gt; Para criar um novo branch e mudar para ele ao mesmo tempo, você pode 
+executar o comando **`git checkout -b [branch]`**. 
 
 ***
 
@@ -324,21 +326,28 @@ ramificações existentes, então você precisará para criar uma
 ramificação local temporária, alterne para ela, faça um commit e 
 exclua essa ramificação.
 
-1. Crie um branch temporário com o nome de **novoBranch**;
-1. Alterne para essa ramificação;
-1. Crie um novo arquivo `READMEnew.md` vazio, na raiz diretório do 
-seu projeto;
-1. Adicione esse novo arquivo `READMEnew.md` à área de preparo;
-1. Confirme essa mudança com uma mensagem apropriada;
-1. Faça o *check-out* do *branch* `main`;
-1. Exclua **novoBranch** — mas o `Git` não permitirá que você exclua 
-este *branch* em seu estado atual. Por quê?
-1. Siga a sugestão que o Git lhe dá para ver se você pode deletar este 
+1. Crie uma nova ramificação com o nome **novoBranch** e alterne para 
+essa ramificação;
+
+1. Crie um novo arquivo `READMEnew.md` (vazio) no diretório de trabalho 
+e envie o arquivo na área de preparo com uma mensagem adequada;
+
+1. Volte à ramificação principal;
+
+1. Exclua **novoBranch**. Note que o `Git` não permitirá essa exclusão. 
+Por quê?
+
+1. Siga a sugestão que o `Git` lhe dá para ver se você pode deletar este 
 *branch*.
 
-<div class="countdown" id="timer_62748382" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62872eee" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
+
+---
+class: inverse, hide-logo, middle, center
+
+# Stash
 
 ---
 class: animated, slideInRight
@@ -350,49 +359,236 @@ utilizar o comando **`git stash`**, o `Git` vai criar uma *branch*
 isso vai desfazer essas modificações feitas nos arquivos da sua 
 *branch* atual.
 
-&lt;img src="images/git_stash.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/git_stash1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 &gt; O arquivo **index.html** não consta como modificado.
 
 O `Git` cria uma ramificação temporária com as alterações realizadas
 e para recuperar basta usar o comando **`git stash apply`**. Dessa forma,
-todos os arquivos que você modificou no momento do `apply` vão ser 
+todos os arquivos que você modificou no momento do **`apply`** vão ser 
 restaurados, exatamente como você deixou.
+
+***
+
+Detalhes na [Documentação Oficial do Git](https://git-scm.com/docs/git-stash/pt_BR).
+
 
 ---
 class: animated, fadeIn
 
 ### **`git stash`**
 
+Você poderá criar mais de uma ramificação temporária durante o 
+desenvolvimento do seu projeto. Nesse cenário, você poderá escolher
+qual ramificação deseja restaurar usando o comando **`git stash list`**:
+
+&lt;img src="images/git_stash2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+A ordem das ramificações é apresentada da mais recente até a mais antiga.
+Para restaurar uma determinada ramificação use o comando **`git stash apply @{id}`**.
+
+#### Algumas opções úteis
+
+* **`git stash show`**: Mostra todos os arquivos modificados na última
+ramificação temporária;
+
+* **`git stash clear`**: Remove todas as ramificações temporárias;
+
+* **`git stash drop`**: Remove uma determinada ramificação temporária,
+por exemplo: **`git stash drop stash@{0}`** remove a ramificação `\(0\)`;
+
+---
+class: inverse, hide-logo, middle, center
+
+# Merge
+
+---
+class: animated, slideInRight
+
+### **`git merge`**
+
+O comando **`git merge`** é o comando que permite "mesclar" ou integrar
+as ramificações, criadas com **`git branch`**, para a sua ramificação 
+principal ou qualquer outra ramificação do seu interesse. A integração 
+das ramificações é feita a partir da combinação de várias sequências 
+de *commits* em um histórico unificado.
+
+Por exemplo, se você está trabalhando atualmente na ramificação principal
+e gostaria de fazer a integração com uma ramificação chamada 
+`novoBranch`, use o comando **`git merge novoBranch`**.
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Importante&lt;/span&gt;**&lt;span style="color:rgba(141, 0, 69, 1)"&gt;: Caso houver alterações cujo *commit* não foi realizado na 
+sua ramificação atual, o Git &lt;ins&gt;não permitirá&lt;/ins&gt; fazer a integração
+até que todas as alterações da sua ramificação atual sejam passadas 
+*commitadas*.
+
+Os conflitos na mesclagem acontecem quando você aplica o comando
+**`git merge`** de *branches* que têm *commits* concorrentes e o 
+`Git` precisa da sua ajuda para decidir quais alterações incorporar 
+nessa integração final.
+
+Muitas vezes, o `Git` pode resolver as diferenças entre ramificações
+e fazer a integração deles automaticamente. No entanto, às vezes, 
+existem alterações conflitantes que o `Git` não pode resolver sem a 
+sua ajuda. Geralmente, os conflitos na mesclagem acontecem quando são
+realizadas alterações diferentes na mesma linha do mesmo arquivo ou 
+quando um arquivo é editado e outro usuário exclui o mesmo arquivo.
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Você pode resolver conflitos
+na mesclagem usando a linha de comando e um editor de texto.&lt;/span&gt;
+
+
+---
+class: animated, slideInRight
+
+### **`git merge`**
+
+#### Como resolver conflitos?
+
+Um conflito na mesclagem ocorre quando fazemos *commits* em ramificações
+separadas que alteram a mesma linha do arquivo de modo que causam conflito.
+
+Suponha que o arquivo **`intro.md`** foi alterado e você tenta aplicar
+um **merge** na ramificação **novoBranch**.
+
+&lt;img src="images/merge_conflict.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### **`git merge`**
+
+#### Como resolver conflitos?
+
+Examinando o arquivo **`intro.md`** no seu editor de texto, você poderá
+perceber que o `Git` adicionou as seguintes linhas ao seu arquivo:
+`&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD`, `=======` e `&gt;&gt;&gt;&gt;&gt;&gt;&gt; novoBranch`:
+
+&lt;img src="images/conflict_intro.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### **`git merge`**
+
+#### Como resolver conflitos?
+
+Decida se você deseja manter apenas as alterações da sua ramificação 
+atual, manter apenas as alterações da outra ramificação, ou fazer uma 
+nova alteração, que pode incorporar alterações de ambas ramificações.
+Exclua os marcadores de conflito `&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD`, `=======` e 
+`&gt;&gt;&gt;&gt;&gt;&gt;&gt; novoBranch` e faça as alterações desejadas no merge final. 
+
+Após resolver os conflitos faça *commit* das suas alterações e não
+esqueça de deixar um comentário no *commit*.
+
+
+---
+class: animated, slideInRight
+
+### **`git merge`**
+
+O `Git` tem diversos métodos para encontrar o *commit* em comum para
+realizar a mesclagem. Por padrão, o **`git merge`** escolhe um 
+automaticamente, a não ser que você indique a sua estratégia de 
+mesclagem.
+
+Para escolher a sua estratégia de mesclagem, o comando **`git merge`**
+proporciona a opção **`-s`**, assim podemos escolher entre as seguintes
+opções: *recursive*, *resolve*, *octupus*, *ours* e *subtree*.
+
+* **`recursive`**: É a estratégia de mesclagem padrão. Ela
+opera apenas duas ramificações por vez. A sintaxe do comando é:
+
+.center[
+**`git merge -s recursive [branch1] [branch2]`**
+]
+
+* **`resolve`**: Pode resolver apenas integrações com duas ramificações
+e utiliza um algoritmo de mesclagem de 3 vias. Essa estratégia tenta 
+detectar cuidadosamente as ambiguidades da mesclagem cruzada, e também 
+é considerada a estratégia mais &lt;ins&gt;rápida&lt;/ins&gt; e &lt;ins&gt;segura&lt;/ins&gt;. 
+A sintaxe do comando é:
+
+.center[
+**`git merge -s resolve [branch1] [branch2]`**
+]
+
+
+---
+class: animated, slideInRight
+
+### Exemplo prático - III
+
+* Clone o repositório [introGit](https://github.com/ffajardo64/introGit.git);
+
+* Crie um novo arquivo no repositório: **`intro.md`**;
+
+* Crie uma nova ramificação: **`novoBranch`**. Modifique o arquivo 
+`intro.md` nessa nova ramificação. Salve as alterações;
+
+* Envie o arquivo na área de preparo. Na ramificação principal, 
+
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# .gitignore
 
 ---
 class: animated, slideInRight
 
 ## Ignorando arquivos no `Git` - I
 
-* **.gitignore**: O arquivo `.gitignore` informa ao `Git` quais arquivos
-devem ser ignorados intencionalmente.
+Os arquivos ignorados no `Git` costumam ser aqueles arquivos gerados
+na execução de algum software ou uma linguagem de programação ou 
+simplesmente aqueles que você não tem interesse em salvar no seu 
+repositório local ou remoto.
 
-site para criação automática dos arquivos [gitignore.io](https://www.toptal.com/developers/gitignore)
+O arquivo **`.gitignore`** informa ao `Git` quais arquivos devem ser 
+ignorados intencionalmente. Para ignorar determinados arquivos é 
+necessário seguir um padrão especial chamado 
+[*globbing*](http://linux.die.net/man/7/glob)&lt;sup&gt;1&lt;/sup&gt;.
+
+Um exemplo do arquivo **`.gitignore`** está disponível [aqui](https://github.com/ffajardo64/statistical_learning/blob/main/docs/tools/git/.gitignore).
+O arquivo foi criado automaticamente no site da Toptal no seguinte link:
+[**gitignore.io**](https://www.toptal.com/developers/gitignore).
+
+#### Algumas opções úteis
+* O comando **`git status --ignored`** mostra a listagem de arquivos
+ignorados. Par verificar se um determinado arquivo é ignorado pelo `Git`
+use o comando **`git check-ignore [nome_do_arquivo]`** ou 
+**`git check-ignore -v [nome_do_arquivo]`** para determinar qual 
+padrão está fazendo com que um arquivo específico seja ignorado;
+
+* Para fazer um *commit* de um arquivo ignorado será necessário usar 
+o comando **`git add -f [nome_do_arquivo]`**.
+
+
+---
+class: animated, slideInRight
+
+## Ignorando arquivos no `Git` - II
+
+Você também pode definir padrões globais para todos os repositórios 
+em seu sistema local da seguinte forma:
+
+&lt;img src="images/git_ignore.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 [CS Visualized: Useful Git Commands](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1)
+
+
+***
+&lt;sup&gt;1&lt;/sup&gt; Para detalhes recomenda-se a leitura da [Documentação Oficial](https://git-scm.com/docs/gitignore).
 
 
 ---
 class: animated, lightSpeedIn
 # Referências
 
-Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition.
-Apress.
-
-Loeliger, J. and M. McCullough (2012). _Version control
-with Git_. 2nd Edition. O'Reilly Media.
-
-Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General
-Public License version 3.
-
-Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
-Taylor &amp; Francis Group. CRC Press.
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_. Taylor &amp; Francis
+Group. CRC Press.
 
 ---
 class: animated, hide-logo, bounceInDown
