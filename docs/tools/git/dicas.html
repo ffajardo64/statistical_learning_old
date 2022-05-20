@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 16/05/2022
+### Vitória. ES - 17/05/2022
 ]
 
 ---
@@ -369,15 +369,46 @@ tanto do do repositório local, quanto do repositório remoto, simplesmente
 omita a opção `--cached`.&lt;/span&gt;
 
 ---
+class: animated, fanceIn
+
+### Criar uma *branch* a partir de uma ramificação temporária
+
+O comando **`git stash branch [nome_da_branch] [ref_do_stash]`** permite 
+a criação de uma nova ramificação (*branch*) a partir de uma das suas
+ramificações temporárias (*stashes*).
+
+
+### Fazendo *stashing* de arquivos não-monitorados
+
+O comando **`git stash`** vai criar uma ramificação temporária 
+contendo a versão atual do seu projeto. O comando não funciona em dois
+tipos de situações:
+* Arquivos ignorados, i.e., aqueles que foram adicionados ao **`.gitignore`**;
+* Arquivos não-monitorados.
+
+Em qualquer um desses cenários, você precisa usar o comando
+**`git stash -u`**.
+
+### Restaurando as alterações do último *stash*
+
+Para restaurar as alterações do último *stash* use o comando **`git stash pop`**.
+
+
+---
 class: animated, lightSpeedIn
 # Referências
 
+Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition.
+Apress.
 
-```
-## You haven't cited any references in this bibliography yet.
-```
+Loeliger, J. and M. McCullough (2012). _Version control
+with Git_. 2nd Edition. O'Reilly Media.
 
-NULL
+Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General
+Public License version 3.
+
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
+Taylor &amp; Francis Group. CRC Press.
 
 ---
 class: animated, hide-logo, bounceInDown
