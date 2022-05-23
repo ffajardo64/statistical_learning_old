@@ -65,16 +65,20 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Fernandez-Granda, C. (2017) [Probability and Statistics for Data Science](https://drive.google.com/file/d/1h6ViUfuD_CE4GacHvjb0jaZTYQPhBzap/view){:target="_blank"}.
 - Haider, M. (2016) [Getting Started with Data Science: Making Sense of Data with Analytics](https://drive.google.com/file/d/1sGXMIZw6I1lOfasY5CMJb8RoC514FOiL/view){:target="_blank"}.
 - Janssens, J. (2015) [Data Science at the Command Line](https://drive.google.com/file/d/1xD8ejOdS37pI_ys_08zjmnt08qowtHVC/view){:target="_blank"}.
+- Jaynes, E. T. (1995) [Probability Theory: The Logic of Science](https://bayes.wustl.edu/etj/prob/book.pdf){:target="_blank"}.
 - Kotu, V. and Deshpande, B. (2019) [Data Science: Concepts and Practice](https://drive.google.com/file/d/1Ddfce6jp4x_IwdKfUKCyXMLEq97xzxbJ/view){:target="_blank"}. 2nd. Ed.
 - Kretz, A. (2019) [The Data Engineering Cookbook: Mastering the Plumbing of Data Science](https://drive.google.com/file/d/1mV4_O5NW3wrON0X2vu5DKlr6Au3_IjN3/view){:target="_blank"}.
 - Kroese, D.P., Botev, Z.I., Taimre, T. and Vaisman, R. (2020) [Data Science & Machine Learning: Mathematical ans statistical methods](https://people.smp.uq.edu.au/DirkKroese/DSML/DSML.pdf){:target="_blank"}. [Errata](https://acems.org.au/data-science-machine-learning-book-available-download){:target="_blank"}.
+- MacKay, D. (2005) [Information Theory, Inference and Learning Algorithms](https://www.inference.org.uk/itprnn/book.html){:target="_blank"}.
 - Molnar, C. (2021) [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/){:target="_blank"}.
 - Morettin, P. & Singer, J. (2021) [Introdução à Ciência de Dados](http://www.ime.usp.br/~jmsinger/MAE0217/cdados2021out12.pdf){:target="_blank"}.
+- Murphy, K. P. (2022) [Probabilistic Machine Learning: An Introduction](https://probml.github.io/pml-book/book1.html){:target="_blank"}.
 - Overton, J. (2016) [Going Pro in Data Science](https://drive.google.com/file/d/1RjgDVqs9G53QvIw4CQkt5cKyVHnWvoir/view){:target="_blank"}.
 - Saxe, J. and Sandres, H. (2018) [Malware Data Science: Attack Detection and Attribution](https://drive.google.com/file/d/1jtnH_536WoWAh7XRAwnbGEmDRCzJsFee/view){:target="_blank"}.
 - Shalev-Shwartz, S. and Ben-David, S. (2014) [Understanding Machine Learning: From Theory to Algorithms](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf){:target="_blank"}.[Errata](https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/copy.html){:target="_blank"}.
 - Skiena, S. (2017) [The Data Science Design Manual](https://drive.google.com/file/d/126LDK3z2GcvlJC0Fi_wcPYMrjbkqZUbh/view){:target="_blank"}.
 - Stanton, J. (2012) [An Introduction to Data Science](https://digital.library.unt.edu/ark:/67531/metadc463528/m2/1/high_res_d/DataScienceBook1_1.pdf){:target="_blank"}.
+- Werness, B., Hu, R. (XXXX) [Chapter: Mathematics for Deep Learning](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/index.html){:target="_blank"}.
 
 
 #### R
@@ -118,6 +122,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * Donoho, D. (2017) [50 Years of Data Science](http://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf), Journal of Computational and Graphical Statistics, 26:4, 745-766.
 * Fujitsu [The White Book of Big Data](https://drive.google.com/file/d/1FWYB1wjHbNcfXVbhd0QmKYy2UVZ7sXvr/view){:target="_blank"} - Acesso em 28/08/2021.
 * NG, A. (2019) [Deep Learning Course Notes](https://www.dropbox.com/s/nfv5w68c6ocvjqf/0-2.pdf?dl=0){:target="_blank"}. [Visual Notes](https://www.dropbox.com/s/j2pjnybkm91wgdf/visual_notes.pdf?dl=0){:target="_blank"}.
+* Parr, T. & Howard, J. (2018)[The matrix calculus you need for deep learning](https://arxiv.org/pdf/1802.01528){:target="_blank"}. arXiv:1802.01528
 * Tukey, J. (1962)[The Future of Data Analysis](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf){:target="_blank"}. The Annals of Mathematical Statistics, Vol. 33, No. 1, p. 1-67
 
 
@@ -137,7 +142,10 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Intro to data science with R - Davis Langer](https://bit.ly/3yJ92Gg){:target="_blank"}.
 * [Machine Learning University](https://bit.ly/3zVEvWq){:target="_blank"}.
 * [Machine Learning Course for Beginners](https://www.youtube.com/watch?v=NWONeJKn6kc){:target="_blank"} - freeCodeCamp.
-* [Teaching Statistics and Data Science Online](https://bit.ly/3k4tHPZ){:target="_blank"}
+* [Mathematics for Machine Learning - Linear Algebra](https://www.youtube.com/playlist?list=PLiiljHvN6z1_o1ztXTKWPrShrMrBLo5P3){:target="_blank"}.
+* [Multivariate Calculus](https://www.youtube.com/playlist?list=PLiiljHvN6z193BBzS0Ln8NnqQmzimTW23){:target="_blank"}.
+* [Teaching Statistics and Data Science Online](https://bit.ly/3k4tHPZ){:target="_blank"}.
+
 
 ### Dashboards
 
