@@ -23,6 +23,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Downey, A. B. and Press, G. T. (2014) [Think Stats: Exploratory Data Analysis in Python](https://bit.ly/3qhbeSH){:target="_blank"}. Version 2.1.0.
 - Fajardo, F. A. M. (2021) [Análise de dados com Python](https://bit.ly/3C6DD2H){:target="_blank"} Notas de aula. Jul 21.
 - Kosmaczewski, A. [The State Of Python In 2021](https://deprogrammaticaipsum.com/the-state-of-python-in-2021/?utm_source=newsshowcase&utm_medium=discover&utm_campaign&utm_content). Acessado em 25/08/2021.
+- Matthes, Eric. (2015) [Python Crash Course Cheat Sheet](https://github.com/ehmatthes/pcc/releases/download/v1.0.0/beginners_python_cheat_sheet_pcc_all.pdf){:target="_blank"}.
 - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V){:target="_blank"}. Version 1.3.0. Jul 02.
 - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J){:target="_blank"}
 - Rougier, N. (2021) [Scientific Visualization: Python + Matplotlib](https://hal.inria.fr/hal-03427242/document){:target="_blank"}
