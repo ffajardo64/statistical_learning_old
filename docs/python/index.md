@@ -29,7 +29,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Rougier, N. (2021) [Scientific Visualization: Python + Matplotlib](https://hal.inria.fr/hal-03427242/document){:target="_blank"}
 - Severance, C. R. (2020) [Python para todos: Explorando dados com python 3](http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf){:target="_blank"}. Outras traduções [aqui](https://www.py4e.com/book.php){:target="_blank"}
 - Solem, J. E. (2012) [Programming Computer Vision with Python](https://bit.ly/3lkrOk8){:target="_blank"}  (Atenção: Versão Python 2.x)
-- Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://bit.ly/3wSPVrW){:target="_blank"}.
+- Sweigart, A.(2015) [Automate the boring stuff with python: practical programming for total beginners](https://automatetheboringstuff.com/){:target="_blank"}.
 - Sweigart, A.(2017) [Invent your own computer games with python](https://bit.ly/3xU5yRx). 4th Ed. [versão em espanhol](https://bit.ly/3xRrRqQ){:target="_blank"}.
 - Sweigart, A.(2013) [Hacking Secret Ciphers with Python](https://bit.ly/3h7uNJu){:target="_blank"}. [More books by A. Sweigart](http://inventwithpython.com/){:target="_blank"}.
 - Swaroop, C. H. (2013) [A Byte of Python](https://python.swaroopch.com/){:target="_blank"}.
