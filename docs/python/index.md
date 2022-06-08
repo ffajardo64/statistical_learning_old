@@ -13,11 +13,15 @@ description: Repositório com material sobre análise de dados e programação c
 
 [Introdução](https://ffajardo64.github.io/statistical_learning/python/aula1.html){:target="_blank"}
 
-* **Python notebooks**
+### Python notebooks
 <br />
 
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jakevdp/PythonDataScienceHandbook/master?filepath=notebooks%2FIndex.ipynb)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/Index.ipynb)
+
+- [01_intro.ipynb](https://bit.ly/3mqze4t){:target="_blank"}
+- [02_intro.ipynb](https://bit.ly/3EwyyTe){:target="_blank"}
+
 
 ### Referências
 
