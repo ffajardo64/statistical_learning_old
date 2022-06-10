@@ -11,7 +11,8 @@ description: Repositório com material sobre análise de dados e programação c
 
 ### Tópicos
 
-[Introdução](https://ffajardo64.github.io/statistical_learning/python/aula1.html){:target="_blank"}
+[Introdução I](https://ffajardo64.github.io/statistical_learning/python/aula1.html){:target="_blank"}
+[Introdução II](https://ffajardo64.github.io/statistical_learning/python/aula2.html){:target="_blank"}
 
 ### Python notebooks
 <br />
