@@ -11,8 +11,8 @@ description: Repositório com material sobre análise de dados e programação c
 
 ### Tópicos
 
-[Introdução I](https://bit.ly/3xrsWb4){:target="_blank"}
-[Introdução II](https://bit.ly/3xAgQww){:target="_blank"}
+* [Introdução I](https://bit.ly/3xrsWb4){:target="_blank"}
+* [Introdução II](https://bit.ly/3xAgQww){:target="_blank"}
 
 ### Python notebooks
 <br />
