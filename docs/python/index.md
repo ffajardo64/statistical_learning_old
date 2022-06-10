@@ -12,16 +12,15 @@ description: Repositório com material sobre análise de dados e programação c
 ### Tópicos
 
 * [Introdução I](https://bit.ly/3xrsWb4){:target="_blank"}
-* [Introdução II](https://bit.ly/3xAgQww){:target="_blank"}
+* [Introdução II](https://bit.ly/3xAgQww){:target="_blank"} (Atualizado em 10/06/2022 13:56h)
 
 ### Python notebooks
-<br />
 
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jakevdp/PythonDataScienceHandbook/master?filepath=notebooks%2FIndex.ipynb)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/Index.ipynb)
 
 - [01_intro.ipynb](https://bit.ly/3mqze4t){:target="_blank"}
-- [02_intro.ipynb](https://bit.ly/3EwyyTe){:target="_blank"}
+- [02_intro.ipynb](https://drive.google.com/file/d/1YXyQxlmsi9_z4oiwvmCOXyTYlvi222t0/view?usp=sharing){:target="_blank"}
 
 
 ### Referências
