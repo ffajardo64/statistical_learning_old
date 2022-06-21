@@ -16,7 +16,6 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 	- [Git: Trabalhando com repositórios remotos](https://bit.ly/3NYo0R8){:target="_blank"}.
 	- [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
 	- [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
-	- [API com Python](https://bit.ly/38WPo21){:target="_blank"}.
 
 ## Análise Exploratória
 
@@ -127,13 +126,9 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 
 ### Links de interesses
-* [CODE](https://code.org/){:target="_blank"}.
-* [Code Conquest](https://www.codeconquest.com/){:target="_blank"}.
-* [Codewars](https://www.codewars.com/){:target="_blank"}.
-* [HackerRank](https://www.hackerrank.com/dashboard){:target="_blank"}.
-* [Hackr.io](https://hackr.io/){:target="_blank"}.
 * [Katacoda: Interactive Browser Based Labs, Courses & Playgrounds](https://www.katacoda.com/learn){:target="_blank"}.
 * [Khan Academy](https://www.khanacademy.org/){:target="_blank"}.
+
 
 ### Cursos em vídeos
 * [Aprendizaje automático e ciencia de datos](https://bit.ly/3wEmrOy){:target="_blank"}.
