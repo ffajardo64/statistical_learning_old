@@ -13,6 +13,7 @@ description: Repositório com material sobre análise de dados e programação c
 
 * [Introdução I](https://bit.ly/3xrsWb4){:target="_blank"}
 * [Introdução II](https://bit.ly/3xAgQww){:target="_blank"} (Atualizado em 10/06/2022 13:56h)
+* [Consumindo API's com Python](https://bit.ly/3zQHW3S){:target="_blank"}.
 
 ### Python notebooks
 
@@ -21,6 +22,10 @@ description: Repositório com material sobre análise de dados e programação c
 
 - [01_intro.ipynb](https://bit.ly/3mqze4t){:target="_blank"}
 - [02_intro.ipynb](https://drive.google.com/file/d/1YXyQxlmsi9_z4oiwvmCOXyTYlvi222t0/view?usp=sharing){:target="_blank"}
+- [03_intro.ipynb](https://bit.ly/38WPo21){:target="_blank"}
+- [04_intro.ipynb](https://bit.ly/38WPo21){:target="_blank"}
+- [05_intro.ipynb](https://bit.ly/38WPo21){:target="_blank"}
+- [06_intro.ipynb](https://bit.ly/38WPo21){:target="_blank"}
 
 
 ### Referências
@@ -42,9 +47,17 @@ description: Repositório com material sobre análise de dados e programação c
 - VanderPlas, J. (2016) [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/){:target="_blank"}. [Github repository](https://github.com/jakevdp/PythonDataScienceHandbook){:target="_blank"}.
 - Zaki, M. and Meira, W. (2020) [Data Mining and Machine Learning: Fundamental Concepts and Algorithms](https://dataminingbook.info/book_html/){:target="_blank"}. 2nd Ed. , Cambridge University Press. [Errata](https://dataminingbook.info/){:target="_blank"}
 
+
 ### Links de interesses
-* [Tutorial interativo de Python](https://www.learnpython.org/){:target="_blank"}.
+* [CODE](https://code.org/){:target="_blank"}.
+* [Code Conquest](https://www.codeconquest.com/){:target="_blank"}.
+* [Codewars](https://www.codewars.com/){:target="_blank"}.
+* [CodingBat](https://codingbat.com/python){:target="_blank"}
 * [Google's Python Class](https://developers.google.com/edu/python/){:target="_blank"}.
+* [HackerRank](https://www.hackerrank.com/dashboard){:target="_blank"}.
+* [Hackr.io](https://hackr.io/){:target="_blank"}.
+* [Python Exercises, Practice, Solution](https://www.w3resource.com/python-exercises/){:target="_blank"}.
+* [Tutorial interativo de Python](https://www.learnpython.org/){:target="_blank"}.
 
 ### Vídeos
 
