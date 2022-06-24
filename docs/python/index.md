@@ -12,7 +12,8 @@ description: Repositório com material sobre análise de dados e programação c
 ### Tópicos
 
 * [Introdução I](https://bit.ly/3xrsWb4){:target="_blank"}
-* [Introdução II](https://bit.ly/3xAgQww){:target="_blank"} (Atualizado em 10/06/2022 13:56h)
+* [Introdução II](https://bit.ly/3xAgQww){:target="_blank"}
+* [Introdução ao Numpy](https://bit.ly/3OkImE2){:target="_blank"}
 * [Consumindo API's com Python](https://bit.ly/3zQHW3S){:target="_blank"}.
 
 ### Python notebooks
