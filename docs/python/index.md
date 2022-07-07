@@ -13,8 +13,11 @@ description: Repositório com material sobre análise de dados e programação c
 
 * [Introdução I](https://bit.ly/3xrsWb4){:target="_blank"}
 * [Introdução II](https://bit.ly/3xAgQww){:target="_blank"}
-* [Introdução ao Numpy](https://bit.ly/3OkImE2){:target="_blank"}
-* [Consumindo API's com Python](https://bit.ly/3zQHW3S){:target="_blank"} (Atualizado em 25/06/2022 às 06:56h)
+* [Introdução ao Numpy](https://bit.ly/3OkImE2){:target="_blank"} (Atualizado em 07/07/2022 às 01:23h) 
+* [Consumindo API's com Python](https://bit.ly/3zQHW3S){:target="_blank"}
+* [Expressões regulares](https://bit.ly/3PcaZn9){:target="_blank"}
+* [Introdução ao Web Scraping](https://bit.ly/3Rkkjr0){:target="_blank"}
+
 
 ### Python notebooks
 
