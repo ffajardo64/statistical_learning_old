@@ -12,7 +12,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Introdução II: Criação de um portfólio em ciência de dados](https://bit.ly/3EY1Ryo){:target="_blank"}.
 
 * <span style="color:rgba(21, 153, 87)">Ferramentas computacionais</span>
-	- [Git: Uma breve introdução](https://bit.ly/38q8PzX){:target="_blank"}. (*Atualizado*)
+	- [Git: Uma breve introdução](https://bit.ly/38q8PzX){:target="_blank"}.
 	- [Git: Trabalhando com repositórios remotos](https://bit.ly/3NYo0R8){:target="_blank"}.
 	- [Análise de dados com R](https://bit.ly/3zxiNbt){:target="_blank"}.
 	- [Introdução ao Python](https://bit.ly/3sX7bfA){:target="_blank"}.
