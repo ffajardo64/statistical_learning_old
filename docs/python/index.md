@@ -18,6 +18,7 @@ description: Repositório com material sobre análise de dados e programação c
 * [Consumindo API's com Python](https://bit.ly/3zQHW3S){:target="_blank"}
 * [Expressões regulares](https://bit.ly/3PcaZn9){:target="_blank"}
 * [Introdução ao Web Scraping](https://bit.ly/3Rkkjr0){:target="_blank"}
+* [Regressão com python](https://bit.ly/3P5Dxhw){:target="_blank"}
 
 
 
