@@ -14,7 +14,7 @@ description: Repositório com material sobre análise de séries temporais.
 
 
 * **Conjunto de dados**
-  - [Air Passanger](https://bit.ly/3cRCyVb){:target="_blank"}
+  - [Air Passanger](https://bit.ly/3Rncro6){:target="_blank"}
   
 
 #### Livros e material online
