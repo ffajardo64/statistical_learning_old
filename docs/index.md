@@ -36,7 +36,8 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 
 * [Análise de regressão](https://bit.ly/3jvVHvg){:target="_blank"}.
 
-* [Modelos de classificação](https://bit.ly/3EwyyTe){:target="_blank"}. (*Em construção*)
+* [Séries Temporais](https://bit.ly/3ekXap7){:target="_blank"}.
+
 
 ### Aprendizado não-supervisionado
 
