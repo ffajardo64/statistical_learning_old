@@ -9,15 +9,13 @@ description: Repositório com material sobre análise de séries temporais.
 ## Análise de Séries Temporais
 
 * **Slides**
-  - [Introdução](https://bit.ly/3cRbdm6){:target="_blank"}
+  - [Plano de ensino](https://bit.ly/3cRbdm6){:target="_blank"}
   - [Processos Estacionários](https://bit.ly/3CnTTwR){:target="_blank"}
 
 
 * **Conjunto de dados**
-  - [Consumo de Gasolina](https://bit.ly/3sUVfe4){:target="_blank"}
-  - [food](https://bit.ly/3tudE1A)
-  - [filip](https://bit.ly/3lzW4FU){:target="_blank"}
-  - [Marketing](https://bit.ly/3ukcTsx){:target="_blank"}
+  - [Air Passanger](https://bit.ly/3cRCyVb){:target="_blank"}
+  
 
 #### Livros e material online
   
