@@ -15,7 +15,8 @@ description: Repositório com material sobre análise de séries temporais.
 
 * **Conjunto de dados**
   - [Air Passanger](https://bit.ly/3Rncro6){:target="_blank"}
-  
+  - [Sunspot Number](https://www.sidc.be/silso/datafiles){:target="_blank"}
+  - [The R Datasets Package](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html){:target="_blank"}
 
 #### Livros e material online
   
