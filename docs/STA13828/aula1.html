@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Introdução à Ciência de Dados</title>
+    <title>Análise de Séries Temporais</title>
     <meta charset="utf-8" />
     <meta name="author" content="  " />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -13,10 +13,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Introdução à Ciência de Dados
+# Análise de Séries Temporais
 ]
 .subtitle[
-## Uma breve história
+## Processos estacionários
 ]
 .author[
 ### <br/><br/>
@@ -25,17 +25,11 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 27/04/2022
+### Vitória. ES - 13/09/2022
 ]
 
 ---
 
-[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
-[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
-[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
-[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
-[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
-[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
 [//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
 
 class: animated, fadeIn
@@ -44,542 +38,501 @@ class: animated, fadeIn
 
 
 
+
+
 &lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
 
-### O que é Ciência de Dados? - I
-
-&gt; A *ciência de dados* é a **arte** e a **ciência** de adquirir 
-conhecimento por meio de dados.
-&gt;
-&gt; .right[-- &lt;cite&gt;Ozdemir (2016)&lt;/cite&gt;.]
-
-O termo "*ciência de dados*" surgiu apenas recentemente para designar
-uma nova profissão que trata da coleta de dados, como usamos eles para 
-adquirir conhecimento e depois como usamos esse conhecimento para
-tomar decisões, prever o futuro, entender o passado/presente, 
-entre outras coisas.
-
-&lt;img src="images/computer_girl.gif" width="25%" style="float:right; padding:10px" /&gt;
-
-Algumas das técnicas usadas em *ciência de dados* têm uma longa 
-história e têm suas raízes na estatística aplicada, no aprendizado de máquina, na visualização de dados e Ciência da Computação. Algumas 
-dessas técnicas acabaram atingindo a popularidade que merecem graças à
-evolução dos computadores.
+### Processos estacionários - I
 
 
-A história de como a ciência de dados se tornou a profissão mais sexy 
-do século XXI, de acordo com [Davenport &amp; Patil (2012)](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century), é principalmente a história do acoplamento da **Estatística** e a **ciência da computação**. 
+* **Definição (Processo estocástico)**: Seja `\(\cal{T}\)` um conjunto 
+arbitrário de índices. Um *processo estocástico* é uma coleção
+`\(\{X_t; t\in\cal{T}\}\)`, tal que, `\(X_t\)` é uma variável aleatória para 
+cada `\(t\in\cal{T}\)`, definidas no mesmo espaço de probabilidade 
+`\((\Omega, \cal{F}, \mathbb{P})\)`.
+
+&gt; * As variáveis aleatórias do processo estocástico são na verdade 
+funções de dois argumentos `\(X_t(\omega)\)`, onde `\(t\in\cal{T}\)` e 
+`\(\omega\in\Omega\)`;
+
+&gt; * O conjunto `\(\cal{T}\)` é normalmente considerado como o conjunto de 
+números naturais `\(\mathbb{N}\)`, inteiros `\(\mathbb{Z}\)` ou mesmo o 
+conjunto dos números reais `\(\mathbb{R}\)`;
+
+&gt; * Para cada `\(t\in\cal{T}\)` fixo, `\(X_t(\omega)\)` é uma variável aleatória
+com uma distribuição de probabilidade. Por exemplo, se consideramos
+`\(X_{t_1}(\omega), X_{t_2}(\omega)\)` e `\(X_{t_3}(\omega)\)` variáveias
+aleatórias de um processo estocástico, podemos assumir de cada uma dessas
+variáveis possuem funções de probabilidade diferentes. **Claro, assumindo 
+que elas existam!**
+
+***
+
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016).
+
+---
+class: animated, fadeIn
+
+### Processos estacionários - I
+
+&lt;img src="images/processo_estocastico.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Processos estacionários - I
+
+&gt; * Para cada `\(\omega\in\Omega\)` fixo, teremos uma função de `\(t\)`, i.e.,
+uma realização (ou trajetória) do processo estocástico. Por exemplo,
+suponha que cada realização do processo é denotada por 
+`\(X^{(1)}_t, X^{(2)}_t, X^{(3)}_t, \ldots, X^{(n)}_t\)`. Cada realização
+do processo é uma função determinística de `\(t\)`.
+
+&gt; &lt;br /&gt;
+
+&gt; * O conjunto dos valores de `\(\{X_t; t\in{\cal T}\}\)` é chamado de *espaço dos estados*
+do processo estocástico e os valores de `\(X_t\)` podem ser chamados de *estados*.
+
+&gt; &lt;br /&gt;
+
+&gt; * Se `\({\cal T}\)` for finito ou enumerável, e.g., `\({\cal T}:=\mathbb{Z}\)`, o
+processo é considerado de **parâmetro discreto**. Se `\({\cal T}\)` for infinito
+ou não-enumerável, e.g., `\({\cal T}:=\mathbb{R}\)`, teremos um processo de
+**parâmetro contínuo**. O espaço de estados também pode ser discreto ou contínuo.
+
+&lt;br /&gt;&lt;br /&gt;
 
 ***
 
-Sugere-se também a leitura do Capítulo 1 do livro [Doing Data Science](https://www.oreilly.com/library/view/doing-data-science/9781449363871/ch01.html) escrito por Schutt and O'neil (2013).
+Para detalhes, sugere-se a leitura do livro de Morettin and Toloi (2006).
 
 ---
 class: animated, fadeIn
 
-### O que é Ciência de Dados? - II
+### Processos estacionários - I
 
-&lt;iframe src="https://deeplearning.lipingyang.org/2017/10/08/the-data-science-venn-diagram-by-drew-conway/" height="510" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
-
----
-class: animated, slideInLeft
-
-### [Batalha dos diagramas de Venn em ciência de dados](https://www.kdnuggets.com/2016/10/battle-data-science-venn-diagrams.html)
-
-&lt;img src="images/venn_diagram4.png" width="25%" style="float:left; padding:20px" /&gt;
-&lt;img src="images/venn_diagram5.png" width="25%" style="float:left; padding:20px" /&gt;
-&lt;img src="images/venn_diagram2.png" width="20%" style="float:left; padding:20px" /&gt;
-
-&lt;img src="images/venn_diagram3.png" width="25%" style="float:right; padding:20px" /&gt;
-
-&lt;img src="images/venn_diagram1.png" width="25%" style="float:right; padding:20px" /&gt;
-
-&lt;img src="images/venn_diagram6.png" width="35%" style="float:right; padding:20px" /&gt;
-
----
-class: animated, slideInRight
-
-### Um pouco de história - I
-
-Dar sentido aos dados tem uma longa história e tem sido muito 
-discutido por cientistas, estatísticos, cientistas da computação, 
-bibliotecários e outros, há muitos anos. A linha do tempo a seguir 
-traça a evolução do termo "*Data Science*" e seu uso, tentativas de 
-defini-lo e termos relacionados.
-
-
-&lt;img src="images/tukey.jpg" width="15%" style="float:right; padding:20px" /&gt;
-* Talvez seja [Tukey (1962)](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf), o primeiro em chamar a atenção para o 
-que hoje é conhecido como *Ciência de Dados*, sugerindo dar 
-maior ênfase ao uso de técnicas para uma análise preliminar de dados, 
-antes mesmo de uma análise inferencial.  
-&gt; Nesse trabalho, Tukey afirma que a análise de dados é intrinsecamente uma ciência empírica.
-
-  Em 1977, Tukey publicou seu livro *Exploratory Data Analysis*, 
-reafirmando a necessidade de dar mais ênfase ao uso de dados para 
-sugerir hipóteses a serem testadas e que a Análise Exploratória de 
-Dados e a Análise Confirmatória de Dados "podem - e devem - prosseguir    lado a lado".
-
-***
-Sugere-se a leitura de [A Very Short History of Data Science](https://www.forbes.com/sites/gilpress/2013/05/28/a-very-short-history-of-data-science/?sh=2120001955cf) por Gil Press (2013) e [A Brief History of Data Science](https://www.dataversity.net/brief-history-data-science/) por
-Keith D. Foote (2021).
+&lt;img src="images/processo_estocastico2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: animated, slideInLeft
 
-### Um pouco de história - II
+### Processos estacionários - II
 
-&lt;img src="images/conciseSmall.jpg" width="15%" style="float:right; padding:20px" /&gt;
-* É provável que a primeira aparição explícita do termo 
-"*ciência de dados*" na literatura tenha sido no
-prefácio ao livro de Peter Naur "*Concise Survey of Computer Methods*"
-em 1974.
+Alguns exemplos de processos estocásticos:
 
-No prefácio, o autor define a *ciência de dados* como:
-&gt; "a ciência de lidar com dados, uma vez que eles foram estabelecidos, enquanto a relação dos dados com o que eles representam é delegada a outros campos e ciências". 
-&gt; .right[-- &lt;cite&gt;Naur (1974)&lt;/cite&gt;.]
+* **Sinusóide com fase e amplitude aleatória**: Sejam `\(A\)` e `\(\Theta\)`
+duas variáveis aleatórias, tal que, `\(\mathbb{P}\left[A\ge0\right]=1\)` e
+`\(\Theta\)` segue uma distribuição uniforme em `\(\left[0,2\pi\right)\)`.
 
-Outro termo introduzido por Naur em 1968 é "*dadologia*" que refere-se
-à ciência dos dados e dos processos de dados e seu lugar na educação.
+  Um processo estocástico `\(\{X_t; t\in\mathbb{R}\}\)` pode ser definido
+  em termos de `\(A\)` e `\(\Theta\)` da seguinte forma:
+  `$$X_t=r^{-1}A\cos\left(\nu t + \Theta\right),$$`
+  onde `\(\nu\ge0\)` e `\(r&gt;0\)`.
 
-Essas definições são claramente mais específicas do que as que discutimos hoje. No entanto, elas inspiraram a mudança significativa de hoje para a exploração mais abrangente do conteúdo científico e do desenvolvimento
-dos termos.
-
+  As realizações do processo `\(\{X_t\}\)` são funções de `\(t\)`, quando `\(\omega\in\Omega\)`
+é um valor fixo, i. e., `\(X_t(\omega)=r^{-1}A(\omega)\cos\left(\nu t + \Theta(\omega)\right)\)` ou
+escrito de outra forma
+`$$x_t=r^{-1}a\cos\left(\nu t + \theta\right).$$`
 ---
-class: animated, slideInRight
+class: animated, slideInLeft
 
-### Um pouco de história - III
+### Processos estacionários - II
 
-&lt;img src="images/IASC.png" width="15%" style="float:right; padding:20px" /&gt;
+* **Passeio aleatório**: Seja `\(\{S_t; t=0, 1, 2, \ldots\}\)` uma sequência
+de variáveis aleatórias, tal que
+`$$S_t=X_1+X_2+\cdots+X_t = \sum_{i=1}^tX_i, \quad t=1,2,\ldots, \quad \text{(com prob. 1)}$$`
+onde `\(\{X_t\}\)` é uma sequência de variáveis aleatórias independentes e 
+identicamente distribuidas (_iid_). Um passeio aleatório com média zero 
+é obtido quando `\(S_0=0\)`.
 
-* Em 1977, A Associação Internacional de Computação Estatística (*International Association for Statistical Computing* - IASC) é estabelecida como uma Seção do ISI, cuja missão é vincular a metodologia estatística tradicional, a moderna tecnologia da computação e o conhecimento de especialistas para converter dados em informação e conhecimento.
-
-&lt;img src="images/girl_3.gif" width="30%" style="float:right; padding:10px" /&gt;
-
-&gt; Desempenhando um papel importante na **Estatística**, a *descriptive analytics* (também chamada de estatística descritiva na comunidade estatística) resume ou descreve quantitativamente as características e medidas de um conjunto de dados. Hoje, a análise descritiva forma a base para a análise e a confecção de relatórios e ferramentas em projetos  de análise de dados e inteligência de negócios (*business intelligence*).
-
-* A publicação de Graham (2012) The art of Data Science [*In Astrostatistics and Data Mining, Springer Series in Astrostatistics, Vol. 2, p. 47–59*] tem atraído crescente interesse de uma ampla variedade de disciplinas. Assim, autores de diversas origens apresentaram visões ou focos muito diferentes sobre o assunto. Alguns exemplos sugerem que a *ciência de dados* é a nova geração da **Estatística**. A mesma configura-se como uma consolidação de vários campos interdisciplinares. 
+  Podemos considerar outros cenários, por exemplo, quando 
+  `\(\{X_t; t= 1, 2, \ldots\}\)` é um *processo binário*, i. e., uma 
+  sequência de variáveis aleatórias independentes, tal que
+  `$$\mathbb{P}\left[X_t=1\right]=\mathbb{P}\left[X_t=-1\right]=\frac12.$$`
+  Nesse casso, o passeio aleatório é chamado de *simétrico simple*.
 
 
 ---
 class: animated, slideInLeft
 
-### Um pouco de história - IV
-* Cao (2017) afirma que a *ciência de dados* 
-também tem implicações para fornecer recursos e práticas para a profissão de dados, ou para geração de estratégias de negócios. De acordo com o autor, os estatísticos têm muito a dizer sobre o assunto, 
-já que são eles que realmente criaram o termo "*ciência de dados*" e promoveram a atualização da **Estatística** para a **Ciência de Dados** como uma disciplina mais abrangente. Isso se reflete nos seguentes trabalhos:
+### Processos estacionários - II
 
-  - De acordo com a literatura, o primeiro registro do uso do termo 
-"*ciência de dados*" deve-se a [Wu (1997)](www2.isye.gatech.edu/~jeffwu/presentations/datascience.pdf) 
-durante sua palestra na Universidade de Michigan intitulada 
-"*Estatística = Ciência de Dados?*". O autor defende o uso do termo 
-"**ciência de dados**" como um nome moderno para a **Estatística** e 
-os *estatísticos* devem ser conhecidos como "*cientistas de dados*". 
-A intenção era mudar o foco da **Estatística** na *coleta de dados, modelagem, análise, compreensão/resolução de problemas e toma de decisões* para direções 
-futuras sobre *grandes conjuntos de dados, abordagem empírico-física, representação e exploração do conhecimento*.
+* **Definição (Série temporal)**: Uma série temporal é a realização de 
+um processo estocástico.
 
-  - Cleveland (2001) sugeriu que seria apropriado alterar o campo da **Estatística** para a **ciência de dados** e *ampliar as principais áreas de trabalho técnico do campo da estatística* destacando a parceria com cientistas da computação.
+&lt;img src="aula1_files/figure-html/unnamed-chunk-3-1.png" width="45%" style="float:left; padding:20px" /&gt;
 
-  - Breiman (2001) sugeriu que era necessário 
-  afastar-se da exclusividade dependência de modelos de dados 
-  (em estatística) e adotar um conjunto mais diversificado de 
-  ferramentas como como *modelagem algorítmica*, que trata o mecanismo 
-  de dados como desconhecido.
+&lt;img src="aula1_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="float:right; padding:20px" /&gt;
 
+---
+class: animated, fadeIn
+
+### Processos estacionários - II
+
+* **Definição (Série temporal)**: Uma série temporal é a realização de 
+um processo estocástico.
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-6-1.png" width="45%" style="float:right; padding:20px" /&gt;
 
 ---
 class: animated, slideInRight
 
-### Um pouco de história - VI
+### Processos estacionários - II
 
-* De acordo com [Yu (2014)](https://imstat.org/2014/10/01/ims-presidential-address-let-us-own-data-science/), a *ciência de dados* está na moda na mídia. A maioria das pessoas concorda que tem três pilares: **Estatística**, **Ciência da Computação**  e **conhecimento de domínio/ciência**. Alguns acreditam 
-que a *ciência de dados* é a interseção dos três, enquanto outros pensam que é a união.
+* **Definição (Funções de distribuição de um processo estocástico)**: Seja 
+`\(\{X_t; t\in{\cal T}\subset \mathbb{R}\}:=\{X_t\}\)` um processo estocástico e seja
+`\({\cal I}=\left\{\mathbf{t}=\left(t_1,t_2,\ldots,t_n\right)'\in{\cal T}^n: t_1&lt;t_2&lt;\cdots&lt;t_n, n=1,2,3,\ldots\right\}\)`. Então, o conjunto de funções de distribuição (finito dimensionais) de
+`\(\{X_t\}\)` são as funções `\(\{F_{\mathbf{t}}(\cdot); \mathbf{t}\in{\cal I}\}\)`, tal que
+`$$F_{\mathbf{t}}(\mathbf{x})=\mathbb{P}\left[X_{t_1}\le x_1, X_{t_2}\le x_2,\ldots,X_{t_n}\le x_n\right],$$`
+onde `\(\mathbf{x}=\left(x_1,x_2,\ldots,x_n\right)'\in\mathbb{R}^n\)`.
 
-&lt;iframe src="https://imstat.org/2014/10/01/ims-presidential-address-let-us-own-data-science/" height="310" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
 
+&gt; Um processo estocástico `\(\{X_t\}\)` estará especificado se conhecermos
+todas as distribuições conjuntas
+`$$F_{\mathbf{t}}(\mathbf{x})=F\left(x_1,x_2,\ldots,x_n; t_1,t_2,\ldots,t_n\right)=\mathbb{P}\left[X_{t_1}\le x_1, X_{t_2}\le x_2,\ldots,X_{t_n}\le x_n\right].$$`
+Isto significa que , para `\(n=1\)`, as distribuições univariadas para `\(X_{t_1}\)`,
+com `\(t_1\in\cal{T}\)`, são conhecidas. Para `\(n=2\)`, as distribuições bivariadas
+para `\(\left(X_{t_1},X_{t_2}\right)\)`, com `\(t_1,t_2\in\cal{T}\)`, também são
+conhecidas, e assim por diante.
 
-- Em 2015, uma declaração sobre o papel da estatística na ciência de dados foi divulgada em um [artigo ASA](https://magazine.amstat.org/blog/2015/10/01/asa-statement-on-the-role-of-statistics-in-data-science/), dizendo que "_a **Estatística** e aprendizado de máquina (Machine Learning) desempenham um papel fundamental na ciência de dados_".
+---
+class: animated, slideInLeft
+
+### Processos estacionários - II
+
+* **Teorema de extensão de Kolmogorov**: As funções de distribuição
+`\(\{F_{\mathbf{t}}(\cdot); \mathbf{t}\in{\cal I}\}\)` são funções de 
+distribuição de um processo estocástico se e somente se (_see_), para
+qualquer `\(n\in\{1,2,3,\ldots\}\)`, `\(\mathbf{t}=\left(t_1,t_2,\ldots,t_n\right)'\in{\cal I}\)`
+e `\(1\le i\le n\)`,
+`$$\underset{x_i\to\infty}{\lim} F_{\mathbf{t}}\left(\mathbf{x}\right)=F_{\mathbf{t}_{(i)}}\left(\mathbf{x}_{(i)}\right),$$`
+onde `\(\mathbf{t}_{(i)}\)` e `\(\mathbf{x}_{(i)}\)` representam os vetores sem
+a `\(i\)`-ésima componente dos vetores `\(\mathbf{t}\)` e `\(\mathbf{x}\)`, respectivamente.
+
+&lt;img src="images/Brownianmotion.gif" width="25%" style="float:right; padding:10px" /&gt;
+
+&gt; * O teorema de extensão de Kolmogorov garante que uma coleção adequadamente 
+"consistente" de distribuições (finito dimensionais) definirá um processo 
+estocástico;
+
+&gt; * A "consistência" é definida pela condição do teorema;
+
+&gt; * O teorema de extensão de Kolmogorov permite mostrar a existência de
+um _movimento Browniano_. O movimento Browniano é um dos mais simples 
+processos da estocásticos de tempo contínuo.
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - III
+
+Na prática, o conhecimento de todas as funções de distribuição é um
+cenário difícil de acontecer. Isso leva a considerar o estudo dos
+momentos estatísticos associados a `\(F_{\mathbf{t}}(\mathbf{x})\)`, 
+i.e., para `\(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\)`, com `\(n=1,2,3,\ldots\)`:
+`$$\mathbb{E}\left[X_{t_1}^{r_1}X_{t_2}^{r_2}\cdots X_{t_n}^{r_n}\right]=\int_{-\infty}^\infty\cdots\int_{-\infty}^\infty x_{t_1}^{r_1}x_{t_2}^{r_2}\cdots x_{t_n}^{r_n}\,dF_{\mathbf{t}}(\mathbf{x}).$$`
+* **Definição (Função da média)**: A função da média (ou, simplesmente, *média*) 
+de `\(\{X_t\}\)` é definida por 
+`$$\mu_X(t)=\mathbb{E}\left[X_t\right]=\int_{\mathbb{R}}x\,dF_t(x);$$`
+
+* **Definição (Função de autocovariância)**: Seja `\(\{X_t\}\)` um processo estocástico
+com `\(\mathbb{E}\left[X_t^2\right]&lt;\infty\)`, para todo `\(t\in{\cal T}\)`, então, a 
+função de autocovariância (ou, simplesmente, *autocovariância*) de `\(\{X_t\}\)` é 
+definida por 
+`$$\gamma_X(t_1,t_2)=\mathrm{Cov}\left(X_{t_1},X_{t_2}\right)=\mathbb{E}\left[(X_{t_1}-\mathbb{E}[X_{t_1}])(X_{t_2}-\mathbb{E}[X_{t_2}])\right],$$`
+para todo `\(t_1,t_2\in{\cal T}\)`.
 
 
 ---
 class: animated, slideInLeft
 
-### Um pouco de história - V
+### Processos estacionários - III
 
-* [Blei e Smyth (2017)](https://www.pnas.org/doi/epdf/10.1073/pnas.1702076114) discutem as relações entre **Estatística** e **Ciência de Dados** sob três perspectivas: estatı́stica, computacional e humana. Segundo
-os autores, Ciência de Dados é uma filha da Estatı́stica e da Ciência da Computação. 
+&gt; * Um caso particular da função de autocovariância, quando `\(t_1=t_2=t\)`,
+é a função da variância de `\(\{X_t\}\)`, i. e.,
+`$$\gamma_X(t,t)=\mathrm{Var}\left(X_{t}\right)=\mathbb{E}X_{t}^2-\mathbb{E}^2[X_{t}];$$`
 
-&lt;img src="images/dashboard.gif" width="45%" style="float:right; padding:10px" /&gt;
+&gt; * Podemos definir a função de autocorrelação de `\(\{X_t\}\)` como
+  `$$\rho_X(t_1,t_2)=\frac{\gamma_X(t_1,t_2)}{\left(\gamma_X(t_1,t_1)\gamma_X(t_2,t_2)\right)^{\frac12}};$$`
 
-* Weihs and Ickstadt (2018) reiteram o papel fundamental da
-**Estatística** na *Ciência de Dados*, pois proporciona as ferramentas e
-métodos para encontrar estrutura e fornecer uma visão mais profunda dos
-dados, assim como para analisar e quantificar a incerteza. Paradoxalmente,
-alguns autores acham que **Estatística** é a parte menos importante de
-*Ciência de Dados* e, dessa forma, a sua importância é subestimada em 
-comparação com a Ciência da Computação. Ignorando pensamento estatístico moderno ou o uso de métodos estatísticos/análise de dados simplistas 
-podem levar a **falácias** evitáveis. O mesmo vale para a análise de grandes e/ou complexos conjunstos de dados.
+&gt; * Na área financeira, resulta importante considerar as funções de assimetria
+e curtose, associadas ao terceiro e quarto momentos;
 
-* Em 17/02/2022, a ocupação de cientista de dados foi inserida na base 
-de dados da Classificação Brasileira de Ocupações (CBO) do Ministério 
-do Trabalho, ficando definida na mesma família dos Estatísticos (2112-05):
-cientista de dados (2112-20).
-
----
-class: animated, slideInRight
-
-### E no final... qual a definição?
-
-&lt;img src="images/social-media.gif" width="30%" style="float:left; padding:10px" /&gt;
-
-A ciência de dados tornou-se popular durante a última década com o *boom* de muitos grandes corporações da internet, como Yahoo, Google, Linkedin, Facebook e Amazon e muitas startups construídas a partir de dados. Atualmente, a "*ciência de dados*", juntamente com "*big data*", tornou-se uma das frases mais usadas em locais como negócios, notícias, mídia, redes sociais, entre outros.
-
-&lt;img src="images/cloud_words.png" width="40%" style="float:right; padding:10px" /&gt;
-
-Apesar do fato de que o termo se tornou tão popular, e estamos usando produtos habilitados pela *ciência de dados* quase diariamente, 
-atualmente **não há consenso** sobre a sua definição. 
-
-Podemos então sugerir que &lt;span style="color:rgba(141, 0, 69, 1)"&gt;a *ciência de dados* é uma ciência interdisciplinar que se baseia na Estatística, Computação, Comunicação, Gestão e Sociologia para estudar dados e seu ambiente e para transformar eles em *insights* e decisões. 
-&lt;/span&gt;
-
-
----
-class: inverse, hide-logo, middle, center
-
-### Data Science vs Data Mining vs Machine Learning vs Deep Learning vs Artificial Intelligence
-
-
----
-class: animated, lightSpeedIn
-
-### Data Mining
-
-&lt;img src="images/data_mining.gif" width="30%" style="float:left; padding:10px" /&gt;
-
-A mineração de dados (*Data Mining*) é um conjunto de técnicas e 
-ferramentas amplamente utilizadas por cientistas e pesquisadores 
-para extrair informações grandes conjuntos de dados e transformá-los 
-em informação. Na base das modernas tecnologias de mineração de dados, 
-há um conceito de encontrar anomalias, padrões ocultos e correlações 
-em grandes conjuntos de dados.
-
-O processo de mineração de dados consiste em duas partes: o 
-*pré-processamento de dados* e *mineração de dados real*. 
-A primeira abrange etapas como limpeza de dados, integração de dados 
-e transformação de dados, enquanto a mineração de dados trata de 
-avaliação de padrões e representação de conhecimento de dados de 
-forma fácil de entender. A mineração de dados é frequentemente vista 
-como parte de um campo mais extenso chamado 
-*Knowledge Discovery in Databases* ou *KDD*.
-
-&lt;img src="images/data_mining2.gif" width="40%" style="display: block; margin: auto;" /&gt;
-
----
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_1.png")
-background-size: contain
-
-### Data Mining
-
----
-class: animated, slideInRight
-
-### Deep Learning
-
-Originalmente, o termo *aprendizado profundo* indicava a aplicação de
-redes neurais profundas, i.e., redes com mais de uma camada oculta.
-Mas, na prática, ele descreve uma ampla variedade de arquiteturas
-neuronais. Dessa forma, o aprendizado profundo não é mais do que um 
-subconjunto do *aprendizado de máquina* que utiliza um nivel 
-hierárquico de redes neurais artificiais, com múltiplas camadas 
-ocultas, para realizar o processo de *aprendizado de máquina*.
-
-&lt;img src="images/kitten.png" width="30%" style="float:center; padding:10px" /&gt;&lt;img src="images/muffin.png" width="30%" style="float:center; padding:10px" /&gt;&lt;img src="images/chicken.png" width="30%" style="float:center; padding:10px" /&gt;
-
----
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_2.png")
-background-size: contain
-
-### Deep Learning
-
----
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_3.png")
-background-size: contain
-
-### Deep Learning
+&gt; * Na prática, será necessário estimar as funções da média e autocovariância.
 
 
 ---
 class: animated, slideInRight
 
-### Machine Learning
+### Processos estacionários - IV
 
-&lt;img src="images/ML2.png" width="40%" style="float:right; padding:10px" /&gt;
+* **Definição (Estacionariedade estrita (ou forte))**: Um processo estocástico
+`\(\{X_t; t\in\mathbb{Z}\}\)` diz-se **estritamente** estacionário se todas as
+distribuições conjuntas entre `\(\left(X_{t_1}, X_{t_2}, \ldots, X_{t_k}\right)'\)`
+e `\(\left(X_{t_1+h}, X_{t_2+h}, \ldots, X_{t_k+h}\right)'\)` são invariantes
+para todos os inteiros positivos `\(k\)` e para todo `\(t_1,t_2,\ldots, t_k, h\in\mathbb{Z}\)` .
 
-O aprendizado de máquina é um conjunto de métodos, ferramentas e 
-algoritmos de computador usados para treinar máquinas para analisar, 
-entender e encontrar padrões ocultos em dados e fazer previsões. 
+&gt; * A estacionariedade estrita sugere que todas as distribuições unidimensionais
+são invariantes sob translações do tempo. Dessa forma, a média e a variância são
+constantes ao longo do tempo.
 
-O objetivo final do aprendizado de máquina é utilizar dados para 
-autoaprendizagem, eliminando a necessidade de programar máquinas de 
-maneira explícita. Uma vez treinadas em conjuntos de dados, as máquinas 
-podem aplicar padrões memorizados em novos dados e, assim, fazer melhores 
-previsões.
-
-&lt;br/&gt;
-
-&lt;font size="6"&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Algoritmos que aprendem dos dados!&lt;/span&gt;
-&lt;/font&gt;
-
----
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_3.png")
-background-size: contain
-
-### Machine Learning
+&gt; * Do mesmo modo, todas as distribuições bidimensionais só dependem das diferenças
+de tempos, i.e., para `\(t_1, t_2\in\mathbb{Z}\)`, `\(\gamma_X\left(t_1, t_2\right)=\gamma_X\left(t_1+t, t_2+t\right)\)`.
+Fazendo `\(t=-t_2\)` (ou `\(t=-t_1\)`), então, temos que
+`$$\gamma_X\left(t_1, t_2\right)=\gamma_X\left(t_1-t_2, 0\right).$$`
+Dessa forma, fica evidente que a função de autocovariância é função de 
+`\(|t_1-t_2|\)`. Assim, podemos escrever
+`$$\gamma_X\left(h\right)=\gamma_X\left(h, 0\right)=\gamma_X\left(h+t, t\right)=\mathrm{Cov}\left(X_{t+h},X_t\right).$$`
 
 ---
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_4.png")
-background-size: contain
+class: animated, slideInLeft
 
-### Machine Learning
+### Processos estacionários - IV
 
+#### Algumas considerações
 
----
-class: animated, fadeIn
+* Se `\(\{X_t\}\)` for **estritamente** estacionário, então
+`\(\left(X_{1}, X_{2}, \ldots, X_{k}\right)'\)`
+e `\(\left(X_{1+h}, X_{2+h}, \ldots, X_{k+h}\right)'\)` têm as mesmas distribuições
+conjuntas para todo `\(k\in\{1,2,3,\ldots\}\)` e `\(h\in\mathbb{Z}\)`;
 
-### Modelos estatísticos: Enfoques
-Breiman (2001) argumenta que existem duas culturas no uso de 
-modelos estatísticos (em especial modelos de regressão):
+* Se `\(\{X_t\}\)` for **estritamente** estacionário, então todas as
+variáveis aleatórias `\(X_t\)` são identicamente distribuidas;
 
-* **Data modeling**: Esse enfoque domina a 
-&lt;span style="color:rgba(141, 0, 69, 1)"&gt;comunidade estatística&lt;/span&gt;. 
-Sob essa abordagem, testar se   as suposições do modelo (por exemplo, 
-normalidade dos erros, linearidade,   multicolinearidade, homocedasticidade, 
-independência, etc.) são válidas é de fundamental importância. Ainda que 
-predição muitas vezes faça parte dos objetivos, o foco em geral está na 
-&lt;ins&gt;inferência&lt;/ins&gt;.
+* Sendo `\(\gamma_X\left(h\right)=\mathrm{Cov}\left(X_{t+h},X_t\right)\)`
+a função de autocovariância de um processo estocástico estritamente
+estacionário, então, a função de autocorrelação é dada por 
+`\(\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\mathrm{Corr}\left(X_{t+h},X_t\right)\)`, para `\(h\in\mathbb{Z}\)`;
 
---
-
-* **Algorithmic modeling**: Esse enfoque domina a comunidade de 
-&lt;span style="color:rgba(141, 0, 69, 1)"&gt;aprendizado de máquina&lt;/span&gt;. Nesse contexto, o foco 
-é a &lt;ins&gt;predição&lt;/ins&gt; de novas observações. Não se assume que o modelo 
-utilizado para os dados é correto. 
-O modelo é utilizado apenas para criar bons algoritmos para prever bem novas 
-observações. Muitas vezes não há nenhum modelo probabilístico explícito por 
-trás dos algoritmos utilizados. Mesmo que o objetivo primordial de uma problema 
-de predição seja obter um bom "poder" preditivo, a *interpretabilidade* do 
-modelo final também é relevante.
-
-&lt;img src="images/machine_learning.gif" width="50%" style="display: block; margin: auto;" /&gt;
+* Na prática, a estacionariedade estrita é muito difícil de verificar. 
+Uma alternativa é considerar a caracterização de processos estocásticos 
+por meio dos momentos de primeira e segunda ordem. 
 
 ---
 class: animated, slideInRight
 
-### Tipos de Aprendizado I
+### Processos estacionários - IV
 
-* **Supervisionado**: O objetivo é prever o valor de uma variável resposta 
-(*output*) a partir de variáveis preditoras (*input*). Dentre as técnicas mais 
-utilizadas com essa finalidade temos:
-  - &lt;ins&gt;Modelos de regressão&lt;/ins&gt; (linear, ridge, lasso, elastic net, esparsa, 
-  robusta, Bayes ingênuo (*Naive Bayes*), etc.)
-  - &lt;ins&gt;Modelos de classificação&lt;/ins&gt; baseados em modelos de regressão logística,
-  algoritmos de suporte vetorial (SVM - *support vector machines*), redes 
-  neurais, análise discriminante linear e quadrática, árvores de decisão, 
-  método do `\(k\)`-ésimo vizinho mais próximo (*KNN*), bagging e florestas 
-  aleatórias, boosting etc.
+* **Definição (Estacionariedade fraca)**: Um processo estocástico
+`\(\{X_t; t\in\mathbb{Z}\}\)` diz-se **fracamente estacionário** ou **estacionário de segunda ordem**
+ou simplesmente **estacionário** se:
 
-* **Não-supervisionado**: O objetivo é descrever associações e padrões entre
-variáveis. Nesse caso, não há uma distinção entre variáveis preditoras e
-respostas e só dispomos de um conjunto de variáveis (*inputs*). Dentre as técnicas 
-mais utilizadas com essa finalidade, temos:
-  - &lt;ins&gt;Redução de dimensionalidade&lt;/ins&gt;: Análise de componentes principais, análise de 
-  componentes independentes, análise fatorial, projeções aleatórias, *Autoencoders*, 
-  etc.
-  - &lt;ins&gt;Análise de agrupamentos&lt;/ins&gt;: análise de conglomerados (*cluster*), *k*-médias 
-  (*k-means*), métodos hierárquicos (*hierarchical clustering*), agrupamento 
-  espectral, etc.
-  - &lt;ins&gt;Detecção de anomalias&lt;/ins&gt;: Fator de outlier local (LOF - *local outlier factor*),
-  floresta de isolamento (*Isolation Forest*), etc.
-  - &lt;ins&gt;Abordagens para aprender modelos de variáveis latentes&lt;/ins&gt;: Algoritmo EM, método 
-  dos momentos e técnicas de separação de sinal cego (*Blind signal separation*), etc.
-
----
-class: animated, fadeIn
-
-### Tipos de Aprendizado II
+  - `\(\mathbb{E}\left|X_t\right|^2&lt;\infty\)`;
   
-* **Por reforço**: *Aprendizagem por reforço* é uma área de aprendizagem de 
-máquina preocupada de como os agentes inteligentes devem realizar ações em um 
-ambiente a fim de maximizar a noção de recompensa cumulativa. 
-A aprendizagem por reforço difere da aprendizagem supervisionada por não precisar 
-da apresentação de pares de entrada/saída rotulados e por não precisar que ações 
-abaixo do ideal sejam explicitamente corrigidas. Em vez disso, o foco está em 
-encontrar um equilíbrio entre a exploração (de território não mapeado) e a 
-exploração (de conhecimento atual). Dentre as técnicas mais utilizadas com essa 
-finalidade, temos:
- - Critério de otimização (*Criterion of optimality*), Força bruta (*Brute force*), 
- aproximação ao valor da função (*Value function*), método de Monte Carlo, método
- de diferenças temporais, etc. 
+  - `\(\mathbb{E}X_t=m\)`, onde `\(m\)` é constante;
+  
+  - `\(\gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)\)`, `\(h\in\mathbb{Z}\)`.
 
-* **Semi-supervisionada**: Na aprendizagem semi-supervisionada os 
-modelos são treinados com um pequeno volume de dados rotulados e um 
-volume muito maior de dados não-rotulados, fazendo uso tanto do 
-aprendizado supervisionado quanto do não supervisionado.
+#### Algumas considerações
+
+* Se `\(\{X_t; t\in\mathbb{Z}\}\)` é estritamente estacionário, então
+as variáveis `\(X_t\)` seguem a mesma distribuição para todos os valores
+`\(t\in\mathbb{Z}\)`. Se a condição `\(\mathbb{E}\left|X_t\right|^2&lt;\infty\)` é
+satisfeita, então, `\(\mathbb{E}X_t\)` e `\(\gamma_X(0)\)` são constantes. Ainda, 
+`\(X_{t}\)` e `\(X_{t+h}\)` seguem a mesma distribuição conjunta para todo `\(h\in\mathbb{Z}\)`.
+
+  Em outras palavras, **um processo estritamente estacionário, com segundos
+  momentos finitos, é estacionário**. 
+  
+  A afirmação recíproca não é verdadeira!
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - IV
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja `\(\{X_t\}\)`
+uma sequência de variáveis aleatórias independentes, tal que `\(X_t\)` segue uma
+distribuição exponencial com parâmetro `\(1\)`, quando `\(t\)` é ímpar, e uma
+distribuição normal com média `\(1\)` e variância `\(1\)`, quando `\(t\)` é par.
+
+Nesse cenário, resulta evidente que `\(\gamma_X(0)=1\)` e `\(\gamma_X(h)=0\)`, para
+todo `\(h\ne0\)`, i.e., o processo `\(\{X_t\}\)` é estacionário de segunda ordem.
+
+Mas, `\(X_1\)` e `\(X_2\)` seguem diferentes distribuições, dessa forma `\(\{X_t\}\)` não
+é estritamente estacionário.
+
+
+* **Definição (Processo Gaussiano)**: O processo `\(\{X_t\}\)` diz-se um
+**processo gaussiano** *see* as funções de distribuição de `\(\{X_t\}\)`
+são todas normais multivariadas.
+
+&gt; Se `\(\{X_t; t\in\mathbb{Z}\}\)` é um processo gaussiano estacionário, 
+então o processo é estritamente estacionário, pois, para todo `\(n\in\{1,2,3,\ldots\}\)`
+e para todo `\(t_1, t_2, \ldots, t_n, h \in \mathbb{Z}\)`, os vetores aleatórios
+`\(\left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right)'\)`
+e `\(\left(X_{t_1+h}, X_{t_2+h}, \ldots, X_{t_n+h}\right)'\)` seguem a mesma distribuição.
 
 ---
 class: animated, fadeIn
-background-image: url("images/evolucao_ML.png")
-background-size: contain
 
-#### Evolução do aprendizado de máquina
+### Alguns exemplos - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)` de variáveis aleatórias *iid*, com `\(\mathbb{E}X_t=0\)` e
+`\(\mathbb{E}X_t^2=\sigma^2&lt;\infty\)` para todo `\(t\)`, então
+`$$\gamma_{X}(h)=\begin{cases}\sigma^2, &amp; \text{para } h=0;\\ 0, &amp; \text{para } h\ne0.\end{cases}$$`
+O processo `\(\{X_t\}\)` é estacionário e será chamado de **_ruído iid_**.
+
+--
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)` de variáveis aleatórias não-correlacionadas, com
+média `\(0\)` e variância `\(\sigma^2\)`. Dessa forma, `\(\{X_t\}\)` é um processo
+estacionário com a mesma função de autocovariância que no caso do *ruído iid*.
+Nesse cenário, o processo `\(\{X_t\}\)` é chamado de **_ruído branco_**.
+
+--
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)`, tal que
+`$$X_t=\begin{cases}Y_t, &amp;  \text{para }t \text{ par };\\ Y_t+1, &amp; \text{para }t \text{ ímpar },\end{cases} \quad (\text{com prob. }1)$$`
+onde `\(\{Y_t\}\)` é um processo estacionário. Embora `\(\gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)=\gamma_Y(h)\)`,
+o processo `\(\{X_t\}\)` não é estacionário, pois a média não é constante.
+
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{S_t\}\)` um passeio aleatório, i. e., `\(S_t=\sum_{i=1}^tX_t\)` (com prob. 1),
+com `\(\{X_t\}\)` um ruído *iid*, então, `\(\mathbb{E}S_t=0\)`, 
+`\(\mathbb{E}S_t^2=t\,\sigma^2&lt;\infty\)`, para todo `\(t=1, 2, 3, \ldots\)`.
+Ainda,
+`$$\gamma_{S}(h)=\mathrm{Cov}\left(S_{t+h}, S_t\right)=\mathrm{Cov}\left(S_{t}+X_{t+1}+\cdots+X_{t+h}, S_t\right)=\mathrm{Cov}\left(S_t, S_t\right)=t\,\sigma^2.$$`
+Como `\(\gamma_S(h)\)` depende de `\(t\)`, o processo `\(\{S_t\}\)` é não-estacionário.
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, para `\(a, b\)` e `\(c\)` constantes e 
+`\(\mathbb{E}X^2&lt;\infty\)`, `\(\mathbb{E}Y^2&lt;\infty\)` e `\(\mathbb{E}Z^2&lt;\infty\)`,
+então, `\(\mathrm{Cov}\left(aX+bY+c, Z\right)=a\,\mathrm{Cov}\left(X, Z\right)+b\,\mathrm{Cov}\left(Y, Z\right)\)`. &lt;/span&gt;
+
+--
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)`, tal que `\(X_t=A\cos(\theta t)+B\,\mathrm{sen}(\theta t)\)` (com prob. 1),
+onde `\(A\)` e `\(B\)` são duas variáveis aleatórias não-correlacionadas com médias `\(0\)`
+e variâncias `\(1\)` e `\(\theta\in[-\pi,\pi]\)`. A função de autocovariância do
+processo é dada por
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)&amp;=\mathrm{Cov}\left(A\cos(\theta(t+h))+B\,\mathrm{sen}(\theta (t+h)),A\cos(\theta t)+B\,\mathrm{sen}(\theta t)\right)\\
+  &amp;=\cos(\theta t)\cos(\theta(t+h))+\mathrm{sen}(\theta t)\,\mathrm{sen}(\theta(t+h))\\
+  &amp;=\cos(\theta h).
+  \end{align}
+&lt;/div&gt;
+
+Daí, o processo `\(\{X_t\}\)` é estacionário.
+
 ---
 class: animated, lightSpeedIn
 
-### Artificial Intelligence
+### Alguns exemplos - III
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t; t\in\mathbb{Z}\}\)`, tal que `\(X_t=Z_t+\theta Z_{t-1}\)` (com prob. 1),
+onde `\(\{Z_t\}\)` representa um processo de ruído branco com média `\(0\)` e variância `\(\sigma^2&lt;\infty\)`, 
+`\(\theta\)` um escalar.
+Então, `\(\mathbb{E}X_t=0\)`, `\(\mathbb{E}X_t^2=\sigma^2\left(1+\theta^2\right)\)` e
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)
+  &amp;=\begin{cases}
+  \sigma^2\left(1+\theta^2\right), &amp; \text{ para } h=0;\\
+  \sigma^2\theta, &amp; \text{ para } h=\pm1;\\
+  0, &amp; \text{ para } |h|&gt;1.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
 
-A partir da década de 1990, o aprendizado automático criou um novo paradigma 
-para analisar dados dificilmente solucionáveis sem o recente avanço na capacidade 
-computacional. &lt;br&gt;&lt;/br&gt;
-"*IA é um esforço para automatizar tarefas intelectuais usualmente realizadas 
-por seres humanos.*"
-.right[-- &lt;cite&gt;Chollet (2018)&lt;/cite&gt;]
+Daí, o processo `\(\{X_t\}\)` é estacionário. Ainda, um processo `\(\{X_t\}\)` com representação
+`\(X_t=Z_t+\theta Z_{t-1}\)` é chamado de processo de **_médias móveis de primeira ordem_**. 
 
-Em termos simples, a *inteligência artificial* refere-se a sistemas 
-ou máquinas que imitam a inteligência humana para executar tarefas e 
-podem se aprimorar iterativamente com base nas informações que coletam.
+A função de autocorrelação do processo é dada por
 
-&lt;img src="images/AI3.gif" width="48%" style="display: block; margin: auto;" /&gt;
+&lt;div class="math"&gt;
+  \begin{align}
+  \rho_X(h)=\mathrm{Corr}\left(X_{t+h},X_t\right)
+  &amp;=\begin{cases}
+  1, &amp; \text{ para } h=0;\\
+  \frac{\theta}{1+\theta^2}, &amp; \text{ para } h=\pm1;\\
+  0, &amp; \text{ para } |h|&gt;1.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, slideInLeft
+
+### Alguns exemplos - IV
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t; t\in\mathbb{Z}\}\)`, tal que `\(X_t=\phi X_{t-1}+Z_t\)` (com prob. 1),
+onde `\(\{Z_t\}\)` representa um processo de ruído branco com média `\(0\)` e 
+variância `\(\sigma^2&lt;\infty\)`, tal que `\(Z_t\)` é não-correlacionado com `\(X_s\)`, 
+para todo `\(s&lt;t\)` e `\(\phi\)` um escalar, tal que `\(|\phi|&lt;1\)`. Então, `\(\mathbb{E}X_t=0\)`.
+
+Para calcular a função de autocovariância, podemos multiplicar `\(X_t=\phi X_{t-1}+Z_t\)`
+por `\(X_{t-h}\)` e aplicar o operador valor esperado da seguinte forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(h)=\mathbb{E}\left[X_t\,X_{t-h}\right]&amp;=\mathbb{E}\left[\phi X_{t-1}\,X_{t-h}+Z_t\,X_{t-h}\right]
+  =\phi\,\mathbb{E}\left[X_{t-1}\,X_{t-h}\right]+\mathbb{E}\left[Z_t\,X_{t-h}\right]\\
+  &amp;=\phi\gamma_X(h-1)+0=\phi\gamma_X(h-1).
+  \end{align}
+&lt;/div&gt;
+
+Daí, `$$\gamma_X(h)=\phi\gamma_X(h-1)=\phi^h\gamma_X(0).$$` 
+Dessa forma, o processo `\(\{X_t\}\)` é estacionário. 
+
+Um processo `\(\{X_t\}\)`, sob as condições acima, é chamado de processo **_autorregressivo de primeira ordem_**. 
 
 ---
 class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_4.png")
-background-size: contain
 
-### Artificial Intelligence
+### Alguns exemplos - IV
 
----
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_5.png")
-background-size: contain
+Para calcular `\(\gamma_X(0)\)`, podemos usar a propriedade de linearidade da
+covariância,
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(0)&amp;=\mathrm{Cov}\left(X_t,X_t\right)=\mathrm{Cov}\left(\phi X_{t-1}+Z_t,\phi X_{t-1}+Z_t\right)\\
+  &amp;=\phi^2\gamma_X(0)+\sigma^2,
+  \end{align}
+&lt;/div&gt;
 
-### Artificial Intelligence
+Dessa forma, `\(\gamma_X(0)=\dfrac{\sigma^2}{1-\phi^2}\)`.
 
----
-class: animated, fadeIn
-background-image: url("images/data_science_vs_ml_6.png")
-background-size: contain
+
+Ainda, pode-se notar que, `\(\gamma_X(h)=\gamma_X(-h)\)`, assim, a função de autocorrelação do processo é dada por
+`$$\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\phi^{|h|}, \quad \text{para } h\in\mathbb{Z}.$$`
 
 
 ---
 class: inverse, hide-logo, middle, center
 
-# Data Analysis vs Data Analytics
+### Função de autocovariância de processos estacionários
 
-
----
-class: animated, fadeIn
-
-### Data Analysis vs Data Analytics - I
-
-De acordo com o dicionário *Merriam-Webster*: 
-
-&gt; [*analysis*](https://www.merriam-webster.com/dictionary/analysis) é 
-a separação de um todo em pequenas componentes;
-
-&gt; [*analytics*](https://www.merriam-webster.com/dictionary/analytics) 
-é o método de análise lógica. 
-
-Dessa forma, a *análise de dados* (*data analysis*) é o processo de 
-estudar em detalhes um determinado conjunto de dados, dividindo-os em 
-pequenos componentes e estudando os subcomponentes individualmente e 
-suas relações. Em outras palavras, a *análise de dados* é um 
-processo de estudo, refinamento, transformação e treinamento dos dados 
-coletados para obter informações úteis, sugerir conclusões e tomar 
-decisões.
-
---
-
-A *analítica de dados* (*data analytics*), por outro lado, é um termo 
-mais abrangente que se refere a uma disciplina que compreende o 
-gerenciamento completo de dados, incluindo ferramentas de aprendizado 
-de máquina, análise estatística e reconhecimento de padrões para obter 
-melhores *insights* e projetar melhores estratégias.
-
-&gt; Em outras palavras, a *análise de dados* é um processo ou método, 
-enquanto a *analítica de dados* é a ciência ou o processo cognitivo 
-que um analista usa para reconhecer problemas e examinar os dados da 
-maneira mais significativa.
 
 ---
 class: animated, lightSpeedIn
 
-### Data Analysis vs Data Analytics - II
+### Função de autocovariância
 
-&lt;img src="images/data_analytics.png" width="70%" style="display: block; margin: auto;" /&gt;
+Processos Estacionários: 2.1. Função de autocovariância e autocorrelação; 2.2. Processo de ruido branco; 2.3. Processos autorregressivos AR(p); 2.4. Processos de médias móveis MA(q); 2.5. Relação dual entre os processos AR(p) e MA(q);
 
-* **Diagnostic analytics**: Mais ou menos na linha da análise descritiva, 
-a diagnóstica também serve para entender o contexto atual. A diferença
-é que nela o objetivo é explicar por que algo aconteceu e as razões 
-pelas quais acontenceu. Também conhecido como *Análise causal*.
-
-***
-
-Para detalhes, sugere-se a leitura do artigo de Cao, L. (2017) e 
-Shah (2020).
-
----
-class: animated, lightSpeedIn
-
-## Ciência de dados para crianças
-
-&lt;iframe src="https://www.codingal.com/blog/coding/best-data-science-platforms-for-kids/" height="480" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
-
----
-class: animated, fadeIn
-
-### Uma sugestão de leitura
-
-&lt;iframe src="https://www.dominodatalab.com/childrens-book-florence-the-data-scientist" height="480" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
-
-[PDF disponível aqui](https://bit.ly/3MbaMik).
 
 ---
 class: animated, lightSpeedIn
 ### Referências
 
-Breiman, L. (2001). "Statistical Modeling: The Two Cultures (with
-comments and a rejoinder by the author)". In: _Statistical Science_
-16.3, pp. 199 - 231.
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
 
-Cao, L. (2017). "Data Science: A Comprehensive Overview". In: _ACM
-Computing Surveys_ 50, pp. 1-42.
-
-Chollet, F. (2018). _Deep learning with R_. 1st edition. Shelter
-Island, NY: Manning Publications. ISBN: 1-61729-554-X.
-
-Cleveland, W. (2001). "Data science: An action plan for expanding the
-technical areas of the field of statistics". In: _International
-Statistical Review_ 69, pp. 21-26.
-
-Ozdemir, S. (2016). _Principles of Data Science_. 1st Edition. Packt.
-
-Schutt, R. and C. O'neil (2013). _Doing Data Science: Straight Talk
-from the Frontline_. 1st Edition. O'Reilly Media.
-
-Shah, C. (2020). _A Hands-On Introduction to Data Science_. 1st
-Edition. Cambridge university press.
-
-Tukey, J. (1962). "The future of data analysis". In: _The Annals of
-Mathematical Statistics_ 33, pp. 1-67.
-
-Weihs, C. and K. Ickstadt (2018). "Data Science: the impact of
-statistics". In: _International Journal of Data Science and Analytics_
-6, pp. 189-194.
+Morettin, P. and C. Toloi (2006). _Análise de Séries Temporais_.
+Editora Blucher: ABE - Projeto Fisher.
 
 ---
 class: animated, hide-logo, bounceInDown
