@@ -10,7 +10,7 @@ description: Repositório com material sobre análise de séries temporais.
 
 * **Slides**
   - [Plano de ensino](https://bit.ly/3cRbdm6){:target="_blank"}
-  - [Processos Estacionários](https://bit.ly/3CnTTwR){:target="_blank"}
+  - [Processos Estacionários](https://bit.ly/3U49BWQ){:target="_blank"}
 
 
 * **Conjunto de dados**
