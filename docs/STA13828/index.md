@@ -41,7 +41,7 @@ description: Repositório com material sobre análise de séries temporais.
   - Vancine, M. (2021) [Introdução ao controle de versão com git, GitHub e RStudio](https://mauriciovancine.github.io/pt/short-course/short-course-git-github-rstudio/){:target="_blank"}
 
 * **R notebooks**
-  - [R_intro.ipynb](https://bit.ly/2VEoXaB)
+  - [R_intro.ipynb](https://ffajardo64.github.io/statistical_learning/STA13828/notebooks/ST_aula1.ipynb)
   
 **Python**
 
