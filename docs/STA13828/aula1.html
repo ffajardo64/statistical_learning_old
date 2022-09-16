@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 13/09/2022
+### Vitória. ES - 15/09/2022
 ]
 
 ---
@@ -130,7 +130,7 @@ duas variáveis aleatórias, tal que, `\(\mathbb{P}\left[A\ge0\right]=1\)` e
   onde `\(\nu\ge0\)` e `\(r&gt;0\)`.
 
   As realizações do processo `\(\{X_t\}\)` são funções de `\(t\)`, quando `\(\omega\in\Omega\)`
-é um valor fixo, i. e., `\(X_t(\omega)=r^{-1}A(\omega)\cos\left(\nu t + \Theta(\omega)\right)\)` ou
+é um valor fixo, i.e., `\(X_t(\omega)=r^{-1}A(\omega)\cos\left(\nu t + \Theta(\omega)\right)\)` ou
 escrito de outra forma
 `$$x_t=r^{-1}a\cos\left(\nu t + \theta\right).$$`
 ---
@@ -146,7 +146,7 @@ identicamente distribuidas (_iid_). Um passeio aleatório com média zero
 é obtido quando `\(S_0=0\)`.
 
   Podemos considerar outros cenários, por exemplo, quando 
-  `\(\{X_t; t= 1, 2, \ldots\}\)` é um *processo binário*, i. e., uma 
+  `\(\{X_t; t= 1, 2, \ldots\}\)` é um *processo binário*, i.e., uma 
   sequência de variáveis aleatórias independentes, tal que
   `$$\mathbb{P}\left[X_t=1\right]=\mathbb{P}\left[X_t=-1\right]=\frac12.$$`
   Nesse casso, o passeio aleatório é chamado de *simétrico simple*.
@@ -251,7 +251,7 @@ class: animated, slideInLeft
 ### Processos estacionários - III
 
 &gt; * Um caso particular da função de autocovariância, quando `\(t_1=t_2=t\)`,
-é a função da variância de `\(\{X_t\}\)`, i. e.,
+é a função da variância de `\(\{X_t\}\)`, i.e.,
 `$$\gamma_X(t,t)=\mathrm{Var}\left(X_{t}\right)=\mathbb{E}X_{t}^2-\mathbb{E}^2[X_{t}];$$`
 
 &gt; * Podemos definir a função de autocorrelação de `\(\{X_t\}\)` como
@@ -399,7 +399,7 @@ class: animated, fadeIn
 ### Alguns exemplos - II
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
-`\(\{S_t\}\)` um passeio aleatório, i. e., `\(S_t=\sum_{i=1}^tX_t\)` (com prob. 1),
+`\(\{S_t\}\)` um passeio aleatório, i.e., `\(S_t=\sum_{i=1}^tX_t\)` (com prob. 1),
 com `\(\{X_t\}\)` um ruído *iid*, então, `\(\mathbb{E}S_t=0\)`, 
 `\(\mathbb{E}S_t^2=t\,\sigma^2&lt;\infty\)`, para todo `\(t=1, 2, 3, \ldots\)`.
 Ainda,
@@ -515,21 +515,168 @@ class: inverse, hide-logo, middle, center
 
 ### Função de autocovariância de processos estacionários
 
-
 ---
 class: animated, lightSpeedIn
 
-### Função de autocovariância
+### Função de autocovariância - I
 
-Processos Estacionários: 2.1. Função de autocovariância e autocorrelação; 2.2. Processo de ruido branco; 2.3. Processos autorregressivos AR(p); 2.4. Processos de médias móveis MA(q); 2.5. Relação dual entre os processos AR(p) e MA(q);
+* **Proposição.** Seja `\(\gamma(\cdot)\)` a função de autocovariância de 
+um processo estacionário de segunda ordem `\(\{X_t; t\in\mathbb{Z}\}\)`, então, satisfaz
+as seguintes propriedades:
+
+  - `\(\gamma(0)\ge0\)`;
+
+  - `\(|\gamma(h)|\le\gamma(0)\)`, para todo `\(h\in\mathbb{Z}\)`;
+  
+  - `\(\gamma(\cdot)\)` é uma função par, i.e., `\(\gamma(h)=\gamma(-h)\)`, para todo `\(h\in\mathbb{Z}\)`;
+  
+  - `\(\gamma(h)\)` é não-negativa definida, i.e., 
+    `$$\sum_{i=1}^n\sum_{j=1}^na_i\gamma(i-j)a_j\ge0,$$`
+  para `\(n=1, 2, \ldots\)` e todos os vetores `\(\mathbf{a}=(a_1, a_2, \ldots,a_n)'\in\mathbb{R}^n\)`.
+
+  *Prova:* A primeira propriedade é garantida pela desigualdade de Jensen,
+  pois, `\(\gamma(0)=\mathrm{Var}(X_t)\ge0\)`. 
+  
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+---
+class: animated, slideInLeft
+
+### Função de autocovariância - I  
+
+*Prova:* 
+A segunda propriedade é garantida pela desigualdade de Cauchy-Schwarz&lt;sup&gt;1&lt;/sup&gt;, i.e., 
+`$$\left|\mathrm{Cov}\left(X_{t+h}, X_t\right)\right|\le\left(\mathrm{Var}(X_{t+h})\right)^{\frac12}\left(\mathrm{Var}(X_{t})\right)^{\frac12}.$$`
+A terceira propriedade é garantida pela definição da função de 
+autocovariância, ou seja,
+`$$\gamma(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)=\mathrm{Cov}\left(X_{t},X_{t+h}\right).$$`
+
+Para verificar a última propriedade, considere o vetor `\(\mathbf{Z}_n=(X_1, X_{2},\ldots, X_n)'\)`,
+então,
+&lt;div class="math"&gt;
+  \begin{align}
+    0\le\mathrm{Var}\left(\mathbf{a}'\mathbf{Z}_n\right)=\mathbf{a}'\Gamma_n\mathbf{a}=\sum_{i=1}^n\sum_{j=1}^na_i\gamma(i-j)a_j,
+  \end{align}
+&lt;/div&gt;
+
+onde `\(\Gamma_n\)` representa a matriz de covariâncias do vetor aleatório `\(\mathbf{X}_n\)`.
+
+&lt;br/&gt;
+
+***
+Para detalhes, sugere-se a revisão da p. 162 do Mood, Graybill, and Boes (1974).
+
+---
+class: animated, slideInLeft
+
+### Função de autocovariância - II
+
+* **Teorema.** Uma função de valor real, definida em `\(\mathbb{Z}\)`, é
+função de autocovariância de um processo estacionário *see* ela é uma
+função par e ela é não-negativa definida.
+
+  *Prova*.  Sugere-se revisar o Teorema 1.5.1 em Brockwell and Davis (2006).
+
+#### Algumas considerações
+
+&gt; * Para cada função de autocovariância `\(\gamma(\cdot)\)`, existe um processo 
+estacionário Gaussiano com média `\(0\)` e `\(\gamma(\cdot)\)` como a sua função 
+de autocovariância;
+
+&gt; * Uma função de autocorrelação `\(\rho(\cdot)\)` tem todas as propriedades de
+uma função de autocovariância, e ainda satisfaz a condição adicional que `\(\rho(0)=1\)`;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a função `\(\kappa(h)=\cos(\theta h)\)`, para `\(h\in\mathbb{Z}\)`. De fato,
+`\(\kappa(h)\)` é função de autocovariância de um processo estacionário, pois
+é uma função par. Para mostrar que `\(\kappa(h)\)` é não-negativa definida, 
+observe que:
+&lt;div class="math"&gt;
+  \begin{align}
+    \sum_{i=1}^n\sum_{j=1}^na_i\kappa(i-j)a_j&amp;=\sum_{i=1}^n\sum_{j=1}^na_i\cos\left(\theta(i-j)\right)\,a_j\\
+    &amp;=\sum_{i=1}^n\sum_{j=1}^na_i\left[\cos\theta i\cos\theta j+\mathrm{sen}\,\theta i\,\mathrm{sen}\,\theta j\right]\,a_j\\
+    &amp;=\left(\sum_{i=1}^na_i\cos\theta i\right)^2+\left(\sum_{i=1}^na_i\mathrm{sen}\,\theta i\right)^2\ge0.
+  \end{align}
+&lt;/div&gt;
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, 
+`$$\sum_{i=1}^n\sum_{j=1}^n a_ia_j=\sum_{i=1}^na_i\sum_{j=1}^na_j=\left(\sum_{i=1}^na_i\right)^2.$$`
+&lt;/span&gt;
+
+---
+class: animated, slideInRight
+
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a função `\(\kappa(h)\)`, com `\(h\in\mathbb{Z}\)`, tal que
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \kappa(h)&amp;=\begin{cases}
+  1, &amp; \text{ se } h=0;\\
+  \rho, &amp; \text{ se } h=\pm1;\\
+  0, &amp; \text{ em caso contrário.}
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+Pode-se verificar que `\(\kappa(h)\)` é uma função de autocovariância (FACV) *see* `\(|\rho|\le\frac12\)`.
+
+Perceba que `\(\kappa(h)\)` apresenta um formato similar à função de autocovariância
+de um processo com representação MA(1), ou seja, *médias móveis de primeira ordem* (vide, **[FACV de um processo com representação MA(1)](https://ffajardo64.github.io/statistical_learning/STA13828/aula1.html#23)**).
+
+Dessa forma, `\(\sigma^2(1+\theta^2)=1\)`, onde `\(\theta\in\mathbb{R}\)`. Daí,
+`$$\sigma^2=\dfrac{1}{1+\theta^2}.$$`
+
+Por outra parte, `\(\sigma^2\theta=\rho\)`, então `\(\theta=\rho(1+\theta^2)\)`. Dessa forma, os valores de `\(\theta\)` são
+as raízes no polinômio
+`$$\rho\theta^2-\theta+\rho=0.$$`
+---
+class: animated, slideInRight
+
+### Função de autocovariância - II
+
+
+Daí, `\(\theta=\dfrac{1\pm\sqrt{1-4\rho^2}}{2\rho}\)`. Assim, para obter
+raízes reais `\(\Delta=1-4\rho^2\ge0\)`, i.e., `\(|\rho|\le\frac12\)`.
+
+&gt; Para `\(|\rho|&gt;\frac12\)`, as raízes do polinômio não são reais. Dessa forma,
+a função `\(\kappa(h)\)` não é FACV de um processo com representação MA(1).
+
+&lt;br/&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que, 
+para `\(|\rho|&gt;\frac12\)` não existe um processo estacionário com FACV `\(\kappa(h)\)`,
+ i.e., mostre que `\(\kappa(h)\)` não é não-negativa definida.
+
+&lt;br/&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Considere
+o processo `\(\{X_t;t\in\mathbb{Z}\}\)` com seguinte representação
+`$$X_t=A\cos\theta t+B\,\mathrm{sen}\,\theta t,$$`
+onde `\(A\)` e `\(B\)` são variáveis aleatórias não-correlacionadas com média 
+`\(0\)` e variância `\(1\)`, `\(\theta\)` é uma frequência fixa no intervalo `\([0,\pi]\)`.
+Mostre que o processo `\(\{X_t\}\)` é estacionário de segunda ordem e calcule
+sua média e função de autocovariância.
 
 
 ---
 class: animated, lightSpeedIn
 ### Referências
 
+Brockwell, P. J. and R. A. Davis (2006). _Time Series: Theory and
+Methods_. 2nd. Springer Series in Statistics.
+
 Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
 Forecasting_. 3rd. Springer Verlag.
+
+Mood, A., F. Graybill, and D. Boes (1974). _Introduction to the
+theory of statistics_. 3rd. McGraw-Hill Higher Education.
 
 Morettin, P. and C. Toloi (2006). _Análise de Séries Temporais_.
 Editora Blucher: ABE - Projeto Fisher.
