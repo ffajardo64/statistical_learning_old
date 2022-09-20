@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 15/09/2022
+### Vitória. ES - 19/09/2022
 ]
 
 ---
@@ -399,7 +399,7 @@ class: animated, fadeIn
 ### Alguns exemplos - II
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
-`\(\{S_t\}\)` um passeio aleatório, i.e., `\(S_t=\sum_{i=1}^tX_t\)` (com prob. 1),
+`\(\{S_t\}\)` um passeio aleatório, i.e., `\(S_t=\sum_{i=1}^tX_i\)` (com prob. 1),
 com `\(\{X_t\}\)` um ruído *iid*, então, `\(\mathbb{E}S_t=0\)`, 
 `\(\mathbb{E}S_t^2=t\,\sigma^2&lt;\infty\)`, para todo `\(t=1, 2, 3, \ldots\)`.
 Ainda,
@@ -499,7 +499,7 @@ covariância,
 &lt;div class="math"&gt;
   \begin{align}
   \gamma_X(0)&amp;=\mathrm{Cov}\left(X_t,X_t\right)=\mathrm{Cov}\left(\phi X_{t-1}+Z_t,\phi X_{t-1}+Z_t\right)\\
-  &amp;=\phi^2\gamma_X(0)+\sigma^2,
+  &amp;=\phi^2\gamma_X(0)+\sigma^2.
   \end{align}
 &lt;/div&gt;
 
@@ -654,20 +654,244 @@ a função `\(\kappa(h)\)` não é FACV de um processo com representação MA(1)
 para `\(|\rho|&gt;\frac12\)` não existe um processo estacionário com FACV `\(\kappa(h)\)`,
  i.e., mostre que `\(\kappa(h)\)` não é não-negativa definida.
 
-&lt;br/&gt;
-
 &lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Considere
-o processo `\(\{X_t;t\in\mathbb{Z}\}\)` com seguinte representação
-`$$X_t=A\cos\theta t+B\,\mathrm{sen}\,\theta t,$$`
-onde `\(A\)` e `\(B\)` são variáveis aleatórias não-correlacionadas com média 
-`\(0\)` e variância `\(1\)`, `\(\theta\)` é uma frequência fixa no intervalo `\([0,\pi]\)`.
+o processo `\(\{X_t;t\in\mathbb{Z}\}\)` com representação
+`$$X_t=R\cos\left[2\pi(f\,t+\theta)\right],$$`
+onde `\(R\)` e `\(\theta\)` são variáveis aleatórias não-correlacionadas. 
+`\(\theta\)` segue uma distribuição uniforme em `\((0,1)\)` e a frequência `\(f\)`
+é fixa e definidas em `\(\left(0,\frac12\right)\)`.
 Mostre que o processo `\(\{X_t\}\)` é estacionário de segunda ordem e calcule
 sua média e função de autocovariância.
 
 
 ---
+class: animated, slideInRight
+
+### Função de de densidade espectral - I
+
+* **Definição (Densidade espectral)**&lt;sup&gt;1&lt;/sup&gt;: Seja 
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo estaciocionário de segunda ordem 
+com média `\(0\)` e função de autocovariância `\(\gamma(\cdot)\)`, tal que, 
+`\(\sum_{h=-\infty}^\infty|\gamma(h)|&lt;\infty\)`. A densidade espectral 
+ou _espectro_ de `\(\gamma(\cdot)\)` é a função definida por
+`$$f(\lambda)=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}, \quad -\infty&lt;\lambda&lt;\infty,$$`
+onde `\(e^{i\lambda}=\cos\lambda+i\,\mathrm{sen}\,\lambda\)` e `\(i=\sqrt{-1}\)`.
+
+&gt; * A somabilidade de `\(|\gamma(\cdot)|\)` implica que `\(f(\lambda)=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}\)`
+converge absolutamente, pois `\(|e^{ih\lambda}|^2=\cos^2h\lambda+\mathrm{sen}^2\,h\lambda=1\)`.
+
+&gt; * Já que as funções seno e cosseno têm período `\(2\pi\)`, então a densidade
+espectral também terá o mesmo período. Dessa forma, basta considerar
+`\(\lambda\in(-\pi,\pi]\)`.
+
+***
+&lt;sup&gt;1&lt;/sup&gt;Para detalhes, sugere-se a leitura do livro de Priestley (1981)
+e Bloomfield (2000).
+
+---
+class: animated, fadeIn
+
+### Função de de densidade espectral - II
+
+* **Proposição.** Uma função `\(f\)` definida em `\((-\pi,\pi]\)` é a densidade espectral
+de um processo estacionário de segunda ordem _see_:
+  - `\(f(\lambda)=f(-\lambda)\)`;
+  - `\(f(\lambda)\ge0\)`, para todo `\(\lambda\in(-\pi,\pi]\)`;
+  - `\(\int_{-\pi}^\pi f(\lambda)\,d\lambda&lt;\infty\)`.
+  
+  *Prova:* 
+  - Para mostrar o primeiro item, lembre que a função cosseno é uma 
+  função par, assim como a função de autocovariância. A função seno é
+  uma função ímpar, então:
+  
+  &lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}
+  =\frac{1}{2\pi}\sum_{h=-\infty}^\infty\left[\cos h\lambda-i\,\textrm{sen}\,h\lambda\right]\,\gamma(h)
+  =\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)\cos h\lambda\\
+  &amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)\cos (-h\lambda)=f(-\lambda).
+  \end{align}
+&lt;/div&gt;
+  
+  - Os itens 2 e 3 ficam como &lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercícios&lt;/span&gt;&lt;/b&gt;.
+  
+---
+class: animated, slideInLeft
+
+### Função de de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que
+&lt;div class="math"&gt;
+  \begin{align}
+  \int_{-\pi}^\pi e^{i(k-h)\lambda}\,d\lambda&amp;=\begin{cases}
+  2\pi, &amp; \text{ se } k=h;\\
+  0, &amp; \text{ em caso contrário.}
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que
+a função de autocovariância é dada por
+  `$$\gamma(h)=\int_{-\pi}^\pi e^{i\,h\lambda}f(\lambda)\,d\lambda=\int_{-\pi}^\pi\cos(h\lambda)f(\lambda)\,d\lambda, \quad h\in\mathbb{Z}.$$`
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que
+&lt;div class="math"&gt;
+  \begin{align}
+  \sum_{t=1}^n\cos\lambda t&amp;=\cos\left(\frac{(n+1)\lambda}{2}\right)\frac{\mathrm{sen}\left(n\frac{\lambda}{2}\right)}{\mathrm{sen}\left(\frac{\lambda}{2}\right)};\\
+  \sum_{t=1}^n\mathrm{sen}\,\lambda t&amp;=\mathrm{sen}\,\left(\frac{(n+1)\lambda}{2}\right)\frac{\mathrm{sen}\left(n\frac{\lambda}{2}\right)}{\mathrm{sen}\left(\frac{\lambda}{2}\right)}.
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, lightSpeedIn
+
+### Função de de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a função `\(\kappa(h)\)`, com `\(h\in\mathbb{Z}\)`, tal que
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \kappa(h)&amp;=\begin{cases}
+  1, &amp; \text{ se } h=0;\\
+  \rho, &amp; \text{ se } h=\pm1;\\
+  0, &amp; \text{ em caso contrário.}
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+Sabemos que `\(\kappa(h)\)` é uma função de autocovariância *see* `\(|\rho|\le\frac12\)`.
+Então, 
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}=\frac{1}{2\pi}\left[\gamma(0)+e^{-i(-1)\lambda}\rho+e^{-i\lambda}\rho\right]
+  =\frac{1}{2\pi}\left[\gamma(0)+\left(e^{i\lambda}+e^{-i\lambda}\right)\rho\right]\\
+  &amp;=\frac{1}{2\pi}\left[1+2\rho\cos\lambda\right], \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, 
+`$$\mathrm{sen}\,\lambda=\frac{e^{i\lambda}-e^{-i\lambda}}{2i}\quad \text{ e } \quad \cos\lambda=\frac{e^{i\lambda}+e^{-i\lambda}}{2}.$$`
+&lt;/span&gt;
+
+---
+class: animated, slideInLeft
+
+### Função de de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo de ruído branco com `\(\mathbb{E}X_t=0\)` 
+e `\(\gamma(0)=\sigma^2&lt;\infty\)` e `\(\gamma(h)=0\)`, para `\(|h|&gt;0\)`. Então, 
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}=\frac{1}{2\pi}\gamma(0)
+  =\frac{\sigma^2}{2\pi}, \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo autorregressivo de ordem `\(1\)`, AR(1), 
+com `\(|\phi|&lt;1\)` e `\(\gamma(h)=\gamma(0)\phi^h=\dfrac{\sigma^2}{1-\phi^2}\phi^h,\)`
+então:
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}
+  =\frac{1}{2\pi}\left[\gamma(0)+\sum_{h=-\infty}^{-1}\gamma(h)e^{-i\lambda h}+\sum_{h=1}^{\infty}\gamma(h)e^{-i\lambda h}\right]\\
+  &amp;=\frac{1}{2\pi}\left[\gamma(0)+\gamma(0)\sum_{h=1}^{\infty}\phi^h\left(e^{i\lambda h}+e^{-i\lambda h}\right)\right], \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+
+
+---
+class: animated, slideInLeft
+
+### Função de de densidade espectral - II
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\left[\gamma(0)+\gamma(0)\sum_{h=1}^{\infty}\phi^h\left(e^{i\lambda h}+e^{-i\lambda h}\right)\right]=\frac{1}{2\pi}\frac{\sigma^2}{1-\phi^2}\left[1+\frac{\phi e^{i\lambda}}{1-\phi e^{i\lambda}}+\frac{\phi e^{-i\lambda}}{1-\phi e^{-i\lambda}}\right]\\
+  &amp;=\frac{1}{2\pi}\frac{\sigma^2}{1-\phi^2}\left[1+\frac{\phi e^{i\lambda}\left(1-\phi e^{-i\lambda}\right)+\phi e^{-i\lambda}\left(1-\phi e^{i\lambda}\right)}{\left(1-\phi e^{i\lambda}\right)\left(1-\phi e^{-i\lambda}\right)}\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[1+\frac{\phi e^{i\lambda}-\phi^2+\phi e^{-i\lambda}-\phi^2}{1-\phi\left(e^{-i\lambda}+e^{i\lambda}\right)+\phi^2}\right]
+  =\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[1+\frac{\phi \left(e^{i\lambda}+ e^{-i\lambda}\right)-2\phi^2}{1-\phi\left(e^{-i\lambda}+e^{i\lambda}\right)+\phi^2}\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[1+\frac{2\phi\cos\lambda-2\phi^2}{1-2\phi\cos\lambda+\phi^2}\right]
+  =\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[\frac{1-2\phi\cos\lambda+\phi^2+2\phi\cos\lambda-2\phi^2}{1-2\phi\cos\lambda+\phi^2}\right]
+  \end{align}
+&lt;/div&gt;
+
+Daí, a densidade espectral de um processo AR(1) é dada por: `$$f(\lambda)=\frac{\sigma^2}{2\pi}\left[\frac{1}{1-2\phi\cos\lambda+\phi^2}\right], \quad \lambda\in(-\pi,\pi].$$`
+
+
+---
+class: animated, slideInRight
+
+### Função de de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-8-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-9-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Função de de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-11-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+
+---
+class: animated, slideInRight
+
+### Função de de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo de médias móveis de ordem `\(1\)`, MA(1), com
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma(h)&amp;=\begin{cases}
+  \sigma^2\left(1+\theta^2\right), &amp; \text{ para } h=0;\\
+  \sigma^2\theta, &amp; \text{ para } h=\pm1;\\
+  0, &amp; \text{ para } |h|&gt;1.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+então:
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}
+  =\frac{1}{2\pi}\left[\gamma(0)+\gamma(-1)e^{i\lambda}+\gamma(1)e^{-i\lambda}\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\left[(1+\theta^2)+\theta\left(e^{i\lambda}+e^{-i\lambda}\right)\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\left[1+2\theta\cos\lambda+\theta^2\right], \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, slideInRight
+
+### Função de de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-13-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+---
+class: animated, slideInRight
+
+### Função de de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-14-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-15-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
 class: animated, lightSpeedIn
 ### Referências
+
+Bloomfield, P. (2000). _Fourier Analysis of Time Series: An
+Introduction_. John Wiley.
 
 Brockwell, P. J. and R. A. Davis (2006). _Time Series: Theory and
 Methods_. 2nd. Springer Series in Statistics.
@@ -680,6 +904,9 @@ theory of statistics_. 3rd. McGraw-Hill Higher Education.
 
 Morettin, P. and C. Toloi (2006). _Análise de Séries Temporais_.
 Editora Blucher: ABE - Projeto Fisher.
+
+Priestley, M. B. (1981). _Spectral Analysis and Time Series_.
+Academic Press.
 
 ---
 class: animated, hide-logo, bounceInDown
