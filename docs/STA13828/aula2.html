@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Introdução à Ciência de Dados</title>
+    <title>Análise de Séries Temporais</title>
     <meta charset="utf-8" />
     <meta name="author" content="  " />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -13,10 +13,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Introdução à Ciência de Dados
+# Análise de Séries Temporais
 ]
 .subtitle[
-## Portfólio de projetos
+## Processos com representação ARMA(p,q)
 ]
 .author[
 ### <br/><br/>
@@ -25,20 +25,17 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 04/05/2022
+### Vitória. ES - 20/09/2022
 ]
 
 ---
 
-[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
-[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
-[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
-[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
-[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
-[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
 [//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+[//]: &lt;&gt; (https://github.com/animate-css/animate.css/blob/main/animate.css)
 
 class: animated, fadeIn
+
+
 
 
 
@@ -46,517 +43,146 @@ class: animated, fadeIn
 
 &lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
 
-### TDSP: Processo de Ciência de Dados da Equipe - I
+### Alguns resultados preliminares
 
-A *Ciência de Dados* (CD) é uma área em constante evolução e a sua
-terminologia acompanha rapidamente as mudanças ao longo do tempo.
-A definição das etapas que definem um processo de CD permite
-melhorar a colaboração e o aprendizado, assim como a obtenção de
-projetos bem-sucedidos.
+* **Definição (Operador de defasagem)**: Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)`.
+O operador de desafagem, denotado por `\(B\)` (_Backward_), define-se como
+`$$BX_t=X_{t-1}.$$`
 
-Na literatura existem diferentes propostas para estruturar um projeto
-de CD. A seguir são descritas algumas dessas propostas:
+&gt; O operador de defasagem pode ser aplicado sucessivamente da seguinte 
+forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  B^2X_{t}&amp;=B\left(BX_{t}\right)=BX_{t-1}=X_{t-2}\\
+  B^3X_{t}&amp;=B^2\left(BX_{t}\right)=B^2X_{t-1}=X_{t-3}\\
+  &amp;\vdots\\
+  B^kX_{t}&amp;=X_{t-k}, \quad \text{ para } k=0,1,2,\ldots.
+  \end{align}
+&lt;/div&gt;
 
-* O **TDSP** (Processo de Ciência de Dados da Equipe) fornece 
-uma metodologia ágil e iterativa para fornecer soluções de 
-análise preditiva e aplicativos inteligentes com eficiência. É o modelo
-usado pela *Microsoft*, desde 2016, para ajudar na implementação 
-bem-sucedida de iniciativas de ciência de dados.
-
-  As principais etapas do **TDSP** são: **Uma definição de ciclo de vida 
-  de CD**, estrutura de projeto padronizada, infraestrutura e recursos 
-  recomendados para projetos de CD e ferramentas e utilitários 
-  recomendados para execução de projetos.
-
-
----
-class: animated, fadeIn
-
-### TDSP: Processo de Ciência de Dados da Equipe - II
-
-&lt;img src="images/tdsp-lifecycle2.png" width="40%" style="float:right; padding:20px" /&gt;
-
-Esse ciclo de vida foi projetado para projetos de CD que devem ser 
-fornecidos como parte de aplicativos inteligentes. Esses aplicativos 
-implantam modelos de machine learning ou de inteligência artificial 
-para análise preditiva. Os projetos de ciência de dados exploratórios 
-e os projetos de análise improvisados também podem se beneficiar do 
-uso desse processo. Mas, para esse tipo de projetos, algumas das etapas 
-do ciclo podem não ser necessárias.
-
-O ciclo de vida descreve os principais estágios que os projetos 
-normalmente executam, muitas vezes de forma iterativa:
-
-* Compreensão do negócio;
-* Aquisição e compreensão de dados;
-* Modelagem;
-* Desdobramento, desenvolvimento;
+&gt; &lt;span style="color:grey"&gt; Como convenção, será definido `\(B^0X_t=X_t\)`,
+i.e., o operador `\(B^0\)` será considerado como um operador identidade.&lt;/span&gt;
 
 ***
-Para detalhes sugiro a leitura do blog da Microsoft Azure: [What is the Team Data Science Process?](https://docs.microsoft.com/en-us/azure/architecture/data-science-process/overview)
+
+Para detalhes, sugere-se a leitura do livro de Hamilton (1994).
+
+---
+class: animated, hide-logo, fadeInDownBig
+
+### Alguns resultados preliminares
+
+* **Definição (Operador de diferenciação)**: Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)`.
+O operador de diferenciação, denotado por `\(\nabla=1-B\)`, define-se como
+`$$\nabla X_t=X_t - X_{t-1}.$$`
+
+&gt; Para `\(d=0, 1, 2, \ldots\)`, temos o seguinte resultado
+`$$\nabla^d=(1-B)^d=\sum_{j=0}^d\binom{d}{j}(-1)^jB^j,$$`
+onde `\(\dbinom{d}{j}=\dfrac{d!}{j!(d-j)!}=\dfrac{\Gamma(d+1)}{\Gamma(j+1)\Gamma(d-j+1)}\)`,
+onde `\(\Gamma(t)=\int_{0}^\infty x^{t-1}e^{-x}\,dx\)`, para `\(t&gt;0\)` e `\(\Gamma(t)=\dfrac{\Gamma(1+t)}{t}\)`, para `\(t&lt;0\)`.
+
+&gt; Em geral, para qualquer `\(d\)` real, com `\(d&gt;-1\)`, temos que
+`$$\nabla^d=(1-B)^d=\sum_{j=0}^\infty \frac{\Gamma(j-d)}{\Gamma(j+1)\Gamma(-d)}B^j.$$`
+
+---
+class: animated, hide-logo, fadeInLeft
+
+### Alguns resultados preliminares
+
+* **Definição (Operador de diferenciação sazonal)**: Considere o processo 
+`\(\{X_t; t\in\mathbb{Z}\}\)`. O operador de diferenciação sazonal, denotado 
+por `\(\nabla_d=1-B^d\)`, define-se como
+`$$\nabla_d X_t=X_t - X_{t-d}.$$`
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla^2X_t=\nabla(\nabla X_t)=(1-B)(1-B)X_t=(1-2B+B^2)X_t=X_t-2X_{t-1}+X_{t-2}.$$`
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla_6X_t=(1-B^6)X_t=X_t-X_{t-6}.$$`
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla\nabla_{12}X_t=(1-B)(1-B^{12})X_t=(1-B-B^{12}+B^{13})X_t=X_t-X_{t-1}-X_{t-12}+X_{t-13}.$$`
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla_{12}^2X_t=(1-B^{12})^2X_t=(1-2B^{12}+B^{24})X_t=X_t-2X_{t-12}+X_{t-24}.$$`
+
+---
+class: animated, hide-logo, fadeInDown
+
+### Processos lineares - I
+
+* **Definição (Processo Linear)**: Um processo `\(\{X_t; t\in\mathbb{Z}\}\)`
+é dito **linear** se a representação do processo é dada por
+`$$X_t=\sum_{j=-\infty}^\infty\psi_jZ_{t-j}, \quad \text{(com prob. 1)}$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variância
+`\(\sigma^2\)` e `\(\{\psi_j\}\)` é uma sequência absolutamente somável de 
+escalares, i.e.
+`$$\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty.$$`
+
+&gt; Podemos reescrever a definição acima em termos do operador de 
+defasagem, assim
+`$$X_t=\psi(B)Z_t,$$`
+onde `\(\psi(B)=\sum_{j=-\infty}^\infty\psi_jB^j\)`.
+
+---
+class: animated, hide-logo, fadeInRight
+
+### Processos lineares - I
+
+* **Proposição**: Seja `\(\{Y_t\}\)` um processo estacionário de segunda ordem
+com média `\(0\)` e função de autocovariância `\(\gamma_Y(\cdot)\)`. Se
+`\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)`, então o processo `\(\{X_t\}\)`,
+com representação
+`$$X_t=\sum_{j=-\infty}^\infty\psi_jY_{t-j}=\psi(B)Y_t$$`
+é estacionário com média `\(0\)` e função de autocovariância
+`$$\gamma_X(h)=\sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty\psi_j\psi_k\gamma_Y(h+k-j).$$`
+
+&gt; A condição `\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)` garante que a soma
+infinita na representação do processo, i.e., `\(X_t=\sum_{j=-\infty}^\infty\psi_jZ_{t-j}\)`,
+converge com probabilidade 1, pois `\(\mathbb{E}|Z_t|\le\sigma\)` e
+`$$\mathbb{E}|X_t|\le\sum_{j=-\infty}^\infty\left(|\psi_j|\, \mathbb{E}|Z_{t-j}|\right)\le\left(\sum_{j=-\infty}^\infty|\psi_j|\right)\sigma&lt;\infty.$$`
+
 
 ---
 class: animated, fadeIn
 
-### CRISP-DM: Processo Padrão para Mineração de Dados - I
+### Processos lineares - I
 
-&lt;img src="images/CRISP-DM_Process_Diagram.png" width="40%" style="float:right; padding:20px" /&gt;
+#### Algumas considerações
 
-A primeira versão do **CRISP-DM** (*Cross-Industry Standard Process for 
-Data Mining*) foi proposta em 1999 como resultado de um esforço 
-concentrado para identificar e estabelecer diretrizes da 
-indústria para o processo de *mineração de dados*. Desde então, vários 
-refinamentos e extensões foram propostos. A partir de 2014, era a 
-metodologia mais utilizada para projetos de análise, mineração de 
-dados e ciência de dados.
+* A condição `\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)` também garante 
+que `\(\sum_{j=-\infty}^\infty\psi_j^2&lt;\infty\)`. Dessa forma, o processo
+converge em média quadrática, i.e., 
+`$$\mathbb{E}\left|X_t-\sum_{j=-n}^n\psi_jZ_{t-j}\right|^2\longrightarrow0, \quad \text{ quando } n\to\infty;$$` 
 
-O objetivo das metodologias **TDSP** e **CRISP-DM** é fornecer às 
-equipes de CD uma abordagem sistemática, baseada nas melhores práticas 
-do setor, para orientar e estruturar projetos de CD, melhorar a colaboração 
-da equipe, aprimorar o aprendizado e, finalmente, garantir resultados 
-de qualidade e eficientes ao longo do desenvolvimento do projeto e 
-entrega de soluções orientadas a dados.
+* O operador `\(\psi(B)\)` pode ser pensado como um **filtro linear**, que 
+quando aplicado ao processo de ruído branco, `\(\{Z_t\}\)` (processo de "entrada")
+produz o processo `\(\{X_t\}\)` (processo de "saída");
+
 
 ***
-Para detalhes sugiro a leitura do blog [CRISP-DM](https://web.archive.org/web/20051030083454/http://www.crisp-dm.org/) e
-Provost and Fawcett (2013).
+
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016).
 
 ---
 class: animated, fadeIn
 
-### CRISP-DM: Processo Padrão para Mineração de Dados - II
+### Processos lineares - I
 
-&lt;img src="images/CRISP-DM_Process_Diagram.png" width="40%" style="float:right; padding:20px" /&gt;
 
-Os seis passos aqui representados são:
 
-* **Compreensão do negócio**: Concentra-se em entender o problema a ser
-resolvido. Isso pode parecer óbvio, mas reformular o problema e 
-projetar uma solução é um processo repetitivo de descoberta. A fase de 
-compreensão do negócio representa uma parte da arte onde a
-análise da criatividade desempenha um grande papel.
-
-* **Compreensão dos dados**: Os dados compreendem a matéria-prima 
-disponível a partir da qual a solução será construída. Concentra-se em 
-coletar e se familiarizar com os dados; isso é relevante para 
-identificar problemas de qualidade de dados, descobrir os primeiros 
-*insights* sobre os dados e formar hipóteses;
-
-* **Preparação de dados**: Visa transformar os dados brutos em um 
-conjunto de dados final que pode ser usado como entrada para técnicas 
-de modelagem (por exemplo, algoritmos de Machine Learning);
-
----
-class: animated, fadeIn
-
-### CRISP-DM: Processo Padrão para Mineração de Dados - II
-
-&lt;img src="images/CRISP-DM_Process_Diagram.png" width="40%" style="float:right; padding:20px" /&gt;
-
-* **Modelagem**: Envolve a aplicação de diferentes técnicas de 
-modelagem ao conjunto de dados para gerar um conjunto de modelos 
-candidatos;
-
-* **Avaliação**: Uma vez que os modelos tenham sido construídos, eles 
-precisam ser testados para garantir que sejam generalizados em relação 
-a dados não-observados e que todos os principais objetivos tenham sido 
-considerados;
-
-* **Implantação** : Finalmente, o modelo ajustado é implantado em 
-produção para que possa ser usado no cálculo de previsões. Todas as 
-etapas de preparação de dados estão incluídas para que o modelo trate 
-os novos dados brutos da mesma forma que durante o desenvolvimento do
-modelo.
-
----
-class: animated, slideInRight
-
-### KDD: Descoberta de Conhecimento em Banco de Dados
-
-&lt;img src="images/KDD.png" width="40%" style="float:right; padding:20px" /&gt;
-O **KDD** (*Knowledge Discovery in Database*) é definido como um 
-método para encontrar, transformar e refinar dados e padrões 
-significativos de um banco de dados bruto para serem utilizados em 
-diferentes domínios ou aplicativos.
-
-O objetivo principal do método **KDD** é extrair informações de 
-bancos de dados massivos usando técnicas de mineração de dados 
-para determinar o que é considerado conhecimento. As etapas envolvidas 
-em um processo típico de **KDD** são:
-
-  * Definição de metas e compreensão da aplicação;
-  * Seleção e Integração de Dados;
-  * Limpeza e pré-processamento de dados;
-  * Transformação de dados;
-  * Mineração de Dados;
-  * Avaliação/Interpretação de Padrões;
-  * Descoberta e uso do conhecimento.
-
-***
-Para detalhes recomendo a leitura do artigo de [Fayyad *et al.* (1996)](https://ojs.aaai.org/index.php/aimagazine/article/view/1230/1131).
-
----
-class: animated, slideInLeft
-
-### [Ciclo de vida de um processo de CD](https://bit.ly/3khpJUe)
-
-&lt;img src="images/ciclo_DS4.png" width="35%" style="float:left; padding:5px" /&gt;
-
-&lt;img src="images/ciclo_DS.png" width="40%" style="float:right; padding:5px" /&gt;
-
-&lt;img src="images/data-science-life-cycle.png" width="35%" style="float:left; padding:5px" /&gt;
-
-&lt;img src="images/ciclo_DS2.png" width="32%" style="float:left; padding:5px" /&gt;
-
-&lt;img src="images/ciclo_DS3.png" width="30%" style="float:right; padding:5px" /&gt;
-
----
-class: inverse, hide-logo, middle, center
-
-## Portfólio de projetos
-
----
-class: animated, slideInLeft
-
-### A Importância de um portfólio de projetos
-
-&lt;img src="images/portfolio1.gif" width="40%" style="float:right; padding:20px" /&gt;
-Um portfólio de projetos permite mostrar que você tem capacidade para:
-* Realizar análises técnicas e raciocinar sobre os dados;
-* Se comunicar de forma clara e simples;
-* Trabalhar e colaborar com equipes;
-* Motivar e tomar a iniciativa.
-
-Um portfólio de projetos mostra que estamos presentes e atuantes na 
-comunidade global de *cientistas de dados*. Além do benefício de 
-aprender criando um portfólio, o mesmo se torna um "cartão de visita" 
-para conseguir um emprego.
-
-Uma das estratégias mais eficientes para destacar nossas habilidades 
-na área é desenvolver um trabalho e torná-lo público. Escrever um 
-artigo em um blog ou periodico, apresentar trabalhos em 
-eventos da área, desenvolver um código para resolver um certo problema 
-e diponibilizá-lo para a comunidade, participar ativamente em fóruns, 
-entre outras habilidades, pode fornecer evidências públicas da sua 
-capacidade em CD.
-
-&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Quanto maior a divulgação do 
-seu trabalho, maior a chance de alguém perceber seu trabalho e 
-apontá-lo para uma oportunidade de emprego.&lt;/span&gt;
-
-
----
-class: animated, slideInRight
-
-### Dicas para construir seu portfólio - I
-
-&lt;img src="images/portfolio2.gif" width="30%" style="float:left; padding:5px" /&gt;
-
-**Use dados reais**: Tente sempre fazer algo com dados reais, ao invés 
-de fazer análises do dados do **[Kaggle](https://www.kaggle.com/)** 
-ou outros conjuntos de dados prontos. A limpeza, preparação e 
-transformação de dados é uma parte real de qualquer trabalho de dados. 
-Além disso, é difícil ser notado se você estiver usando dados que todos 
-os outros têm;
-
-**Raspe seus próprios dados**: O *webscraping* é surpreendentemente 
-fácil e uma ótima maneira de obter dados interessantes. 
-  Na atualidade existem muitas funções que facilitam essa tarefa, por exemplo,
-a função `readHTMLTable` no `XML` do **R** ou os pacotes `beautifulSoup`
-ou `scrapy` em **Python**;
-
-**Peça os dados**: A Lei de Acesso à Informação, criada em 2011 por meio 
-da Lei 12.527, visa aumentar a transparência por parte da administração 
-pública direta e indireta, nos poderes Judiciário, Legislativo e Executivo, em todas 
-as esferas governamentais – municipais, estaduais, distrital e federal – 
-ao disponibilizar a qualquer pessoa, seja ela física ou jurídica, 
-informações de caráter público sem exigir nenhuma motivação para o 
-pedido;
-
-***
-Texto editado da publicação [Advice on Building Data Portfolio Projects](https://medium.com/@jasonkgoodman/advice-on-building-data-portfolio-projects-c5f96d8a0627) por Jason Goodman, cientista de dados do Airbnb.
-
-
----
-class: animated, slideInLeft
-
-### Dicas para construir seu portfólio - II
-
-**Use APIs públicas**: Uma ótima maneira de obter dados é usando 
-`APIs` (*Application Programming Interfaces*). Isso parece um método 
-intimidador até quando você faz a primeira vez, despois continua
-sendo simples;
-
-&lt;img src="images/responsive_stats.gif" width="30%" style="float:left; padding:1px" /&gt;
-
-**Use dados interessantes**: Os melhores projetos de portfólio não
-precisam, necessariamente, de modelagens sofisticadas. Preocupe-se por
-tirar proveito dos seus dados e deixar que eles brilhem.
-Muitas pessoas fazem coisas com informações financeiras ou dados do 
-*Twitter*, mas sempre lembre de respeitar o protagonismo dos seus dados;
-
-**Seja curioso**: Uma maneira de garantir que seus dados sejam 
-interessantes é escolher algo sobre o qual você possa ficar visivelmente 
-animado ao falar. Se for algo que lhe interessa, será mais divertido de
-fazer e, provavelmente, você encontrará formas timar mais proveito dos 
-seus dados;
-
-**Preocupe-se pelo visual**: Em projetos de portfólio, e em geral para
-qualquer tipo de análise que desenvolva, o visual é muito importante. 
-Vale a pena gastar um tempo para deixar o visual do seu projeto mais 
-bonito, mais elegante. Use temas personalizados ou opte por uma simples 
-interatividade. Use gráficos simples e fáceis de entender. Dessa forma,
-as pessoas podem se interessar pelo seu trabalho. Se você quer fazer 
-algo mais sofisticado, sempre facilite o entendimento para as outras 
-pessoas;
-
-
----
-class: animated, slideInRight
-
-### Dicas para construir seu portfólio - I
-
-**Divulgue seu código**: Disponibilize o código usando para suas 
-análises em um respositório da sua confiança, por exemplo, `GitHub`, 
-`DagsHub`, `Bitbucket`, entre outros. Sempre comente e organize bem o
-código e deixe ele o mais explicativo possível. 
-Tente explicar todo o processo da análise desde o *download* dos 
-dados até as visualizações. `R Markdown` e/ou `Jupyter Notebooks` são 
-grandes aliados aqui.
-
-&lt;img src="images/interactive.gif" width="50%" style="float:right; padding:10px" /&gt;
-
-**Torne seus dados interativos**: Mostrar os resultados das suas 
-análises é legal, mas deixar as pessoas interagir com os resultados
-das suas análises é mais legal ainda. Sempre tente transformar a sua 
-análise em uma visualização interativa, um questionário, uma ferramenta 
-ou uma classificação personalizável, as pessoas vão adorar. 
-`Shiny` em **R**, `bokeh` ou `Flask` em **Python** são super úteis 
-aqui, e todos eles são surpreendentemente fáceis de usar.
-
-
-**Seja aberto às críticas**: O projeto não acaba quando é publicado 
-na web. Uma vez publicado, certamente, receberá críticas e sugestões 
-do seu projeto. Sempre receba esses comentários sem nenhum receio, 
-muitos servirão para melhorar o seu projeto.
-
-
----
-class: animated, fadeIn
-
-### Algumas considerações
-
-* Um portfólio de projetos não substitui o seu curriculum, mas 
-certamente será um diferencial para destacar a sua experiência e 
-habilidades na área;
-
---
-
-* O projetos do seu portfólio não devem ser aleatórios. Tente sempre
-resolver problemas relacionados às empresas nas quais você está 
-interessado;
-
---
-
-* O seu portfólio deve evidenciar suas habilidade para realizar o 
-trabalho para o qual está se candidatando;
-
---
-
-* A construcção de um portfólio requer trabalho e comprometimento. 
-Sempre tente desenvolver projetos únicos e com grande impacto, 
-evite mostrar algo que é comumente feito e que já tem tutoriais 
-prontos; 
-
---
-
-* &lt;span style="color:rgba(141, 0, 69, 1)"&gt; Esforce-se na redação dos 
-seus projetos. Redações realmente boas, onde as pessoas encontram coisas 
-interessantes e descrevem o que encontraram sempre causam 
-grande impacto.&lt;/span&gt;
-
---
-
-* Certifique-se que os dados possam ser compartilhados e tome muito 
-cuidado com o compartilhamento de informações sensíveis. À medida que 
-você evolui mais e se aprimora nas técnicas, seu portfólio também deve 
-acompanhar essa evolução. 
-
-  **Lembre**:  o projeto não é concluído quando você o publica na web. 
-  A atualização do portfólio deve ser contínua!
-
----
-class: animated, slideInRight
-
-### Tipos de projetos para incluir no portfólio - I
-
-Baseados no ciclo de vida de um processo de CD e nas recomendações 
-para a criação de um protfólio de projetos, sugere-se o desenvolvimento
-dos seguintes tipos de projetos:
-
-* **Limpeza dos dados**: A etapa de preparação dos dados é responsável 
-pela maioria dos projetos de CD. Dessa forma, resulta interessante 
-demonstrar as suas habilidades na depuração de dados. 
-&lt;img src="images/portfolio4.gif" width="40%" style="float:right; padding:5px" /&gt;
-  Se você quiser
-aumentar a dificuldade, então pode coletar seus próprios dados (via
-API's, *webscraping* ou usando outro método). Uma parte interessante
-de qualquer projeto é o trabalho em grupo. Fazer projetos em grupo 
-demonstra que você  possui habilidades de comunicação e colaboração, 
-ambas importantes em trabalhos de CD. Qualquer projeto pode ser 
-desenvolvido em grupo, o importante é mostrar que você sabe trabalhar 
-em equipe, tanto em termos interpessoais, quanto em termos técnicos;
-
-* **Análise exploratória**: Desenvolva projetos que permitam mostrar 
-suas habilidades na análise de exploratória de dados. Uma boa análise 
-exploratória permite formular hipóteses e questões relevantes.
-Mas, lembre sempre dar protagonismo aos seus dados. A publicação de 
-artigos que ensinam conceitos de Estatística, de modelagem ou mesmo de 
-programação, ajudama construir seu próprio entendimento;
-
----
-class: animated, slideInRight
-
-### Tipos de projetos para incluir no portfólio - II
-
-* **Modelagem**: A aplicação de modelos estatísticos e de aprendizado 
-de máquina é imprescindível em qualquer protfólio de projetos. Não é
-necessário realizar modelagens complexas para mostrar as suas 
-habilidades, mas seja sempre criterioso na hora de ajustar modelos aos
-seus dados. Sempre avalie a necessidade de ajustar modelos aos dados e 
-o motivo pelo qual realiza a modelagem. Dependendo da tipo de modelo
-que aplique aos seus dados, sempre respeite as suposições do modelo.
-&lt;img src="images/storytelling.gif" width="40%" style="float:right; padding:10px" /&gt;
-    A etapa de modelagem requer paciência, então sempre use critérios para
-avaliar o ajuste do seu modelo, a capacidade preditiva, em geral,
-preocupe-se com validar o seu modelo com as medidas adequadas;
-
-
-* **Visualização e comunicação**: As suas habilidades para visualizar
-e comunicar com dados será de grande importância para mostrar que você
-entende do processo de análise. Preocupe-se por contar um história com 
-seus dados, oferecer *insights* e evidenciar com seus dados as coisas
-mais relevantes do seu trabalho. Um projeto baseado na visualização e
-na comunicação deve levar os leitores a uma jornada analítica que 
-facilite a compreensão do assunto tratado no seu trabalho.
-
----
-class: animated, slideInRight
-
-### Exemplos de projetos para incluir no portfólio - I
-
-&lt;iframe src="https://data-flair.training/blogs/machine-learning-project-ideas/" height="480" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
-
-[Outros projetos - Universidade de Stanford](http://cs229.stanford.edu/proj2018/).
-
-
----
-class: animated, slideInRight
-
-### Sugestão de projeto para seu portfólio
-
-Analise seus dados da **Amazon prime video** ou da **Netflix**. 
-Sugestão de perguntas:
-
-* Qual o seriado que mais assiste?
-* Quanto tempo passou assistindo um determinado filme ou seriado?
-* Qual temporada que mais mais assistiu do seu seriado favorito?
-* Quais foram os episódios mais assistidos?
-* Em quais dias da semana você assiste mais episódios?
-* Em que hora do dia você assiste os episódios do seu seriado favorito?
-* Qual o seu tipo filme favorito?
-
-&gt; **Baixando os dados da Amazon prime video**.
-Para acessar dados pessoais que não estão disponíveis na sua conta 
- ou no seu dispositivo (por exemplo, seu histórico de pesquisa), siga 
- os seguintes passos:
- 1. Clique em [Request My Data](https://amazon.com/gp/privacycentral/dsar/preview.html)
- e ingresse na sua conta;
- 1. Selecione os dados que deseja receber. Nesta etapa você poderá
- solicitar o acesso às informações do *Prime video*;
- 1. Clique em Enviar solicitação (*Submit Request*) quando terminar;
- 1. Clique no link de validação em seu e-mail de confirmação.
- 1. Assim que sua solicitação for processada, um link de download 
- seguro será enviado para o endereço de e-mail associado à conta.
-
-
----
-class: animated, slideInRight
-
-### Sugestão de projeto para seu portfólio - II
-
-&gt; **Baixando os dados da Netflix**.&lt;sup&gt;1&lt;/sup&gt;
-1. Acesse na sua conta de Netflix e clique no ícone "**Conta**" e 
-clicando em "**Baixar suas informações pessoais**" 
-(*Download your personal information*);
-1. Quando aparecer a opção "**solicitar uma cópia de suas informações**" 
-(*Request a copy of your information*), clique em 
-**Envie uma solicitação** (*Submit a Request*);
-1. A Netflix enviará para você um e-mail de confirmação;
-1. Seja paciente e aguarde. A Netflix enviará um e-mail para você 
-quando seu relatório estiver disponível para download. Isso pode levar 
-até 30 dias. Assim que receber, seja rápido pois o download tem data
-de "expiração";
-1. No download você receberá um arquivo `.zip` com várias pastas. A
-maioria dessas pastas contém tabelas de dados no formato `.csv`. Você
-encontrará também dois arquivos em formato `PDF` com informações 
-adicionais sobre os dados;
-1. Procure o arquivo `ViewingActivity.csv` contido na pasta 
-**Content_Interaction**;
-1. Tudo pronto para seu projeto!
-
-***
-&lt;sup&gt;1&lt;/sup&gt;Detalhes no artigo publicado por Charlie Custer intitulado
-[Beginner Python Tutorial: Analyze Your Personal Netflix Data](https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/)
-no site [Dataquest](http://dataquest.io/blog/).
-
----
-class: animated, fadeIn
-
-### Sugestão de projeto para seu portfólio - II
-
-&lt;iframe src="https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/" height="480" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
-
----
-class: animated, fadeIn
-
-### Sugestão de projeto para seu portfólio - III
-
-#### Análise de acidentes nas Rodovias Federais do Brasil
-
-&gt; **Fonte do dados**: Ministério da Justiça e Segurança Pública - Polícia Rodoviária Federal: **[Acidentes](https://www.gov.br/prf/pt-br/acesso-a-informacao/dados-abertos/dados-abertos-acidentes)** -- *Publicado em 05/08/2020 15h59 Atualizado em 08/04/2022 15h37*
-
-&lt;img src="images/acidente.jpg" width="40%" style="float:right; padding:10px" /&gt;
-
-Sugestão de perguntas:
-* Quais são o estados/municípios com maior número de acidentes?
-* Quais são os principais motivos dos acidentes nas rodovias?
-* Quais os dias da semana com o maior número de acidentes?
-* Quais são os tipos de veículos que mais se envolveram em acidentes?
-* Qual o total de óbitos, feridos graves/leves e ilesos?
-* Qual o número de acidentes por mês?
-
-
----
-class: animated, bounceInDown
-
-### Onde hospedar seu portfólio?
-
-Na atualidade você tem muitas opções para divulgar seu portfólio de
-projetos usando uma das muitas plataformas existentes, como Wix, 
-WordPress, Github, entre outras. Para quem não tem experiência em 
-desenvolvimento web, sugiro testar o Wix
-
-&lt;iframe src="https://www.webcreate.io/website-builders-comparison-usa/" height="400" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
 
 
 ---
 class: animated, lightSpeedIn
 ### Referências
 
-Provost, F. and T. Fawcett (2013). _Data Science for Business: What You
-Need to Know about Data Mining and Data-Analytic Thinking_. 1st
-Edition. O'Reilly Media.
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
+
+Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University
+Press.
 
 ---
 class: animated, hide-logo, bounceInDown
