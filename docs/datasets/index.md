@@ -50,6 +50,7 @@ description: Repositório com conjuntos de dados para análise de dados.
 ## API's
 
 * <span style="color:rgba(21, 153, 87)">Diversas</span>
+	- [Brasil API](https://brasilapi.com.br/){:target="_blank"}: Transformando o Brasil em uma API;
 	- [Random Data API](https://random-data-api.com/documentation){:target="_blank"}: Gera dados pseudo-aleatórios para testar aplicações com API'S;
 	- [Rapid API](https://rapidapi.com/){:target="_blank"}: Nesse site você pode encontrar mais de 10.000 API's públicas e 1 milhão de desenvolvedores ativos no local. As categorias disponíveis (free) encontram-se [aqui](https://rapidapi.com/collection/list-of-free-apis){:target="_blank"};
 	- [Public APIs](https://github.com/public-apis/public-apis){:target="_blank"}: a plataforma agrupa API's em 40 categorias, tornando mais fácil navegar e encontrar a API certa para atender às suas necessidades;

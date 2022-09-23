@@ -39,7 +39,8 @@ description: Repositório com material sobre análise de séries temporais.
   - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/){:target="_blank"}
 
 * **R notebooks**
-  - [R_intro.ipynb](https://ffajardo64.github.io/statistical_learning/STA13828/notebooks/ST_aula1.ipynb)
+  - [ST_aula1.ipynb](https://ffajardo64.github.io/statistical_learning/STA13828/notebooks/ST_aula1.ipynb)
+  - [ST_aula2.ipynb](https://ffajardo64.github.io/statistical_learning/STA13828/notebooks/ST_aula2.ipynb)
   
 **Python**
 
