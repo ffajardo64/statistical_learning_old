@@ -25,13 +25,14 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 20/09/2022
+### Vitória. ES - 27/09/2022
 ]
 
 ---
 
 [//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
 [//]: &lt;&gt; (https://github.com/animate-css/animate.css/blob/main/animate.css)
+[//]: &lt;&gt; (xaringan::inf_mr())
 
 class: animated, fadeIn
 
@@ -120,27 +121,29 @@ onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variânc
 escalares, i.e.
 `$$\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty.$$`
 
-&gt; Podemos reescrever a definição acima em termos do operador de 
-defasagem, assim
-`$$X_t=\psi(B)Z_t,$$`
-onde `\(\psi(B)=\sum_{j=-\infty}^\infty\psi_jB^j\)`.
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+***
+
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016).
 
 ---
-class: animated, hide-logo, fadeInRight
+class: animated, fadeIn
 
 ### Processos lineares - I
 
-* **Proposição**: Seja `\(\{Y_t\}\)` um processo estacionário de segunda ordem
-com média `\(0\)` e função de autocovariância `\(\gamma_Y(\cdot)\)`. Se
-`\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)`, então o processo `\(\{X_t\}\)`,
-com representação
-`$$X_t=\sum_{j=-\infty}^\infty\psi_jY_{t-j}=\psi(B)Y_t$$`
-é estacionário com média `\(0\)` e função de autocovariância
-`$$\gamma_X(h)=\sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty\psi_j\psi_k\gamma_Y(h+k-j).$$`
+#### Algumas considerações
 
-&gt; A condição `\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)` garante que a soma
+* Podemos reescrever a definição acima em termos do operador de 
+defasagem, assim
+`$$X_t=\psi(B)Z_t,$$`
+onde `\(\psi(B)=\sum_{j=-\infty}^\infty\psi_jB^j\)`;
+
+--
+
+* A condição `\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)` garante que a soma
 infinita na representação do processo, i.e., `\(X_t=\sum_{j=-\infty}^\infty\psi_jZ_{t-j}\)`,
-converge com probabilidade 1, pois `\(\mathbb{E}|Z_t|\le\sigma\)` e
+converge com probabilidade 1, pois, pela desigualdade de Jensen, `\(\mathbb{E}|Z_t|\le\left(\mathbb{E}|Z_t|^2\right)^{\frac12}=\sigma\)`, e
 `$$\mathbb{E}|X_t|\le\sum_{j=-\infty}^\infty\left(|\psi_j|\, \mathbb{E}|Z_{t-j}|\right)\le\left(\sum_{j=-\infty}^\infty|\psi_j|\right)\sigma&lt;\infty.$$`
 
 
@@ -160,19 +163,351 @@ converge em média quadrática, i.e.,
 quando aplicado ao processo de ruído branco, `\(\{Z_t\}\)` (processo de "entrada")
 produz o processo `\(\{X_t\}\)` (processo de "saída");
 
+* `\(\psi(B)\)` também é chamado de **_Função de transferência_** do filtro linear;
 
-***
 
-Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016).
+---
+class: animated, fadeInRight
+
+### Processos lineares - I
+
+&lt;img src="images/filtro_linear.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: animated, hide-logo, fadeInRight
+
+### Processos lineares - II
+
+* **Proposição**: Seja `\(\{Y_t\}\)` um processo estacionário de segunda ordem
+com média `\(0\)` e função de autocovariância `\(\gamma_Y(\cdot)\)`. Se
+`\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)`, então o processo `\(\{X_t\}\)`,
+com representação
+`$$X_t=\sum_{j=-\infty}^\infty\psi_jY_{t-j}=\psi(B)Y_t$$`
+é estacionário com média `\(0\)` e função de autocovariância
+`$$\gamma_X(h)=\sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty\psi_j\psi_k\gamma_Y(h+k-j).$$`
+
+&gt; Se o processo `\(\{X_t\}\)` for linear, então
+`$$\gamma_X(h)=\sum_{j=-\infty}^\infty\psi_j\psi_{j+h}\sigma^2.$$`
+
+---
+class: animated, fadeInDown
+
+### Processos lineares - II
+
+*Prova.* 
+Primeiramente, observe que `\(\psi(B)Y_t\)` converge absolutamente com 
+probabilidade 1:
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \psi(B)Y_t&amp;=\mathbb{E}\left[\sum_{j=-\infty}^\infty |\psi_j||Y_{t-j}|\right]
+  =\lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n |\psi_j||Y_{t-j}|\right].
+  \end{align}
+&lt;/div&gt;
+
+Sendo `\(\{Y_t\}\)` um processo estacionário de segunda ordem, então `\(\mathbb{E}|Y_t|\le\left(\mathbb{E}|Y_t|^2\right)^{\frac12}=c\)`, onde `\(c\)` é uma
+constante que não depende de `\(t\)`. Dessa forma, pelo teorema de convergência monótona, temos que
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n |\psi_j||Y_{t-j}|\right]\le\lim_{n\to\infty}\left(\sum_{j=-n}^n|\psi_j|\right)\mathbb{E}|Y_t|&lt;\infty.
+  \end{align}
+&lt;/div&gt;
+
+Daí,
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}X_{t}&amp;=\lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n \psi_jY_{t-j}\right]=\sum_{j=-\infty}^\infty \psi_j\mathbb{E}Y_{t-j}=0.
+  \end{align}
+&lt;/div&gt;
+
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+
+
+---
+class: animated, fadeInUp
+
+### Processos lineares - II
+
+*Prova.* 
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[X_{t+h}X_t\right]&amp;=\mathbb{E}\left[\left(\sum_{j=-\infty}^\infty \psi_jY_{t+h-j}\right)\left(\sum_{k=-\infty}^\infty \psi_kY_{t-k}\right)\right]=
+  \sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty  \psi_j\psi_k\mathbb{E}\left[Y_{t+h-j}Y_{t-k}\right]\\
+  &amp;=\sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty  \psi_j\psi_k\gamma\left(h-j+k\right).
+  \end{align}
+&lt;/div&gt;
+
+&gt; Pode-se observar que, a convergência absoluta de `\(\psi(B)Y_t\)` implica
+que filtros da forma `\(\sum_{j=-\infty}^\infty\alpha_jB^j\)`, com coeficientes
+absolutamente somáveis, podem ser aplicados sucessivamente a um processo
+estacionário, para gerar um novo processo estacionário. Por exemplo: podemos
+considerar um novo processo `\(\{W_t\}\)` com representação
+`$$W_t=\sum_{j=-\infty}^\infty\psi_jY_{t-j}=\psi(B)Y_t=\alpha(B)\beta(B)Y_t=\beta(B)\alpha(B)Y_t,$$`
+onde `\(\alpha(B)=\sum_{j=-\infty}^\infty\alpha_jB^j\)` e `\(\beta(B)=\sum_{j=-\infty}^\infty\beta_jB^j\)`.
+
 
 ---
 class: animated, fadeIn
 
-### Processos lineares - I
+### Processos lineares - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo estocástico com representação
+AR(1), i.e., `\(X_t=\phi X_{t-1}+Z_t\)` (com prob. 1),
+onde `\(\{Z_t\}\)` representa um processo de ruído branco com média `\(0\)` e 
+variância `\(\sigma^2&lt;\infty\)`, tal que `\(Z_t\)` é não-correlacionado com `\(X_s\)`, 
+para todo `\(s&lt;t\)` e `\(\phi\)` um escalar, tal que `\(|\phi|&lt;1\)`.
+
+Em termos do operador de defasagem, o processo pode ser representado como
+`$$(1-\phi B)X_t=\Phi(B)X_t=Z_t,$$`
+ou, como `\(|\phi|&lt;1\)`, então
+`$$X_t=(1-\phi B)^{-1}Z_t=\sum_{j=0}^\infty\phi^jZ_{t-j},$$`
+ou seja, um processo com representação AR(1) é **linear**.
+
+Pela proposição anterior, `\(\mathbb{E}X_t=0\)` e `\(\gamma_X(h)=\sum_{j=0}^\infty\phi^j\phi^{j+h}\sigma^2=\dfrac{\phi^h}{1-\phi^2}\sigma^2\)`, para `\(h=0,1,2,3,\ldots\)`.
+
+
+---
+class: animated, fadeInLeft
+
+### Processos lineares - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt;
+Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)` com representação
+AR(1), como no exemplo anterior. Pode-se mostrar que 
+`$$X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}$$`
+é a **única** solução estacionária da equação `\((1-\phi B)X_t=Z_t\)`.
+
+Para isso, considere que existe uma outra solução estacionária, tal que
+&lt;div class="math"&gt;
+  \begin{align}
+  Y_t&amp;=\phi Y_{t-1}+Z_t=\phi (\phi Y_{t-2}+Z_{t-1})+Z_t=Z_t+\phi Z_{t-1}+\phi^2Y_{t-2}\\
+  &amp;=Z_t+\phi Z_{t-1}+\phi^2(\phi Y_{t-3})+Z_{t-2})=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\phi^3 Y_{t-3}\\
+  &amp;\ \ \vdots\\
+  &amp;=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\cdots+\phi^kZ_{t-k}+\phi^{k+1} Y_{t-k-1}\\
+  &amp;=\sum_{j=0}^k\phi^jZ_{t-j}+\phi^{k+1} Y_{t-k-1}.
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Processos lineares - II
+
+Daí, `\(Y_t=\sum_{j=0}^k\phi^jZ_{t-j}+\phi^{k+1} Y_{t-k-1}\)`. Sendo `\(\{Y_t\}\)`
+u processo estacionário de segunda ordem, então `\(\mathbb{E}Y_t^2&lt;\infty\)`, então
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[Y_t-\sum_{j=0}^k\phi^jZ_{t-j}\right]^2&amp;=\phi^{2k+2}\,\mathbb{E}Y_{t-k-1}^2.
+  \end{align}
+&lt;/div&gt;
+
+Dessa forma, quando `\(k\to\infty\)`, então
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[Y_t-\sum_{j=0}^k\phi^jZ_{t-j}\right]^2&amp;\longrightarrow0.
+  \end{align}
+&lt;/div&gt;
+
+Em outras palavras, `\(Y_t\)` converge em média quadrática para
+`\(\sum_{j=0}^\infty\phi^jZ_{t-j}\)`, sendo essa a mesma representação
+dada para o processo `\(\{X_t\}\)`, o que confirma que `\(X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}\)`
+é a **única** solução da equação `\((1-\phi B)X_t=Z_t\)`.
+
+
+---
+class: animated, fadeInDown
+
+### Processos lineares - II
+
+Para o caso `\(|\phi|&gt;1\)`, `\(X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}\)` não é convergente. Nesse caso, podemos reescrever a representação do processo, tal que
+`$$X_t=-\phi^{-1}Z_{t+1}+\phi^{-1}X_{t+1}.$$`
+Iterando, podemos observar que
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=-\phi^{-1}Z_{t+1}+\phi^{-1}X_{t+1}=-\phi^{-1}Z_{t+1}+\phi^{-1}(-\phi^{-1}Z_{t+2}+\phi^{-1}X_{t+3})\\
+  &amp;=-\phi^{-1}Z_{t+1}-\phi^{-2}Z_{t+2}+\phi^{-2}X_{t+3}\\
+  &amp;\ \ \vdots\\
+  &amp;=-\sum_{j=1}^{k+1}\phi^{-j}Z_{t+j}+\phi^{-k-1} X_{t+k+1}.
+  \end{align}
+&lt;/div&gt;
+
+Seguindo os mesmos argumento do caso anterior, `\(X_t=-\sum_{j=1}^{\infty}\phi^{-j}Z_{t+j}\)` é 
+a **única** solução estacionária de `\((1-\phi B)X_t=Z_t\)`.
+
+
+---
+class: animated, fadeInLeft
+
+### Processos lineares - II
+
+#### Algumas considerações
+
+* A solução `\(X_t=-\sum_{j=1}^{\infty}\phi^{-j}Z_{t+j}\)` não apresenta uma utilidade
+prática, no sentido que, a variável `\(X_t\)` é definida em função de valores futuros.
+Por motivos práticos, restringimos a atenção em processos AR(1) com
+`\(|\phi|&lt;1\)`;
+
+* Um processo `\(\{X_t\}\)` com representação AR(1), em termos de `\(\{Z_s,s\le t\}\)`,
+será chamado de processos AR(1) **causal**. O termo **causal** faz
+menção a que a representação do processo não depende de termos futuros;
+
+* Como observado no exemplo anterior, um processo AR(1) não-causal pode 
+ser reescrito para encontrar sua representação causal;
+
+* Vale ressaltar que quando `\(|\phi| &lt; 1\)` a solução estacionária única
+`\(X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}\)` pode ser encontrada imediatamente 
+usando `\(\psi(B)=\Phi(B)\pi(B)=1\)`, onde `\(\Phi(B)=1-\phi B\)` e `\(\pi(B)=\sum_{j=0}^\infty\phi^jB^j\)`.
+
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+No exemplo anterior, suponha que `\(\phi=\pm1\)` e mostre que não existe
+uma solução estacionária para a equação `\(X_t-\phi X_{t-1}=Z_t\)`.
+
+---
+class: inverse, hide-logo, middle, center
+
+### Equações em diferenças
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+O termo _equações em diferenças_ serve para denotar o equivalente discreto
+das equações diferenciais. Uma forma de escrever essa equivalencia seria:
+  &lt;center&gt;
+  `\(\dfrac{\nabla X_t}{\nabla t}\)` é o equivalente discreto de `\(\dfrac{dX}{dt}\)`.
+  &lt;/center&gt;
+
+Entretanto, já que `\(t\in\mathbb{Z}\)`, então `\(\nabla t=1\)`. Dessa forma, `\(\nabla X_t\)`
+considera-se o equivalente de `\(\frac{dX}{dt}\)`.
+
+* **Definição (Equação em diferenças de ordem p)**: A equação em diferenças 
+de ordem p define-se como
+`$$C_0X_t+C_1X_{t-1}+\cdots+C_pX_{t-p}=C(B)X_t=Z_t,$$`
+onde `\(C_i\)`, com `\(i=0,1,2,\ldots,p\)` são escalares, com `\(C_0=1\)`, `\(C_p\ne0\)` e 
+`\(C(B)=\sum_{j=0}^pC_jB^j\)`.
+
+&gt; * Se `\(Z_t=0\)`,a equação em diferenças é chamada de **homogênea**, em caso
+contrário é dita de **não-homogênea**;
+
+&gt; * A equação `\(C(z)=0\)` é chamada de **equação auxiliar**,
+ou **equação característica**, associada à equação em diferenças.
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - I
+
+* **Proposição.** Seja `\(C(B)X_t=0\)` uma equação em diferenças homogênea.
+Se `\(C(z)=\prod_{j=1}^N(1-R_j^{-1}z)^{m_j}\)`, onde `\(\sum_{j=1}^Nm_j=p\)` e
+`\(z_j=R_j\in\mathbb{C}\)`, com `\(j=1,2,3,\ldots,N\)`, são as raízes de 
+multiplicidade `\(m_j\)` de `\(C(z)=0\)`.
+Então,
+`$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{-t}.$$`
+
+&gt; Em particular, se `\(m_j=1\)` para todo `\(j\)`, então
+`$$X_t=\sum_{i=1}^Nb_{i}\,R_{i}^{-t}.$$`
+
+
+*Prova.* Para a revisão da prova, sugere-se a leitura do livro de 
+Wei (2005).
+
+---
+class: animated, fadeInLeft
+
+### Equações em diferenças - I
+
+Quando `\(C(z)=0\)` tem raízes complexas, então, as mesmas se apresentam por pares, i.e.,
+se `\(c+d\,i\)` é raíz, então `\(c-d\,i\)` (conjugado) também é raíz.
+
+Em geral, qualquer número complexo pode ser escrito em forma polar, sendo então
+`$$c\pm d\,i=\alpha(\cos\phi\pm i\,\mathrm{sen}\,\phi),$$`
+onde, `\(\alpha=c^2+d^2\)` e `\(\phi=\tan^{-1}\left(\dfrac{d}{c}\right)\)`. Ainda,
+pela fórmula de Moivre, temos que `\((c\pm d\,i)^t=\alpha^t(\cos\phi t\pm i\,\mathrm{sen}\,\phi t)\)`.
+Dessa forma, se o par `\(c\pm d\,i\)` tem multiplicidade `\(m\)`, a solução da
+equação em diferenças deverá conter as sequências
+`$$\alpha^t\cos\phi t,\, t\alpha^t\cos\phi t,\ldots,\, t^{m-1}\alpha^t\cos\phi t$$`
+e
+`$$\alpha^t\mathrm{sen}\,\phi t,\, t\alpha^t\mathrm{sen}\,\phi t,\ldots,\, t^{m-1}\alpha^t\mathrm{sen}\,\phi t.$$`
+&gt; As sequências acima resultam evidentes do termo `\(\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{-t}\)` da solução geral de uma equação em diferenças homogênea.
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação característica dada por `\(1-C_1B-C_2B^2=(1-R_1^{-1}B)(1-R_2^{-1}B)=0\)`,
+onde `\(R_1^{-1}=c+d\,i=\alpha(\cos\phi+i\,\mathrm{sen}\,\phi)\)` e `\(R_2^{-1}\)` seu conjugado.
+
+Pela propocisão acima, sabemos que `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{-t}\)`. Daí, 
+temos que
+`$$X_t=b_1R_1^{-1}+b_2R_ 2^{-t}=b_1\alpha^t(\cos\phi t + i\,\mathrm{sen}\,\phi t)+b_2\alpha^t(\cos\phi t - i\,\mathrm{sen}\,\phi t).$$`
+Se assumimos `\(b_1\)` e `\(b_2\)` números complexos e `\(b_2\)` o conjugado de `\(b_1=x+i\,y\)`, então
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=\alpha^t\left[(x+i\,y)(\cos\phi t + i\,\mathrm{sen}\,\phi t)+(x-i\,y)(\cos\phi t - i\,\mathrm{sen}\,\phi t)\right]\\
+  &amp;=\alpha^t\left[2x\cos\phi t + 2i^2y\,\mathrm{sen}\,\phi t\right]=e_1\alpha^t\cos\phi t + e_2\alpha^t\,\mathrm{sen}\,\phi t,
+  \end{align}
+&lt;/div&gt;
+
+onde `\(e_1\)` e `\(e_2\)` são números reais.
+
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças dada por `\(X_t-2X_{t-1}+X_{t-2}=0\)` ou `\((1-2B+B^2)X_t\)`. Para encontrar 
+a solução da equação, considere a seguinte equação característica:
+`$$C(z)=1-2z+z^2=(1-z)^2=0.$$`
+Pelo teorema fundamental da álgebra, sabe-se que a equação característica
+tem duas raízes, sendo `\(R_i=1\)` com multiplicidade `\(m_i=2\)`. Daí,
+`$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{i=1}^1\sum_{j=0}^{m_i-1}b_{ij}\,t^j=b_{10}\,t^0+b_{11}\,t^1=b_{1}+b_{2}\,t.$$`
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere a equação em diferenças
+`\((1-\phi B)(1-B)^2X_t=0\)`. A equação característica é dada por
+`$$C(z)=(1-\phi z)(1-z)^2=0.$$`
+Então, `\(R_1=\phi^{-1}\)` com multiplicidade `\(1\)` e `\(R_2=1\)` com multiplicidade `\(2\)`. Daí, `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{j=0}^0b_{1j}t^jR_1^{-t}+\sum_{j=0}^1b_{2j}t^jR_2^{-t}=b1\phi^t+b_2+b_3t\)`.
+
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - I
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças dada por `\(X_t-X_{t-1}+0.21X_{t-2}=0\)`.
+A equação característica é dada por
+`$$C(z)=1-z+0.21z^2=0.$$`
+Daí,
+&lt;div class="math"&gt;
+  \begin{align}
+  z&amp;=\frac{1\pm\sqrt{1-4\,(0.21)}}{2\,(0.21)}=\frac{1\pm\sqrt{1-\frac{21}{25}}}{\frac{21}{50}}=\frac{1\pm\sqrt{\frac{4}{25}}}{\frac{21}{50}}=\frac{1\pm\frac{2}{5}}{\frac{21}{50}}.
+  \end{align}
+&lt;/div&gt;
+
+Assim, as raízes da equação característica são dadas por `\(z_1=\frac{10}{3}\)` e `\(z_2=\frac{10}{7}\)`.
+Então,
+`$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^j=b_{10}\left(\frac{10}{3}\right)^{-t}+b_{20}\left(\frac{10}{7}\right)^{-t}=b_{1}\left(\frac{3}{10}\right)^{t}+b_{2}\left(\frac{7}{10}\right)^{t}.$$`
+
+---
+class: animated, fadeInUp
+
+### Equações em diferenças - I
 
 
 
 
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
 
 ---
 class: animated, lightSpeedIn
@@ -183,6 +518,9 @@ Forecasting_. 3rd. Springer Verlag.
 
 Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University
 Press.
+
+Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate
+Methods_. 2nd. Addison Wesley.
 
 ---
 class: animated, hide-logo, bounceInDown
