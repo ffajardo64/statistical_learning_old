@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 27/09/2022
+### Vitória. ES - 28/09/2022
 ]
 
 ---
@@ -47,7 +47,7 @@ class: animated, fadeIn
 ### Alguns resultados preliminares
 
 * **Definição (Operador de defasagem)**: Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)`.
-O operador de desafagem, denotado por `\(B\)` (_Backward_), define-se como
+O operador de defasagem, denotado por `\(B\)` (_Backward_), define-se como
 `$$BX_t=X_{t-1}.$$`
 
 &gt; O operador de defasagem pode ser aplicado sucessivamente da seguinte 
@@ -107,6 +107,31 @@ por `\(\nabla_d=1-B^d\)`, define-se como
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
 `\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
 `$$\nabla_{12}^2X_t=(1-B^{12})^2X_t=(1-2B^{12}+B^{24})X_t=X_t-2X_{t-12}+X_{t-24}.$$`
+
+---
+class: animated, lightSpeedIn
+
+### Alguns resultados preliminares
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+Encontre as expressões para `\(BX_t\)` e `\(B^2X_t\)`, quando `\(\{X_t\}\)` tem
+as seguintes representações:
+
+&lt;div class="math"&gt;
+  \begin{align}
+  a.\, X_t&amp;=\beta_0; &amp; b.\,X_t&amp;=\beta_0+\beta_1t; &amp; c.\,X_t&amp;=\beta_0+\beta_1Z_t+\beta_2t; &amp; d.\, X_t&amp;=\beta_1Z_t+\beta_2Y_t,\\
+  \end{align}
+&lt;/div&gt;
+
+onde `\(\beta_0, \beta_1\)` e `\(\beta_2\)` são constantes e `\(\{Z_t\}\)` e `\(\{Y_t\}\)`
+são processos quaisquer.
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t\}\)` um processo estocástico cm representação polinomial, i.e.,
+`$$X_t=\beta_0+\beta_1t+\beta_2t^2+\cdots+\beta_dt^d+Z_t,$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média zero e variância `\(\sigma^2\)`.
+Mostre que `\(\{\nabla^dX_t\}\)` é um processo estacionário com representação
+`$$\nabla^dX_t=d!\,\beta_d+\nabla^dZ_t.$$`
 
 ---
 class: animated, hide-logo, fadeInDown
@@ -201,8 +226,8 @@ probabilidade 1:
 
 &lt;div class="math"&gt;
   \begin{align}
-  \psi(B)Y_t&amp;=\mathbb{E}\left[\sum_{j=-\infty}^\infty |\psi_j||Y_{t-j}|\right]
-  =\lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n |\psi_j||Y_{t-j}|\right].
+  \mathbb{E}\left[\sum_{j=-\infty}^\infty |\psi_j||Y_{t-j}|\right]
+  &amp;=\lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n |\psi_j||Y_{t-j}|\right].
   \end{align}
 &lt;/div&gt;
 
@@ -268,7 +293,7 @@ ou, como `\(|\phi|&lt;1\)`, então
 `$$X_t=(1-\phi B)^{-1}Z_t=\sum_{j=0}^\infty\phi^jZ_{t-j},$$`
 ou seja, um processo com representação AR(1) é **linear**.
 
-Pela proposição anterior, `\(\mathbb{E}X_t=0\)` e `\(\gamma_X(h)=\sum_{j=0}^\infty\phi^j\phi^{j+h}\sigma^2=\dfrac{\phi^h}{1-\phi^2}\sigma^2\)`, para `\(h=0,1,2,3,\ldots\)`.
+Pela proposição anterior, `\(\mathbb{E}X_t=0\)` e `\(\gamma_X(h)=\sum_{j=0}^\infty\phi^j\phi^{j+h}\sigma^2=\dfrac{\sigma^2}{1-\phi^2}\phi^h\)`, para `\(h=0,1,2,3,\ldots\)`.
 
 
 ---
@@ -286,7 +311,7 @@ Para isso, considere que existe uma outra solução estacionária, tal que
 &lt;div class="math"&gt;
   \begin{align}
   Y_t&amp;=\phi Y_{t-1}+Z_t=\phi (\phi Y_{t-2}+Z_{t-1})+Z_t=Z_t+\phi Z_{t-1}+\phi^2Y_{t-2}\\
-  &amp;=Z_t+\phi Z_{t-1}+\phi^2(\phi Y_{t-3})+Z_{t-2})=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\phi^3 Y_{t-3}\\
+  &amp;=Z_t+\phi Z_{t-1}+\phi^2(\phi Y_{t-3}+Z_{t-2})=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\phi^3 Y_{t-3}\\
   &amp;\ \ \vdots\\
   &amp;=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\cdots+\phi^kZ_{t-k}+\phi^{k+1} Y_{t-k-1}\\
   &amp;=\sum_{j=0}^k\phi^jZ_{t-j}+\phi^{k+1} Y_{t-k-1}.
@@ -425,11 +450,11 @@ class: animated, fadeInLeft
 ### Equações em diferenças - I
 
 Quando `\(C(z)=0\)` tem raízes complexas, então, as mesmas se apresentam por pares, i.e.,
-se `\(c+d\,i\)` é raíz, então `\(c-d\,i\)` (conjugado) também é raíz.
+se `\(R_1^{-1}=c+d\,i\)` é raíz, então `\(R_2^{-1}=c-d\,i\)` (conjugado) também é raíz.
 
 Em geral, qualquer número complexo pode ser escrito em forma polar, sendo então
 `$$c\pm d\,i=\alpha(\cos\phi\pm i\,\mathrm{sen}\,\phi),$$`
-onde, `\(\alpha=c^2+d^2\)` e `\(\phi=\tan^{-1}\left(\dfrac{d}{c}\right)\)`. Ainda,
+onde, `\(\alpha=\sqrt{c^2+d^2}\)` e `\(\phi=\tan^{-1}\left(\dfrac{d}{c}\right)\)`. Ainda,
 pela fórmula de Moivre, temos que `\((c\pm d\,i)^t=\alpha^t(\cos\phi t\pm i\,\mathrm{sen}\,\phi t)\)`.
 Dessa forma, se o par `\(c\pm d\,i\)` tem multiplicidade `\(m\)`, a solução da
 equação em diferenças deverá conter as sequências
@@ -444,10 +469,10 @@ class: animated, fadeInDown
 ### Equações em diferenças - I
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
-a equação característica dada por `\(1-C_1B-C_2B^2=(1-R_1^{-1}B)(1-R_2^{-1}B)=0\)`,
+a equação característica dada por `\(1-C_1z-C_2z^2=(1-R_1^{-1}z)(1-R_2^{-1}z)=0\)`,
 onde `\(R_1^{-1}=c+d\,i=\alpha(\cos\phi+i\,\mathrm{sen}\,\phi)\)` e `\(R_2^{-1}\)` seu conjugado.
 
-Pela propocisão acima, sabemos que `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{-t}\)`. Daí, 
+Pela proposição acima, sabemos que `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{-t}\)`. Daí, 
 temos que
 `$$X_t=b_1R_1^{-1}+b_2R_ 2^{-t}=b_1\alpha^t(\cos\phi t + i\,\mathrm{sen}\,\phi t)+b_2\alpha^t(\cos\phi t - i\,\mathrm{sen}\,\phi t).$$`
 Se assumimos `\(b_1\)` e `\(b_2\)` números complexos e `\(b_2\)` o conjugado de `\(b_1=x+i\,y\)`, então
@@ -460,6 +485,50 @@ Se assumimos `\(b_1\)` e `\(b_2\)` números complexos e `\(b_2\)` o conjugado de
 
 onde `\(e_1\)` e `\(e_2\)` são números reais.
 
+
+---
+class: animated, fadeInUp
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Encontre 
+a solução da equação em direfenças dada por `\(X_t-2X_{t-1}+1.5X_{t-2}-0.5X_{t-3}=0\)`.
+A equação característica é dada por 
+`$$C(z)=1-2z+1.5z^2-0.5z^3=(0.5z^2-z+1)(1-z)=0.$$`
+Dessa forma, pelo teorema fundamental da álgebra temos `\(3\)` raízes. No entanto,
+como o grau do polinômio é ímpar, então, temos pelo menos uma raíz real. Daí,
+as raízes da equação característica são dadas por `\(R_1^{-1}=1\)` com multiplicidade `\(1\)` e
+&lt;div class="math"&gt;
+  \begin{align}
+  z&amp;=\frac{1\pm\sqrt{1-4\,(0.5)}}{2\,(0.5)}=1\pm i,
+  \end{align}
+&lt;/div&gt;
+
+então, `\(R_2=1+i\)` e `\(R_3=i-i\)`, ambos com multiplicidade `\(1\)`, onde `\(R_2^{-1}=\frac{1-i}{2}\)` e `\(R_3^{-1}=\frac{1+i}{2}\)`.
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, 
+`$$\frac{1}{a+i\,b}=\frac{1}{a+i\,b}\frac{a-i\,b}{a-i\,b}=\frac{a-i\,b}{a^2+b^2}.$$`
+&lt;/span&gt;
+
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - I
+
+Dessa forma, temos `\(R_1^{-1}=1\)`, `\(R_2^{-1}=\frac{1-i}{2}\)` e `\(R_3^{-1}=\frac{1+i}{2}\)`.
+Reescrevendo as últimas na forma polar, temos que
+`$$\alpha=(c^2+ d^2)^{\frac12}=\sqrt{\left(\frac12\right)^2+\left(\frac12\right)^2}=\sqrt{\frac12}$$`
+e
+`$$\phi=\tan^{-1}\left(\frac{d}{c}\right)=\tan^{-1}\left(1\right)=\frac{\pi}{4}.$$`
+Daí,
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=b_{10}+b_{20}\left(\sqrt{\frac12}\right)^t\left(\cos\frac{\pi}{4}t+i\,\mathrm{sen}\,\frac{\pi}{4}t\right)+b_{30}\left(\sqrt{\frac12}\right)^t\left(\cos\frac{\pi}{4}t-i\,\mathrm{sen}\,\frac{\pi}{4}t\right)\\
+  &amp;=b_{1}+b_{2}\left(\sqrt{\frac12}\right)^t\cos\frac{\pi}{4}t+b_{3}\left(\sqrt{\frac12}\right)^t\,\mathrm{sen}\,\frac{\pi}{4}t.
+  \end{align}
+&lt;/div&gt;
 
 ---
 class: animated, fadeInRight
