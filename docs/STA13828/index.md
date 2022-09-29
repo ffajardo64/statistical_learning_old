@@ -11,7 +11,8 @@ description: Repositório com material sobre análise de séries temporais.
 * **Slides**
   - [Plano de ensino](https://bit.ly/3cRbdm6){:target="_blank"}
   - [Processos Estacionários](https://bit.ly/3U49BWQ){:target="_blank"}
-  - [Processos com representação ARMA(p,q)](https://bit.ly/3QXldrX){:target="_blank"}
+  - [Processos lineares e Equações em diferenças](https://bit.ly/3QXldrX){:target="_blank"}
+  - [Processos com representação ARMA(p,q)]()
 
 
 * **Conjunto de dados**
@@ -20,7 +21,9 @@ description: Repositório com material sobre análise de séries temporais.
   - [The R Datasets Package](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html){:target="_blank"}
 
 * **Desafios**
-  - [Desafio 1](){:target="_blank"}
+  - Template para resoluções: [main.tex](https://bit.ly/3SNTknD){:target="_blank"}  [solution.tex](https://bit.ly/3y4bJ7t){:target="_blank"}
+  - [Desafio 1](https://bit.ly/3SFn0nj){:target="_blank"}
+  - [Desafio 2](https://bit.ly/3SFn0nj){:target="_blank"}
 
 
 #### Livros e material online
@@ -39,8 +42,8 @@ description: Repositório com material sobre análise de séries temporais.
   - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/){:target="_blank"}
 
 * **R notebooks**
-  - [ST_aula1.ipynb](https://ffajardo64.github.io/statistical_learning/STA13828/notebooks/ST_aula1.ipynb)
-  - [ST_aula2.ipynb](https://ffajardo64.github.io/statistical_learning/STA13828/notebooks/ST_aula2.ipynb)
+  - [ST_aula1.ipynb](https://bit.ly/3V2urGL){:target="_blank"}.
+  - [ST_aula2.ipynb](https://bit.ly/3dUNBgW){:target="_blank"}.
   
 **Python**
 
