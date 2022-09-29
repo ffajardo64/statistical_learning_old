@@ -127,11 +127,17 @@ onde `\(\beta_0, \beta_1\)` e `\(\beta_2\)` são constantes e `\(\{Z_t\}\)` e `\
 são processos quaisquer.
 
 &lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seja
-`\(\{X_t\}\)` um processo estocástico cm representação polinomial, i.e.,
+`\(\left\{X_t\right\}\)` um processo estocástico cm representação polinomial, i.e.,
 `$$X_t=\beta_0+\beta_1t+\beta_2t^2+\cdots+\beta_dt^d+Z_t,$$`
 onde `\(\{Z_t\}\)` é um processo de ruído branco com média zero e variância `\(\sigma^2\)`.
 Mostre que `\(\{\nabla^dX_t\}\)` é um processo estacionário com representação
 `$$\nabla^dX_t=d!\,\beta_d+\nabla^dZ_t.$$`
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seja `\(\{Y_t\}\)`
+um processo estacionário com média `\(0\)` e função de autocovariância `\(\gamma_Y(\cdot)\)`.
+* Se `\(X_t=a+bt+s_t+Y_t\)` (com prob. 1), onde `\(s_t\)` representa uma componente 
+sazonal de período `\(12\)`. Mostre que `\(\{\nabla\nabla_{12}X_t\}\)` é um processo 
+estacionário e calcule sua FACV em função de `\(\gamma_Y(\cdot)\)`.
+
 
 ---
 class: animated, hide-logo, fadeInDown
@@ -419,11 +425,59 @@ de ordem p define-se como
 onde `\(C_i\)`, com `\(i=0,1,2,\ldots,p\)` são escalares, com `\(C_0=1\)`, `\(C_p\ne0\)` e 
 `\(C(B)=\sum_{j=0}^pC_jB^j\)`.
 
-&gt; * Se `\(Z_t=0\)`,a equação em diferenças é chamada de **homogênea**, em caso
+&gt; * Se `\(Z_t=0\)`, a equação em diferenças é chamada de **homogênea**, em caso
 contrário é dita de **não-homogênea**;
 
 &gt; * A equação `\(C(z)=0\)` é chamada de **equação auxiliar**,
 ou **equação característica**, associada à equação em diferenças.
+
+
+---
+class: animated, fadeInUp
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a equação em diferenças dada por `\(X_t=a_0+a_1X_{t-1}\)`, com `\(a_0\)`, `\(a_1\ne0\)` 
+constantes. Podemos obter a solução da equação de forma iterativa
+da seguinte forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  X_1&amp;=a_0+a_1X_0\\
+  X_2&amp;=a_0+a_1X_1=a_0+a_1(a_0+a_1X_0)=a_0(1+a_1)+a_1^2X_0\\
+  X_3&amp;=a_0+a_1X_2=a_0+a_1(a_0(1+a_1)+a_1^2X_0)=a_0(1+a_1+a_1^2)+a_1^3X_0\\
+  &amp;\vdots\\
+  X_t&amp;=a_0(1+a_1+a_1^2+\cdots+a_1^{t-1})+a_1^tX_0=a_0\sum_{j=0}^{t-1}a_1^j+a_1^tX_0, \quad t=1,2,3,\ldots
+  \end{align}
+&lt;/div&gt;
+
+Se `\(a_1\ne1\)`, então `\(\sum_{j=0}^{t-1}a_1^j=\dfrac{1-a_1^t}{1-a_1}\)`. Daí, 
+`\(X_t=a_0\dfrac{1-a_1^t}{1-a_1}+a_1^tX_0=\dfrac{a_0}{1-a_1}+\left(X_0-\dfrac{a_0}{1-a_1}\right)a_1^t\)`. 
+
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - I
+
+Dessa forma, a solução da equação em diferenças é dada por
+`$$X_t=\dfrac{a_0}{1-a_1}+\left(X_0-\dfrac{a_0}{1-a_1}\right)a_1^t.$$`
+* Se `\(|a_1|&lt;1\)`, `\(\lim_{t\to\infty}X_t=\frac{a_0}{1-a_1}\)`. Em outras palavras,
+a função tende a estabilizar-se no ponto `\(\frac{a_0}{1-a_1}\)`, conforme `\(t\)` aumenta;
+
+* Se `\(|a_1|&gt;1\)`, `\(X_t\)` não estabiliza.
+
+Em particular, considere a equação em diferenças `\((1-0.5B)X_t=2\)` e considere 
+a condição inicial `\(X_0=50\)`. Dessa forma,
+`$$X_t=4+46\,(0.5)^t.$$`
+Como `\(|0.5|&lt;1\)` a função tende a estabilizar-se em `\(\dfrac{a_0}{1-a_1}=4\)`.
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-2-1.png" width="52%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: animated, fadeInRight
@@ -492,7 +546,7 @@ class: animated, fadeInUp
 ### Equações em diferenças - I
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Encontre 
-a solução da equação em direfenças dada por `\(X_t-2X_{t-1}+1.5X_{t-2}-0.5X_{t-3}=0\)`.
+a solução da equação em diferenças dada por `\(X_t-2X_{t-1}+1.5X_{t-2}-0.5X_{t-3}=0\)`.
 A equação característica é dada por 
 `$$C(z)=1-2z+1.5z^2-0.5z^3=(0.5z^2-z+1)(1-z)=0.$$`
 Dessa forma, pelo teorema fundamental da álgebra temos `\(3\)` raízes. No entanto,
@@ -504,7 +558,7 @@ as raízes da equação característica são dadas por `\(R_1^{-1}=1\)` com mult
   \end{align}
 &lt;/div&gt;
 
-então, `\(R_2=1+i\)` e `\(R_3=i-i\)`, ambos com multiplicidade `\(1\)`, onde `\(R_2^{-1}=\frac{1-i}{2}\)` e `\(R_3^{-1}=\frac{1+i}{2}\)`.
+então, `\(R_2=1+i\)` e `\(R_3=1-i\)`, ambos com multiplicidade `\(1\)`, onde `\(R_2^{-1}=\frac{1-i}{2}\)` e `\(R_3^{-1}=\frac{1+i}{2}\)`.
 
 &gt; &lt;span style="color:grey"&gt; Lembre que, 
 `$$\frac{1}{a+i\,b}=\frac{1}{a+i\,b}\frac{a-i\,b}{a-i\,b}=\frac{a-i\,b}{a^2+b^2}.$$`
@@ -531,6 +585,13 @@ Daí,
 &lt;/div&gt;
 
 ---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-3-1.png" width="52%" style="display: block; margin: auto;" /&gt;
+
+---
 class: animated, fadeInRight
 
 ### Equações em diferenças - I
@@ -546,7 +607,17 @@ tem duas raízes, sendo `\(R_i=1\)` com multiplicidade `\(m_i=2\)`. Daí,
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere a equação em diferenças
 `\((1-\phi B)(1-B)^2X_t=0\)`. A equação característica é dada por
 `$$C(z)=(1-\phi z)(1-z)^2=0.$$`
-Então, `\(R_1=\phi^{-1}\)` com multiplicidade `\(1\)` e `\(R_2=1\)` com multiplicidade `\(2\)`. Daí, `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{j=0}^0b_{1j}t^jR_1^{-t}+\sum_{j=0}^1b_{2j}t^jR_2^{-t}=b1\phi^t+b_2+b_3t\)`.
+Então, `\(R_1=\phi^{-1}\)` com multiplicidade `\(1\)` e `\(R_2=1\)` com multiplicidade `\(2\)`. Daí, `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{j=0}^0b_{1j}t^jR_1^{-t}+\sum_{j=0}^1b_{2j}t^jR_2^{-t}=b_1\phi^t+b_2+b_3t\)`.
+
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="float:right; padding:20px" /&gt;
 
 
 ---
@@ -567,6 +638,13 @@ Daí,
 Assim, as raízes da equação característica são dadas por `\(z_1=\frac{10}{3}\)` e `\(z_2=\frac{10}{7}\)`.
 Então,
 `$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{-t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^j=b_{10}\left(\frac{10}{3}\right)^{-t}+b_{20}\left(\frac{10}{7}\right)^{-t}=b_{1}\left(\frac{3}{10}\right)^{t}+b_{2}\left(\frac{7}{10}\right)^{t}.$$`
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-6-1.png" width="52%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: animated, fadeInUp
