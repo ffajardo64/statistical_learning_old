@@ -1,0 +1,83 @@
+
+
+\documentclass[12pt]{article}
+%\documentclass[12pt]{scrartcl}
+\nonstopmode
+\usepackage{amsbsy,amsfonts,amsmath,amssymb,mathbbol,textcomp,bm}
+\usepackage[top=1.5cm,left=2.0cm,right=2.0cm,bottom=2cm]{geometry}
+\usepackage[tikz]{bclogo}
+\usepackage{enumerate,syntonly,fancybox,booktabs,multirow,lastpage,fancyhdr,comment,url}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\urlstyle{same}
+
+\pagestyle{fancy}
+
+\fancyhf{}\fancyhead{} \fancyfoot{}
+\fancyhead{}
+\fancyfoot[L,L]{\copyright{}2022 Typeset \LaTeX}
+\fancyfoot[R,R]{by F. Fajardo.}
+\renewcommand{\headrulewidth}{0pt}
+
+\DeclareMathSymbol{\minus}{\mathord}{operators}{"2D}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.0mu#1\mkern-1.5mu}\mkern 1.5mu}
+\DeclareMathOperator{\sen}{sen}
+
+
+\begin{document}
+
+\begin{center}
+	\hrule
+	\vspace{.4cm}
+	{\textbf { \large Desafio da Semana --- Análise de Séries Temporais I}}
+	\hrule
+    \vspace{.4cm}
+    \flushright{\today}
+\end{center}
+
+\parbox{\textwidth}{
+\begin{center}
+\fbox{\parbox{5.5in}{\small\centering
+{\fontencoding{T1}\sffamily
+\textbf{Instru\c c\~oes:} \begin{enumerate}[1.]
+\item Leia atentamente a quest\~ao e responda \textbf{rigorosamente} cada item. Respostas \textbf{sem
+justificativas} n\~ao ser\~ao consideradas;
+\item As solu\c c\~oes dos desafios devem ser tipografadas no formato disponível no 
+\href{https://ffajardo64.github.io/statistical_learning/STA13828/}{repositório do Github}. 
+Para usuários do \texttt{RMarkdown}, solicita-se o uso do formato da \textit{ASA: American Statistical 
+Association}, disponível no pacote \href{https://github.com/rstudio/rticles}{rticles} do \texttt{R}.
+\textbf{Qualquer formato fora desses dois padrões será desconsiderado};
+\item  As soluções devem ser encaminhadas em PDF no prazo estabelecido para entrega. \underline{Qualquer
+entrega fora do prazo será desconsiderada};
+\item A solução correta terá um valor de \textbf{1 ponto} na média final da Prova 1;
+\item Lembre que, \textbf{as entregas não são obrigatórias}. Os discentes que não participarem dos desafios
+não receberão qualquer tipo de punição. Porém, Encaminhamentos de qualquer tentativa incompleta, inacabada, 
+inconclusa, incorreta, imprecisa ou mesmo ambígua, receberão uma punição de $\minus2$ (menos dois) pontos 
+na média final da prova considerada acima;
+\item Para este desafio, \textbf{será considerada para avaliação, única e exclusivamente, a 
+primeira entrega recebida};
+\end{enumerate}
+}}}
+\end{center}}
+
+\input{desafio1} % Comente a linha quando tipografar a solução
+
+\newpage
+
+\input{solution}
+
+
+\end{document}
+
