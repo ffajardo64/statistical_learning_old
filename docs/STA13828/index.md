@@ -22,10 +22,11 @@ description: Repositório com material sobre análise de séries temporais.
 
 * **Desafios**
   - Template para resoluções: [main.tex](https://bit.ly/3SNTknD){:target="_blank"}  [solution.tex](https://bit.ly/3y4bJ7t){:target="_blank"}
-  - [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"}
+  - [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} - Prazo de entrega: 05/10/2022 às 11:00h
   - [Desafio 2](https://bit.ly/3SFn0nj){:target="_blank"}
   - [Desafio 3](https://bit.ly/3SFn0nj){:target="_blank"}
   - [Desafio 4](https://bit.ly/3SFn0nj){:target="_blank"}
+
 
 #### Livros e material online
   
