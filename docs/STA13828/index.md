@@ -22,8 +22,8 @@ description: Repositório com material sobre análise de séries temporais.
 
 * **Desafios**
   - Template para resoluções: [main.tex](https://bit.ly/3SNTknD){:target="_blank"}  [solution.tex](https://bit.ly/3y4bJ7t){:target="_blank"}
-  - [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} - Prazo de entrega: 05/10/2022 às 11:00h 
-  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3516819" class="tickcounter" style="display: block; width: 50%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
+  - [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} 
+  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3516824" class="tickcounter" style="display: block; width: 50%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
   - [Desafio 2](https://bit.ly/3SFn0nj){:target="_blank"}
   - [Desafio 3](https://bit.ly/3SFn0nj){:target="_blank"}
   - [Desafio 4](https://bit.ly/3SFn0nj){:target="_blank"}
