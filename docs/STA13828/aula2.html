@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 30/09/2022
+### Vitória. ES - 03/10/2022
 ]
 
 ---
@@ -421,9 +421,9 @@ considera-se o equivalente de `\(\frac{dX}{dt}\)`.
 
 * **Definição (Equação em diferenças de ordem p)**: A equação em diferenças 
 de ordem p define-se como
-`$$C_0X_t+C_1X_{t-1}+\cdots+C_pX_{t-p}=C(B)X_t=Z_t,$$`
-onde `\(C_i\)`, com `\(i=0,1,2,\ldots,p\)` são escalares, com `\(C_0=1\)`, `\(C_p\ne0\)` e 
-`\(C(B)=\sum_{j=0}^pC_jB^j\)`.
+`$$a_0X_t+a_1X_{t-1}+\cdots+a_pX_{t-p}=C(B)X_t=Z_t,$$`
+onde `\(a_i\)`, com `\(i=0,1,2,\ldots,p\)` são escalares, com `\(a_0=1\)`, `\(a_p\ne0\)` e 
+`\(C(B)=\sum_{j=0}^pa_jB^j\)`.
 
 &gt; * Se `\(Z_t=0\)`, a equação em diferenças é chamada de **homogênea**, em caso
 contrário é dita de **não-homogênea**;
@@ -523,7 +523,7 @@ class: animated, fadeInDown
 ### Equações em diferenças - I
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
-a equação característica dada por `\(1-C_1z-C_2z^2=(1-R_1z)(1-R_2z)=0\)`,
+a equação característica dada por `\(1-a_1z-a_2z^2=(1-R_1z)(1-R_2z)=0\)`,
 onde `\(R_1=c+d\,i=\alpha(\cos\phi+i\,\mathrm{sen}\,\phi)\)` e `\(R_2\)` seu conjugado.
 
 Pela proposição acima, sabemos que `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{t}\)`. Daí, 
@@ -666,23 +666,213 @@ Considere a equação em diferenças de segunda ordem, dada pela seguinte repres
 &lt;/div&gt;
 
 * Note que as condições para estabilidade dinâmica da função `\(X_t\)`, em 
-termos das suas raízes, são dadas por:
+termos das suas raízes, são dadas por `\(|R_1|&lt;1\)` e `\(|R_2|&lt;1\)` ou 
+equivalentemente:
 
 &lt;div class="math"&gt;
   \begin{align}
   %\tag{1}
-  i.\,\, &amp; R_i^{-1}&lt;1; &amp; ii.\,\, &amp; -R_i^{-1}&lt;1, \quad i=1,2; &amp;\text{e}&amp; &amp; iii.\,\, &amp; |R_1^{-1}R_2^{-1}|&lt;1.
+  i.\,\, &amp; R_i&lt;1; &amp; ii.\,\, &amp; -R_i&lt;1, \quad i=1,2; &amp;\text{e}&amp; &amp; iii.\,\, &amp; |R_1R_2|&lt;1.
   \end{align}
 &lt;/div&gt;
   
-Mostre que as condições acimas podem ser reescritas em termos de, `\(a_1\)` e `\(a_2\)`, da seguinte forma
+&amp;emsp;&amp;emsp; Mostre que as condições acimas podem ser reescritas em 
+termos de, `\(a_1\)` e `\(a_2\)`, da seguinte forma:
 &lt;div class="math"&gt;
   \begin{align}
   %\tag{2}
-  i.\,\, &amp; a_1+a_2&lt;1; &amp; ii.\,\, &amp; -a_1+a_2&lt;1; &amp;\text{e}&amp; &amp; iii.\,\, &amp; |a_2|&lt;1.
+  i.\,\, &amp; a_2+a_1&lt;1; &amp; ii.\,\, &amp; a_2-a_1&lt;1; &amp;\text{e}&amp; &amp; iii.\,\, &amp; |a_2|&lt;1.
   \end{align}
 &lt;/div&gt;
 
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - II
+
+* **Teorema (Critério de Schur-Cohn)**: Seja `\(C(z)=\sum_{j=0}^pa_iz^i=0\)` 
+a equação característica de uma equação em diferenças de ordem p, com `\(a_p\ne0\)`.
+Se os determinantes
+&lt;div class="math"&gt;
+  \begin{align}
+  D_k&amp;=\left|\begin{array}{cccc:cccc}
+  a_0       &amp; 0           &amp; \cdots &amp; 0      &amp; a_p     &amp;a_{p-1}&amp; \cdots &amp; a_{p-k+1}\\
+  a_1       &amp; a_0         &amp; \cdots &amp; 0      &amp; 0       &amp; a_p &amp; \cdots &amp; a_{p-k+2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots&amp; \ddots &amp; \vdots\\
+  a_{k-1}   &amp; a_{k-2}     &amp; \cdots &amp; a_0    &amp; 0       &amp; 0 &amp; \cdots &amp; a_p\\ \hdashline
+  \bar{a}_p       &amp;  0          &amp; \cdots &amp; 0      &amp; \bar{a}_0 &amp; \bar{a}_1     &amp; \cdots &amp; \bar{a}_{k-1}\\
+  \bar{a}_{p-1}   &amp;   \bar{a}_p       &amp; \cdots &amp; 0      &amp; 0 &amp; \bar{a}_0       &amp;\cdots  &amp; \bar{a}_{k-2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots &amp; \ddots&amp; \vdots\\
+  \bar{a}_{p-k+1} &amp; \bar{a}_{p-k+2}   &amp; \cdots &amp; \bar{a}_p    &amp; 0       &amp; 0 &amp; \cdots &amp; \bar{a}_0\\
+  \end{array}\right|, \quad k=1,2,3,\ldots,p,
+  \end{align}
+&lt;/div&gt;
+
+são diferentes de zero, então, `\(C(z)\)` não possui zeros em `\(|z|=1\)` e possui
+`\(m\)` zeros em `\(|z|&lt;1\)`, onde `\(m\)` é o número de variação de sinal da sequência
+`\(1,D_1,D_2,\ldots,D_p\)` e `\(\bar{a_i}\)` representa o conjuado de `\(a_i\)`, com
+`\(i=0,1,2,\ldots,p\)`.
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - II
+
+&gt; O Critério de Schur-Cohn afirma que o módulo das raízes da equação 
+característica serão menores do que `\(1\)`, _see_ os `\(p\)` determinates `\(D_1,D_2,\ldots,D_p\)`
+são todos positivos, i.e., para verificar a estabilidade de uma equação
+em diferenças de ordem requer-se que todos os `\(p\)` determinantes sejam 
+positivos. Em caso, que um dos determinantes não seja positivo, então
+não teremos estabilidade na solução.
+
+Por exemplo, para `\(k=1, 2\)` e `\(3\)`
+
+&lt;div class="math"&gt;
+\begin{align}
+  D_1&amp;=\left|\begin{array}{c:c}
+  a_0       &amp; a_{p}\\ \hdashline
+  \bar{a}_p &amp; \bar{a}_0
+  \end{array}\right| &amp;
+  D_2&amp;=\left|\begin{array}{cc:cc}
+  a_0 &amp; 0  &amp; a_p &amp; a_{p-1}\\
+  a_1 &amp; a_0  &amp; 0 &amp; a_{p}\\ \hdashline
+  \bar{a}_p &amp; 0 &amp; \bar{a}_0 &amp; \bar{a}_1\\
+  \bar{a}_{p-1} &amp; \bar{a}_p &amp; 0 &amp;\bar{a}_0
+  \end{array}\right| &amp;
+  D_3&amp;=\left|\begin{array}{ccc:ccc}
+  a_0 &amp; 0 &amp; 0  &amp; a_p &amp; a_{p-1} &amp; a_{p-2}\\
+  a_1 &amp; a_0  &amp; 0 &amp; 0 &amp;a_{p} &amp; a_{p-1}\\
+  a_2 &amp; a_1  &amp; 0 &amp; 0 &amp;0 &amp; a_{p}\\ \hdashline
+  \bar{a}_p &amp; 0 &amp;0&amp; \bar{a}_0 &amp; \bar{a}_1 &amp; \bar{a}_2\\
+  \bar{a}_{p-1} &amp; \bar{a}_p&amp; 0 &amp;  0 &amp; \bar{a}_0 &amp;\bar{a}_1\\
+  \bar{a}_{p-2} &amp; \bar{a}_{p-1}&amp; a_p &amp;  0 &amp; 0 &amp;\bar{a}_0
+  \end{array}\right|
+  \end{align}
+  
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - II
+
+Para `\(k=p\)`
+&lt;div class="math"&gt;
+\begin{align}
+  D_p&amp;=\left|\begin{array}{cccc:cccc}
+  a_0       &amp; 0           &amp; \cdots &amp; 0      &amp; a_p     &amp;a_{p-1}&amp; \cdots &amp; a_{1}\\
+  a_1       &amp; a_0         &amp; \cdots &amp; 0      &amp; 0       &amp; a_p &amp; \cdots &amp; a_{2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots&amp; \ddots &amp; \vdots\\
+  a_{p-1}   &amp; a_{p-2}     &amp; \cdots &amp; a_0    &amp; 0       &amp; 0 &amp; \cdots &amp; a_p\\ \hdashline
+  \bar{a}_p       &amp;  0          &amp; \cdots &amp; 0      &amp; \bar{a}_0 &amp; \bar{a}_1     &amp; \cdots &amp; \bar{a}_{p-1}\\
+  \bar{a}_{p-1}   &amp;   \bar{a}_p       &amp; \cdots &amp; 0      &amp; 0 &amp; \bar{a}_0       &amp;\cdots  &amp; \bar{a}_{p-2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots &amp; \ddots&amp; \vdots\\
+  \bar{a}_{1} &amp; \bar{a}_{2}   &amp; \cdots &amp; \bar{a}_p    &amp; 0       &amp; 0 &amp; \cdots &amp; \bar{a}_0\\
+  \end{array}\right|
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeLeft
+
+### Equações em diferenças - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças dada por `\((1-a_1B-a_2B^2)X_t=0\)`. A equação 
+característica é dada por
+`$$C(z)=1-a_1z-a_2z^2=0.$$`
+Dessa forma, os determinantes a considerar são dados por
+&lt;div class="math"&gt;
+\begin{align}
+  D_1&amp;=\left|\begin{array}{c:c}
+  -1       &amp; a_2\\ \hdashline
+  a_2 &amp; -1
+  \end{array}\right|=1-a^2=(1-a_2)(1+a_2)\\
+  D_2&amp;=\left|\begin{array}{cc:cc}
+  -1 &amp; 0  &amp; a_2 &amp; a_{1}\\
+  a_1 &amp; -1  &amp; 0 &amp; a_{2}\\ \hdashline
+  a_2 &amp; 0 &amp; -1 &amp; a_1\\
+  a_1 &amp; a_2 &amp; 0 &amp;-1
+  \end{array}\right|=(-1)\left(-1+a_2^2\right)+a_2\left(-a_1^2a_2-a_2-a_1^2+a_2^3\right)-a_1\left(a_1a_2+a_1\right)\\
+  &amp;\hspace{7.2cm}=1-2a_2^2-a_1^2\left(1+2a_2+a_2^2\right)+ a_2^4=\left(1-a_2^2\right)^2-a_1^2(1+a_2)^2\\
+  &amp;\hspace{7.2cm}=(1+a_2)^2\left[(1-a_2)^2-a_1^2\right].
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeUp
+
+### Equações em diferenças - II
+
+Temos então, `\(D_1=1-a^2\)` e `\(D_2=(1+a_2)^2\left[(1-a_2)^2-a_1^2\right]\)`. Daí,
+a condição `\(D_1&gt;0\)` é equivalente a `\(1-a_2^2&gt;0\)` ou `\(|a_2|&lt;1\)`. Enquanto que,
+a condição `\(D_2&gt;0\)` é equivalente a
+`$$(1+a_2)^2\left[(1-a_2)^2-a_1^2\right]&gt;0.$$`
+O que significa que, `\(D_2&gt;0\)` _see_ `\((1-a_2)^2&gt;a_1^2\)` ou `\(|1-a_2|&gt;|a_1|\)`.
+Dessa forma, as condições de estabilidade são dada por
+&lt;div class="math"&gt;
+  \begin{align}
+    |a_2|&amp;&lt; 1; &amp; a_2+a_1&amp;&lt;1; &amp; \text{ e } &amp; &amp; a_2-a_1&amp;&lt;1.
+  \end{align}
+&lt;/div&gt;
+
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+Considere a equação em diferenças de terceira ordem, dada pela seguinte 
+representação `\((1-a_1B-a_2B^2-a_3B^3)X_t=0\)`. Mostre que as condições
+de estabilidade são dadas por
+&lt;div class="math"&gt;
+  \begin{align}
+    |a_3|&amp;&lt; 1; &amp; a_3+a_2+a_1&amp;&lt;1; &amp; a_2-a_1-a_3&amp;&lt;1;&amp; a_3\,(a_3+a_1)-a_2&lt;1;\quad \text{e}
+  \end{align}
+&lt;/div&gt;
+
+&lt;div class="math"&gt;
+  \begin{align}
+    3a_3-a_2-a_1&lt;3\quad \text{ou} \quad a_1-a_2-3a_3&lt;3.
+  \end{align}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeDown
+
+### Equações em diferenças - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças de ordem p, dada por `\((1-a_1B-a_2B^2-\cdots-a_pB^p)X_t=0\)`,
+com `\(a_p\ne0\)`. Daí, a equação característica é dada por
+`$$1-a_1z-a_2z^2-\cdots-a_{p-1}z^{p-1}-a_pz^p=0.$$`
+Dessa forma, pelo teorema fundamental da álgebra, temos que 
+`$$(1-R_1B)(1-R_2B)\cdots(1-R_pB)=0,$$`
+onde as raízes da equação característica são dadas por
+`\(R_1^{-1}, R_2^{-1}, R_3^{-1}. \ldots, R_p^{-1}\)`. 
+
+Se todas as raízes são diferentes, então a solução da equação em diferenças é dada 
+por
+`$$X_t=b_1R_1^t+b_2R_2^t+\cdots+b_pR_p^t.$$`
+
+---
+class: animated, fadeLeft
+
+### Equações em diferenças - II
+
+Se `\(1&lt;m\le p\)` raízes reais iguais, tal que `\(R_1=R_2=\cdots=R_m=R\)`, então
+a solução é dada por
+`$$X_t=R^t\sum_{j=1}^mb_jt^{j-1}+\sum_{j=m+1}^pb_jR_j^t.$$`
+Em geral, se `\(m=p\)` e `\(|R|&lt;1\)` a solução é dada por
+`$$X_t=R^t\sum_{j=1}^pb_jt^{j-1}.$$`
+
+Usando o Critério de Schur-Cohn podemos concluir que, para uma 
+equação em diferenças de ordem `\(p\ge1\)`, para que exista estabilidade, ou
+equilibrio, no longo prazo é necessário que
+&lt;div class="math"&gt;
+  \begin{align}
+  |a_p|&amp;&lt;1 &amp; &amp; \text{ e}&amp; &amp; a_p+a_{p-1}+\cdots+a_1&lt;1,
+  \end{align}
+&lt;/div&gt;
+
+que em outras palavras significa que `\(|R_i|&lt;1\)` para `\(i=1,2,3,\ldots,p\)`.
 
 
 ---
