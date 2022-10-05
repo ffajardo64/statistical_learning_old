@@ -14,20 +14,25 @@ description: Repositório com material sobre análise de séries temporais.
   - [Processos lineares e equações em diferenças](https://bit.ly/3QXldrX){:target="_blank"}
   - [Processos com representação ARMA(p,q)](https://bit.ly/3UYaHnv){:target="_blank"}
 
+<br/>
 
 * **Conjunto de dados**
   - [Air Passanger](https://bit.ly/3Rncro6){:target="_blank"}
   - [Sunspot Number](https://www.sidc.be/silso/datafiles){:target="_blank"}
   - [The R Datasets Package](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html){:target="_blank"}
 
+<br/>
+
 * **Desafios**
   - Template para resoluções: [main.tex](https://bit.ly/3SNTknD){:target="_blank"}  [solution.tex](https://bit.ly/3y4bJ7t){:target="_blank"}
   - [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} 
-  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3516828" class="tickcounter" style="display: block; width: 30%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
+  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3516828" class="tickcounter" style="display: block; width: 40%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
   - [Desafio 2](https://bit.ly/3SFn0nj){:target="_blank"}
-  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3521115" class="tickcounter" style="display: block; width: 30%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
+  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3521115" class="tickcounter" style="display: block; width: 40%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
   - [Desafio 3](https://bit.ly/3SFn0nj){:target="_blank"}
   - [Desafio 4](https://bit.ly/3SFn0nj){:target="_blank"}
+
+<br/>
 
 * **Provas**
   - [Prova 1](https://bit.ly/3SFPJIs){:target="_blank"}
