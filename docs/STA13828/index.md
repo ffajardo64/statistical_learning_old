@@ -28,7 +28,6 @@ description: Repositório com material sobre análise de séries temporais.
   - [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} **_Encerrado_**
   
   - [Desafio 2](https://bit.ly/3CLi5f3){:target="_blank"}
-  <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3525200" class="tickcounter" style="display: block; width: 30%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
   
   - [Desafio 3](https://bit.ly/3edBWtJ){:target="_blank"}
   <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3525828" class="tickcounter" style="display: block; width: 30%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
