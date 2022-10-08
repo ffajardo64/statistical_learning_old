@@ -24,8 +24,8 @@ description: Repositório com material sobre análise de séries temporais.
 <br/>
 
 * **Desafios**
-  - Template para resoluções: [main.tex](https://bit.ly/3SNTknD){:target="_blank"}  [solution.tex](https://bit.ly/3y4bJ7t){:target="_blank"}
-  - **_Encerrados_**: &emsp; [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} &nbsp; [Desafio 2](https://bit.ly/3CLi5f3){:target="_blank"} &nbsp; 
+  - Template para resoluções: &nbsp; [main.tex](https://bit.ly/3SNTknD){:target="_blank"}  [solution.tex](https://bit.ly/3y4bJ7t){:target="_blank"}
+  - **_Encerrados_**: &nbsp; [Desafio 1](https://bit.ly/3rlCNeG){:target="_blank"} &nbsp; [Desafio 2](https://bit.ly/3CLi5f3){:target="_blank"} &nbsp; 
   
   - [Desafio 3](https://bit.ly/3edBWtJ){:target="_blank"}
   <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="3525828" class="tickcounter" style="display: block; width: 30%; position: relative; padding-bottom: 25%" title="Countdown" href="//www.tickcounter.com/">Countdown</a>
@@ -59,6 +59,7 @@ description: Repositório com material sobre análise de séries temporais.
   - [ST_aula1.ipynb](https://bit.ly/3V2urGL){:target="_blank"}.
   - [ST_aula2.ipynb](https://bit.ly/3dUNBgW){:target="_blank"}.
   - [ST_aula3.ipynb](https://bit.ly/3rCnHSd){:target="_blank"}.
+  - [ST_aula4.ipynb](https://){:target="_blank"}.
   
 **Python**
 
