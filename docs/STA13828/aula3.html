@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 05/10/2022
+### Vitória. ES - 19/10/2022
 ]
 
 ---
@@ -226,7 +226,7 @@ class: animated, fadeInRight
 ### Processos ARMA(p,q) - I
 
 &gt; * Em resumo, para que um processo com representação ARMA `\(\!(p,q)\)` seja
-**estacionário** as raízes do polinômio `\(\phi(z)=0\)` devem estar fora do 
+**causal** as raízes do polinômio `\(\phi(z)=0\)` devem estar fora do 
 círculo unitário. Para que o processo seja **invertível**, as raízes do 
 polinômio `\(\theta(z)=0\)` devem estar fora do círculo unitário.
 
@@ -387,22 +387,16 @@ Dessa forma, `\(|\frac23(1\pm\sqrt{3}\,i)|=\left(\frac23\right)^2+\left(\frac23\
 Por otra parte, o polinômio `\(\theta(z)=1+1.25z\)` tem uma única raíz real `\(R_1^{-1}=-0.8\)`,
 dentro do círculo unitário, isso significa que o processo é **não-invertível**.
 
-&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
-Encontre as expressões para `\(BX_t\)` e `\(B^2X_t\)`, quando `\(\{X_t\}\)` tem
-as seguintes representações:
-
 
 ---
 class: inverse, hide-logo, middle, center
 
-### Função de autocovariância e Função de densidade espectral
+### Função de autocovariância
 
 ---
 class: animated, fadeInLeft
 
-### Processos ARMA(p,q) - II
-
-#### Função de autocovariância
+### Função de autocovariância - I
 
 Seja processo `\(\{X_t; t\in\mathbb{Z}\}\)` com representação 
 ARMA `\(\!(p,q)\)` causal, com representação `\(\phi(B)X_t=\theta(B)Z_t\)`,
@@ -412,7 +406,7 @@ onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variânc
 onde `\(\sum_{j=0}^\infty\psi_jz^j=\theta(z)\phi^{-1}(z)\)`, para `\(|z|&lt;1\)`.
 
 
-* **Método 1**: Pelo resultado da &lt;a href="https://bit.ly/3MdUqXG" target="_blank"&gt;Proposição&lt;/a&gt;
+* **Método 1**: Pelo resultado da &lt;ins&gt;&lt;a href="https://bit.ly/3MdUqXG" target="_blank"&gt;Proposição&lt;/a&gt;&lt;/ins&gt;
 apresentada na seção de Processos Lineares, temos que
 `$$\gamma(h)=\mathbb{E}\left[X_{t+h}X_t\right]=\sum_{j=-\infty}^\infty\psi_j\psi_{j+h}\sigma^2=\sigma^2\sum_{j=0}^\infty\psi_j\psi_{j+|h|}.$$`
 
@@ -420,7 +414,7 @@ apresentada na seção de Processos Lineares, temos que
 ---
 class: animated, fadeIn
 
-### Processos ARMA(p,q) - II
+### Função de autocovariância - I
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
 um processo `\(\{X_t\}\)` causal com representação ARMA `\(\!(1,1)\)`, i.e.,
@@ -440,7 +434,7 @@ onde `\(\psi_j=\theta_j+\sum_{k=1}^p\phi_k\psi_{j-k}\)`, i.e., `\(\psi_0=1\)`,
 ---
 class: animated, fadeInUp
 
-### Processos ARMA(p,q) - II
+### Função de autocovariância - I
 
 Daí,
 &lt;div class="math"&gt;
@@ -465,7 +459,7 @@ Para `\(h=1\)`,
 ---
 class: animated, fadeInDown
 
-### Processos ARMA(p,q) - II
+### Função de autocovariância - I
 
 Para `\(h=2\)`,
 
@@ -481,7 +475,7 @@ Para `\(h=2\)`,
 ---
 class: animated, fadeIn
 
-### Processos ARMA(p,q) - II
+### Função de autocovariância - I
 
 Em geral, para `\(h\ge2\)`
 &lt;div class="math"&gt;
@@ -497,7 +491,7 @@ Em geral, para `\(h\ge2\)`
 ---
 class: animated, fadeInRight
 
-### Processos ARMA(p,q) - II
+### Função de autocovariância - I
 
 &lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
 um processo `\(\{X_t\}\)` com representação MA `\(\!(q)\)`, i.e.,
@@ -516,86 +510,298 @@ onde `\(\psi_j=\theta_j+\sum_{k=1}^p\phi_k\psi_{j-k}\)`, onde `\(\theta_0=1\)`,
   \end{align}
 &lt;/div&gt;
 
-
 ---
 class: animated, fadeInLeft
 
-### Processos ARMA(p,q) - II
+### Função de autocovariância - I
 
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Considere
+`\(\{X_t\}\)` e `\(\{Y_t\}\)` dois processos com as seguintes representações, 
+respectivamente:
+&lt;div class='math'&gt;
+  \begin{align}
+  X_t&amp;=Z_t+\theta Z_{t-1};\\
+  Y_t&amp;=W_t+\frac1\theta W_{t-1},
+  \end{align}
+&lt;/div&gt;
 
+onde `\(0&lt;|\theta|&lt;1\)`, `\(\{Z_t\}\)` e `\(\{W_t\}\)` são processo de ruído branco 
+com média `\(0\)` e variâncias `\(\sigma^2\)` e `\(\sigma^2\theta^2\)`, respectivamente. Mostre que as
+funções de autocorrelação para `\(\{X_t\}\)` e `\(\{Y_t\}\)` são iguais.
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seja `\(\{X_t\}\)` um
+processo com representação MA `\(\!(1)\)` não-invertível, i.e. `\(X_t=Z_t + \theta Z_{t-1}\)`,
+onde `\(|\theta|&gt;1\)` e `\(\{Z_t\}\)` um processo de ruído branco com média `\(0\)` e
+variância `\(\sigma^2\)`. Defina um novo processo `\(\{W_t\}\)` com representação
+`$$W_t=\sum_{j=0}^\infty(-\theta)^{-j}X_{t-j}.$$`
+Mostre que `\(\{W_t\}\)` é um processo de ruído branco com média `\(0\)` e variância `\(\sigma_W^2\)`. 
+Calcule `\(\sigma_W^2\)` em termos de `\(\theta\)` e `\(\sigma^2\)`.
 
 ---
 class: animated, fadeInDown
 
+### Função de autocovariância - II
 
+* **Método 2**: Considere a equação
+
+`$$X_t-\phi_1X_{t-1}-\cdots\phi_pX_{t-p}=Z_t+\theta_1 Z_{t-1}+\cdots+\theta_q Z_{t-q}.$$`
+Multiplicando em ambos os lados por `\(X_{t-k}\)`, para `\(k=0,1,2,\ldots\)` e
+aplicando o operador valor esperado, temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}\left[X_tX_{t-k}\right]-\phi_1\mathbb{E}\left[X_{t-1}X_{t-k}\right]-\cdots\phi_p\mathbb{E}\left[X_{t-p}X_{t-k}\right]&amp;=\mathbb{E}\left[Z_tX_{t-k}\right]+\theta_1 \mathbb{E}\left[Z_{t-1}X_{t-k}\right]+\cdots+\theta_q \mathbb{E}\left[Z_{t-q}X_{t-k}\right]\\
+    \gamma(k)-\phi_1\gamma(k-1)-\cdots-\phi_p\gamma(k-p)&amp;=
+    \begin{cases}
+      \sigma^2\sum_{j=0}^\infty\theta_{k+j}\psi_j, &amp; \text{ para } 0\le k&lt; m;\\
+      0, &amp; \text{ para } k\ge m,
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+onde `\(m=\max\{p,q+1\}\)`, `\(\psi_j=0\)` para `\(j&lt;0\)`, `\(\theta_0=1\)` e `\(\theta_j=0\)`
+para `\(j\ne0, 1, \ldots, q\)`.
+
+&lt;br&gt;
+
+&gt; Observe que, para o caso `\(k\ge m\)`, temos uma equação em diferenças 
+homogênea, cuja solução foi discutida nas aulas anteriores.
 
 ---
 class: animated, fadeInUp
 
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+um processo `\(\{X_t\}\)` com representação ARMA `\(\!(1,1)\)`, i.e. `\(X_t-\phi X_{t-1}=Z_t+\theta Z_{t-1}\)`. Se o processo é causal, então
+&lt;div class="math"&gt;
+  \begin{align*}
+    \gamma(k)-\phi_1\gamma(k-1)&amp;=
+    \begin{cases}
+      \sigma^2\sum_{j=0}^\infty\theta_{k+j}\psi_j, &amp; \text{ para } 0\le k&lt; 2;\\
+      0, &amp; \text{ para } k\ge 2.
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+* Daí, para `\(k=0\)`, temos que
+`$$\gamma(0)-\phi\gamma(1)=\sigma^2\sum_{j=0}^\infty\theta_j\psi_j=\sigma^2\left(1+\theta\psi_1+\sum_{j=2}^\infty\theta_j\psi_j\right)=\sigma^2\left(1+\theta(\theta+\phi)\right).$$`
+
+
+&gt; Lembre que, `\(\psi_j=\theta_j+\sum_{k=1}^p\phi_k\psi_{j-k}, \quad j=0,1,2,\ldots,\)`
+onde `\(\theta_0=1\)`, `\(\theta_j=0\)` para `\(j&gt;q\)` e `\(\psi_j=0\)` para `\(j&lt;0\)`;
+
+* Para `\(k=1\)`, temos que `\(\gamma(1)-\phi\gamma(0)=\sigma^2\theta\)`; 
+
+* Em geral, temos a seguinte relação `\(\gamma(k)-\phi\gamma(k-1)=0\)` para `\(k\ge 2\)`.
+
 
 
 ---
 class: animated, fadeInDown
 
+### Função de autocovariância - II
+
+&gt; Para calcular `\(\gamma(0)\)`, temos que
+&lt;div class="math"&gt;
+  \begin{align*}
+    \gamma(0)-\phi\gamma(1)&amp;=\sigma^2\left(1+\theta(\theta+\phi)\right)\\
+    -\phi^2\gamma(0)+\phi\gamma(1)&amp;=\sigma^2\theta\phi
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Daí, `\((1-\phi^2)\gamma(0)=\sigma^2\left(1+\theta^2+2\theta\phi\right)=\sigma^2\left(1+\theta^2+2\theta\phi+\phi^2-\phi^2\right)=\sigma^2\left[1-\phi^2+(\theta+\phi)^2\right]\)`. Então,
+&lt;div class="math"&gt;
+  \begin{align*}
+    \gamma(0)&amp;=\sigma^2\left[1+\frac{(\theta+\phi)^2}{1-\phi^2}\right]\\
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Para `\(\gamma(1)\)`, temos que
+&lt;div class="math"&gt;
+  \begin{align*}
+    \gamma(1)&amp;=\sigma^2\theta+\phi\gamma(0)=\sigma^2\theta+\sigma^2\phi\left[1+\frac{(\theta+\phi)^2}{1-\phi^2}\right].
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Daí, `\(\gamma(1)=\frac{\sigma^2}{1-\phi^2}\left[\theta+\phi+\frac{(\theta+\phi)^2\phi}{1-\phi^2}\right]\)`. 
 
 
 ---
 class: animated, fadeIn
 
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seguindo 
+as informações do exemplo anterior, mostre que
+`$$\gamma(k)=\frac{\sigma^2}{1-\phi^2}\phi^{k-1}(\theta+\phi)(1+\theta\phi), \quad k=1,2,3,\ldots$$`
+
+e 
+
+`$$\rho(k)=\frac{(1+\theta\phi)(\theta+\phi)}{1+2\phi\theta+\theta^2}\phi^{k-1}, \quad k=1,2,3,\ldots.$$`
+&gt; Observe que, sob a condição de estacionariedade `\(|\phi|&lt;1\)`, a função 
+de autocorrelação apresenta um decaimento exponencial para `\(0\)`.
 
 
 ---
 class: animated, fadeIn
 
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+o processo `\(\{X_t\}\)` com a seguinte representação `\((1+0.3B)X_t=(1-0.7B)Z_t\)`.
+A função de autocorrelação é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    \rho(k)&amp;=\frac{\left[1+(-0.7)(-0.3)\right](-0.7-0.3)}{1+2(-0.3)(-0.7)+(-0.7)^2}(-0.3)^{k-1}=(−0.6335)(-0.3)^{k-1}, \quad k=1,2,3,\ldots.
+  \end{align*}
+&lt;/div&gt;
+
+Vide **[Figura na p. 30](https://ffajardo64.github.io/statistical_learning/STA13828/aula3.html#31)**.
+
+&lt;br&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+o processo `\(\{X_t\}\)` com a seguinte representação `\((1-0.7B)X_t=(1+0.3B)Z_t\)`.
+A função de autocorrelação é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    \rho(k)&amp;=\frac{\left[1+(0.3)(0.7)\right](0.3+0.7)}{1+2(0.7)(0.3)+(0.3)^2}(0.7)^{k-1}=(0.8013)(0.7)^{k-1}, \quad k=1,2,3,\ldots.
+  \end{align*}
+&lt;/div&gt;
+
+Vide **[Figura na p. 31](https://ffajardo64.github.io/statistical_learning/STA13828/aula3.html#32)**.
+---
+class: animated, fadeInRight
+
+### Função de autocovariância - II
+
+&lt;img src="aula3_files/figure-html/unnamed-chunk-1-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula3_files/figure-html/unnamed-chunk-2-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância - II
+
+&lt;img src="aula3_files/figure-html/unnamed-chunk-3-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula3_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+### Função de densidade espectral
+
+---
+class: animated, fadeInUp
+
+### Função de densidade espectral - I
+
+Seja processo `\(\{X_t; t\in\mathbb{Z}\}\)` com representação 
+ARMA `\(\!(p,q)\)` causal, com representação `\(\phi(B)X_t=\theta(B)Z_t\)`,
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variância
+`\(\sigma^2\)`, então a densidade espectral do processo `\(\{X_t\}\)` é dada 
+por
+`$$f(\lambda)=\frac{\sigma^2}{2\pi}\frac{\left|\theta\left(e^{-i\lambda}\right)\right|^2}{\left|\phi\left(e^{-i\lambda}\right)\right|^2}, \quad -\pi\le\lambda\le\pi.$$`
+
+&lt;br&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+o processo de ruído branco `\(\{Z_t\}\)`. A densidade espectral é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    f(\lambda)=\frac{\sigma^2}{2\pi}\frac{\left|\theta\left(e^{-i\lambda}\right)\right|^2}{\left|\phi\left(e^{-i\lambda}\right)\right|^2}=\frac{\sigma^2}{2\pi}, \quad -\pi\le\lambda\le\pi.
+  \end{align*}
+&lt;/div&gt;
 
 
 ---
 class: animated, fadeInRight
 
+### Função de densidade espectral - I
 
----
-class: animated, fadeIn
-
-
-
----
-class: animated, fadeInUp
-
-
-
----
-class: animated, fadeInRight
-
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+o processo `\(\{X_t\}\)` com representação AR `\(\!(2)\)`, i.e. 
+`\((1-\phi_1B-\phi_2B^2)X_t=Z_t\)`. A densidade espectral é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    f(\lambda)&amp;=\frac{\sigma^2}{2\pi}\frac{\left|\theta\left(e^{-i\lambda}\right)\right|^2}{\left|\phi\left(e^{-i\lambda}\right)\right|^2}=\frac{\sigma^2}{2\pi}\frac{1}{\left|1-\phi_1e^{-i\lambda}-\phi_2e^{-2i\lambda}\right|^2}, \quad -\pi\le\lambda\le\pi\\
+    &amp;=\frac{\sigma^2}{2\pi}\frac{1}{\left(1-\phi_1e^{-i\lambda}-\phi_2e^{-2i\lambda}\right)\left(1-\phi_1e^{i\lambda}-\phi_2e^{2i\lambda}\right)}\\
+    &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-\phi_1e^{-i\lambda}-\phi_2e^{-2i\lambda}-\phi_1e^{i\lambda}+\phi_1^2+\phi_1\phi_2e^{-i\lambda} -\phi_2e^{2i\lambda}+\phi_1\phi_2e^{i\lambda}+\phi_2^2}\\
+    &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-2\phi_1\cos\lambda-2\phi_2\cos2\lambda+\phi_1^2+2\phi_1\phi_2\cos\lambda+\phi_2^2}\\
+    &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-2\phi_1\cos\lambda-2\phi_2(2\cos^2\lambda-1)+\phi_1^2+2\phi_1\phi_2\cos\lambda+\phi_2^2}\\
+    &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1+\phi_1^2+2\phi_2+\phi_2^2+2(\phi_1\phi_2-\phi_1)\cos\lambda-4\phi_2\cos^2\lambda}.
+  \end{align*}
+&lt;/div&gt;
 
 
 ---
 class: animated, fadeInDown
 
+### Função de densidade espectral - I
+
+&lt;img src="aula3_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula3_files/figure-html/unnamed-chunk-6-1.png" width="45%" style="float:right; padding:20px" /&gt;
 
 ---
 class: animated, fadeIn
 
+### Função de densidade espectral - I
 
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+o processo `\(\{X_t\}\)` com representação ARMA `\(\!(1,1)\)`, i.e. 
+`\((1-\phi B)X_t=(1-\theta B)Z_t\)`. A densidade espectral é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    f(\lambda)&amp;=\frac{\sigma^2}{2\pi}\frac{\left|\theta\left(e^{-i\lambda}\right)\right|^2}{\left|\phi\left(e^{-i\lambda}\right)\right|^2}=\frac{\sigma^2}{2\pi}\frac{\left|1+\theta e^{-i\lambda}\right|^2}{\left|1-\phi e^{-i\lambda}\right|^2}, \quad -\pi\le\lambda\le\pi\\
+    &amp;=\frac{\sigma^2}{2\pi}\frac{\left(1+\theta e^{i\lambda}\right)\left(1+\theta e^{-i\lambda}\right)}{\left(1-\phi e^{i\lambda}\right)\left(1-\phi e^{-i\lambda}\right)}
+    =\frac{\sigma^2}{2\pi}\frac{1+\theta^2+2\theta\cos\lambda}{1+\phi^2-2\phi\cos\lambda}.
+  \end{align*}
+&lt;/div&gt;
 
+&lt;br&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Considere
+o processo `\(\{X_t\}\)` representado por
+`$$X_t=A\cos\left(\frac{\pi t}{3}\right)+B\,\mathrm{sen}\left(\frac{\pi t}{3}\right)+Y_t,$$`
+onde `\(Y_t=Z_t+2.5Z_{t-1}\)`, com `\(\{Z_t\}\)` um processo de ruído branco com
+média `\(0\)` e variância `\(\sigma^2\)`, `\(A\)` e `\(B\)` são variáveis aleatórias 
+não-correlacionadas, ambas com média `\(0\)` e variância `\(\eta^2\)` e `\(Z_t\)` é
+não-correlacionado com `\(A\)` e `\(B\)`, para todo `\(t\)`. Calcule a 
+autocovariância e a função de densidade espectral de `\(\{X_t\}\)`.
+
+---
+class: inverse, hide-logo, middle, center
+
+### Função de autocorrelação parcial
 
 ---
 class: animated, fadeLeft
+
+### Função de autocorrelação parcial - I
+
 
 
 
 ---
 class: animated, fadeUp
 
-
+### Função de autocorrelação parcial - I
 
 
 ---
 class: animated, fadeDown
 
+### Função de autocorrelação parcial - I
+
 
 ---
 class: animated, fadeLeft
 
+### Função de autocorrelação parcial - I
 
 
 ---
