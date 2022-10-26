@@ -12,8 +12,9 @@ description: Repositório com material sobre análise de séries temporais.
   - [Plano de ensino](https://bit.ly/3cRbdm6){:target="_blank"}
   - [Processos Estacionários](https://bit.ly/3U49BWQ){:target="_blank"}
   - [Processos lineares e equações em diferenças](https://bit.ly/3QXldrX){:target="_blank"}
-  - [Processos com representação ARMA(p,q)](https://bit.ly/3UYaHnv){:target="_blank"}
-
+  - [Processos com representação ARMA(p,q) - I](https://bit.ly/3UYaHnv){:target="_blank"}
+  - [Processos com representação ARMA(p,q) - II](https://bit.ly/3N1DT9w){:target="_blank"}
+  
 <br/>
 
 * **Conjunto de dados**
