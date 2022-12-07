@@ -14,6 +14,7 @@ description: Repositório com material sobre análise de séries temporais.
   - [Processos lineares e equações em diferenças](https://bit.ly/3QXldrX){:target="_blank"}
   - [Processos com representação ARMA(p,q) - I](https://bit.ly/3UYaHnv){:target="_blank"}
   - [Processos com representação ARMA(p,q) - II](https://bit.ly/3N1DT9w){:target="_blank"}
+  - [Modelagem em processos com representação ARMA(p,q) - I](https://bit.ly/3VK9T5O){:target="_blank"}
   
 <br/>
 
