@@ -48,9 +48,6 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 * [Análise de associação](https://bit.ly/3L4hiaz){:target="_blank"}. (*Em construção*)
 
 
-## Processamento de Linguagem Natural (*Em construção*)
-
-
 ### Referências
 
 - Bargagliotti, A. and Franklin, C. (2021) [Statistics and Data Science for Teachers](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook.pdf){:target="_blank"}. Versão para [impressão](https://www.amstat.org/asa/files/pdfs/SDSTeacherBook-highres.pdf){:target="_blank"}.
@@ -62,6 +59,7 @@ description: Repositório exclusivo para Aprendizado Estatístico. Informações
 - Daumé, H. (2017) [A Course in Machine Learning](https://tinyurl.com/ML-HD3){:target="_blank"}.
 - Dean, J. (2014) [Big Data, Data Mining, and Machine Learning](https://drive.google.com/file/d/1cA9-GNgGBU22jPmCio6FFclTIz4nh9Jl/view){:target="_blank"}.
 - Deisenroth, M. P., Faisal, A. A. and Ong, C. S. (2021) [Mathematics for Machine Learning](https://bit.ly/3gUa1vZ){:target="_blank"}. [Errata](https://mml-book.github.io/){:target="_blank"}.
+- Downey, A. B. (2014) [Think Stats: Exploratory Data Analysis in Python](http://greenteapress.com/thinkstats2/thinkstats2.pdf){:target="_blank"}.
 - Fernandez-Granda, C. (2017) [Probability and Statistics for Data Science](https://drive.google.com/file/d/1h6ViUfuD_CE4GacHvjb0jaZTYQPhBzap/view){:target="_blank"}.
 - Haider, M. (2016) [Getting Started with Data Science: Making Sense of Data with Analytics](https://drive.google.com/file/d/1sGXMIZw6I1lOfasY5CMJb8RoC514FOiL/view){:target="_blank"}.
 - Janssens, J. (2015) [Data Science at the Command Line](https://drive.google.com/file/d/1xD8ejOdS37pI_ys_08zjmnt08qowtHVC/view){:target="_blank"}.
