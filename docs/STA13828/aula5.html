@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 07/12/2022
+### Vitória. ES - 09/12/2022
 ]
 
 ---
@@ -83,7 +83,7 @@ class: animated, fadeUp
 ---
 class: inverse, hide-logo, middle, center
 
-### Identificação
+## 1. Identificação
 
 
 ---
@@ -228,7 +228,7 @@ dado por
 ---
 class: inverse, hide-logo, middle, center
 
-### Testes de raízes unitárias
+## Testes de raízes unitárias
 
 
 ---
@@ -500,25 +500,264 @@ estacionariedade do processo, i.e., se o processo é `\(I(0)\)`.
 &lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Kwiatkowski, D.; Phillips, P. C. B.; Schmidt, P.; Shin, Y. (1992). "Testing the null hypothesis of stationarity against the alternative of a unit root". Journal of Econometrics. 54 (1–3): 159–178.&lt;/font&gt;
 
 ---
+class: inverse, hide-logo, middle, center
+
+## Identificação das ordens `\(p\)` e `\(q\)`
+
+---
 class: animated, fadeInDown
 
-### 
+### Função de autocovariância amostral
+No estudo de processos estacionários de segunda ordem as funções de
+autocovariância e/ou autocorrelação desempenham um papel fundamental
+na análise inferencial dos processos. 
 
+* **Definição**: Seja `\(\{X_t\}\)` um processo estacionário de segunda 
+ordem, o estimador de momentos para a média do processo, `\(\mu\)`, é
+a média amostral dada por
+`$$\bar{X}_n=\frac{1}{n}\sum_{j=1}^nX_j.$$`
+
+O estimador `\(\bar{X}_n\)` é não-viesado para `\(\mu\)`, i.e., `\(\mathbb{E}\left[\bar{X}_n\right]=\mu\)`
+e o Erro Quadrático Médio (EQM) do estimador é dado por
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}\left[\bar{X}_n-\mu\right]^2&amp;=\mathrm{var}\left(\bar{X}\right)=
+    \frac{1}{n^2}\sum_{i=1}^n\sum_{j=1}^n\mathrm{cov}\left(X_i,X_j\right)=
+    \frac{1}{n^2}\sum_{h=-n}^n(n-|h|)\gamma(h)\\
+    &amp;=\frac1n\sum_{h=-n}^n\left(1-\frac{|h|}{n}\right)\gamma(h).
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância amostral
+
+* **Teorema.** Seja `\(\{X_t\}\)` um processo estacionário de segunda ordem
+com média `\(\mu\)` e função de autocovariância `\(\gamma(\cdot)\)`, então, quando
+`\(n\to\infty\)`
+  
+  - `\(\mathrm{var}\left(\bar{X}_n\right)=\mathbb{E}\left[\bar{X}_n-\mu\right]^2\longrightarrow0\)` se `\(\gamma(n)\to0\)`;
+  - `\(n\mathbb{E}\left[\bar{X}_n-\mu\right]^2\longrightarrow\sum_{|h|&lt;\infty}\gamma(h)\)` 
+  se `\(\sum_{h=-\infty}^\infty|\gamma(h)|&lt;\infty\)`.
+
+&gt; * Se `\(\{X_t\}\)` é um processo estacionário gaussiano então 
+`\(\sqrt{n}\left(\bar{X}_n-\mu\right)\)` é assintoticamente normal com
+média `\(0\)` e variância `\(\sum_{h=-n}^n\left(1-\frac{|h|}{n}\right)\gamma(h)\)`.
+
+&gt; * Um intervalo de confiança aproximado de `\(95\%\)` para `\(\mu\)` é dado por
+`$$\left[\bar{X}_n-1.96\left(\frac{1}{n}\sum_{|h|&lt;\infty}\gamma(h)\right)^{1/2}; \bar{X}_n+1.96\left(\frac{1}{n}\sum_{|h|&lt;\infty}\gamma(h)\right)^{1/2}\right].$$`
 
 
 ---
 class: animated, fadeIn
 
-### 
+### Função de autocovariância amostral
+
+* **Definição**: Seja `\(\{X_t\}\)` um processo estacionário de segunda 
+ordem, o estimador da função de autocovariância `\(\gamma(\cdot)\)` e a função
+de autocorrelação `\(\rho(\cdot)\)` são definidas como
+`$$\hat{\gamma}(h)=\frac1n\sum_{t=1}^{n-|h|}\left(X_{t+|h|}-\bar{X}_n\right)\left(X_{t}-\bar{X}_n\right)$$`
+e
+`$$\hat{\rho}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)}.$$`
+
+&gt; * O estimador de `\(\gamma(h)\)`, definido acima, é uma função par e não-negativa 
+definida&lt;sup&gt;1&lt;/sup&gt;;
+
+&gt; * Ambos os estimadores são viesados, mesmo quando o fator `\(\frac1n\)` é
+substituido por `\(\frac{1}{n-h}\)`. No entanto, sob suposições gerais, os
+estimadores são assintoticamente não-viesados para tamanhos de amostra 
+suficientemente grande. 
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt; Vide, Brockwell &amp; Davis (2016), p. 51.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância amostral
+
+&gt; Considere os seguintes estimadores para `\(\gamma(h)\)`:  `\(\hat{\gamma}(h)=\frac1n\sum_{t=1}^{n-|h|}\left(X_{t+|h|}-\bar{X}_n\right)\left(X_{t}-\bar{X}_n\right)\)` e `\(\hat{\gamma}^*(h)=\frac{1}{n-h}\sum_{t=1}^{n-|h|}\left(X_{t+|h|}-\bar{X}_n\right)\left(X_{t}-\bar{X}_n\right)\)`, então
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}\left[\hat{\gamma}(h)\right]&amp;\approx\gamma(h)-\frac{h}{n}\gamma(h)-\left(1-\frac{h}{n}\right)\mathrm{var}\left(\bar{X}_n\right)\\
+    \mathbb{E}\left[\hat{\gamma}^*(h)\right]&amp;\approx\gamma(h)-\mathrm{var}\left(\bar{X}_n\right)
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Quando `\(\{X_t\}\)` é um processo gaussiano, Barttlet (1946) mostrou que
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathrm{var}\left(\hat{\gamma}(h)\right)&amp;\approx\frac1n\sum_{i=-\infty}^\infty\left(\gamma^2(i)+\gamma(i+h)\gamma(i-h)\right)\\
+    \mathrm{var}\left(\hat{\gamma}^*(h)\right)&amp;\approx\frac{1}{n-h}\sum_{i=-\infty}^\infty\left(\gamma^2(i)+\gamma(i+h)\gamma(i-h)\right)
+  \end{align*}
+&lt;/div&gt;
+
+***
+&lt;font size=3&gt;Barttlet, M. S. (1946). On the theoretical specification  of
+sampling properties of autocorrelated time series. Journal of the royal 
+statistical society, B8, 27-41.&lt;/font&gt;
+
+---
+class: animated, fadeInDown
+
+### Função de autocovariância amostral
+
+&gt; A covariância dos estimadores é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathrm{Cov}\left(\hat{\gamma}(h),\hat{\gamma}(h+j)\right)&amp;\approx\frac1n\sum_{i=-\infty}^\infty\left(\gamma(i)\gamma(i+j)+\gamma(i+h+j)\gamma(i-h)\right)\\
+    \mathrm{Cov}\left(\hat{\gamma}^*(h),\hat{\gamma}^*(h+j)\right)&amp;\approx\frac{1}{n-h}\sum_{i=-\infty}^\infty\left(\gamma(i)\gamma(i+j)+\gamma(i+h+j)\gamma(i-h)\right)
+  \end{align*}
+&lt;/div&gt;
+
+No caso da função de autocorrelação, se o processo é gaussiano então
+`\(\hat{\rho}(h)\)` é assintoticamente normal com média `\(\rho(h)\)` e
+variância dada por
+`$$\mathrm{var}\left(\hat{\rho}(h)\right)\approx\frac1n\sum_{i=-\infty}^\infty\left(\rho^2(i)+\rho(i+h)\rho(i-h)-4\rho(h)\rho(i)\rho(i-h)+2\rho^2(h)\rho^2(i)\right)$$`
+Para processos tais que `\(\rho(h)=0\)`, para `\(h&gt;m\)`, a aproximação de 
+Barttlet pode ser reduzida em
+`$$\mathrm{var}\left(\hat{\rho}(h)\right)\approx\frac1n\left(1+2\rho^2(1)+2\rho^2(2)+\cdots+2\rho^2(m)\right).$$`
+
+
+---
+class: animated, fadeRight
+
+### Função de autocorrelação parcial amostral
+
+&gt; Na prática, os valores de `\(\rho(\cdot)\)` são desconhecidos e podem
+ser substituidos pelos valores estimados, i.e.
+`$$\mathrm{var}\left(\hat{\rho}(h)\right)\approx\frac1n\left(1+2\hat{\rho}^2(1)+2\hat{\rho}^2(2)+\cdots+2\hat{\rho}^2(m)\right).$$`
+
+* **Definição (FAC parcial)**: Seja `\(\{X_t\}\)` um processo estacionário
+de segunda ordem. A função de autocorrelação parcial define-se como
+`$$\mathrm{Corr}(X_t,X_{t+h}|X_{t+1},X_{t+2},\ldots,X_{t+h-1}).$$`
+ &gt; A FAC parcial, ou FACP, também pode ser definida como a função `\(\alpha(n)=\mathbb{I}_{\{0\}}(n)+\phi_{nn}\mathbb{I}_{\{2,3,\ldots,\}}(n)\)`,
+ onde `\(\phi_{nn}\)` é obtido calculando o preditor linear usando o 
+ **[algoritmo de Durbin-levinson](https://ffajardo64.github.io/statistical_learning/STA13828/aula4.html#16)**.
+
+A FACP também pode ser calculada considerando o seguinte modelo de 
+regressão
+`$$X_{t+k}=\phi_{k1}X_{t+k-1}+\phi_{k2}X_{t+k-2}+\cdots+\phi_{kk}X_{t}+e_{t+k},$$`
+onde `\(\phi_{ki}\)` denota o `\(i\)`-ésimo parámetro da regressão e `\(e_{t+k}\)` 
+representa o termo de erro com média `\(0\)` e variância constante, sendo
+ele não-correlacionado com `\(X_{t+k-j}\)` para `\(j=1,2,\ldots,k\)`.
+
+
+---
+class: animated, fadeDown
+
+### Função de autocorrelação parcial amostral
+
+Multiplicando por `\(X_{t+k-j}\)` e aplicando o operador valor esperado, 
+temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}[X_{t+k}X_{t+k-j}]&amp;=\phi_{k1}\mathbb{E}[X_{t+k-1}X_{t+k-j}]+\phi_{k2}\mathbb{E}[X_{t+k-2}X_{t+k-j}]+\cdots+\phi_{kk}\mathbb{E}[X_{t}X_{t+k-j}]+\mathbb{E}[e_{t+k}X_{t+k-j}]\\
+    \gamma(j)&amp;=\phi_{k1}\gamma(j-1)+\phi_{k2}\gamma(j-2)+\cdots+\phi_{kk}\gamma(j-k)\\
+  \end{align*}
+&lt;/div&gt;
+
+ou 
+
+`$$\rho(j)=\phi_{k1}\rho(j-1)+\phi_{k2}\rho(j-2)+\cdots+\phi_{kk}\rho(j-k).$$`
+Daí, para `\(j=1,2,\ldots,k\)` temos o seguinte sistema de equações
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \rho(1)&amp;=\phi_{k1}\rho(0)+\phi_{k2}\rho(-1)+\cdots+\phi_{kk}\rho(k-1)\\
+    \rho(2)&amp;=\phi_{k1}\rho(1)+\phi_{k2}\rho(0)+\cdots+\phi_{kk}\rho(k-2)\\
+    &amp;\ \ \vdots\\
+    \rho(k)&amp;=\phi_{k1}\rho(k-1)+\phi_{k2}\rho(k-2)+\cdots+\phi_{kk}\rho(0)
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeLeft
+
+### Função de autocorrelação parcial amostral
+Usando a regra de Cramer, para `\(k=1,2,3,\)`
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \phi_{11}&amp;=\rho(1) &amp; 
+    \phi_{22}&amp;=\frac{\begin{vmatrix}
+    1 &amp; \rho(1)\\
+    \rho(1) &amp; \rho(2)
+    \end{vmatrix}}{\begin{vmatrix}
+    1 &amp; \rho(1)\\
+    \rho(1) &amp; 1
+    \end{vmatrix}}
+    &amp; \phi_{33}&amp;=\frac{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(1)\\
+    \rho(1) &amp; 1 &amp; \rho(2)\\
+    \rho(2) &amp; \rho(1) &amp; \rho(3)
+    \end{vmatrix}}{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(2)\\
+    \rho(1) &amp; 1 &amp; \rho(1)\\
+    \rho(2) &amp; \rho(1) &amp; 1
+    \end{vmatrix}}
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocorrelação parcial amostral
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \phi_{kk}&amp;=\frac{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(2) &amp; \cdots &amp; \rho(k-2) &amp; \rho(1)\\
+    \rho(1) &amp; 1 &amp; \rho(1)&amp; \cdots &amp; \rho(k-3) &amp; \rho(2)\\
+    \vdots &amp; &amp; &amp; &amp; &amp; \vdots\\
+    \rho(k-1) &amp; \rho(k-2) &amp; \rho(k-3) &amp; \cdots &amp; \rho(1) &amp; \rho(k)
+    \end{vmatrix}}{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(2) &amp; \cdots &amp; \rho(k-2) &amp; \rho(k-1)\\
+    \rho(1) &amp; 1 &amp; \rho(1)&amp; \cdots &amp; \rho(k-3) &amp; \rho(k-2)\\
+    \vdots &amp; &amp; &amp; &amp; &amp; \vdots\\
+    \rho(k-1) &amp; \rho(k-2) &amp; \rho(k-3) &amp; \cdots &amp; \rho(1) &amp; 1
+    \end{vmatrix}}
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeUp
+
+### Função de autocorrelação parcial amostral
+
+Na prática, os valores da FACP são calculados usando algoritmos 
+iterativos, iniciando com `\(\hat{\phi}_{11}=\hat{\rho}(1)\)` e 
+`$$\hat{\phi}_{k+1,k+1}=\frac{\hat{\rho}(k+1)-\sum_{j=1}^k\hat{\phi}_{kj}\hat{\rho}_{k+1-j}}{1-\sum_{j=1}^k\hat{\phi}_{kj}\hat{\rho}_j}$$`
+e `\(\hat{\phi}_{k+1,j}=\hat{\phi}_{kj}-\hat{\phi}_{k+1,k+1}\,\hat{\phi}_{k,k+1-j}\)`,
+para `\(=1,2,\ldots,k\)`.
+
+Assumindo que o processo é ruído branco, a variância de `\(\hat{\phi}_{kk}\)` é
+aproximadamente `\(\mathrm{var}\left[\hat{\phi}_{kk}\right]\approx\frac1n\)`.
+
+&gt; * A identificação das ordens de processos com representação de médias 
+móveis pode ser realizada com a função de autocorrelação amostral;
+
+&gt; * Sendo um processo com representação autorregressiva, a identificação da ordem
+do processo é praticamente impossível só com o usao da função de 
+autocorrelação amostral. Nesse cenário, a função de autocorrelação 
+parcial amostral resulta mais adequada para a identificação da ordem 
+autorregressiva.
 
 
 ---
 class: animated, fadeIn
 
-
+### Função de autocorrelação estendida amostral
 
 ---
 class: animated, fadeIn
+
+### Função de autocorrelação inversa amostral
 
 
 
@@ -526,17 +765,16 @@ class: animated, fadeIn
 class: animated, lightSpeedIn
 ### Referências
 
-Box, G. and G. M. Jenkins (1976). _Time Series Analysis: Forecasting
-and Control_. Holden-Day.
+Box, G. and G. M. Jenkins (1976). _Time Series Analysis: Forecasting and Control_.
+Holden-Day.
 
-Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
-Forecasting_. 3rd. Springer Verlag.
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and Forecasting_. 3rd.
+Springer Verlag.
 
-Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University
-Press.
+Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University Press.
 
-Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate
-Methods_. 2nd. Addison Wesley.
+Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate Methods_. 2nd. Addison
+Wesley.
 
 ---
 class: animated, hide-logo, bounceInDown
