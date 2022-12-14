@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 09/12/2022
+### Vitória. ES - 13/12/2022
 ]
 
 ---
@@ -107,7 +107,7 @@ então, a função `\(T\)` pode ser aproximada por
 &lt;br /&gt;&lt;br /&gt;
 
 ***
-&lt;font size=3&gt;Barttlet, M. S. (1974). The use of transformations. Biometrika, 3, 39-52.&lt;/font&gt;
+&lt;font size=3&gt;Barttlet, M. S. (1974) &lt;b&gt;The use of transformations&lt;/b&gt;. Biometrika, 3, 39-52.&lt;/font&gt;
 
 ---
 class: animated, fadeIn
@@ -184,7 +184,7 @@ e
 `$$S_h=\sqrt{\frac{1}{R-1}\sum_{r=1}^R\left(X_{h,r}-\bar{X}_h\right)^2}.$$`
 
 ***
-&lt;font size=3&gt;Guerrero, V. (1993). Time series analysis supported by power transformations. Journal of forecasting, 12, 37-48.&lt;/font&gt;
+&lt;font size=3&gt;Guerrero, V. (1993). &lt;b&gt;Time series analysis supported by power transformations&lt;/b&gt;. Journal of forecasting, 12, 37-48.&lt;/font&gt;
 
 
 ---
@@ -224,6 +224,223 @@ dado por
   \end{align*}
 &lt;/div&gt;
 
+---
+class: inverse, hide-logo, middle, center
+
+## Correção do viés de transformação
+
+---
+class: animated, fadeIn
+
+### Correção do viés de transformação
+
+Na maioria dos casos, as previsões obtidas na análise preditiva devem
+ser apresentadas para o processo observado `\(\{X_t\}\)` e não para o
+processo transformado `\(\{T(X_t)\}\)`. Esse último, pode não ter 
+interpretação prática.
+
+Inicialmente, resulta intuitivo pensar que a aplicação da tranformação
+inversa de `\(T\)` (se existe), i.e. `\(T^{-1}\)`, poderia ser aplicada para
+obter as previsões da série original, entretanto, como mostrado por 
+Granger and Newbold (1976)&lt;sup&gt;1&lt;/sup&gt;, **as propriedades estatísticas desejáveis do preditor linear de `\(T(X_t)\)` não são garantidas se a transformação `\(T\)` não é lineal**.
+
+&gt; Na prática, as familias de tranformações de potência
+&lt;div class="math"&gt;
+  \begin{align*}
+  T(X_t)&amp;=\begin{cases}
+  \frac{X_t^\lambda-1}{\lambda}, &amp; \text{ se } \lambda\ne 0;\\
+  \log(X_t), &amp; \text{ se } \lambda=0.
+  \end{cases} &amp;  \mathrm{ou} &amp; &amp; 
+  T(X_t)&amp;=\begin{cases}
+  X_t^\lambda, &amp; \text{ se } \lambda\ne 0;\\
+  \log(X_t), &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+&gt; são comumente usadas. Para essa transformação é possível calcular o
+fator que permite corrigir aproximadamente o viés introduzido pela
+aplicação da transformação inversa.
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt; Granger, C. W. J . and Newbold, P. (1976)  
+&lt;b&gt;Forecasting transformed series&lt;/b&gt;, Journal of the Royal Statistical
+Society, B-38, 189-203.&lt;/font&gt;
+
+
+---
+class: animated, fadeRight
+
+### Correção do viés de transformação
+
+
+Seja `\(\{X_t\}\)` um processo estacionário de segunda ordem e seja 
+`\(\lambda\)` uma constante. Observe que, para um valor `\(\lambda\)` dado, e
+denotando `\(T(X_{t+h}):=X_{t+h}^{(\lambda)}\)`, então
+`$$X_{t+h}^{(\lambda)}=\sum_{k=0}^\infty\frac{1}{k!}\left.\frac{d^kX_t^{(\lambda)}}{dX_t^{k}}\right|_{X_t=X_0}\left(X_{t+h}-X_0\right)^k,$$`
+onde
+&lt;div class="math"&gt;
+  \begin{align*}
+  \left.\frac{d^kX_t^{(\lambda)}}{dX_t^{k}}\right|_{X_t=X_0}&amp;=
+  \begin{cases}
+  X_0^{(\lambda)}, &amp; \text{ se } k=0;\\
+  X_0^{\lambda-1}, &amp; \text{ se } k=1;\\
+  (\lambda-1)(\lambda-2)\cdots(\lambda-k+1)X_0^{\lambda-k}, &amp; \text{ se } k\ge 2.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Se `\(X_0=\mathbb{E}\left[X_{t+h}|X_t, X_{t-1},\ldots\right]=\mathbb{E}_t[X_{t+h}]\)`, 
+então
+`$$X_{t+h}^{(\lambda)}=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-1}\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]^2+\cdots$$`
+
+---
+class: animated, fadeUp
+
+### Correção do viés de transformação
+
+Dessa forma,
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_tX_{t+h}^{(\lambda)}&amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathbb{E}_t\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]^2\\
+    &amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t\left[X_{t+h}\right].
+  \end{align*}
+&lt;/div&gt;
+
+Da mesma forma, para `\(\left[X_{t+h}^{(\lambda)}\right]^2\)`, temos que
+&lt;div class=math&gt;
+  \begin{align*}
+  \left[X_{t+h}^{(\lambda)}\right]^2&amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\right)^2+2\,\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-1}\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]\\
+  &amp;+\left((\lambda-1)\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}+\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\right)\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]^2+\cdots
+\end{align*}
+&lt;/div&gt;
+
+Daí,
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]^2&amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\right)^2+\left((\lambda-1)\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}+\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\right)\mathrm{var}_t\left[X_{t+h}\right].
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeLeft
+
+### Correção do viés de transformação
+Assim,
+
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]&amp;=\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]^2-\left[\mathbb{E}_tX_{t+h}^{(\lambda)}\right]^2\\
+    &amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\right)^2+\left((\lambda-1)\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}+\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\right)\mathrm{var}_t\left[X_{t+h}\right]\\
+    &amp;-\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t\left[X_{t+h}\right]\right)^2\\
+    &amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\mathrm{var}_t[X_{t+h}]\right)\left(1-\frac{(\lambda-1)^2}{4}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t[X_{t+h}]\right).
+  \end{align*}
+&lt;/div&gt;
+
+Reduzindo mais ainda, podemos aproximar a `\(\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]\)`
+da seguinte forma
+
+`$$\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]=\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\mathrm{var}_t[X_{t+h}].$$`
+
+---
+class: animated, fadeDown
+
+### Correção do viés de transformação
+
+A expressão anterior implica que
+`$$\left[\mathbb{E}_tX_{t+h}\right]^{-\lambda}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]=\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t[X_{t+h}].$$`
+
+Substituindo em `\(\mathbb{E}_tX_{t+h}^{(\lambda)}\)`, temos que
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_tX_{t+h}^{(\lambda)}&amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t\left[X_{t+h}\right]\\
+    &amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{-\lambda}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right].
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Correção do viés de transformação
+
+A equação `\(\mathbb{E}_tX_{t+h}^{(\lambda)}=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{-\lambda}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]\)` permite obter os fatores para correção do viés.
+
+Por exemplo, para o caso `\(\lambda=0\)`, i.e. usando a transformação 
+logaritmica, tem-se
+`$$\mathbb{E}_t\left[\log X_{t+h}\right]=\log\left[\mathbb{E}_tX_{t+h}\right]-\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right].$$`
+ou
+`$$\mathbb{E}_tX_{t+h}=\exp\left\{\mathbb{E}_t\left[\log X_{t+h}\right]\right\}\exp\left\{\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right]\right\}.$$`
+
+Da mesma forma, para o caso `\(\lambda\ne0\)` e considerando a transformação
+de Box &amp; Cox (1964)&lt;sup&gt;1&lt;/sup&gt;, temos que
+`$$\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda}-\left(1+\lambda\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)\left[\mathbb{E}_tX_{t+h}\right]^\lambda+\frac{\lambda(\lambda-1)}{2}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]=0.$$`
+
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Box, G. E. P. and Cox, D. R. (1964) &lt;b&gt;An analysis of transformations&lt;/b&gt;, Journal of the Royal Statistical Society,
+B-26, 21 1-43.&lt;/font&gt;
+
+
+---
+class: animated, fadeRight
+
+### Correção do viés de transformação
+
+A solução da euqação de segundo grau é dada por
+`$$\left[\mathbb{E}_tX_{t+h}\right]^\lambda=\frac{1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\pm\sqrt{\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^2-2\lambda(\lambda-1)\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]}}{2}$$`
+ou
+
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_tX_{t+h}&amp;=\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{1/\lambda}\left(\frac12\pm\frac12\sqrt{1-2\lambda(\lambda-1)\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{-2}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]}\right)^{1/\lambda}\\
+    &amp;=\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{1/\lambda}c_{t,\lambda}(h).
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeDown
+
+### Correção do viés de transformação
+
+Dessa forma,
+`$$\mathbb{E}_tX_{t+h}=T^{-1}\left(\mathbb{E}_t\left[T(X_{t+h})\right]\right)c_{t,\lambda}(h),$$`
+onde
+&lt;div class="math"&gt;
+  \begin{align*}
+  c_{t,\lambda}(h)&amp;=\begin{cases}
+  \left(\frac12+\frac12\sqrt{1-2\lambda(\lambda-1)\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{-2}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]}\right)^{1/\lambda}, &amp; \text{ se } \lambda&lt;1 \text{ e } \lambda\ne0;\\
+  \exp\left\{\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right]\right\}, &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Da mesma forma, para a transformação de potência alternativa, temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+  c_{t,\lambda}(h)&amp;=\begin{cases}
+  \left(\frac12+\frac12\sqrt{1-\frac{2(\lambda-1)}{\lambda}\left(\mathbb{E}_t\left[X_{t+h}^{\lambda}\right]\right)^{-2}\mathrm{var}_t\left[X_{t+h}^{\lambda}\right]}\right)^{1/\lambda}, &amp; \text{ se } \lambda&lt;1 \text{ e } \lambda\ne0;\\
+  \exp\left\{\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right]\right\}, &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Correção do viés de transformação
+Os intervalos de previsão aproximados são dado por
+
+`$$T^{-1}\left(\mathbb{E}_t\left[T(X_{t+h})\right]\right)\pm z_{\alpha/2}\sqrt{\mathrm{var}_t\left(\mathbb{E}_t\left[T(X_{t+h})\right]\right)}.$$`
+O intervalo acima pode ser corrigido com o fator `\(c_{t,\lambda}(h)\)`, levando
+em consideração o tipo de transformação aplicada.
+
+&gt; O desenvolvimento realizado para a correção do viés supõe um valor
+de `\(\lambda\)` conhecido e fixo. Caso que `\(\lambda\)` seja estimado, usando 
+por exemplo o método de máxima verossimilhança, a variância do 
+estimador de `\(\lambda\)` deve ser utilizadas nas equações obtidas. 
+O que certamente mudará o resultado no intervalo de previsão.
 
 ---
 class: inverse, hide-logo, middle, center
@@ -335,8 +552,7 @@ tem como objetivo avaliar a presença de tendência no processo sob estudo.
  &lt;br /&gt;
  
 ***
-
-&lt;font size=3&gt;Dickey, D. A., &amp; Fuller, W. A. (1979). Distribution of the estimators for autoregressive time series with a unit root. Journal of American Statistical Association, 74,
+&lt;font size=3&gt;Dickey, D. A., &amp; Fuller, W. A. (1979) &lt;b&gt;Distribution of the estimators for autoregressive time series with a unit root&lt;/b&gt;. Journal of American Statistical Association, 74,
 427–431.&lt;/font&gt;
 
 
@@ -459,7 +675,7 @@ Fuller, temos por exemplo:
 
 
 ***
-&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Phillips, P. C. B.; Perron, P. (1988). Testing for a Unit Root in Time Series Regression. Biometrika. 75 (2): 335–346.&lt;/font&gt;
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Phillips, P. C. B.; Perron, P. (1988) &lt;b&gt;Testing for a Unit Root in Time Series Regression&lt;/b&gt;. Biometrika. 75 (2): 335–346.&lt;/font&gt;
 
 
 
@@ -497,7 +713,7 @@ estacionariedade do processo, i.e., se o processo é `\(I(0)\)`.
   por Eric Zivot intitulado **[Unit Root Tests](https://bit.ly/3VB3FEV)**.
   
 ***
-&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Kwiatkowski, D.; Phillips, P. C. B.; Schmidt, P.; Shin, Y. (1992). "Testing the null hypothesis of stationarity against the alternative of a unit root". Journal of Econometrics. 54 (1–3): 159–178.&lt;/font&gt;
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Kwiatkowski, D.; Phillips, P. C. B.; Schmidt, P.; Shin, Y. (1992). &lt;b&gt;Testing the null hypothesis of stationarity against the alternative of a unit root&lt;/b&gt;. Journal of Econometrics. 54 (1–3): 159–178.&lt;/font&gt;
 
 ---
 class: inverse, hide-logo, middle, center
@@ -594,8 +810,8 @@ class: animated, fadeIn
 &lt;/div&gt;
 
 ***
-&lt;font size=3&gt;Barttlet, M. S. (1946). On the theoretical specification  of
-sampling properties of autocorrelated time series. Journal of the royal 
+&lt;font size=3&gt;Barttlet, M. S. (1946) &lt;b&gt;On the theoretical specification  of
+sampling properties of autocorrelated time series&lt;/b&gt;. Journal of the royal 
 statistical society, B8, 27-41.&lt;/font&gt;
 
 ---
@@ -750,14 +966,195 @@ autorregressiva.
 
 
 ---
-class: animated, fadeIn
+class: inverse, hide-logo, middle, center
 
-### Função de autocorrelação estendida amostral
+## Estimação dos parâmetros
 
 ---
 class: animated, fadeIn
 
-### Função de autocorrelação inversa amostral
+### Estimação dos parâmetros
+
+Seja `\(\{X_t\}\)` um processo com representação ARMA `\(\!(p,q)\)` causal. O 
+objetivo é calcular as estimativas dos coeficientes dos polinômios 
+autorregressivo e de médias móveis, assim como a variância do ruído 
+branco.
+
+* Para o caso autorregressivo, os procedimentos de Yule-Walker e Burg 
+resultam boas alternativas para estimação. Em geral,
+o algoritmo de Burg fornece melhores estimativas, se comparado com
+a proposta de Yule-Walker, este último também pode ser adapatado
+para o caso ARMA com `\(q&gt;0\)`;
+
+* Para o caso de médias móveis, os algoritmos de inovações e Hannan-Rissanen 
+são uma boa opção para fornecer estimativas preliminares dos parâmetros 
+nas representações ARMA quando `\(q &gt; 0\)`. Neste cenário, o algoritmo de
+inovações proporciona melhores estimativas, se comparado com a proposta 
+de Hannan-Rissanen;
+
+* Para o cenário ARMA, com `\(p &gt; 0\)` e `\(q &gt; 0\)`, o algoritmo de 
+Hannan-Rissanen é geralmente mais bem-sucedidos para encontrar modelos 
+causais.
+
+---
+class: animated, fadeIn
+
+### Estimação pelo método de Yule-Walker
+
+Assumindo `\(\{X_t\}\)` um processo com representação autorregressiva causal,
+tal que `\(X_t=\sum_{j=0}^\infty\psi_jZ_{t-j}\)`.
+
+As equações de Yule-Walker surgem quando multiplicamos a variável `\(X_{t-j}\)` 
+e aplicamo o operador valor esperado, i.e.
+`$$\Gamma_p\phi=\gamma_p,$$`
+onde `\(\Gamma_p=\left[\gamma(i-j)\right]_{i,j=1}^p\)`,  `\(\gamma_p=(\gamma(1),\gamma(2),\ldots,\gamma(p))'\)` e `\(\sigma^2=\gamma(0)-\phi'\gamma_p\)`.
+
+&gt; Como discutido anteriormente, tais equações podem ser úteis para calcular
+`\(\gamma(0), \gamma(1), \ldots, \gamma(p)\)`.
+
+Observe que, se substituimos as autocovariâncias `\(\gamma(j)\)`, `\(j=0,1,2,\ldots,p\)`,
+pelos seus correspondentes estimadores, obtemosum sistema de equações para 
+estimar `\(\phi\)` e `\(\sigma^2\)`, i.e.\\
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{\Gamma}_p\hat{\phi}&amp;=\hat{\gamma}_p &amp; \text{e} &amp; &amp; \hat{\sigma}^2&amp;=\hat{\gamma}(0)-\hat{\phi}'\hat{\gamma}_p,
+  \end{align*}
+&lt;/div&gt;
+
+onde `\(\hat{\Gamma}_p=\left[\hat{\gamma}(i-j)\right]_{i,j=1}^p\)` e   `\(\hat{\gamma}_p=(\hat{\gamma}(1),\hat{\gamma}(2),\ldots,\hat{\gamma}(p))'\)`.
+
+
+---
+class: animated, fadeLeft
+
+### Estimação pelo método de Yule-Walker
+
+Dessa forma, temos que
+`$$\hat{\phi}=\left(\hat{\phi}_1, \hat{\phi}_2,\ldots, \hat{\phi}_p\right)'=\hat{R}_p^{-1}\hat{\rho}_p,$$`
+onde `\(\hat{\rho}_p=\left(\hat{\rho}(1),\hat{\rho}(2),\ldots,\hat{\rho}(p)\right)'\)`, 
+`\(\hat{\sigma}^2=\hat{\gamma}(0)\left[1-\hat{\rho}_p'\hat{R}_p^{-1}\hat{\rho}_p\right]\)` e
+`\(\hat{R}_p=\left[\hat{\rho}(i-j)\right]_{i,j=1}^p\)`.
+
+Daí, a representação causal em termos dos estimadores dos parâmetros é 
+dada por
+`$$X_t-\hat{\phi}_1X_{t-1}-\cdots-\hat{\phi}_pX_{t-p}=Z_{t},$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variância
+`\(\hat{\sigma}^2\)`.
+
+&gt; * Os estimadores pelo método de Yule-Walker são exatamento os
+coeficientes do melhor preditor linear de `\(X_{p+1}\)` em termos de
+`\(X_p,X_{p-1},\ldots,X_1\)`;
+&gt; * Para um processo `\(\{X_t\}\)` com representação AR `\(\!(p)\)`, pode-se
+mostrar que o estimador de Yule-Walker `\(\hat{\phi}\)` é assintoticamente
+normal com média `\(\phi\)` e variância `\(\frac1n\sigma^2\Gamma_p^{-1}\)`.
+&gt; * Os valores de `\(\sigma^2\)` e `\(\Gamma_p\)` podem ser substituidos pelos
+seus respectivos estimadores para obter regiões de confiança assintóticas
+para `\(\phi\)`.
+
+---
+class: animated, fadeUp
+
+### Estimação pelo Algoritmo de Burg
+
+O algoritmo de Burg estima a FACP, i.e. `\(\phi_{11}, \phi_{22}, \ldots\)`,
+minimizando sucessivamente as somas dos quadrados dos erros de 
+previsão de um passo para frente (*forward*) 
+e para trás (*backward*) em relação ao coeficientes `\(\phi_{ii}\)`.
+
+Dadas as realizaçoes `\(x_1,x_2,\ldots,x_n\)` de um processo `\(\{X_t\}\)`
+estacionário com média `\(0\)`, define-se `\(u_i(t)\)`, com `\(t=i+1,\ldots,n\)` e
+`\(0 \le i &lt; n\)`, como o erro de previsão para `\(x_{n+1+i-t}\)`, em termos 
+das `\(i\)` observações precedentes. De igual forma, define-se `\(\nu_i(t)\)`
+como o erro de previsão para `\(x_{n+1+i-t}\)`, em termos 
+das `\(i\)` observações subsequente.
+
+Pode-se mostrar que os erros de predição definidos, i.e. `\(\{u_i(t)\}\)` e
+`\(\nu_i(t)\)` satisfazem
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    u_0(t)&amp;=\nu_0(t)=x_{n+1-t};\\ \\
+    u_i(t)&amp;=u_{i-1}(t-1)-\phi_{ii}\nu_{i-1}(t);\\
+    \nu_i(t)&amp;=\nu_{i-1}(t)-\phi_{ii}u_{i-1}(t-1).
+  \end{align*}
+&lt;/div&gt;
+
+Dessa forma, a estimativa para `\(\phi_{11}\)` é obtida minimizando (com respeito a `\(\phi_{11}\)`)
+`$$\sigma_1^2=\frac{1}{2(n-1)}\sum_{t=2}^n\left[u_1^2(t)+\nu^2_1(t)\right].$$`
+
+---
+class: animated, fadeLeft
+
+### Estimação pelo Algoritmo de Burg
+Para `\(\phi_{22}\)`, a estimativa é obtida minimizando (com respeito a `\(\phi_{22}\)`)
+`$$\sigma_2^2=\frac{1}{2(n-2)}\sum_{t=3}^n\left[u_2^2(t)+\nu^2_2(t)\right].$$`
+Esse passo pode continuar até encontrar a estimativa para `\(\phi_{pp}\)`. Em resumo,
+o algoritmo de Burg pode ser respresentado pelas seguintes equações
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    d(1)&amp;=\sum_{t=2}^n\left(u_0^2(t-1)+\nu_0^2(t)\right); &amp;
+    \phi_{ii}^{B}&amp;=\frac{2}{d(i)}\sum_{t=i+1}^n\nu_{i-1}(t)u_{i-1}(t-1);\\ \\
+    d(i+1)&amp;=\left(1-\left[\phi_{ii}^B\right]^2\right)\,d(i)-\nu_i^2(i+1)-u_i^2(n); &amp;
+    \left[\sigma_i^B\right]^2&amp;=\frac{1}{2(n-i)}\left(1-\left[\phi_{ii}^B\right]^2d(i)\right).
+  \end{align*}
+&lt;/div&gt;
+
+&gt; A distribuição assintótica do estimador pelo algoritmo de Burg
+segue a mesma distribuição que o estimador obtido pelo método de 
+Yule-Walker.
+
+---
+class: animated, fadeRight
+
+### Estimação pelo Algoritmo de Hannan- Rissanen
+O procedimento de estimação proposto por Hannan-Rissanen sugere a 
+aplicação de dois passos:
+
+* Para uma representação AR `\(\!(m)\)`, com `\(m &gt; \max(p,q)\)`, os coeficientes
+da representação são calculados usando o método de Yule-Walker. Dessa forma,
+se `\((\hat{\phi}_{m1}, \hat{\phi}_{m2},\ldots,\hat{\phi}_{mm})'\)` é o vetor 
+de coeficientes estimados, então os resíduos estimados são calculados 
+a partir das equações
+`$$\hat{Z}_t=X_t-\hat{\phi}_{m1}X_{t-1}-\hat{\phi}_{m2}X_{t-2}-\cdots-\hat{\phi}_{mm}X_{t-m},$$`
+onde `\(t=m+1,m+2,\ldots,n\)`;
+
+* Calculados os resíduos `\(\hat{Z}_t\)`, `\(t=m+1,m+2,\ldots,n\)`, estima-se 
+o vetor de parâmetros `\(\beta=\left(\phi',\theta'\right)'\)` pelo
+método de mínimos quadrados, assumindo a regressão de `\(X_t\)` com
+`\(\left(X_{t-1},X_{t-2},\ldots,X_{t-p},\hat{Z}_{t-1},\ldots,\hat{Z}_{t-q}\right)\)`
+com `\(t=m+1+q,\ldots,q\)`, i.e., minimizando
+`$$S(\beta)=\sum_{t=m+1+q}\left(X_t-\phi_1X_{t-1}-\phi_2X_{t-2}-\cdots-\phi_pX_{t-p}-\theta_1\hat{Z}_{t-1}-\cdots-\theta_q\hat{Z}_{t-q}\right)^2.$$`
+
+---
+class: animated, fadeIn
+
+### Estimação pelo Algoritmo de Hannan- Rissanen
+
+Dessa forma, o estimador de Hannan-Rissanen é dado por
+`$$\hat{\beta}=\left(Z'Z\right)^{-1}Z'\mathbf{X}_n,$$`
+onde `\(\mathbf{X}_n=(X_{m+1+q},\ldots,X_n)'\)` e `\(Z\)` é uma matriz 
+`\((n-m-q)\times (p+q)\)`, tal que
+&lt;div clas="math"&gt;
+  \begin{align*}
+    \begin{bmatrix}
+      X_{m+q} &amp; X_{m+q-1} &amp; \cdots &amp; X_{m+q+1-p} &amp; \hat{Z}_{m+q} &amp; \hat{Z}_{m+q-1} &amp; \cdots &amp; \hat{Z}_{m+1}\\
+      X_{m+q+1} &amp; X_{m+q} &amp; \cdots &amp; X_{m+q+2-p} &amp; \hat{Z}_{m+q+1} &amp; \hat{Z}_{m+q} &amp; \cdots &amp; \hat{Z}_{m+2}\\
+      \vdots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \cdots &amp; \vdots\\
+      X_{n-1} &amp; X_{n-2} &amp; \cdots &amp; X_{n-p} &amp; \hat{Z}_{n-1} &amp; \hat{Z}_{n-2} &amp; \cdots &amp; \hat{Z}_{n-q}
+    \end{bmatrix}
+  \end{align*}
+&lt;/div&gt;
+
+e a variância do ruído branco é dada por `\(\sigma_{HR}^2=\frac{S\left(\hat{\beta}\right)}{n-m-q}\)`.
+
+&gt; Para melhorar as estimativas obtidas pelo algoritmo de Hannan-Rissanen,
+um terceiro passo é sugerido, vide Brockwell and Davis (2016), p. 139.
+
+---
+class: animated, fadeDown
+
+### Estimação por máxima verossimilhança
 
 
 
