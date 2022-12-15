@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### LECON/DEST - UFES
 ]
 .date[
-### Vitória. ES - 13/12/2022
+### Vitória. ES - 15/12/2022
 ]
 
 ---
@@ -1156,22 +1156,40 @@ class: animated, fadeDown
 
 ### Estimação por máxima verossimilhança
 
+Seja `\(\{X_t\}\)` um processo estacionário de segunda ordem gaussiano, com 
+média `\(0\)` e função de autocovariância `\(\kappa(i,j)=\mathbb{E}\left[X_iX_j\right]\)`.
+Seja `\(\mathbf{X}_n=(X_1,X_2,\ldots,X_n)'\)` e `\(\hat{\mathbf{X}}=(\hat{X}_1,\hat{X}_2,\ldots,\hat{X}_n)'\)`, onde `\(\hat{X}_j=\mathbb{E}\left[X_j|X_1,X_2,\ldots,X_j-1\right]=P_{j-1}X_j\)`,
+para `\(j\ge2\)`. Seja `\(\Gamma_n=\mathbb{E}\mathbf{X}_n\mathbf{X}_n'\)` não-singular.
 
+A verossimihança de `\(\mathbf{X}_n\)` é dada por
+`$$L\left(\Gamma_n\right)=(2\pi)^{-n/2}\left(\det\Gamma_n\right)^{-1/2}\exp\left\{-\frac12\sum_{j=1}^n\frac{\left(X_j-\hat{X_j}\right)^2}{\nu_{j-1}}\right\},$$`
+onde `\(\nu_j\)`, `\(j=1,2,\ldots,n\)`, representam as variâncias dos erros 
+de predição um passo à frente.
+
+
+&gt; O estimador de máxima verossimilhança de `\(\beta=\left(\phi_1, \phi_2,\ldots,\phi_p,\theta_1,\theta_2,\ldots,\theta_q\right)'\)` é
+assintoticamente normal com média `\(\beta\)` e matriz de covariâncias 
+`\(\frac1n\mathbf{V}(\beta)\)`, esssa última pode ser aproximada pela 
+matriz `\(2H^{-1}(\beta)\)`, onde `\(H\)` representa a matriz hessiana.
+
+***
+Para detalhes, vide Brockwell and Davis (2016).
 
 ---
 class: animated, lightSpeedIn
 ### Referências
 
-Box, G. and G. M. Jenkins (1976). _Time Series Analysis: Forecasting and Control_.
-Holden-Day.
+Box, G. and G. M. Jenkins (1976). _Time Series Analysis: Forecasting
+and Control_. Holden-Day.
 
-Brockwell, P. and R. Davis (2016). _Introduction to Time Series and Forecasting_. 3rd.
-Springer Verlag.
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
 
-Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University Press.
+Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University
+Press.
 
-Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate Methods_. 2nd. Addison
-Wesley.
+Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate
+Methods_. 2nd. Addison Wesley.
 
 ---
 class: animated, hide-logo, bounceInDown
