@@ -62,6 +62,7 @@ description: Repositório com material sobre análise de séries temporais.
   - [ST_aula3.ipynb](https://bit.ly/3rCnHSd){:target="_blank"}.
   - [ST_aula4.ipynb](https://bit.ly/3yGxtqi){:target="_blank"}.
   - [ST_aula5.ipynb](https://bit.ly/3WsuQTn){:target="_blank"}.
+  - [ST_aula6.ipynb](https://bit.ly/3HuYPn4){:target="_blank"}.
   
 **Python**
 
