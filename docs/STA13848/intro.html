@@ -14,11 +14,21 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # STA13848 - Tópicos Especiais em Estatística Computacional
+]
+.subtitle[
 ## Introdução à Ciência de Dados
+]
+.author[
 ### <br /><br />
+]
+.institute[
 ### LECON/DEST - UFES
-### Vitória. ES - 11/04/2022
+]
+.date[
+### Vitória. ES - 27/03/2023
+]
 
 ---
 
@@ -46,7 +56,7 @@ class: animated, slideInRight
 
 
 # Plano de Ensino
-  * **Horário:** Qua 11:00 - 12:00h / Sex 08:00 - 11:00h
+  * **Horário:** Ter/Qui 09:00 - 11:00h
   
   * **Ementa:** Introdução e motivação. Tópicos avançados em estatística computacional. Simulação de experimentos probabilísticos. Aplicações.
   
@@ -75,12 +85,6 @@ class: animated, fadeIn
 --
 
 1. PROCESSAMENTO DE LINGUAGEM NATURAL: 4.1. Tokenização; 4.2. Análise léxica; 4.3. Análise sintática; 4.4. Análise semântica; 4.5. Análise pragmática; 4.6. Visualização de dados textuais.
-
---
-
-1. SISTEMAS RECOMENDADORES&lt;sup&gt;*&lt;/sup&gt;: 5.1. Filtro colaborativo baseado no usuário; 5.2. Filtro colaborativo baseado no produto; 5.3. FunkSVD; 5.4. Seleção de modelos.
-
-&lt;font size="3"&gt;* Vamos tentar chegar nesse tópico.&lt;/font&gt;
 
 ---
 class: animated, slideInRight
@@ -146,7 +150,7 @@ devem ser referenciados no texto;
 **R5.** O documento deve ser dividido em seções, estando estas logicamente 
 ordenadas;
 
-[1] Editado das _regras de elaboração de trabalhos_ por [F. Cribari-Neto](http://www.de.ufpe.br/%7Ecribari/)(DE-UFPE).
+[1] Editado das _regras de elaboração de trabalhos_ por [F. Cribari-Neto](http://www.de.ufpe.br/%7Ecribari/) (DE-UFPE).
 
 ---
 class: animated, fadeIn
@@ -180,21 +184,23 @@ class: inverse, hide-logo, middle, center
 ---
 class: animated, slideInRight
 ### Sobre as aulas
-As aulas terão inicio na quarta-feira dia 20/04/2022 e finalizam na quarta-feira dia 17/08/2022.
+As aulas terão inicio na terça-feira dia 21/03/2023 e finalizam na quinta-feira dia 20/07/2023.
 
-&gt; &lt;span style="color:grey"&gt;O processo ensino-aprendizagem será baseado em aulas expositivas nas quartas das 11:00 às 12:00h e as sextas-feiras das 08:00 às 11h no laboratório de informática do prédio IC-I.&lt;/span&gt;
+&gt; &lt;span style="color:grey"&gt;O processo ensino-aprendizagem será baseado em aulas expositivas nas terças e quintas-feiras das 09:00 às 11:00h no laboratório de Estatística do prédio IC-I.&lt;/span&gt;
 
 * **Frequência:** Será computada durante as aulas. Solicita-se informar a sua participação na aula. Importante não esquecer de informar a presença, pois independente da nota, o aluno que não tiver frequência igual ou superior a `\(75\%\)` será &lt;ins&gt;**reprovado por faltas**&lt;/ins&gt;.
 
 ### Datas importantes
 
-&gt; **Atividade 1:** Sexta-feira 13/05/2022
+&gt; **Não haverá aula**: 24/04/2023 a 28/04/2023 
 
-&gt; **Atividade 2:** Sexta-feira 10/06/2022
+&gt; **Atividade 1:** terça-feira 27/04/2023
 
-&gt; **Atividade 3:** Sexta-feira 15/07/2022
+&gt; **Atividade 2:** quinta-feira 25/05/2023
 
-&gt; **Atividade 4:** Sexta-feira 12/08/2022
+&gt; **Atividade 3:** terça-feira 20/06/2023
+
+&gt; **Atividade 4:** terça-feira 18/07/2023
 
 
 ---
@@ -273,6 +279,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

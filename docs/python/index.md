@@ -42,6 +42,7 @@ description: Repositório com material sobre análise de dados e programação c
 - Kosmaczewski, A. [The State Of Python In 2021](https://deprogrammaticaipsum.com/the-state-of-python-in-2021/?utm_source=newsshowcase&utm_medium=discover&utm_campaign&utm_content). Acessado em 25/08/2021.
 - Matthes, Eric. (2015) [Python Crash Course Cheat Sheet](https://github.com/ehmatthes/pcc/releases/download/v1.0.0/beginners_python_cheat_sheet_pcc_all.pdf){:target="_blank"}.
 - McKinney, W. and the Pandas Development Team (2021) [pandas: powerful Python data analysistoolkit](https://bit.ly/2Ty6A6V){:target="_blank"}. Version 1.3.0. Jul 02.
+- McKinney, W. (2021) [Python for Data Analysis](https://wesmckinney.com/book/){:target="_blank"}. 3rd Ed.
 - Pirnat, M. (2015) [How to make mistakes in python](https://bit.ly/3BncZ5J){:target="_blank"}
 - Rougier, N. (2021) [Scientific Visualization: Python + Matplotlib](https://hal.inria.fr/hal-03427242/document){:target="_blank"}
 - Severance, C. R. (2020) [Python para todos: Explorando dados com python 3](http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf){:target="_blank"}. Outras traduções [aqui](https://www.py4e.com/book.php){:target="_blank"}
