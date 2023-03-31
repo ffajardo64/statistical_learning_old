@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análise de Séries Temporais</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análise de Séries Temporais
+]
+.subtitle[
+## Processos estacionários
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 21/09/2022
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+
+class: animated, fadeIn
+
+
+
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Processos estacionários - I
+
+
+* **Definição (Processo estocástico)**: Seja `\(\cal{T}\)` um conjunto 
+arbitrário de índices. Um *processo estocástico* é uma coleção
+`\(\{X_t; t\in\cal{T}\}\)`, tal que, `\(X_t\)` é uma variável aleatória para 
+cada `\(t\in\cal{T}\)`, definidas no mesmo espaço de probabilidade 
+`\((\Omega, \cal{F}, \mathbb{P})\)`.
+
+&gt; * As variáveis aleatórias do processo estocástico são na verdade 
+funções de dois argumentos `\(X_t(\omega)\)`, onde `\(t\in\cal{T}\)` e 
+`\(\omega\in\Omega\)`;
+
+&gt; * O conjunto `\(\cal{T}\)` é normalmente considerado como o conjunto de 
+números naturais `\(\mathbb{N}\)`, inteiros `\(\mathbb{Z}\)` ou mesmo o 
+conjunto dos números reais `\(\mathbb{R}\)`;
+
+&gt; * Para cada `\(t\in\cal{T}\)` fixo, `\(X_t(\omega)\)` é uma variável aleatória
+com uma distribuição de probabilidade. Por exemplo, se consideramos
+`\(X_{t_1}(\omega), X_{t_2}(\omega)\)` e `\(X_{t_3}(\omega)\)` variáveias
+aleatórias de um processo estocástico, podemos assumir de cada uma dessas
+variáveis possuem funções de probabilidade diferentes. **Claro, assumindo 
+que elas existam!**
+
+***
+
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016).
+
+---
+class: animated, fadeIn
+
+### Processos estacionários - I
+
+&lt;img src="images/processo_estocastico.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Processos estacionários - I
+
+&gt; * Para cada `\(\omega\in\Omega\)` fixo, teremos uma função de `\(t\)`, i.e.,
+uma realização (ou trajetória) do processo estocástico. Por exemplo,
+suponha que cada realização do processo é denotada por 
+`\(X^{(1)}_t, X^{(2)}_t, X^{(3)}_t, \ldots, X^{(n)}_t\)`. Cada realização
+do processo é uma função determinística de `\(t\)`.
+
+&gt; &lt;br /&gt;
+
+&gt; * O conjunto dos valores de `\(\{X_t; t\in{\cal T}\}\)` é chamado de *espaço dos estados*
+do processo estocástico e os valores de `\(X_t\)` podem ser chamados de *estados*.
+
+&gt; &lt;br /&gt;
+
+&gt; * Se `\({\cal T}\)` for finito ou enumerável, e.g., `\({\cal T}:=\mathbb{Z}\)`, o
+processo é considerado de **parâmetro discreto**. Se `\({\cal T}\)` for infinito
+ou não-enumerável, e.g., `\({\cal T}:=\mathbb{R}\)`, teremos um processo de
+**parâmetro contínuo**. O espaço de estados também pode ser discreto ou contínuo.
+
+&lt;br /&gt;&lt;br /&gt;
+
+***
+
+Para detalhes, sugere-se a leitura do livro de Morettin and Toloi (2006).
+
+---
+class: animated, fadeIn
+
+### Processos estacionários - I
+
+&lt;img src="images/processo_estocastico2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInLeft
+
+### Processos estacionários - II
+
+Alguns exemplos de processos estocásticos:
+
+* **Sinusóide com fase e amplitude aleatória**: Sejam `\(A\)` e `\(\Theta\)`
+duas variáveis aleatórias, tal que, `\(\mathbb{P}\left[A\ge0\right]=1\)` e
+`\(\Theta\)` segue uma distribuição uniforme em `\(\left[0,2\pi\right)\)`.
+
+  Um processo estocástico `\(\{X_t; t\in\mathbb{R}\}\)` pode ser definido
+  em termos de `\(A\)` e `\(\Theta\)` da seguinte forma:
+  `$$X_t=r^{-1}A\cos\left(\nu t + \Theta\right), \quad \text{(com prob. 1)}$$`
+  onde `\(\nu\ge0\)` e `\(r&gt;0\)`.
+
+  As realizações do processo `\(\{X_t\}\)` são funções de `\(t\)`, quando `\(\omega\in\Omega\)`
+é um valor fixo, i.e., `\(X_t(\omega)=r^{-1}A(\omega)\cos\left(\nu t + \Theta(\omega)\right)\)` ou
+escrito de outra forma
+`$$x_t=r^{-1}a\cos\left(\nu t + \theta\right).$$`
+---
+class: animated, slideInLeft
+
+### Processos estacionários - II
+
+* **Passeio aleatório**: Seja `\(\{S_t; t=0, 1, 2, \ldots\}\)` uma sequência
+de variáveis aleatórias, tal que
+`$$S_t=X_1+X_2+\cdots+X_t = \sum_{i=1}^tX_i, \quad t=1,2,\ldots, \quad \text{(com prob. 1)}$$`
+onde `\(\{X_t\}\)` é uma sequência de variáveis aleatórias independentes e 
+identicamente distribuidas (_iid_). Um passeio aleatório com média zero 
+é obtido quando `\(S_0=0\)`.
+
+  Podemos considerar outros cenários, por exemplo, quando 
+  `\(\{X_t; t= 1, 2, \ldots\}\)` é um *processo binário*, i.e., uma 
+  sequência de variáveis aleatórias independentes, tal que
+  `$$\mathbb{P}\left[X_t=1\right]=\mathbb{P}\left[X_t=-1\right]=\frac12.$$`
+  Nesse casso, o passeio aleatório é chamado de *simétrico simple*.
+
+
+---
+class: animated, slideInLeft
+
+### Processos estacionários - II
+
+* **Definição (Série temporal)**: Uma série temporal é a realização de 
+um processo estocástico.
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-3-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Processos estacionários - II
+
+* **Definição (Série temporal)**: Uma série temporal é a realização de 
+um processo estocástico.
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-6-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - II
+
+* **Definição (Funções de distribuição de um processo estocástico)**: Seja 
+`\(\{X_t; t\in{\cal T}\subset \mathbb{R}\}:=\{X_t\}\)` um processo estocástico e seja
+`\({\cal I}=\left\{\mathbf{t}=\left(t_1,t_2,\ldots,t_n\right)'\in{\cal T}^n: t_1&lt;t_2&lt;\cdots&lt;t_n, n=1,2,3,\ldots\right\}\)`. Então, o conjunto de funções de distribuição (finito dimensionais) de
+`\(\{X_t\}\)` são as funções `\(\{F_{\mathbf{t}}(\cdot); \mathbf{t}\in{\cal I}\}\)`, tal que
+`$$F_{\mathbf{t}}(\mathbf{x})=\mathbb{P}\left[X_{t_1}\le x_1, X_{t_2}\le x_2,\ldots,X_{t_n}\le x_n\right],$$`
+onde `\(\mathbf{x}=\left(x_1,x_2,\ldots,x_n\right)'\in\mathbb{R}^n\)`.
+
+
+&gt; Um processo estocástico `\(\{X_t\}\)` estará especificado se conhecermos
+todas as distribuições conjuntas
+`$$F_{\mathbf{t}}(\mathbf{x})=F\left(x_1,x_2,\ldots,x_n; t_1,t_2,\ldots,t_n\right)=\mathbb{P}\left[X_{t_1}\le x_1, X_{t_2}\le x_2,\ldots,X_{t_n}\le x_n\right].$$`
+Isto significa que , para `\(n=1\)`, as distribuições univariadas para `\(X_{t_1}\)`,
+com `\(t_1\in\cal{T}\)`, são conhecidas. Para `\(n=2\)`, as distribuições bivariadas
+para `\(\left(X_{t_1},X_{t_2}\right)\)`, com `\(t_1,t_2\in\cal{T}\)`, também são
+conhecidas, e assim por diante.
+
+---
+class: animated, slideInLeft
+
+### Processos estacionários - II
+
+* **Teorema de extensão de Kolmogorov**: As funções de distribuição
+`\(\{F_{\mathbf{t}}(\cdot); \mathbf{t}\in{\cal I}\}\)` são funções de 
+distribuição de um processo estocástico se e somente se (_see_), para
+qualquer `\(n\in\{1,2,3,\ldots\}\)`, `\(\mathbf{t}=\left(t_1,t_2,\ldots,t_n\right)'\in{\cal I}\)`
+e `\(1\le i\le n\)`,
+`$$\underset{x_i\to\infty}{\lim} F_{\mathbf{t}}\left(\mathbf{x}\right)=F_{\mathbf{t}_{(i)}}\left(\mathbf{x}_{(i)}\right),$$`
+onde `\(\mathbf{t}_{(i)}\)` e `\(\mathbf{x}_{(i)}\)` representam os vetores sem
+a `\(i\)`-ésima componente dos vetores `\(\mathbf{t}\)` e `\(\mathbf{x}\)`, respectivamente.
+
+&lt;img src="images/Brownianmotion.gif" width="25%" style="float:right; padding:10px" /&gt;
+
+&gt; * O teorema de extensão de Kolmogorov garante que uma coleção adequadamente 
+"consistente" de distribuições (finito dimensionais) definirá um processo 
+estocástico;
+
+&gt; * A "consistência" é definida pela condição do teorema;
+
+&gt; * O teorema de extensão de Kolmogorov permite mostrar a existência de
+um _movimento Browniano_. O movimento Browniano é um dos mais simples 
+processos da estocásticos de tempo contínuo.
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - III
+
+Na prática, o conhecimento de todas as funções de distribuição é um
+cenário difícil de acontecer. Isso leva a considerar o estudo dos
+momentos estatísticos associados a `\(F_{\mathbf{t}}(\mathbf{x})\)`, 
+i.e., para `\(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\)`, com `\(n=1,2,3,\ldots\)`:
+`$$\mathbb{E}\left[X_{t_1}^{r_1}X_{t_2}^{r_2}\cdots X_{t_n}^{r_n}\right]=\int_{-\infty}^\infty\cdots\int_{-\infty}^\infty x_{t_1}^{r_1}x_{t_2}^{r_2}\cdots x_{t_n}^{r_n}\,dF_{\mathbf{t}}(\mathbf{x}).$$`
+* **Definição (Função da média)**: A função da média (ou, simplesmente, *média*) 
+de `\(\{X_t\}\)` é definida por 
+`$$\mu_X(t)=\mathbb{E}\left[X_t\right]=\int_{\mathbb{R}}x\,dF_t(x);$$`
+
+* **Definição (Função de autocovariância)**: Seja `\(\{X_t\}\)` um processo estocástico
+com `\(\mathbb{E}\left[X_t^2\right]&lt;\infty\)`, para todo `\(t\in{\cal T}\)`, então, a 
+função de autocovariância (ou, simplesmente, *autocovariância*) de `\(\{X_t\}\)` é 
+definida por 
+`$$\gamma_X(t_1,t_2)=\mathrm{Cov}\left(X_{t_1},X_{t_2}\right)=\mathbb{E}\left[(X_{t_1}-\mathbb{E}[X_{t_1}])(X_{t_2}-\mathbb{E}[X_{t_2}])\right],$$`
+para todo `\(t_1,t_2\in{\cal T}\)`.
+
+
+---
+class: animated, slideInLeft
+
+### Processos estacionários - III
+
+&gt; * Um caso particular da função de autocovariância, quando `\(t_1=t_2=t\)`,
+é a função da variância de `\(\{X_t\}\)`, i.e.,
+`$$\gamma_X(t,t)=\mathrm{Var}\left(X_{t}\right)=\mathbb{E}X_{t}^2-\mathbb{E}^2[X_{t}];$$`
+
+&gt; * Podemos definir a função de autocorrelação de `\(\{X_t\}\)` como
+  `$$\rho_X(t_1,t_2)=\frac{\gamma_X(t_1,t_2)}{\left(\gamma_X(t_1,t_1)\gamma_X(t_2,t_2)\right)^{\frac12}};$$`
+
+&gt; * Na área financeira, resulta importante considerar as funções de assimetria
+e curtose, associadas ao terceiro e quarto momentos;
+
+&gt; * Na prática, será necessário estimar as funções da média e autocovariância.
+
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - IV
+
+* **Definição (Estacionariedade estrita (ou forte))**: Um processo estocástico
+`\(\{X_t; t\in\mathbb{Z}\}\)` diz-se **estritamente** estacionário se todas as
+distribuições conjuntas entre `\(\left(X_{t_1}, X_{t_2}, \ldots, X_{t_k}\right)'\)`
+e `\(\left(X_{t_1+h}, X_{t_2+h}, \ldots, X_{t_k+h}\right)'\)` são invariantes
+para todos os inteiros positivos `\(k\)` e para todo `\(t_1,t_2,\ldots, t_k, h\in\mathbb{Z}\)` .
+
+&gt; * A estacionariedade estrita sugere que todas as distribuições unidimensionais
+são invariantes sob translações do tempo. Dessa forma, a média e a variância são
+constantes ao longo do tempo.
+
+&gt; * Do mesmo modo, todas as distribuições bidimensionais só dependem das diferenças
+de tempos, i.e., para `\(t_1, t_2\in\mathbb{Z}\)`, `\(\gamma_X\left(t_1, t_2\right)=\gamma_X\left(t_1+t, t_2+t\right)\)`.
+Fazendo `\(t=-t_2\)` (ou `\(t=-t_1\)`), então, temos que
+`$$\gamma_X\left(t_1, t_2\right)=\gamma_X\left(t_1-t_2, 0\right).$$`
+Dessa forma, fica evidente que a função de autocovariância é função de 
+`\(|t_1-t_2|\)`. Assim, podemos escrever
+`$$\gamma_X\left(h\right)=\gamma_X\left(h, 0\right)=\gamma_X\left(h+t, t\right)=\mathrm{Cov}\left(X_{t+h},X_t\right).$$`
+
+---
+class: animated, slideInLeft
+
+### Processos estacionários - IV
+
+#### Algumas considerações
+
+* Se `\(\{X_t\}\)` for **estritamente** estacionário, então
+`\(\left(X_{1}, X_{2}, \ldots, X_{k}\right)'\)`
+e `\(\left(X_{1+h}, X_{2+h}, \ldots, X_{k+h}\right)'\)` têm as mesmas distribuições
+conjuntas para todo `\(k\in\{1,2,3,\ldots\}\)` e `\(h\in\mathbb{Z}\)`;
+
+* Se `\(\{X_t\}\)` for **estritamente** estacionário, então todas as
+variáveis aleatórias `\(X_t\)` são identicamente distribuidas;
+
+* Sendo `\(\gamma_X\left(h\right)=\mathrm{Cov}\left(X_{t+h},X_t\right)\)`
+a função de autocovariância de um processo estocástico estritamente
+estacionário, então, a função de autocorrelação é dada por 
+`\(\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\mathrm{Corr}\left(X_{t+h},X_t\right)\)`, para `\(h\in\mathbb{Z}\)`;
+
+* Na prática, a estacionariedade estrita é muito difícil de verificar. 
+Uma alternativa é considerar a caracterização de processos estocásticos 
+por meio dos momentos de primeira e segunda ordem.
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - IV
+
+* **Definição (Estacionariedade fraca)**: Um processo estocástico
+`\(\{X_t; t\in\mathbb{Z}\}\)` diz-se **fracamente estacionário** ou **estacionário de segunda ordem**
+ou simplesmente **estacionário** se:
+
+  - `\(\mathbb{E}\left|X_t\right|^2&lt;\infty\)`;
+  
+  - `\(\mathbb{E}X_t=m\)`, onde `\(m\)` é constante;
+  
+  - `\(\gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)\)`, `\(h\in\mathbb{Z}\)`.
+
+#### Algumas considerações
+
+* Se `\(\{X_t; t\in\mathbb{Z}\}\)` é estritamente estacionário, então
+as variáveis `\(X_t\)` seguem a mesma distribuição para todos os valores
+`\(t\in\mathbb{Z}\)`. Se a condição `\(\mathbb{E}\left|X_t\right|^2&lt;\infty\)` é
+satisfeita, então, `\(\mathbb{E}X_t\)` e `\(\gamma_X(0)\)` são constantes. Ainda, 
+`\(X_{t}\)` e `\(X_{t+h}\)` seguem a mesma distribuição conjunta para todo `\(h\in\mathbb{Z}\)`.
+
+  Em outras palavras, **um processo estritamente estacionário, com segundos
+  momentos finitos, é estacionário**. 
+  
+  A afirmação recíproca não é verdadeira!
+
+---
+class: animated, slideInRight
+
+### Processos estacionários - IV
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja `\(\{X_t\}\)`
+uma sequência de variáveis aleatórias independentes, tal que `\(X_t\)` segue uma
+distribuição exponencial com parâmetro `\(1\)`, quando `\(t\)` é ímpar, e uma
+distribuição normal com média `\(1\)` e variância `\(1\)`, quando `\(t\)` é par.
+
+Nesse cenário, resulta evidente que `\(\gamma_X(0)=1\)` e `\(\gamma_X(h)=0\)`, para
+todo `\(h\ne0\)`, i.e., o processo `\(\{X_t\}\)` é estacionário de segunda ordem.
+
+Mas, `\(X_1\)` e `\(X_2\)` seguem diferentes distribuições, dessa forma `\(\{X_t\}\)` não
+é estritamente estacionário.
+
+
+* **Definição (Processo Gaussiano)**: O processo `\(\{X_t\}\)` diz-se um
+**processo gaussiano** *see* as funções de distribuição de `\(\{X_t\}\)`
+são todas normais multivariadas.
+
+&gt; Se `\(\{X_t; t\in\mathbb{Z}\}\)` é um processo gaussiano estacionário, 
+então o processo é estritamente estacionário, pois, para todo `\(n\in\{1,2,3,\ldots\}\)`
+e para todo `\(t_1, t_2, \ldots, t_n, h \in \mathbb{Z}\)`, os vetores aleatórios
+`\(\left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right)'\)`
+e `\(\left(X_{t_1+h}, X_{t_2+h}, \ldots, X_{t_n+h}\right)'\)` seguem a mesma distribuição.
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)` de variáveis aleatórias *iid*, com `\(\mathbb{E}X_t=0\)` e
+`\(\mathbb{E}X_t^2=\sigma^2&lt;\infty\)` para todo `\(t\)`, então
+`$$\gamma_{X}(h)=\begin{cases}\sigma^2, &amp; \text{para } h=0;\\ 0, &amp; \text{para } h\ne0.\end{cases}$$`
+O processo `\(\{X_t\}\)` é estacionário e será chamado de **_ruído iid_**.
+
+--
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)` de variáveis aleatórias não-correlacionadas, com
+média `\(0\)` e variância `\(\sigma^2\)`. Dessa forma, `\(\{X_t\}\)` é um processo
+estacionário com a mesma função de autocovariância que no caso do *ruído iid*.
+Nesse cenário, o processo `\(\{X_t\}\)` é chamado de **_ruído branco_**.
+
+--
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)`, tal que
+`$$X_t=\begin{cases}Y_t, &amp;  \text{para }t \text{ par };\\ Y_t+1, &amp; \text{para }t \text{ ímpar },\end{cases} \quad (\text{com prob. }1)$$`
+onde `\(\{Y_t\}\)` é um processo estacionário. Embora `\(\gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)=\gamma_Y(h)\)`,
+o processo `\(\{X_t\}\)` não é estacionário, pois a média não é constante.
+
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{S_t\}\)` um passeio aleatório, i.e., `\(S_t=\sum_{i=1}^tX_i\)` (com prob. 1),
+com `\(\{X_t\}\)` um ruído *iid*, então, `\(\mathbb{E}S_t=0\)`, 
+`\(\mathbb{E}S_t^2=t\,\sigma^2&lt;\infty\)`, para todo `\(t=1, 2, 3, \ldots\)`.
+Ainda,
+`$$\gamma_{S}(h)=\mathrm{Cov}\left(S_{t+h}, S_t\right)=\mathrm{Cov}\left(S_{t}+X_{t+1}+\cdots+X_{t+h}, S_t\right)=\mathrm{Cov}\left(S_t, S_t\right)=t\,\sigma^2.$$`
+Como `\(\gamma_S(h)\)` depende de `\(t\)`, o processo `\(\{S_t\}\)` é não-estacionário.
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, para `\(a, b\)` e `\(c\)` constantes e 
+`\(\mathbb{E}X^2&lt;\infty\)`, `\(\mathbb{E}Y^2&lt;\infty\)` e `\(\mathbb{E}Z^2&lt;\infty\)`,
+então, `\(\mathrm{Cov}\left(aX+bY+c, Z\right)=a\,\mathrm{Cov}\left(X, Z\right)+b\,\mathrm{Cov}\left(Y, Z\right)\)`. &lt;/span&gt;
+
+--
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t\}\)`, tal que `\(X_t=A\cos(\theta t)+B\,\mathrm{sen}(\theta t)\)` (com prob. 1),
+onde `\(A\)` e `\(B\)` são duas variáveis aleatórias não-correlacionadas com médias `\(0\)`
+e variâncias `\(1\)` e `\(\theta\in[-\pi,\pi]\)`. A função de autocovariância do
+processo é dada por
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)&amp;=\mathrm{Cov}\left(A\cos(\theta(t+h))+B\,\mathrm{sen}(\theta (t+h)),A\cos(\theta t)+B\,\mathrm{sen}(\theta t)\right)\\
+  &amp;=\cos(\theta t)\cos(\theta(t+h))+\mathrm{sen}(\theta t)\,\mathrm{sen}(\theta(t+h))\\
+  &amp;=\cos(\theta h).
+  \end{align}
+&lt;/div&gt;
+
+Daí, o processo `\(\{X_t\}\)` é estacionário.
+
+---
+class: animated, lightSpeedIn
+
+### Alguns exemplos - III
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t; t\in\mathbb{Z}\}\)`, tal que `\(X_t=Z_t+\theta Z_{t-1}\)` (com prob. 1),
+onde `\(\{Z_t\}\)` representa um processo de ruído branco com média `\(0\)` e variância `\(\sigma^2&lt;\infty\)`, 
+`\(\theta\)` um escalar.
+Então, `\(\mathbb{E}X_t=0\)`, `\(\mathbb{E}X_t^2=\sigma^2\left(1+\theta^2\right)\)` e
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)
+  &amp;=\begin{cases}
+  \sigma^2\left(1+\theta^2\right), &amp; \text{ para } h=0;\\
+  \sigma^2\theta, &amp; \text{ para } h=\pm1;\\
+  0, &amp; \text{ para } |h|&gt;1.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+Daí, o processo `\(\{X_t\}\)` é estacionário. Ainda, um processo `\(\{X_t\}\)` com representação
+`\(X_t=Z_t+\theta Z_{t-1}\)` é chamado de processo de **_médias móveis de primeira ordem_**. 
+
+A função de autocorrelação do processo é dada por
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \rho_X(h)=\mathrm{Corr}\left(X_{t+h},X_t\right)
+  &amp;=\begin{cases}
+  1, &amp; \text{ para } h=0;\\
+  \frac{\theta}{1+\theta^2}, &amp; \text{ para } h=\pm1;\\
+  0, &amp; \text{ para } |h|&gt;1.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, slideInLeft
+
+### Alguns exemplos - IV
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+uma sequência `\(\{X_t; t\in\mathbb{Z}\}\)`, tal que `\(X_t=\phi X_{t-1}+Z_t\)` (com prob. 1),
+onde `\(\{Z_t\}\)` representa um processo de ruído branco com média `\(0\)` e 
+variância `\(\sigma^2&lt;\infty\)`, tal que `\(Z_t\)` é não-correlacionado com `\(X_s\)`, 
+para todo `\(s&lt;t\)` e `\(\phi\)` um escalar, tal que `\(|\phi|&lt;1\)`. Então, `\(\mathbb{E}X_t=0\)`.
+
+Para calcular a função de autocovariância, podemos multiplicar `\(X_t=\phi X_{t-1}+Z_t\)`
+por `\(X_{t-h}\)` e aplicar o operador valor esperado da seguinte forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(h)=\mathbb{E}\left[X_t\,X_{t-h}\right]&amp;=\mathbb{E}\left[\phi X_{t-1}\,X_{t-h}+Z_t\,X_{t-h}\right]
+  =\phi\,\mathbb{E}\left[X_{t-1}\,X_{t-h}\right]+\mathbb{E}\left[Z_t\,X_{t-h}\right]\\
+  &amp;=\phi\gamma_X(h-1)+0=\phi\gamma_X(h-1).
+  \end{align}
+&lt;/div&gt;
+
+Daí, `$$\gamma_X(h)=\phi\gamma_X(h-1)=\phi^h\gamma_X(0).$$` 
+Dessa forma, o processo `\(\{X_t\}\)` é estacionário. 
+
+Um processo `\(\{X_t\}\)`, sob as condições acima, é chamado de processo **_autorregressivo de primeira ordem_**. 
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos - IV
+
+Para calcular `\(\gamma_X(0)\)`, podemos usar a propriedade de linearidade da
+covariância,
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma_X(0)&amp;=\mathrm{Cov}\left(X_t,X_t\right)=\mathrm{Cov}\left(\phi X_{t-1}+Z_t,\phi X_{t-1}+Z_t\right)\\
+  &amp;=\phi^2\gamma_X(0)+\sigma^2.
+  \end{align}
+&lt;/div&gt;
+
+Dessa forma, `\(\gamma_X(0)=\dfrac{\sigma^2}{1-\phi^2}\)`.
+
+
+Ainda, pode-se notar que, `\(\gamma_X(h)=\gamma_X(-h)\)`, assim, a função de autocorrelação do processo é dada por
+`$$\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\phi^{|h|}, \quad \text{para } h\in\mathbb{Z}.$$`
+
+
+---
+class: inverse, hide-logo, middle, center
+
+### Função de autocovariância de processos estacionários
+
+---
+class: animated, lightSpeedIn
+
+### Função de autocovariância - I
+
+* **Proposição.** Seja `\(\gamma(\cdot)\)` a função de autocovariância de 
+um processo estacionário de segunda ordem `\(\{X_t; t\in\mathbb{Z}\}\)`, então, satisfaz
+as seguintes propriedades:
+
+  - `\(\gamma(0)\ge0\)`;
+
+  - `\(|\gamma(h)|\le\gamma(0)\)`, para todo `\(h\in\mathbb{Z}\)`;
+  
+  - `\(\gamma(\cdot)\)` é uma função par, i.e., `\(\gamma(h)=\gamma(-h)\)`, para todo `\(h\in\mathbb{Z}\)`;
+  
+  - `\(\gamma(h)\)` é não-negativa definida, i.e., 
+    `$$\sum_{i=1}^n\sum_{j=1}^na_i\gamma(i-j)a_j\ge0,$$`
+  para `\(n=1, 2, \ldots\)` e todos os vetores `\(\mathbf{a}=(a_1, a_2, \ldots,a_n)'\in\mathbb{R}^n\)`.
+
+  *Prova:* A primeira propriedade é garantida pela desigualdade de Jensen,
+  pois, `\(\gamma(0)=\mathrm{Var}(X_t)\ge0\)`. 
+  
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+---
+class: animated, slideInLeft
+
+### Função de autocovariância - I  
+
+*Prova:* 
+A segunda propriedade é garantida pela desigualdade de Cauchy-Schwarz&lt;sup&gt;1&lt;/sup&gt;, i.e., 
+`$$\left|\mathrm{Cov}\left(X_{t+h}, X_t\right)\right|\le\left(\mathrm{Var}(X_{t+h})\right)^{\frac12}\left(\mathrm{Var}(X_{t})\right)^{\frac12}.$$`
+A terceira propriedade é garantida pela definição da função de 
+autocovariância, ou seja,
+`$$\gamma(h)=\mathrm{Cov}\left(X_{t+h},X_t\right)=\mathrm{Cov}\left(X_{t},X_{t+h}\right).$$`
+
+Para verificar a última propriedade, considere o vetor `\(\mathbf{Z}_n=(X_1, X_{2},\ldots, X_n)'\)`,
+então,
+&lt;div class="math"&gt;
+  \begin{align}
+    0\le\mathrm{Var}\left(\mathbf{a}'\mathbf{Z}_n\right)=\mathbf{a}'\Gamma_n\mathbf{a}=\sum_{i=1}^n\sum_{j=1}^na_i\gamma(i-j)a_j,
+  \end{align}
+&lt;/div&gt;
+
+onde `\(\Gamma_n\)` representa a matriz de covariâncias do vetor aleatório `\(\mathbf{X}_n\)`.
+
+&lt;br/&gt;
+
+***
+Para detalhes, sugere-se a revisão da p. 162 do Mood, Graybill, and Boes (1974).
+
+---
+class: animated, slideInLeft
+
+### Função de autocovariância - II
+
+* **Teorema.** Uma função de valor real, definida em `\(\mathbb{Z}\)`, é
+função de autocovariância de um processo estacionário *see* ela é uma
+função par e ela é não-negativa definida.
+
+  *Prova*.  Sugere-se revisar o Teorema 1.5.1 em Brockwell and Davis (2006).
+
+#### Algumas considerações
+
+&gt; * Para cada função de autocovariância `\(\gamma(\cdot)\)`, existe um processo 
+estacionário Gaussiano com média `\(0\)` e `\(\gamma(\cdot)\)` como a sua função 
+de autocovariância;
+
+&gt; * Uma função de autocorrelação `\(\rho(\cdot)\)` tem todas as propriedades de
+uma função de autocovariância, e ainda satisfaz a condição adicional que `\(\rho(0)=1\)`;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a função `\(\kappa(h)=\cos(\theta h)\)`, para `\(h\in\mathbb{Z}\)`. De fato,
+`\(\kappa(h)\)` é função de autocovariância de um processo estacionário, pois
+é uma função par. Para mostrar que `\(\kappa(h)\)` é não-negativa definida, 
+observe que:
+&lt;div class="math"&gt;
+  \begin{align}
+    \sum_{i=1}^n\sum_{j=1}^na_i\kappa(i-j)a_j&amp;=\sum_{i=1}^n\sum_{j=1}^na_i\cos\left(\theta(i-j)\right)\,a_j\\
+    &amp;=\sum_{i=1}^n\sum_{j=1}^na_i\left[\cos\theta i\cos\theta j+\mathrm{sen}\,\theta i\,\mathrm{sen}\,\theta j\right]\,a_j\\
+    &amp;=\left(\sum_{i=1}^na_i\cos\theta i\right)^2+\left(\sum_{i=1}^na_i\mathrm{sen}\,\theta i\right)^2\ge0.
+  \end{align}
+&lt;/div&gt;
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, 
+`$$\sum_{i=1}^n\sum_{j=1}^n a_ia_j=\sum_{i=1}^na_i\sum_{j=1}^na_j=\left(\sum_{i=1}^na_i\right)^2.$$`
+&lt;/span&gt;
+
+---
+class: animated, slideInRight
+
+### Função de autocovariância - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a função `\(\kappa(h)\)`, com `\(h\in\mathbb{Z}\)`, tal que
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \kappa(h)&amp;=\begin{cases}
+  1, &amp; \text{ se } h=0;\\
+  \rho, &amp; \text{ se } h=\pm1;\\
+  0, &amp; \text{ em caso contrário.}
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+Pode-se verificar que `\(\kappa(h)\)` é uma função de autocovariância (FACV) *see* `\(|\rho|\le\frac12\)`.
+
+Perceba que `\(\kappa(h)\)` apresenta um formato similar à função de autocovariância
+de um processo com representação MA(1), ou seja, *médias móveis de primeira ordem* (vide, **[FACV de um processo com representação MA(1)](https://ffajardo64.github.io/statistical_learning/STA13828/aula1.html#23)**).
+
+Dessa forma, `\(\sigma^2(1+\theta^2)=1\)`, onde `\(\theta\in\mathbb{R}\)`. Daí,
+`$$\sigma^2=\dfrac{1}{1+\theta^2}.$$`
+
+Por outra parte, `\(\sigma^2\theta=\rho\)`, então `\(\theta=\rho(1+\theta^2)\)`. Dessa forma, os valores de `\(\theta\)` são
+as raízes no polinômio
+`$$\rho\theta^2-\theta+\rho=0.$$`
+---
+class: animated, slideInRight
+
+### Função de autocovariância - II
+
+
+Daí, `\(\theta=\dfrac{1\pm\sqrt{1-4\rho^2}}{2\rho}\)`. Assim, para obter
+raízes reais `\(\Delta=1-4\rho^2\ge0\)`, i.e., `\(|\rho|\le\frac12\)`.
+
+&gt; Para `\(|\rho|&gt;\frac12\)`, as raízes do polinômio não são reais. Dessa forma,
+a função `\(\kappa(h)\)` não é FACV de um processo com representação MA(1).
+
+&lt;br/&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que, 
+para `\(|\rho|&gt;\frac12\)` não existe um processo estacionário com FACV `\(\kappa(h)\)`,
+ i.e., mostre que `\(\kappa(h)\)` não é não-negativa definida.
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Considere
+o processo `\(\{X_t;t\in\mathbb{Z}\}\)` com representação
+`$$X_t=R\cos\left[2\pi(f\,t+\theta)\right],$$`
+onde `\(R\)` e `\(\theta\)` são variáveis aleatórias não-correlacionadas. 
+`\(\theta\)` segue uma distribuição uniforme em `\((0,1)\)` e a frequência `\(f\)`
+é fixa e definidas em `\(\left(0,\frac12\right)\)`.
+Mostre que o processo `\(\{X_t\}\)` é estacionário de segunda ordem e calcule
+sua média e função de autocovariância.
+
+
+---
+class: animated, slideInRight
+
+### Função de densidade espectral - I
+
+* **Definição (Densidade espectral)**&lt;sup&gt;1&lt;/sup&gt;: Seja 
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo estacionário de segunda ordem 
+com média `\(0\)` e função de autocovariância `\(\gamma(\cdot)\)`, tal que, 
+`\(\sum_{h=-\infty}^\infty|\gamma(h)|&lt;\infty\)`. A densidade espectral 
+ou _espectro_ de `\(\gamma(\cdot)\)` é a função definida por
+`$$f(\lambda)=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}, \quad -\infty&lt;\lambda&lt;\infty,$$`
+onde `\(e^{i\lambda}=\cos\lambda+i\,\mathrm{sen}\,\lambda\)` e `\(i=\sqrt{-1}\)`.
+
+&gt; * A somabilidade de `\(|\gamma(\cdot)|\)` implica que `\(f(\lambda)=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}\)`
+converge absolutamente, pois `\(|e^{ih\lambda}|^2=\cos^2h\lambda+\mathrm{sen}^2\,h\lambda=1\)`.
+
+&gt; * Já que as funções seno e cosseno têm período `\(2\pi\)`, então a densidade
+espectral também terá o mesmo período. Dessa forma, basta considerar
+`\(\lambda\in(-\pi,\pi]\)`.
+
+
+***
+&lt;sup&gt;1&lt;/sup&gt;Para detalhes, sugere-se a leitura do livro de Priestley (1981)
+e Bloomfield (2000).
+
+---
+class: animated, fadeIn
+
+### Função de densidade espectral - II
+
+* **Proposição.** Uma função `\(f\)` definida em `\((-\pi,\pi]\)` é a densidade espectral
+de um processo estacionário de segunda ordem _see_:
+  - `\(f(\lambda)=f(-\lambda)\)`;
+  - `\(f(\lambda)\ge0\)`, para todo `\(\lambda\in(-\pi,\pi]\)`;
+  - `\(\int_{-\pi}^\pi f(\lambda)\,d\lambda&lt;\infty\)`.
+  
+  *Prova:* 
+  - Para mostrar o primeiro item, lembre que a função cosseno é uma 
+  função par, assim como a função de autocovariância. A função seno é
+  uma função ímpar, então:
+  
+  &lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}
+  =\frac{1}{2\pi}\sum_{h=-\infty}^\infty\left[\cos h\lambda-i\,\textrm{sen}\,h\lambda\right]\,\gamma(h)
+  =\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)\cos h\lambda\\
+  &amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)\cos (-h\lambda)=f(-\lambda).
+  \end{align}
+&lt;/div&gt;
+  
+  - Os itens 2 e 3 ficam como &lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercícios&lt;/span&gt;&lt;/b&gt;.
+  
+---
+class: animated, slideInLeft
+
+### Função de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que
+&lt;div class="math"&gt;
+  \begin{align}
+  \int_{-\pi}^\pi e^{i(k-h)\lambda}\,d\lambda&amp;=\begin{cases}
+  2\pi, &amp; \text{ se } k=h;\\
+  0, &amp; \text{ em caso contrário.}
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que
+a função de autocovariância é dada por
+  `$$\gamma(h)=\int_{-\pi}^\pi e^{i\,h\lambda}f(\lambda)\,d\lambda=\int_{-\pi}^\pi\cos(h\lambda)f(\lambda)\,d\lambda, \quad h\in\mathbb{Z}.$$`
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Mostre que
+&lt;div class="math"&gt;
+  \begin{align}
+  \sum_{t=1}^n\cos\lambda t&amp;=\cos\left(\frac{(n+1)\lambda}{2}\right)\frac{\mathrm{sen}\left(n\frac{\lambda}{2}\right)}{\mathrm{sen}\left(\frac{\lambda}{2}\right)};\\
+  \sum_{t=1}^n\mathrm{sen}\,\lambda t&amp;=\mathrm{sen}\,\left(\frac{(n+1)\lambda}{2}\right)\frac{\mathrm{sen}\left(n\frac{\lambda}{2}\right)}{\mathrm{sen}\left(\frac{\lambda}{2}\right)}.
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, lightSpeedIn
+
+### Função de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a função `\(\kappa(h)\)`, com `\(h\in\mathbb{Z}\)`, tal que
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \kappa(h)&amp;=\begin{cases}
+  1, &amp; \text{ se } h=0;\\
+  \rho, &amp; \text{ se } h=\pm1;\\
+  0, &amp; \text{ em caso contrário.}
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+Sabemos que `\(\kappa(h)\)` é uma função de autocovariância *see* `\(|\rho|\le\frac12\)`.
+Então, 
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}=\frac{1}{2\pi}\left[\gamma(0)+e^{-i(-1)\lambda}\rho+e^{-i\lambda}\rho\right]
+  =\frac{1}{2\pi}\left[\gamma(0)+\left(e^{i\lambda}+e^{-i\lambda}\right)\rho\right]\\
+  &amp;=\frac{1}{2\pi}\left[1+2\rho\cos\lambda\right], \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, 
+`$$\mathrm{sen}\,\lambda=\frac{e^{i\lambda}-e^{-i\lambda}}{2i}\quad \text{ e } \quad \cos\lambda=\frac{e^{i\lambda}+e^{-i\lambda}}{2}.$$`
+&lt;/span&gt;
+
+---
+class: animated, slideInLeft
+
+### Função de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo de ruído branco com `\(\mathbb{E}X_t=0\)` 
+e `\(\gamma(0)=\sigma^2&lt;\infty\)` e `\(\gamma(h)=0\)`, para `\(|h|&gt;0\)`. Então, 
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}=\frac{1}{2\pi}\gamma(0)
+  =\frac{\sigma^2}{2\pi}, \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo autorregressivo de ordem `\(1\)`, AR(1), 
+com `\(|\phi|&lt;1\)` e `\(\gamma(h)=\gamma(0)\phi^h=\dfrac{\sigma^2}{1-\phi^2}\phi^h,\)`
+então:
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}
+  =\frac{1}{2\pi}\left[\gamma(0)+\sum_{h=-\infty}^{-1}\gamma(h)e^{-i\lambda h}+\sum_{h=1}^{\infty}\gamma(h)e^{-i\lambda h}\right]\\
+  &amp;=\frac{1}{2\pi}\left[\gamma(0)+\gamma(0)\sum_{h=1}^{\infty}\phi^h\left(e^{i\lambda h}+e^{-i\lambda h}\right)\right], \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+
+
+---
+class: animated, slideInLeft
+
+### Função de densidade espectral - II
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\left[\gamma(0)+\gamma(0)\sum_{h=1}^{\infty}\phi^h\left(e^{i\lambda h}+e^{-i\lambda h}\right)\right]=\frac{1}{2\pi}\frac{\sigma^2}{1-\phi^2}\left[1+\frac{\phi e^{i\lambda}}{1-\phi e^{i\lambda}}+\frac{\phi e^{-i\lambda}}{1-\phi e^{-i\lambda}}\right]\\
+  &amp;=\frac{1}{2\pi}\frac{\sigma^2}{1-\phi^2}\left[1+\frac{\phi e^{i\lambda}\left(1-\phi e^{-i\lambda}\right)+\phi e^{-i\lambda}\left(1-\phi e^{i\lambda}\right)}{\left(1-\phi e^{i\lambda}\right)\left(1-\phi e^{-i\lambda}\right)}\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[1+\frac{\phi e^{i\lambda}-\phi^2+\phi e^{-i\lambda}-\phi^2}{1-\phi\left(e^{-i\lambda}+e^{i\lambda}\right)+\phi^2}\right]
+  =\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[1+\frac{\phi \left(e^{i\lambda}+ e^{-i\lambda}\right)-2\phi^2}{1-\phi\left(e^{-i\lambda}+e^{i\lambda}\right)+\phi^2}\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[1+\frac{2\phi\cos\lambda-2\phi^2}{1-2\phi\cos\lambda+\phi^2}\right]
+  =\frac{\sigma^2}{2\pi}\frac{1}{1-\phi^2}\left[\frac{1-2\phi\cos\lambda+\phi^2+2\phi\cos\lambda-2\phi^2}{1-2\phi\cos\lambda+\phi^2}\right]
+  \end{align}
+&lt;/div&gt;
+
+Daí, a densidade espectral de um processo AR(1) é dada por: `$$f(\lambda)=\frac{\sigma^2}{2\pi}\left[\frac{1}{1-2\phi\cos\lambda+\phi^2}\right], \quad \lambda\in(-\pi,\pi].$$`
+
+
+---
+class: animated, slideInRight
+
+### Função de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-8-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-9-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Função de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-11-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+
+---
+class: animated, slideInRight
+
+### Função de densidade espectral - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo de médias móveis de ordem `\(1\)`, MA(1), com
+&lt;div class="math"&gt;
+  \begin{align}
+  \gamma(h)&amp;=\begin{cases}
+  \sigma^2\left(1+\theta^2\right), &amp; \text{ para } h=0;\\
+  \sigma^2\theta, &amp; \text{ para } h=\pm1;\\
+  0, &amp; \text{ para } |h|&gt;1.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+então:
+&lt;div class="math"&gt;
+  \begin{align}
+  f(\lambda)&amp;=\frac{1}{2\pi}\sum_{h=-\infty}^\infty\gamma(h)e^{-i\lambda h}
+  =\frac{1}{2\pi}\left[\gamma(0)+\gamma(-1)e^{i\lambda}+\gamma(1)e^{-i\lambda}\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\left[(1+\theta^2)+\theta\left(e^{i\lambda}+e^{-i\lambda}\right)\right]\\
+  &amp;=\frac{\sigma^2}{2\pi}\left[1+2\theta\cos\lambda+\theta^2\right], \quad \lambda\in(-\pi,\pi].
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, slideInRight
+
+### Função de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-13-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Função de densidade espectral - II
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-14-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+
+&lt;img src="aula1_files/figure-html/unnamed-chunk-15-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, lightSpeedIn
+### Referências
+
+Bloomfield, P. (2000). _Fourier Analysis of Time Series: An
+Introduction_. John Wiley.
+
+Brockwell, P. J. and R. A. Davis (2006). _Time Series: Theory and
+Methods_. 2nd. Springer Series in Statistics.
+
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
+
+Mood, A., F. Graybill, and D. Boes (1974). _Introduction to the theory
+of statistics_. 3rd. McGraw-Hill Higher Education.
+
+Morettin, P. and C. Toloi (2006). _Análise de Séries Temporais_.
+Editora Blucher: ABE - Projeto Fisher.
+
+Priestley, M. B. (1981). _Spectral Analysis and Time Series_. Academic
+Press.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

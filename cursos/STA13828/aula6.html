@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análise de Séries Temporais</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análise de Séries Temporais
+]
+.subtitle[
+## Dados atípicos e análise de intervenção
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 01/02/2023
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+[//]: &lt;&gt; (https://github.com/animate-css/animate.css/blob/main/animate.css)
+[//]: &lt;&gt; (xaringan::inf_mr())
+
+class: animated, fadeIn
+
+
+
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+### Dados atípicos
+
+Dados atípicos e mudanças na estrutura são comumente encontrados 
+na análise de dados de séries temporais. A presença desse tipos de
+observações pode ser causada por eventos inesperados tais como
+mudanças de política, crises econômicas, mudanças inesperadas do 
+clima, entre outros.
+
+A presença de valores atípicos causam efeitos na dinâmica de uma série
+temporal, assim como em todas as medidas utilizadas para a análise 
+inferêncial do processo, i.e. compromete as informações proporcionadas
+pelas funções de autocorrelação amostrais, testes de significância,
+testes de raiz unitária, entre outros.
+
+Na análise de séries temporais são considerados principalmente dois 
+tipos de dados atípicos: **_Aditivos_** e de **_inovações_**. Enquanto 
+às mudanças na estrutura são consideradas: as *mudanças no nivel* e 
+*mudanças na variância*. As *mudança no nivel* são classificadas como:
+*permanentes* e *transitórias*.
+
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+***
+Para detalhes, sugere-se a leitura dos trabalhos de Tsay (1986),
+Fox (1972), Chen and Liu (1993a) e Chan (1995).
+
+---
+class: animated, fadeUp
+
+### Dados atípicos
+
+Seja `\(\{X_t\}\)` um processo  com representação ARIMA `\(\!(p,d,q)\)`, i.e.
+`$$\varphi(B)X_t=\theta(B)Z_t,$$`
+com `\(\{Z_t\}\)` um processo de ruído branco com média `\(0\)` e variância `\(\sigma^2\)`.
+
+Quando o processo é contaminado por dados atípicos ou mudanças na estrutura,
+a representação do processo contaminado, `\(\{Y_t\}\)`, será dada por
+`$$Y_t=f(t)+X_t,$$`
+onde `\(f(t)\)` é uma função paramétrica que representa as perturbações 
+exógenas de `\(\{X_t\}\)`, tais como dados dados atípicos ou mudanças no 
+nivel. A função `\(f(t)\)` pode ser determinística ou estocástica dependendo
+do tipo de perturbação.
+
+
+---
+class: animated, fadeInDown
+
+### Dados atípicos
+
+Por exemplo, para o caso estocástico, um série temporal contaminada
+pode ser representada da seguinte forma
+`$$Y_t=\sum_{j=1}^k\omega_j\nu_j(B)\mathbb{I}_t(T_j)+X_t,$$`
+
+onde `\(X_t=\frac{\theta(B)}{\varphi(B)}Z_t\)`, `\(\omega_j\)` representa o 
+tamanho do impacto da perturbação, `\(\mathbb{I}_t(T_j)\)` é chamada 
+de **função impulso** e considera o valor `\(1\)` quando `\(t=T\)` e `\(0\)` em
+caso contrário. Caso `\(\nu_j(B)=1\)`, representa valores  atípicos de tipo 
+aditivo. Para o caso de valores atípicos de inovação 
+`\(\nu_j(B)=\frac{\theta(B)}{\varphi(B)}\)`.
+
+A representação do processo contaminado por uma observação atípica
+de tipo **aditivo** é dado por
+`$$Y_t=\omega\mathbb{I}_t(T)+X_t.$$`
+A representação do processo contaminado por uma observação atípica
+de **inovação** é dado por
+`$$Y_t=\omega\frac{\theta(B)}{\varphi(B)}\mathbb{I}_t(T)+X_t.$$`
+
+---
+class: animated, fadeIn
+
+### Dados atípicos
+
+Assim como a função impulso, uma outra função indicadora chamada de
+**função degrau**, representada por
+`$$S_t(T)=\begin{cases}1, &amp; \text{ para } t\ge T;\\ 0, &amp; \text{ em caso contrário,}\end{cases}$$`
+permite considerar, por exemplo, outro tipo de perturbações.
+
+&lt;br/&gt;
+
+&lt;img src="images/funcoes_indicadoras.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+## Análise de intervenção
+
+---
+class: animated, fadeIn
+
+### Análise de intervenção
+
+Na análise de séries temporais é natural que as observações sejam
+influenciadas pela ocorrência de eventos em determinados ao longo
+do tempo. A análise de intervenção tem como objetivo avaliar o impacto
+de tais eventos na dinâmica da série.
+
+Uma intervenção pode afetar uma série temporal de várias maneiras e sua
+manifestação pode ser permanente ou temporária. Nesse cenário, discutiremos
+a técnica de intervenção proposta por Box and Tiao (1975).
+
+&gt; Uma intervenção é interpretada como um evento exógeno ao comportamento
+histórico da variável sob estudo.
+
+Para estudar os efeitos de uma intervenção, considere a seguinte 
+representação
+`$$Y_t=f_t(T)+X_t,$$`
+onde `\(f_t(T)\)` é uma função que representa os efeitos da intervenção e 
+`\(\{X_t\}\)` representa um processo com representação ARIMA.
+
+---
+class: animated, fadeIn
+### Análise de intervenção
+
+Para especificar o formato da função `\(f_t(T)\)` será necessário o uso da
+função impulso, definida anteriormente. Suponha então, que `\(f_t(T)\)` 
+satisfaz a seguinte equação em diferenças
+`$$(1-\delta_1B-\cdots-\delta_rB^r)f_t(T)=(\omega_0-\omega_1B-\cdots-\omega_sB^s)\mathbb{I}_t(T),$$`
+cuja solução específica dependerá da condição `\(f_t(T)=0\)` para `\(t&lt;T\)`. A 
+condição anterior indica que não há efeitos atribuíveis à intervenção,
+antes do tempor `\(T\)`.
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+`\(r=s=0\)`. Nesse cenário, temos que 
+`$$f_t(T)=\omega_0\mathbb{I}_t(T).$$`
+Graficamente, `\(f_t(T)\)` representa a função impulso com magnitude `\(\omega_0\)`.
+
+&gt; Outros valores de `\(r\)` e `\(s\)` proporcionarão representações diferentes 
+para a função `\(f_t(T)\)`. Nesse caso, uma nova solução da equação em 
+diferenças deve ser encontrada.
+
+---
+class: animated, fadeIn
+
+### Análise de intervenção
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+`\(r=s=1\)`. Nesse cenário, temos que 
+`$$f_t(T)=\delta_1f_{t-1}(T)+\omega_0\mathbb{I}_t(T)-\omega_1\mathbb{I}_{t-1}(T).$$`
+Observe que,
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    f_T(T)&amp;=\omega_0\\
+    f_{T+1}(T)&amp;=\delta_1f_T(T)-\omega_1=\delta_1\omega_0-\omega_1\\
+    f_{T+2}(T)&amp;=\delta_1f_{T+1}(T)=\delta_1\left(\delta_1\omega_0-\omega_1\right)=\delta_1^2\omega_0-\delta_1\omega_1\\
+    f_{T+3}(T)&amp;=\delta_1f_{T+2}(T)=\delta_1\left(\delta_1^2\omega_0-\delta_1\omega_1\right)=\delta_1^3\omega_0-\delta_1^2\omega_1\\
+    &amp;\ \ \vdots\\
+    f_{T+k}(T)&amp;=\delta_1f_{T+k}(T)=\delta_1^k\omega_0-\delta_1^{k-1}\omega_1.
+  \end{align*}
+&lt;/div&gt;
+
+--
+
+Daí,
+`$$f_t(T)=\begin{cases}0, &amp; \text{ para } t&lt; T;\\ \omega_0, &amp; \text{ para } t=T;\\ \delta_1^k\omega_0-\delta_1^{k-1}\omega_1, &amp; \text{ para } t&gt;T. \end{cases}$$`
+
+---
+class: animated, fadeLeft
+
+### Análise de intervenção
+
+Resulta razoável supor que o efeito da intervenção tenda a desaparecer
+com o passar do tempo, o que na verdade constitui uma **suposição de estabilidade**
+do modelo dinânico que representa o efeito de intervenção.
+
+Considerando o exemplo anterior, tal que
+
+`$$f_t(T)=\begin{cases}0, &amp; \text{ para } t&lt; T;\\ \omega_0, &amp; \text{ para } t=T;\\ \delta_1^k\omega_0-\delta_1^{k-1}\omega_1, &amp; \text{ para } t&gt;T. \end{cases}$$`
+Para satisfazer a condição de estabilidade, supomos que `\(|\delta_1|&lt;1\)`.
+Em geral, para a equação em diferenças
+`$$(1-\delta_1B-\cdots-\delta_rB^r)f_t(T)=(\omega_0-\omega_1B-\cdots-\omega_sB^s)\mathbb{I}_t(T),$$`
+requer-se que as raízes do polinômio
+`$$1-\delta_1z-\delta_2z^2-\cdots-\delta_rz^r=0$$`
+estejam fora do círculo unitário.
+
+---
+class: animated, fadeIn
+
+### Análise de intervenção
+
+O modelo dinâmico geral de intervenção é dado por
+`$$\delta(B)\nabla^b f_t(T)=\omega(B)\mathbb{I}_t(T),$$`
+onde `\(\delta(B)=1-\delta_1B-\cdots-\delta_rB^r\)`, 
+`\(\omega(B)=\omega_0-\omega_1B-\cdots-\omega_sB^s\)`, `\(\nabla^b=(1-B)^b\)` e
+`\(\mathbb{I}_t(T)\)` representa a função impulso.
+
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; A continuação 
+são apresentado alguns exemplos úteis para identificar um modelo que 
+represente os efeitos esperados de uma intervenção.
+
+.pull-left[
+* `\((r,b,s)=(0,1,0)\)`
+
+* **Modelo implícito**: `\(\nabla f_t(T)=\omega\mathbb{I}_t(T)\)`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ \omega, &amp; \text{ se } t\ge T. \end{cases}$$`
+]
+
+.pull-right[
+&lt;img src="images/inter1a.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: animated, fadeRight
+
+.pull-left[
+* `\((r,b,s)=(0,0,1)\)`
+
+* **Modelo implícito**: `\(f_t(T)=(\omega_0-\omega_1B)\mathbb{I}_t(T)\)`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t\ne T, T+1;\\ \omega_0, &amp; \text{ se } t=T; \\ -\omega_1, &amp; \text{ se } t=T+1. \end{cases}$$`
+]
+
+.pull-right[
+&lt;img src="images/inter1b.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+***
+
+.pull-left[
+* `\((r,b,s)=(1,0,0)\)`
+
+* **Modelo implícito**: `\((1-\delta B)f_t(T)=\omega\mathbb{I}_t(T)\)`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ \omega\,\delta^{t-1}, &amp; \text{ se } t\ge T. \end{cases}$$`
+]
+.pull-right[
+&lt;img src="images/inter1c.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+class: animated, fadeUp
+
+.pull-left[
+* `\((r,b,s)=(0,1,1)\)`
+
+* **Modelo implícito**: `\(\nabla f_t(T)=(\omega_0-\omega_1B)\mathbb{I}_t(T)\)`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ \omega_0, &amp; \text{ se } t=T; \\ \omega_0-\omega_1, &amp; \text{ se } t &gt; T. \end{cases}$$`
+]
+
+.pull-right[
+&lt;img src="images/inter1d.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+***
+
+.pull-left[
+* `\((r,b,s)=(1,0,1)\)`
+
+* **Modelo implícito**: `$$(1-\delta B)f_t(T)=(\omega_0-\omega_1B)\mathbb{I}_t(T)$$`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ \omega_0, &amp; \text{ se } t=T;\\ (\omega_0\delta-\omega_1)\delta^{t-T-1}, &amp; \text{ se } t&gt; T. \end{cases}$$`
+]
+.pull-right[
+&lt;img src="images/inter1e.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+class: animated, fadeLeft
+
+.pull-left[
+* `\((r,b,s)=(1,1,0)\)`
+
+* **Modelo implícito**: `\((1-\delta B)\nabla f_t(T)=\omega\mathbb{I}_t(T)\)`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ \frac{\omega}{1-\delta}(1-\delta^{t-T+1}), &amp; \text{ se } t\ge T. \end{cases}$$`
+]
+
+.pull-right[
+&lt;img src="images/inter1f.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+***
+
+.pull-left[
+* `\((r,b,s)=(1,1,1)\)`
+
+* **Modelo implícito**: `$$(1-\delta B)\nabla f_t(T)=(\omega_0-\omega_1B)\mathbb{I}_t(T)$$`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ \omega_0, &amp; \text{ se } t=T;\\ \frac{\omega_0-\omega_1-(\omega_0\delta-\omega_1)\delta^{t-T}}{1-\delta}, &amp; \text{ se } t&gt; T. \end{cases}$$`
+]
+.pull-right[
+&lt;img src="images/inter1g.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+class: animated, fadeDown
+
+### Análise de intervenção
+
+.pull-left[
+* `\((r,b,s)=(0,2,0)\)`
+
+* **Modelo implícito**: `\(\nabla^2 f_t(T)=\omega\mathbb{I}_t(T)\)`
+
+* **Modelo dinâmico explícito**: `$$f_t(T)=\begin{cases}0,&amp; \text{ se } t&lt; T;\\ (t-T+1)\,\omega, &amp; \text{ se } t\ge T. \end{cases}$$`
+]
+.pull-right[
+&lt;img src="images/inter1h.png" width="150%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: animated, fadeIn
+
+### Análise de intervenção
+
+&lt;img src="images/intervacao1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: animated, fadeRight
+
+### Análise de intervenção
+
+
+
+---
+class: animated, lightSpeedIn
+### Referências
+
+Box, G. E. P. and G. C. Tiao (1975). "Intervention Analysis with
+Applications to Economic and Enviromental Problems". In: _Journal of
+the American Statistical Association_ 70.349, pp. 70-79.
+
+Chan, W. (1995). "Outliers and Financial Time Series Modelling: a
+Cautionary note". In: _Mathematics and Computers in Simulation_ 39, pp.
+425-430.
+
+Chen, C. and L. Liu (1993a). "Joint estimation of model parameters and
+outlier effects in time series". In: _Journal of the American
+Statistical Association_ 88, pp. 284-297.
+
+Fox, A. J. (1972). "Outliers in time series". In: _Journal of the Royal
+Statistical Society_ 34.B, pp. 350-363.
+
+Tsay, R. S. (1986). "Time Series Model Specification in the Presence of
+Outliers". In: _Journal of the American Statistical Association_ 81,
+pp. 132-141.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

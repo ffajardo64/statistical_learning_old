@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabio A. Fajardo Molinares" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Interpretação geométrica do estimador MQO
+&lt;br&gt;&lt;/br&gt;
+### 
+### LECON/DEST - UFES
+### Vitória. ES - 23/06/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+### Alguns resultados da álgebra linear - I
+**Produto interno**: Sejam `\(\mathbf{x}\)`, `\(\mathbf{y}\)` e `\(\mathbf{z}\)` três vetores 
+de um espaço vetorial `\(V\)`, definido no plano complexo `\(\mathbb{C}\)`. Seja `\(\lambda\)` 
+um escalar. Define-se o produto interno como uma função 
+`\(\langle\cdot, \cdot\rangle:V\times V \longrightarrow \mathbb{C}\)`, tal que
+1. `\(\langle\mathbf{x}, \mathbf{y}\rangle=\overline{\langle\mathbf{y}, \mathbf{x}\rangle}\quad\)`  (*Simetria Hermitiana*);
+1. `\(\langle\mathbf{x}+\mathbf{y}, \mathbf{z}\rangle=\langle\mathbf{x}, \mathbf{z}\rangle+\langle\mathbf{y}, \mathbf{z}\rangle\quad\)` (*Distributividade*);
+1. `\(\langle\lambda\mathbf{x}, \mathbf{y}\rangle=\lambda\langle\mathbf{x}, \mathbf{y}\rangle\quad\)` (*Homogeneidade* );
+1. `\(\langle\mathbf{x}, \mathbf{x}\rangle\ge0\)`. A igualdade é 
+satisfeita see `\(\mathbf{x}\)` é o vetor nulo.
+
+&gt; No espaço euclideano, o Item 1. é dado por
+`$$\langle\mathbf{x}, \mathbf{y}\rangle=\langle\mathbf{y}, \mathbf{x}\rangle=\sum_{i=1}^nx_iy_i,$$`
+onde `\(\mathbf{x}=(x_1,x_2,\ldots,x_n)'\)` e `\(\mathbf{y}=(y_1,y_2,\ldots,y_n)'\)`.
+
+---
+class: animated, slideInRight
+
+### Alguns resultados da álgebra linear - II
+
+* **Magnitude de um vetor**: Seja `\(\mathbf{x}\)` um vetor. A magnitude (ou *norma*) 
+de `\(\mathbf{x}\)` define-se como
+
+`$$\lVert\mathbf{x}\rVert=\sqrt{\langle\mathbf{x}, \mathbf{x}\rangle}=\sqrt{\mathbf{x}'\mathbf{x}}= \sqrt{\sum_{i=1}^nx_i^2}.$$`
+* **propriedades**: Sejam `\(\mathbf{x}\)` e `\(\mathbf{y}\)` dois vetores de um espaço 
+vetorial `\(V\)` e `\(\lambda\)` um escalar, então
+
+  - `\(\lVert\mathbf{x}\rVert\ge0\)`, `\(\lVert\mathbf{x}\rVert=0\)` see `\(\mathbf{x}=\mathbf{0}\)`;
+  - `\(\lVert\lambda\mathbf{x}\rVert=\lambda\lVert\mathbf{x}\rVert\)` ;
+  - `\(\lVert\mathbf{x}+\mathbf{y}\rVert\le\lVert\mathbf{x}\rVert+\lVert\mathbf{y}\rVert\)` (*Desigualdade triangular*).
+
+* **Ângulo entre vetores**: Sejam `\(\mathbf{x}\)` e `\(\mathbf{y}\)` dois vectores de 
+um espaço vectorial com produto interno, então
+
+`$$\cos\theta=\frac{\langle\mathbf{x},\mathbf{y}\rangle}{\lVert\mathbf{x}\rVert\lVert\mathbf{y}\rVert}.$$`
+&gt; Em particular, dizemos que `\(\mathbf{x}\)` e `\(\mathbf{y}\)` são *ortogonais* see
+`\(\langle\mathbf{x},\mathbf{y}\rangle=0\)` ou, equivalentemente, `\(\theta=\frac\pi2\)`.
+
+---
+class: animated, slideInRight
+
+### Alguns resultados da álgebra linear - III
+
+* **Desigualdade de Cauchy-Schwarz**: A desigualdade garante que, para quaisquer 
+dois vectores `\(\mathbf{x}\)` e `\(\mathbf{y}\)` de um espaço vectorial com produto 
+interno, se tem 
+`$$\left|\langle\mathbf{x},\mathbf{y}\rangle\right|\le \lVert\mathbf{x}\rVert\lVert\mathbf{y}\rVert.$$`
+
+&gt; Tem-se a igualdade, i.e., `\(\left|\langle\mathbf{x},\mathbf{y}\rangle\right|=\lVert\mathbf{x}\rVert\lVert\mathbf{y}\rVert\,\)`, see `\(\,\mathbf{x}=\frac{\langle\mathbf{x},\mathbf{y}\rangle}{\langle\mathbf{y},\mathbf{y}\rangle}\mathbf{y}\)`. 
+
+* **Lei do paralelogramo**: A lei garante que, para quaisquer 
+dois vectores `\(\mathbf{x}\)` e `\(\mathbf{y}\)` de um espaço vectorial com produto 
+interno, se tem
+`$$\lVert\mathbf{x}+\mathbf{y}\rVert^2+\lVert\mathbf{x}-\mathbf{y}\rVert^2=2\lVert\mathbf{x}\rVert^2+2\lVert\mathbf{y}\rVert^2.$$`
+
+&gt; Se `\(\mathbf{x}\)` e `\(\mathbf{y}\)` são ortogonais, i.e., `\(\langle\mathbf{x},\mathbf{y}\rangle=0\)`, então
+`$$\lVert\mathbf{x}+\mathbf{y}\rVert^2+\lVert\mathbf{x}-\mathbf{y}\rVert^2=\lVert\mathbf{x}\rVert^2+\lVert\mathbf{y}\rVert^2.$$`
+
+
+Para detalhes ver, por exemplo, o Apêndice A do livro de Greene (2003),
+disponível [&lt;ins&gt;aqui&lt;/ins&gt;](https://bit.ly/3j5fJOk).
+
+&lt;font size="2"&gt;Adicionalmente, sugere-se a revisão do Searle and Khuri (2017) 
+e Magnus and Neudecker (2019).
+&lt;/font&gt;
+
+---
+class: animated, bounceInDown
+
+### Mínimos quadrados ordinários (MQO)
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+
+O método MQO tem como objetivo encontrar 
+`\(\widehat{\mathbf{\beta}}=\underset{\mathbf{\beta}\,\in\,\Theta}{\arg\min}\, S(\mathbf{\beta})\)`,
+onde 
+$$
+S(\mathbf{\beta})=\mathbf{\epsilon}'\mathbf{\epsilon}=(Y-\mathbf{X\,\beta})'(Y-\mathbf{X\,\beta}).
+$$
+Pelas Suposições **A1.** e **A2.**, o estimador de MQO para `\(\mathbf{\beta}\)` é 
+dado por
+
+`$$\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.$$`
+&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`, i.e.,
+`\(\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}.\)`
+
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+
+
+---
+class: animated, bounceInDown
+
+### Mínimos quadrados ordinários (MQO)
+
+&lt;img src="images/MQO_mod1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Equações normais
+
+---
+class: animated, slideInRight
+
+### Equações normais - I
+O sistema de **equações normais** é dado por
+$$
+\mathbf{X}'\mathbf{X\widehat{\beta}}=\mathbf{X}'Y.
+$$
+#### Algumas considerações
+* Seja `\(\widehat{Y}=\mathbf{X\widehat{\beta}}\)` o *vetor  ajustado* associado ao
+vetor `\(Y\)`. Observe-se que
+
+`$$\widehat{Y}=\mathbf{X\widehat{\beta}}=\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y=\mathbf{H}Y.$$`
+A matriz `\(\mathbf{H}=\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\)`
+é de dimensão `\(n\times n\)` e será chamada **matriz "_hat_"** (*matriz chapéu*, 
+na tradução livre).
+
+&gt; A matriz "_hat_", também chamada de *matriz de projeção*, será de grande 
+relevância na análise de regressão.
+
+---
+class: animated, slideInRight
+
+### Equações normais - I
+
+&lt;img src="images/MQO_mod2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Equações normais - I
+
+&lt;img src="images/MQO_mod4.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Equações normais - I
+
+&lt;img src="images/MQO_mod3.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Equações normais - I
+
+&lt;img src="images/MQO_mod5.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Equações normais - I
+
+#### Algumas propriedades da matriz `\(\textbf{H}\)`
+
+A matriz "_hat_", dada por
+`$$\mathbf{H}=\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'$$`
+é a matriz de projeção ortogonal no espaço coluna da matriz `\(\mathbf{X}\)`. A
+matriz `\(\textbf{H}\)` satisfaz as seguintes propriedades
+
+1. `\(\mathbf{X}'\left(Y-\mathbf{X\widehat{\beta}}\right)=\mathbf{X}'\left(Y-\mathbf{H}Y\right)=\mathbf{0}\)`. 
+Em outras palavras, `\((\mathbf{I}-\mathbf{H})Y\)` e `\(\mathbf{X}\)` são ortogonais;
+
+1. `\(\mathbf{H}\)` é simétrica (assim como `\(\mathbf{I}-\mathbf{H}\)`);
+
+1. `\(\mathbf{H}\)` é idempotente, i.e., `\(\mathbf{H}^2=\mathbf{H}\)` (assim como `\(\mathbf{I}-\mathbf{H}\)`);
+
+1. `\(\mathbf{X}\)` é invariante sob `\(\mathbf{H}\)`, i.e., `\(\mathbf{HX}=\mathbf{X}\)`, então
+`\(\left(\mathbf{I}-\mathbf{H}\right)\mathbf{X}=\mathbf{0}\)`;
+
+1. `\(\left(\mathbf{I}-\mathbf{H}\right)\mathbf{H}=\mathbf{H}\left(\mathbf{I}-\mathbf{H}\right)=\mathbf{0}\)`.
+
+
+---
+class: animated, slideInRight
+
+### Equações normais - II
+
+* A diferença entre os vetores observado e ajustado é chamado de *vetor residual*
+ou *vetor de resíduos*, i.e., `\(e = Y-\widehat{Y}\)`. Em termos da matriz "_hat_",
+o vetor de resíduos pode ser escrito como
+
+`$$e=Y-\widehat{Y}=Y-\mathbf{X\widehat{\beta}}=Y-\mathbf{H}Y=(\mathbf{I}-\mathbf{H})Y;$$`
+* O vetor `\(Y\)` pode ser representado como a soma de duas componentes **ortogonais**, 
+uma componente de projeção (*ajustado*) e uma componente residual, i.e.,
+
+`$$Y=\mathbf{H}Y+\left(\mathbf{I}-\mathbf{H}\right)Y.$$`
+Dessa forma, usando o teorema de Pitágoras, `$$Y'Y=Y'\mathbf{H}'\mathbf{H}Y+Y'\left(\mathbf{I}-\mathbf{H}\right)'\left(\mathbf{I}-\mathbf{H}\right)Y=\widehat{Y}'\widehat{Y}+e'e$$`
+ou
+
+`$$\lVert Y\rVert^2=\lVert\widehat{Y}\rVert^2+\lVert e\rVert^2=\lVert\widehat{Y}\rVert^2+\lVert Y-\widehat{Y}\rVert^2.$$`
+
+---
+class: animated, slideInRight
+
+### Equações normais - II
+
+&lt;img src="images/MQO_mod3.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-image: url("images/regression-geometry2.png")
+background-size: contain
+
+class: fadeIn
+### Equações normais - II
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Greene, W. H. (2003). _Econometric Analysis_. 5th edition. Pearson
+Education.
+
+Magnus, J. R. and H. Neudecker (2019). _Matrix Differential Calculus
+with Applications in Statistics and Econometrics_. 3rd edition. John
+Wiley.
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_.
+2nd edition. Wiley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

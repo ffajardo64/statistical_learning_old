@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Análise residual - II
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 04/08/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Gráfico de *Resíduos* vs *Covariáveis* - I
+
+Os gráficos dos resíduos contra as covariáveis têm interpretações
+semelhantes aos gráficos contra `\(\widehat{Y}\)`. 
+
+* Alguns padrões nos gráficos como por exemplo a diferenças na magnitude da 
+dispersão cerca de zero que sugere variações heterogêneas ou a ausência de um 
+termo polinomial de alto grau nas covariáveis resulta evidente nesse tipo de 
+gráficos;
+
+&gt; No entanto, inadequações no modelo associadas a uma covariável, como um termo 
+polinomial de alto grau ausente, podem ser "*camufladas*" pelos efeitos e
+distribuição de outras covariáveis. 
+
+* Pontos de *alavancagem* e dados atípicos (*outliers*) podem ser revelados nos 
+gráficos. Observações que aparecem isoladas ou pontos nos extremos da escala 
+`\(X_i\)` são potencialmente *influentes* por causa de seus valores extremos para 
+essa covariável em particular.
+
+* De acordo com as suposições do modelo de regressão, os resíduos são 
+não-correlacionados com cada uma das covariáveis, isso significa que não deve
+existir um padrão definido no gráfico. O mesmo deve ser caracterizado por uma 
+dispersão aleatória de pontos. 
+
+&gt; Qualquer padrão discernível neste gráfico pode indicar violação de algumas 
+suposições. 
+
+
+---
+class: animated, slideInRight
+
+### Gráfico de *Resíduos* vs *Covariáveis* - II
+
+* Se a suposição de linearidade não é satisfeita, pode-se observar um gráfico 
+como o apresentado na figura. 
+Neste caso uma *transformação* no vetor `\(Y\)` e/ou nas covariáveis pode ser 
+necessária para atingir a &lt;ins&gt;linearidade&lt;/ins&gt;.
+
+&lt;img src="images/res4.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Gráfico de *Resíduos* vs *Covariáveis* - III
+
+* Um gráfico com esse padrão pode indicar a presença de *heterogeneidade* na 
+variância. Neste caso, uma *transformação* dos dados pode ser útil para
+"*estabilizar*" a variância. Vários tipos de transformações para as correções 
+de algumas deficiências do modelo serão descritas no futuro.
+
+&lt;img src="images/res5.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Gráfico de *Resíduos* vs *tempo* - I
+
+* Esse tipo de gráfico pode ser útil para sugerir a violação da suposição de 
+independência dos erros. Os resíduos indexados no tempo podem evidenciar 
+correlação serial, ou seja, o resíduo em um ponto no tempo apresenta um grau de
+dependência com os resíduos anteriores. 
+
+&gt; Dados clássicos de séries temporais, como os dados gerados pelo monitoramento 
+contínuo de algum processo, são prontamente reconhecidos como tais e espera-se 
+que tenham resíduos correlacionados. Modelos e análises de séries temporais 
+levam em consideração essas correlações seriais e devem ser usados em tais casos.
+
+Para detalhes, ver, e.g., Fuller (1996), 
+Brockwell and Davis (2002).
+
+---
+background-image: url("images/res6.png")
+background-size: contain
+
+class: fadeIn
+
+---
+class: inverse, hide-logo, middle, center
+
+# Pontos influentes e de alavancagem
+
+---
+class: animated, fadeIn
+
+###  Pontos influentes - I
+
+Uma observação é dita **influente** quanto a sua eliminação da amostra altera 
+de forma significativa o modelo ajustado. Isso significa que a sua eliminação 
+altera as estimativas para os parâmetros e, consequentemente, os resı́duos, as
+previsões e até as interpretações.
+
+.pull-left[
+&lt;img src="images/influente1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;center&gt;Não influente&lt;/center&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="images/influente2.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;center&gt;Influente&lt;/center&gt;
+]
+
+---
+class: animated, slideInRight
+
+###  Pontos influentes - II
+
+Quando nosso modelo envolve muitas covariáveis, não é possível detectar tal 
+situação graficamente. No entanto, gostaríamos de saber da existência
+de tais pontos na amostra. Observe que, na maioria dos cenários, olhar para os 
+resíduos pode não ser de utilidade, pois o residual para este tipo de pontos é 
+**zero**! 
+
+&gt;O ponto é, portanto, não é um dado atípico porque não tem um resíduo muito grande, 
+mas é um ponto muito *influente*. A ideia geral é identificar esse tipo de pontos 
+e, após uma análise rigorosa, decidir se dito ponto pode ou não ser excluído da 
+amostra.
+
+Algumas medidas de influência para detectar esse tipo de pontos. Cada uma delas 
+mede o efeito de deletar a `\(i\)`-ésima observação:
+
+* **Distâncias de Cook** ( `\(D_i\)` ): Mede o efeito no vetor `\(\widehat{\beta}\)`;
+* **DFFITS** ( `\(\mathrm{DFFITS}_i\)` ): Mede o efeito em `\(\widehat{Y}_i\)`;
+* **DFBETAS** ( `\(\mathrm{DFBETAS}_{j(i)}\)` ): Mede o efeito em `\(\widehat{\beta}_i\)`;
+* **COVRATIO** ( `\(\mathrm{COVRATIO}_i\)` ): Mede o efeito sobre a matriz de 
+covariâncias das estimativas dos parâmetros.
+
+Os três primeiros, a distância de Cook, `\(\mathrm{DFFITS}\)` e `\(\mathrm{DFBETAS}\)`, 
+podem ser considerados casos especiais de uma abordagem geral para medir o 
+impacto da exclusão a `\(i\)`-ésima observação em qualquer conjunto de `\(k\)` funções 
+linearmente independentes de `\(\beta\)` (Cook and Weisberg (1982)).
+
+---
+class: inverse, hide-logo, middle, center
+
+# Análise de sensibilidade
+
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - I
+
+Considere o Teorema A.18 na p. 358 em Rao and Toutenburg (1999).
+
+&gt; **Teorema A.18**. Sejam `\(A_{p\times p}, B_{p\times n}, C_{n\times n}\)` e 
+`\(D_{n\times p}\)` matrizes. Suponha que a inversa de `\(A\)` e `\(C\)` existem. Então:
+1. `\(\left(A+BCD\right)^{-1}=A^{-1}-A^{-1}B(C^{-1}+DA^{-1}B)^{-1}DA^{-1}\)`;&lt;br&gt;&lt;/br&gt;
+1. Se `\(1+b'A^{-1}a\ne0\)`, então
+`$$\left(A+ab'\right)^{-1}=A^{-1}-\frac{A^{-1}ab'A^{-1}}{1+b'A^{-1}a}.$$`
+
+
+**Notação**: Sejam `\(Y_{(i)}\)` e `\(\mathbf{X}_{(i)}\)`, respectivamente, o vetor de observações 
+e a matriz de covariáveis quando a `\(i\)`-ésima observação é omitida, i.e., a 
+`\(i\)`-ésima linha de `\(Y\)` e `\(\mathbf{X}\)` são omitidas. Dessa forma,
+`$$\mathbf{X}'\mathbf{X}=\sum_{j=1}^n\mathbf{x}_j\mathbf{x}_j'=\mathbf{X}_{(i)}'\mathbf{X}_{(i)}+\mathbf{x}_i\mathbf{x}_i',$$`
+onde `\(\mathbf{x}_i\)` representa a `\(i\)`-ésima linha de `\(\mathbf{X}\)`, i.e., `\(\mathbf{x}_i\)`
+é um vetor linha.
+
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - II
+
+Suponha que o `\(\mathrm{posto}(\mathbf{X}_{(i)})=p-1\)`, então a inversa de 
+`\(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\)` é dada por
+`$$\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}},$$`
+onde `\(h_{ii}=\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\)` representa o `\(i\)`-ésimo elemento diagonal da matriz `\(\mathbf{H}\)`.
+
+O estimador do vetor de parâmetros, após a exclusão da `\(i\)`-ésima observação, é
+dado por
+
+`$$\widehat{\beta}_{(i)}=\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}_{(i)}'Y_{(i)}.$$`
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - III
+
+Portanto, o `\(i\)`-ésimo residual é dado por
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    e_{i(i)}&amp;=Y_i-\mathbf{x}_i'\widehat{\beta}_{(i)}=Y_i-\mathbf{x}_i'\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}_{(i)}'Y_{(i)}=Y_i-\mathbf{x}_i'\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\left(\mathbf{X}'Y-\mathbf{x}_iY_i\right)\\
+    &amp;=Y_i-\mathbf{x}_i'\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\right]\left(\mathbf{X}'Y-\mathbf{x}_iY_i\right)\\
+    &amp;=Y_i-\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\mathbf{X}'Y+\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_iY_i\\
+    &amp;\hspace{17cm}+\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i}{1-h_{ii}}Y_i\\
+    &amp;=Y_i-\widehat{Y}_i-\frac{h_{ii}\widehat{Y}_i}{1-h_{ii}}+h_{ii}Y_i+\frac{h_{ii}^2Y_i}{1-h_{ii}}
+    =\frac{Y_i-\widehat{Y}_i}{1-h_{ii}}\\
+   e_{i(i)} &amp;=\frac{e_i}{1-h_{ii}} \quad\blacksquare
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+
+---
+class: animated, slideInRight
+
+###  Consequências algébricas da omissão de uma observação - IV
+
+Comparando os estimadores de MQO para ambos cenários, temos que
+
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    \widehat{\beta}-\widehat{\beta}_{(i)}&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}_{(i)}'Y_{(i)}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\left[\mathbf{X}'Y-\mathbf{x}_iY_i\right]\\
+    &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{X}'Y+\left(\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right)^{-1}\mathbf{x}_iY_i\\
+    &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y-\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\right]\mathbf{X}'Y\\
+    &amp;\hspace{13cm}+\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}}{1-h_{ii}}\right]\mathbf{x}_iY_i\\
+    &amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\left[Y_i+\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_iY_i}{1-h_{ii}}-\frac{\mathbf{x}_i'\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y}{1-h_{ii}}\right]
+    =\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_i\left[Y_i+\frac{h_{ii}Y_i}{1-h_{ii}}-\frac{\widehat{Y}_i}{1-h_{ii}}\right]\\
+    &amp;=\frac{\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{x}_ie_{i}}{1-h_{ii}} \quad\blacksquare
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Medidas de influência
+
+---
+class: animated, slideInRight
+
+###  Distância de Cook - I
+
+Considerando as Suposições **A1-A5**, temos que `\(\widehat{\beta}\)` segue uma 
+distribuição normal `\(p\)`-variada com vetor de médias `\(\beta\)` e matriz de 
+covariâncias `\(\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`. Sabemos que
+a forma quadrática
+`$$\frac{\left(\beta-\widehat{\beta}\right)'\left(\mathbf{X}'\mathbf{X}\right)\left(\beta-\widehat{\beta}\right)}{p\,s^2}$$`
+segue uma distribuição `\(F_{p,n-p}\)`. Dessa forma,
+`$$\frac{\left(\beta-\widehat{\beta}\right)'\left(\mathbf{X}'\mathbf{X}\right)\left(\beta-\widehat{\beta}\right)}{p\,s^2}\le F_{p,n-p,\alpha}$$`
+define um elipsoide confiança de `\(100(1-\alpha)\%\)` para o vetor `\(\beta\)`.
+
+
+---
+class: animated, slideInRight
+
+###  Distância de Cook - II
+
+Cook (1977) propõe a seguinte estatística para detectar dados 
+influentes
+
+`$$D_i=\frac{\left(\widehat{\beta}_{(i)}-\widehat{\beta}\right)'\left(\mathbf{X}'\mathbf{X}\right)\left(\widehat{\beta}_{(i)}-\widehat{\beta}\right)}{p\,s^2}=\frac{\left(\widehat{Y}_{(i)}-\widehat{Y}\right)'\left(\widehat{Y}_{(i)}-\widehat{Y}\right)}{p\,s^2}=\frac{e_{i}^2h_{ii}}{p\, s^2(1-h_{ii})^2}=\frac{h_{ii}}{1-h_{ii}}\frac{r_i^2}{p},$$`
+onde `\(r_i\)` são os resíduos estudentizado internamente. 
+
+#### Algumas considerações
+
+* Grandes valores de `\(D_i\)`  indicam a presença de observações influentes. Dessa forma, a 
+estatística `\(D_i\)` mede a mudança em `\(\widehat{\beta}\)` quando uma observação em 
+particular é omitida;
+
+* `\(D_i\)` depende de `\(h_{ii}\)`, daí `\(D_i\)` se torna grande se `\(h_{ii}\)` e/ou `\(r_i^2\)` 
+são grandes;
+
+* Pela analogia com o elipsoide confiança, Cook (1977) sugere
+comparar `\(D_i\)` com percentis da distribuição `\(F_{p,n-p}\)`. Assim, quanto maior o
+percentil correspondente a `\(D_i\)`, mais influente é a `\(i\)`-ésima observação.
+
+
+---
+class: animated, slideInRight
+
+###  DFFITS
+Proposto por Belsley, Kuh, and Welsch (2005), a estatística mede a mudança em
+`\(\widehat{Y}_i\)` quando a `\(i\)`-ésima observação é omitida. A estatística é dada por
+
+`$$\mathrm{DFFITS}_i=\frac{\widehat{Y}_i-\widehat{Y}_{i(i)}}{s_{(i)}\sqrt{h_{ii}}}=\left(\frac{h_{ii}}{1-h_{ii}}\right)\frac{e_i}{s_{(i)}\sqrt{1-h_{ii}}},$$`
+onde `\(\widehat{Y}_{i(i)}\)` é o `\(i\)`-ésimo elemento do vetor `\(\widehat{Y}\)`, quando
+a `\(i\)`-ésima observação é omitida ao estimar `\(\beta\)` e `\(s_{(i)}^2=\frac{1}{n-p-1}\left[(n-p)s^2-\frac{e_i^2}{1-h_{ii}}\right]\)`.
+
+
+* Belsley, Kuh, and Welsch (2005) sugerem que o valor absoluto dos valores da 
+estatística `\(\mathrm{DFFITS}\)` maiores do que `\(2\sqrt{\frac{p}{n}}\)` sugerem a presença 
+de  observações influentes;
+* A sua relação com a distância de Cook é dada pela seguinte expressão
+
+`$$D_i=(\mathrm{DFFITS}_i)^2\left(\frac{s_{(i)}^2}{p\, s^2}\right).$$`
+
+---
+class: animated, slideInRight
+
+###  DFBETAS
+
+A distância de Cook revela o impacto da `\(i\)`-ésima observação no vetor `\(\beta\)`.
+As mudanças para o coeficientes marginais são identificadas com os 
+`\(\textrm{DFBETAS}_{j(i)}, \, j=0,1,2,\ldots,p-1\)`. Cada `\(\textrm{DFBETAS}_{j(i)}\)`
+representa a mudança padronizada em `\(\widehat{\beta}_j\)` quando a `\(i\)`-ésima 
+observação é omitida da análise. A estatística é dada por
+`$$\mathrm{DFBETAS}_{j(i)}=\frac{\widehat{\beta}_j-\widehat{\beta}_{j(i)}}{s_i\sqrt{c_{jj}}},$$`
+onde `\(c_{jj}\)` é o `\((j+1)\)`-ésimo elemento diagonal da matriz `\(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+
+* Embora o formato pareça o de uma estatística `\(t\)`-student, a mesma não pode ser 
+usada para avaliar significância;
+* Valores de `\(\textrm{DFBETAS}_{j(i)}\)` maiores que `\(2\)` devem indicar um maior, mas
+improvável, impacto de um único ponto. O ponto `\(\frac{2}{\sqrt{n}}\)` tenderá a 
+destacar a mesma proporção de pontos de influência nos dados. Para detalhes veja
+Belsley, Kuh, and Welsch (2005).
+ 
+
+---
+class: animated, slideInRight
+
+###  COVRATIO
+
+O impacto da `\(i\)`-ésima observação na matriz de covariâncias do vetor `\(\beta\)` 
+é medido pela razão dos determinantes das duas matrizes de covariâncias, i.e.,
+
+`$$\mathrm{COVRATIO}=\frac{\det\left(s_{(i)}^2\left[\mathbf{X}_{(i)}'\mathbf{X}_{(i)}\right]^{-1}\right)}{\det\left(s^2\left[\mathbf{X}'\mathbf{X}\right]^{-1}\right)}=\left[\left(\frac{n-p-1}{n-p}+\frac{\left(r_i^*\right)^2}{n-p}\right)^{p-1}(1-h_{ii})\right]^{-1}.$$`
+* Valores pŕoximos de `\(1\)` indicam que a `\(i\)`-ésima observação tem um pequeno 
+efeito na precisão das estimativas;
+* Um COVRATIO maior que `\(1\)` indica que a presença da `\(i\)`-ésima observação 
+aumenta a precisão das estimativas; uma proporção menor que `\(1\)` indica que a
+presença da observação prejudica a precisão de as estimativas.
+* Belsley, Kuh, and Welsch (2005) sugerem que observações com valores do 
+`\(\mathrm{COVRATIO}\)` fora dos limites `\(1\pm3\frac{p}{n}\)` podem ser consideradas
+como influentes;
+
+&gt; As estatísticas de influência devem ser usadas como ferramentas de diagnóstico para identificar as observações com maior impacto nos resultados da regressão.
+Embora algumas das medidas de influência se assemelhem às estatísticas de teste, elas não devem ser interpretadas como testes de significância para observações influentes.
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Belsley, D., E. Kuh, and R. Welsch (2005). _Regression Diagnostics:
+Identifying Influential Data and Sources of Collinearity_. Wiley Series
+in Probability and Statistics. Wiley.
+
+Brockwell, P. and R. Davis (2002). _Introduction to Time Series and
+Forecasting_. 2nd. Springer Verlag.
+
+Cook, R. D. (1977). "Detection of influential observation in linear
+regression". In: _Technometrics_ 19.1, pp. 15-18.
+
+Cook, R. D. and S. Weisberg (1982). _Residual and influence in
+regression_. New York: Chapman and Hall.
+
+Fuller, W. A. (1996). _Introduction to statistical time series_. John
+Wiley &amp; Sons.
+
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
+Alternatives_. 2nd ed.. Springer Series in Statistics. Springer New
+York.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

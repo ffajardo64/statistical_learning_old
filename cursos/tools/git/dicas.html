@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Git</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Git
+]
+.subtitle[
+## Resolvendo problemas frequentes
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 17/05/2022
+]
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Como retirar um arquivo da área de preparo (`staging area`) - I
+
+Suponha que você alterou dois arquivos e deseja realizar o *commit* 
+deles **separadamente**, porém você comete um erro e adiciona ambos 
+no *stage* usando o comando **`git add .`**. Para corrigir o problema 
+pode visualizar a saída do comando `git status` que lhe indicará como 
+resolver:
+
+&lt;img src="images/git_status_reset.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Como retirar um arquivo da área de preparo (`staging area`) - II
+
+.pull-left[
+&lt;img src="images/git_status_reset2.png" width="110%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- O arquivo **`capitulo1.md`** volta ao estado de *modificado* porém 
+está fora da área de preparo;
+
+- O comando **`git reset`** pode ser perigoso, especialmente se você 
+usar a opção `--hard`. Entretanto, no cenário descrito no exemplo, 
+o arquivo no diretório de trabalho está inalterado, então é
+relativamente seguro utilizar o comando.
+
+- Se o *commit* já estiver no ambiente remoto, lembre-se sempre de 
+comunicar ao seu time de trabalho que colaboram no seu repositório. 
+Mas se o *commit* só estiver no ambiente local, essa opção é bem mais 
+segura.
+]
+
+---
+class: animated, slideInLeft
+
+### Desfazendo as modificações de um arquivo - I
+
+Suponha que você não quer manter as modificações realizadas no arquivo 
+**`capitulo1.md`** e deseja reverter tais modificações, deixando como 
+era quando foi realizado o último *commit*. Felizmente, **`git status`** 
+diz a você como fazer isso também!
+
+
+&lt;img src="images/git_checkout.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Desfazendo as modificações de um arquivo - II
+
+Suponha que você não quer manter as modificações realizadas no 
+arquivo **`capitulo1.md`** e deseja reverter tais modificações, 
+deixando como era quando foi realizado o último *commit*. Felizmente, 
+**`git status`** diz a você como fazer isso também!
+
+.pull-left[
+&lt;img src="images/git_checkout2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- Você pode notar que as modificações foram revertidas;
+- Note que o **`git checkout -- &lt;arquivo&gt;`** é um a comando 
+**perigoso**. O `Git` substitui o arquivo pela versão mais recente que 
+sofreu *commit*. **Qualquer modificação que você fez no arquivo se foi**. 
+&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Nunca use este comando a não 
+ser que você saiba com certeza que não quer salvar as modificações do 
+arquivo&lt;/span&gt;.
+- Qualquer coisa que sofreu *commit* pode *quase sempre* ser recuperada. 
+Contudo, qualquer coisa que você perder que **nunca** sofreu *commit* 
+pode ser considerada praticamente perdida.
+]
+
+---
+class: animated, slideInRight
+
+### Corrigindo a mensagem do último *commit* - I
+
+Um dos erros mais comuns no envio de arquivos ao seu repositório local
+aparece quando você executa um `commit` muito cedo e possivelmente 
+escrevendo uma mensagem errada no `commit`. Se você quiser corrigir 
+a mensagem do último `commit`, use a opção `--amend`:
+
+&lt;img src="images/commit_amend.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+&gt; A opção `--amend` não só altera o último commit, mas o substitui 
+totalmente pelo que você está criando agora.  
+
+A opção `--amend` usa a área de preparo (_staging area_)
+para realizar o `commit`. Dessa forma, se você não fez nenhuma alteração desde o último commit, então sua imagem dos arquivos irá ser exatamente a mesma, e tudo o que você alterará será a mensagem do commit.
+
+&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Não use a opção `--amend` quando 
+o último commit já está no repositório remoto, ou seja, quando já está 
+público e pode ter sido usado como referência para outras pessoas.&lt;/span&gt;
+
+---
+class: animated, fadeIn
+
+### Corrigindo a mensagem do último *commit* - II
+
+* Caso você tenha feito um *commit*, mas precisou fazer uma pequena 
+alteração no arquivo sem alterar a mensagem do seu *commit*, você 
+poderá fazer o seguinte:
+
+&lt;img src="images/commit_amend_no_msg.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+* Outro problema que você pode resolver com `--amend` é adicionar um 
+arquivo ao seu repositório, e que o mesmo deve fazer parte do seu
+último *commit*.
+
+&lt;img src="images/commit_amend_forgotten.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Corrigindo a mensagem de um *commit* antigo - I
+
+O comando **`git rebase`** permite alterar uma variedade de *commits*, 
+modificando o histórico do seu repositório.
+
+&gt; **Atenção:** Não use **`git rebase`** de *commits* no repositório 
+remoto. Isso pode dificultar a vida dos usuários que usam o repositório. 
+
+Para editar um *commit*, você poderá usar o comando
+**`rebase`** em modo interativo, da seguinte forma **`git rebase -i`**.
+Dessa forma, seu editor de texto deverá iniciar mostrando a listagem 
+de *commits* no intervalo selecionado. 
+
+Por exemplo, **`git rebase -i HEAD~3`**
+mostra a lista dos 3 últimos *commits*, se mudar para **`HEAD~7`** mostrará
+o 7 últimos *commits*, e assim por diante.
+
+Ao abrir o editor, você poderá notar o seguinte:
+
+* Os *commits* são classificados na ordem das alterações mais antigas 
+para as mais recentes;
+
+* Cada linha mostra um comando (por padrão, *pick*), o **SHA-1** do 
+*commit* e a sua respectiva mensagem. Todo o procedimento do 
+**`git rebase`** gira em torno da manipulação dessas três colunas;
+
+* Depois dos *commits*, o `Git` informa a você o intervalo de *commits* 
+com os quais estamos trabalhando;
+
+* No final, o `Git` fornece um texto informando os comandos que estão 
+disponíveis ao fazer **rebase** dos *commits*.
+
+---
+class: animated, slideInRight
+### Corrigindo a mensagem de um *commit* antigo - II
+
+&lt;img src="images/git_rebase_editor.png" width="93%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+### Corrigindo a mensagem de um *commit* antigo - III
+
+Para alterar a mensagem de um *commit* altere **pick** para **reword**
+nos *commits* que precisa editar. Salve e feche o arquivo. Depois disso
+o `Git` vai abrir cada um dos *commits* marcados com **reword** para 
+edição. Nesse caso é só editar e salvar as alterações.
+
+**Comandos disponíveis ao fazer rebase**
+
+ |Opções           | Descrição     |      
+ |:--------------: |:-------------|
+ |  **pick**       | Indica que o *commit* está incluído. Alterar a ordem de `pick` dos comandos muda a ordem dos *commits*. Se você optar por não incluir um *commit*, será preciso excluir a linha toda.|
+ |  **reword**     | Quando usa `reword` o **rebase** dá a chance de você alterar a mensagem do *commit*.| 
+ |  **edit**       | Permite corrigir o *commit*, i.e. é possível adicionar ou alterar o *commit* por inteiro. | 
+ |  **squash**  | Combina dois ou mais *commits* em um único *commit*. Um *commit* é combinado no *commit* acima dele.| 
+|  **fixup**  | Semelhante ao `squash`, mas o *commit* a sofrer *merge* tem sua mensagem descartada. O *commit* simplesmente sofre *merge* no *commit* acima dele, e a mensagem do commit anterior é usado para descrever ambas as alterações.|
+|  **exec**  | Permite que você execute comandos de shell arbitrários em um *commit*.|
+
+---
+class: animated, slideInRight
+### Corrigindo a mensagem de um *commit* antigo - IV
+
+&gt; **Atenção**: Tanto ao fazer um **`--amend`** quanto fazer um 
+**reword** com *rebase* gerará um novo **SHA-1** para o *commit*. Assim,
+o histórico do `Git` foi alterado e não será possível realizar um *push*,
+pois parte da árvore original de *commits* não está presente no seu
+*branch* local. Em outras palavras, se quiser salvar os arquivos no seu
+repositório remoto usando o comando **`git push origin main`**, o mesmo 
+&lt;ins&gt;não funcionará&lt;/ins&gt;.
+
+&gt; Para resolver o impasse, você deve modificar o comando, forçando o 
+*push* das alterações mais recentes, da seguinte forma:
+
+&lt;img src="images/git_rebase_repo.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+***
+
+Para detalhes veja [GitHub Docs](https://docs.github.com/pt/get-started/using-git/about-git-rebase).
+
+
+---
+class: animated, fadeIn
+
+### Diferença entre `checkout`, `revert` e `reset`
+
+* **revert**:  O `revert` é basicamente um `ctrl+z`. Esse comando desfaz
+tudo que foi feito dentro de um determinado *commit*. O `Git` &lt;ins&gt;gera um 
+novo *commit*&lt;/ins&gt; que registra o que foi desfeito. Por exemplo: se em um 
+*commit* você adicionou um arquivo, o `revert` remove; se no *commit* 
+editou algumas linhas do arquivo, o `revert` desfaz essas linhas ao 
+que eram antes da edição e assim por diante. Use **`git revert HEAD~1`**
+para reverter ou **`git revert --abort`** para cancelar a operação;
+
+* **reset**: A ideia dele é retornar para um estado anterior, porém 
+a diferença do `revert`, ele &lt;ins&gt;não gera commit&lt;/ins&gt;, ele desfaz 
+tudo mesmo. Use **`git reset HEAD~1`** para desfazer o último *commit*;
+
+* **checkout**: Permite mudar de *branch*, *tag*, *commit*, etc. O uso
+mais comum do `checkout` é para mudar de *branch*. Também pode ser usado
+para desfazer as alteraçõesde um arquivo que não foi *commitado*.
+
+---
+class: animated, slideInRight
+
+### Desfazendo o último *commit* - I
+
+Para desfazer o último *commit* você pode usar o comando **`git reset HEAD~1`**
+ou o comando **`git reset HEAD^`** ou até mesmo **`git reset HEAD~`**. 
+A ação desses comandos é a mesma e basicamente eles permitem voltar ao 
+último *commit*, i.e., faz o *branch* atual resetar para a mudança 
+anterior.
+
+&gt; Note que ao executar um desses comandos, você não será informado que o 
+*commit* foi desfeito. Para isso, você deve usar um **`git status`** para
+verificar que os arquivos adicionados ou modificados foram marcados
+para serem *commitados*.
+
+Por exemplo, se o último arquivo *commitado* foi `README.md`, então:
+
+&lt;img src="images/git_reset.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+&gt; O comando **`git reset HEAD~1`** pode ser adaptado para desfazer mais
+*commits*, para isso informe a quantidade de *commits* a desfazer. 
+Por exemplo, **`git reset HEAD~3`** desfaz os três 
+últimos *commits*.
+
+---
+class: animated, slideInLeft
+
+### Desfazendo o último *commit* - II
+
+O comando **`git reset`** tem três opções que podem ser de utilidade:
+*soft*, *mixed* e *hard*.
+
+* **`git reset --soft`**: Move o ponteiro **HEAD** para o *commit*
+indicado, sem alterar a área de preparo nem mesmo o diretório de trabalho. 
+Essa opção é a mais &lt;ins&gt;segura&lt;/ins&gt; entre as três, pois caso seja 
+executada por engano, todo o trabalho atual ainda será acessível.
+
+&lt;img src="images/git_reset_soft.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+* **`git reset --mixed`**: É a opção padrão do **`reset`**. Essa 
+opção, além de mover o ponteiro **HEAD**, faz com que a área de preparo 
+seja atualizada com o mesmo conteúdo do *commit* para o qual o ponteiro 
+**HEAD** foi movido, porém não afeta o diretório de trabalho. 
+
+---
+class: animated, fadeIn
+
+### Desfazendo o último *commit* - III
+
+* **`git reset --hard`**: A opção **hard** é considerada a mais 
+perigosa entre as opções do **`reset`**. Essa opção não apenas descarta as alterações na área 
+de preparo como também &lt;ins&gt;reverte&lt;/ins&gt; todas as alterações no 
+diretório de trabalho para o estado do *commit* que foi especificado 
+no comando.
+
+  Em outras palavras, a opção **`--hard`** faz tudo que **`--mixed`** 
+  faz, mas também sobrescreve o conteúdo do meu diretório de trabalho.
+
+&gt; **Resumindo**
+
+&gt; **`--soft`**: move o **HEAD** para o outro *commit*;
+
+&gt; **`--mixed`**: move o **HEAD** e sobrescreve a área de preparo;
+
+&gt; **`--hard`**: move o **HEAD**, sobrescreve a área de preparo e o 
+diretório de trabalho.
+
+
+---
+class: animated, fanceIn
+
+### Recuperar o número de *commits* realizados por um usuário
+
+Apenas um comando é suficiente para mostrar o total de *commits* de 
+todos os autores: **`git shortlog`**. No exemplo a seguir, seguem
+algumas opções proporcionadas pelo comando:
+
+&lt;img src="images/git_shortlog.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: animated, fanceIn
+
+### Deletar um arquivo de um repositório - I
+
+&gt; **Repositório local**
+
+* Para remover um arquivo no diretório de trabalho basta executar o 
+comando **git rm [nome_do_arquivo]** e *commitar* a remoção. 
+Por exemplo, se quisermos excluir o arquivo `README.md`, execute os 
+seguintes comandos:
+
+&lt;img src="images/git_rm1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+* No cenário em que o arquivo foi alterado e adicionado à área de preparo, 
+precisamos usar a opção `--cached`: **git rm --cached [nome_do_arquivo]**.
+
+---
+class: animated, fanceIn
+
+### Deletar um arquivo de um repositório - I
+
+&gt; **Repositório remoto**
+
+* Para remover o arquivo só do repositório remoto:
+
+&lt;img src="images/git_rm2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Se quiser deletar o arquivo 
+tanto do do repositório local, quanto do repositório remoto, simplesmente
+omita a opção `--cached`.&lt;/span&gt;
+
+---
+class: animated, fanceIn
+
+### Criar uma *branch* a partir de uma ramificação temporária
+
+O comando **`git stash branch [nome_da_branch] [ref_do_stash]`** permite 
+a criação de uma nova ramificação (*branch*) a partir de uma das suas
+ramificações temporárias (*stashes*).
+
+
+### Fazendo *stashing* de arquivos não-monitorados
+
+O comando **`git stash`** vai criar uma ramificação temporária 
+contendo a versão atual do seu projeto. O comando não funciona em dois
+tipos de situações:
+* Arquivos ignorados, i.e., aqueles que foram adicionados ao **`.gitignore`**;
+* Arquivos não-monitorados.
+
+Em qualquer um desses cenários, você precisa usar o comando
+**`git stash -u`**.
+
+### Restaurando as alterações do último *stash*
+
+Para restaurar as alterações do último *stash* use o comando **`git stash pop`**.
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition.
+Apress.
+
+Loeliger, J. and M. McCullough (2012). _Version control
+with Git_. 2nd Edition. O'Reilly Media.
+
+Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General
+Public License version 3.
+
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
+Taylor &amp; Francis Group. CRC Press.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

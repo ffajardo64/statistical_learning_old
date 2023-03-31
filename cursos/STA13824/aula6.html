@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Inferência no modelo de regressão linear - II
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 01/07/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Algumas propriedades do estimador de MQO - I
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+Pelas Suposições **A1** e **A2**, o estimador de MQO para `\(\mathbf{\beta}\)` é 
+dado por
+
+`$$\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.$$`
+&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`, i.e.,
+`\(\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}\)`;
+
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`;
+
+&gt; Pelas Suposições **A1-A5**, o parâmetro `\(\sigma^2\)` pode ser estimado com
+`$$QM_{Res}=\frac{SQ_{Res}}{n-p},$$`
+onde `\(SQ_{Res}=Y'\left(\mathbf{I}-\mathbf{H}\right)Y\)` e `\(p=k+1\)`. Ainda, 
+`\(\frac{SQ_{Res}}{\sigma^2}\)` segue uma distribuição `\(\chi^2_{n-p}\)`.
+
+
+---
+class: animated, slideInRight
+
+### Algumas propriedades do estimador de MQO - II
+
+Assumindo as suposições **A1-A4** temos que
+
+* Os valores ajustados são obtidos como `\(\widehat{Y}=\mathbf{X}\widehat{\beta}\)`,
+onde `\(\widehat{\beta}\)` é a solução do sistema de equações normais. Uma outra
+representação dos valores ajustados é dada pela matriz de projeção 
+`\(\widehat{Y}=\mathbf{H}Y\)`, onde `\(\mathbf{H}=\mathbf{X}(\mathbf{X'X})^{-1}\mathbf{X}'\)`.
+
+* O vetor de resíduos é dado por `\(e=Y-\widehat{Y}=(\mathbf{I}-\mathbf{H})Y\)`;
+
+* O vetor `\(Y\)` pode ser representado como a soma de duas componentes **ortogonais**, 
+uma componente de projeção (*ajustado*) e uma componente residual, i.e.,
+
+`$$Y=\mathbf{H}Y+\left(\mathbf{I}-\mathbf{H}\right)Y.$$`
+&gt; Isso significa que, o produto interno entre o vetor de valores ajustados e o
+vetor de resíduos é zero, i.e., `\(\langle\widehat{Y},e\rangle=\langle e,\widehat{Y}\rangle=0\)`. 
+Em outras palavras, os vetores são ortogonais;
+
+
+Para detalhes ver, por exemplo, Chatterjee and Hadi (2006),
+Draper and Smith (1998) e Montgomery, Peck, and Vining (2006).
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - I
+
+Usando o teorema de Pitágoras,
+
+`$$Y'Y=Y'\mathbf{H}'\mathbf{H}Y+Y'\left(\mathbf{I}-\mathbf{H}\right)'\left(\mathbf{I}-\mathbf{H}\right)Y=\widehat{Y}'\widehat{Y}+e'e$$`
+ou
+
+`$$SQ_{Total}=SQ_{Reg}+SQ_{Res}.$$`
+&gt; Observe que, a soma de quadrados da regressão, dada por
+`$$SQ_{Reg}=Y'\mathbf{H}'\mathbf{H}Y=Y'\mathbf{H}Y=Y'\mathbf{X}(\mathbf{X'X})^{-1}\mathbf{X}'Y.$$`
+
+Pelas Suposições **A1-A5**, temos que
+
+`$$\frac{SQ_{Reg}}{\sigma^2}=\frac{1}{\sigma^2}Y'\mathbf{H}Y$$`
+segue uma distribuição `\(\chi^2\)` não-central, cujos graus de liberdade são iguais 
+ao posto da matriz `\(\mathbf{H}\)`. Observe que, pelo fato de ser idempotente, 
+o posto da matriz é igual ao seu traço.
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - II
+
+* O traço da matriz `\(\mathbf{H}\)` é dado por
+
+`$$\mathrm{tr}\left(\mathbf{H}\right)=\mathrm{tr}\left(\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\right)=\mathrm{tr}\left(\mathbf{X}'\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\right)=p,$$`
+onde `\(\mathbf{X}'\mathbf{X}\)` é de dimensão `\(p\times p\)`, onde `\(p=k+1\)`.
+
+
+* O parâmetro de não-centralidade é dado por
+
+`$$\frac{1}{\sigma^2}\mathbb{E}[Y']\mathbf{H}\mathbb{E}[Y]=\frac{1}{\sigma^2}\beta'\mathbf{X}'\mathbf{H}\mathbf{X}\beta=\frac{1}{\sigma^2}\beta'\mathbf{X}'\mathbf{X}\beta.$$`
+Dessa forma,
+
+`$$\frac{SQ_{Reg}}{\sigma^2}=\frac{1}{\sigma^2}Y'\mathbf{H}Y$$`
+segue uma distribuição `\(\chi^2_{p,\lambda}\)`, onde `\(\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\mathbf{X}\beta\)`.
+
+
+---
+class: animated, fadeIn
+
+### Análise de variância (ANOVA) - III
+
+&gt; As formas quadráticas `\(Y'\left(\mathbf{I}-\mathbf{H}\right)Y\)` e `\(Y'\mathbf{H}Y\)`
+são independentes, pois `\(\left(\mathbf{I}-\mathbf{H}\right)\mathbf{H}=\mathbf{0}\)`.
+
+Dessa forma,
+
+`$$F=\frac{\frac{SQ_{Reg}}{p\sigma^2}}{\frac{SQ_{Res}}{(n-p)\sigma^2}}=\frac{QM_{Reg}}{QM_{Res}}$$`
+segue uma distribuição `\(F_{p,n-p,\lambda}\)`, com `\(\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\mathbf{X}\beta\)`.
+
+--
+
+Dessa relação, podemos construir uma tabela básica para a **Análise de Variância**:
+
+
+ | Fonte        | Graus de liberdade |        Somas de quadrados         | Quadrados médios  |
+ |:------------:|:------------------:|:---------------------------------:|:-----------------:|
+ |    Regressão |         `\(p\)`        | `\(\widehat{\beta}'\mathbf{X}'Y\)`    |  `\(QM_{Reg}\)`       |
+ |     Resíduos |       `\(n-p\)`        | `\(Y'Y-\widehat{\beta}'\mathbf{X}'Y\)`|  `\(QM_{Res}\)`       |
+ |              |                    |                                   |                   |
+ |        Total |         `\(n\)`        |        `\(Y'Y\)`                      |                   |
+ 
+
+---
+class: animated, slideInRight
+
+### Coeficiente de determinação - `\(R^2\)`
+
+Da relação `\(SQ_{Total}=SQ_{Reg}+SQ_{Res}\)`, temos que
+
+`$$1=\frac{SQ_{Reg}}{SQ_{Total}}+\frac{SQ_{Res}}{SQ_{Total}}.$$`
+Daí,
+
+`$$\frac{SQ_{Reg}}{SQ_{Total}}=1-\frac{SQ_{Res}}{SQ_{Total}}.$$`
+Define-se o *coeficiente de determinação* como a quantidade 
+`\(\frac{SQ_{Reg}}{SQ_{Total}}\)` e denota-se como `\(R^2\)`. 
+
+A interpretação do `\(R^2\)`  é naturalmente percebida  como  a  proporção  da
+variação  total  de `\(Y\)` explicada  pela  variação  nas variáveis regressoras.
+Em outras palavras, o `\(R^2\)` expressa a quantidade da variância dos dados que 
+é explicada pelo modelo linear. Dessa forma, quanto maior o coeficiente, mais 
+explicativo é o modelo linear.
+
+
+---
+class: animated, fadeIn
+
+### Coeficiente de determinação - `\(R^2\)`
+
+#### Algumas considerações
+
+1. O `\(R^2\)` está definido no intervalo `\([0,1]\)`. Na prática, uma realização do `\(R^2\)`
+próxima de `\(1\)` indica que o modelo apresenta um "*bom*" ajuste para os dados, embora as 
+interpretações de ajuste dependam do contexto de análise.
+
+--
+
+2. Na prática, o `\(R^2\)` deve ser utilizado com cautela, pois sempre é possível 
+aumentar seu valor esperado adicionando termos suficientes ao modelo. 
+
+--
+
+3. Embora `\(R^2\)` não possa diminuir se adicionarmos uma variável regressora ao 
+modelo, este não significa necessariamente que o novo modelo seja superior ao 
+antigo;
+
+--
+
+4. A magnitude de `\(R^2\)` também depende da faixa de variabilidade da variável regressora. 
+Geralmente `\(R^2\)` aumentará o valor das suas realizações conforme a aumenta a
+variabilidade das regressoras e viceversa, desde que a forma do modelo assumido esteja correta.
+
+--
+
+5. Sob algumas condições de regularidade, o `\(R^2\)` segue distribuição
+`\(Beta\left(\frac{k}{2},\frac{n-k-1}{2}\right)\)`, 
+onde `\(k\)` é o número de regressores e `\(n\)` o tamanho de amostra. 
+
+---
+class: inverse, hide-logo, middle, center
+
+# Máxima verossimilhança
+
+---
+class: animated, slideInRight
+
+### Estimador de máxima verossimilhança para `\(\beta\)`
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+Pelas Suposições **A1-A5**, temos que
+
+`$$L\left(\beta, \sigma^2\right)=\frac{1}{(2\pi)^{n/2}\sigma^n}\exp\left\{-\frac{1}{2\sigma^2}\left(Y-\mathbf{X}\beta\right)'\left(Y-\mathbf{X}\beta\right)\right\},$$`
+daí,
+
+`$$\log L\left(\beta, \sigma^2\right)=-\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}\left(Y-\mathbf{X}\beta\right)'\left(Y-\mathbf{X}\beta\right).$$`
+Observe que, para um `\(\sigma\)` fixo, a log-verossimilhança é maximizada quando o 
+termo `\(\left(Y-\mathbf{X}\beta\right)'\left(Y-\mathbf{X}\beta\right)\)` é minimizado.
+Dessa forma, o estimador de máxima verossimilhança para `\(\beta\)` é equivalente
+ao estimador de mínimos quadrados. Ainda, o estimador de máxima verossimilhança
+para `\(\sigma^2\)` é dado por
+
+`$$\widetilde{\sigma}^2=\frac{\left(Y-\mathbf{X}\widehat{\beta}\right)'\left(Y-\mathbf{X}\widehat{\beta}\right)}{n}.$$`
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Chatterjee, S. and A. S. Hadi (2006). _Regression Analysis by Example_.
+4th. Wiley-Interscience.
+
+Draper, N. R. and H. Smith (1998). _Applied regression analysis_. 3rd
+edition. Wiley series in probability and mathematical statistics. New
+York: Wiley.
+
+Montgomery, D. C., E. A. Peck, and G. G. Vining (2006). _Introduction
+to Linear Regression Analysis_. 4th edition. Wiley &amp; Sons.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Inferência no modelo de regressão linear - III
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 07/07/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Análise de variância (ANOVA) - I
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+Pelas Suposições **A1** e **A2**, o estimador de MQO para `\(\mathbf{\beta}\)` é 
+dado por
+
+`$$\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.$$`
+&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`, i.e.,
+`\(\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}\)`;
+
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`;
+
+&gt; Pelas Suposições **A1-A5**, o parâmetro `\(\sigma^2\)` pode ser estimado com
+`$$QM_{Res}=\frac{SQ_{Res}}{n-p},$$`
+onde `\(SQ_{Res}=Y'\left(\mathbf{I}-\mathbf{H}\right)Y\)` e `\(p=k+1\)`. Onde, 
+`\(\frac{SQ_{Res}}{\sigma^2}=\frac{1}{\sigma^2}\left[Y'(\mathbf{I}-\mathbf{H})Y\right]\)` 
+segue uma distribuição `\(\chi^2_{n-p}\)`.
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - II
+
+&gt; Pelas Suposições **A1-A5**, 
+`$$\frac{SQ_{Reg}}{\sigma^2}=\frac{1}{\sigma^2}Y'\mathbf{H}Y$$`
+segue uma distribuição `\(\chi^2_{p,\lambda}\)`, onde 
+`\(\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\mathbf{X}\beta\)`. Daí, 
+`$$QM_{Reg}=\frac{SQ_{Reg}}{p}.$$`
+
+
+
+Dessa forma, podemos construir uma tabela básica para a **Análise de Variância**, 
+dada por:
+
+
+ | Fonte        | Graus de liberdade |        Somas de quadrados         | Quadrados médios  |
+ |:------------:|:------------------:|:---------------------------------:|:-----------------:|
+ |    Regressão |         `\(p\)`        | `\(\widehat{\beta}'\mathbf{X}'Y\)`    |  `\(QM_{Reg}\)`       |
+ |     Resíduos |       `\(n-p\)`        | `\(Y'Y-\widehat{\beta}'\mathbf{X}'Y\)`|  `\(QM_{Res}\)`       |
+ |              |                    |                                   |                   |
+ |        Total |         `\(n\)`        |        `\(Y'Y\)`                      |                   |
+ 
+
+
+---
+class: animated, slideInRight
+
+### Mais resultados de interesse - I
+
+* Pelas Suposições **A1-A5**, o vetor `\(Y\)` segue uma distribuição 
+**normal `\(n\)`-variada** com vetor de médias `\(\mathbb{E}[Y]=\mathbf{X}\beta\)` e 
+matriz de covarianciâs `\(\mathrm{cov}[Y]=\sigma^2\mathbf{I}\)`;
+
+&gt; **Lembre que**: Se `\(X\)` é um vetor com distribuição `\(N_m(\mu,\Sigma)\)` e `\(\mathbf{B}\)`
+uma matriz `\(k\times m\)` e `\(b\)` um vetor `\(k\times 1\)`, então `\(Y=\mathbf{B}X+b\)` segue
+uma distribuição `\(N_k\left(\mathbf{B}\mu,\mathbf{B}\Sigma\mathbf{B}'\right)\)`. Para detalhes ver, e.g., Muirhead (2005).
+
+* Pelas Suposições **A1-A5**, o vetor `\(\widehat{Y}\)` segue uma distribuição 
+**normal `\(n\)`-variada** com vetor de médias 
+`\(\mathbf{E}\left[\widehat{Y}\right]=\mathbf{X}\beta\)` e matriz de 
+covariâncias `\(\mathrm{cov}\left[\widehat{Y}\right]=\sigma^2\mathbf{H}\)`.
+
+***
+
+&lt;span style="color:grey"&gt;
+Calculando o valor esperado de `\(\widehat{Y}\)`:
+
+`$$\mathbb{E}\left[\widehat{Y}\right]=\mathbb{E}\left[\mathbf{H}Y\right]=\mathbf{H}\,\mathbb{E}\left[Y\right]=\mathbf{HX}\beta=\mathbf{X}\beta.$$`
+&lt;/span&gt;
+
+&lt;span style="color:grey"&gt;
+Calculando a matriz de covariâncias de `\(\widehat{Y}\)`:
+
+`$$\mathrm{cov}\left[\widehat{Y}\right]=\mathbf{X}\mathrm{cov}\left[\widehat{\beta}\right]\mathbf{X}'=\sigma^2\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'=\sigma^2\mathbf{H}.$$`
+&lt;/span&gt;
+
+---
+class: animated, slideInRight
+
+### Mais resultados de interesse - II
+
+* Pelas Suposições **A1-A5**, o vetor de *resíduos* segue uma distribuição 
+**normal `\(n\)`-variada** com vetor de médias `\(0\)` e matriz de 
+covariâncias `\(\mathrm{cov}\left[e\right]=\sigma^2\left(\mathbf{I}-\mathbf{H}\right)\)`.
+
+  &lt;span style="color:grey"&gt;
+    Calculando o valor esperado do vetor de resíduos:
+  
+  `$$\mathbb{E}\left[e\right]=\mathbb{E}\left[\left(\mathbf{I}-\mathbf{H}\right)Y\right]=\left(\mathbf{I}-\mathbf{H}\right)\mathbb{E}\left[Y\right]=\left(\mathbf{I}-\mathbf{H}\right)\mathbf{X}\beta=0.$$`
+  &lt;/span&gt;
+  
+  &lt;span style="color:grey"&gt;
+  Calculando a matriz de covariâncias do vetor de resíduos:
+
+`$$\mathrm{cov}\left[e\right]=\mathrm{cov}\left[\left(\mathbf{I}-\mathbf{H}\right)Y\right]=\left(\mathbf{I}-\mathbf{H}\right)\mathrm{cov}\left[Y\right]\left(\mathbf{I}-\mathbf{H}\right)'=\sigma^2\left(\mathbf{I}-\mathbf{H}\right).$$` 
+&lt;/span&gt;
+
+**&lt;span style="color:red"&gt;Exercício:&lt;/span&gt;**
+Considere o modelo `\(Y=\mathbf{X}\beta+\epsilon\)`, onde `\(\epsilon\)` é um vetor com
+distribuição normal `\(n\)`-variada com vetor de médias `\(0\)` e matriz de covariâncias
+`\(\sigma^2\mathbf{I}\)`. Seja
+
+&lt;div class="math"&gt;
+\[\mathbf{U}=\left[
+\begin{array}{c}
+\widehat{\beta} \\
+e \\
+\end{array}
+\right]=
+\left[
+\begin{array}{c}
+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}' \\
+\left(\mathbf{I}-\mathbf{H}\right) \\
+\end{array}
+\right]Y.
+\]
+&lt;/div&gt;
+
+1. Qual a distribuição de `\(\mathbf{U}?\)`;
+1. Mostre que `\(\widehat{\beta}\)` e `\(e\)` são independentes.
+
+---
+class: animated, slideInRight
+
+### Testes de hipóteses e intervalos de confiança para `\(\beta\)` - I
+
+Sabemos que `\(\widehat{\beta}_j\)` segue uma distribuição normal com média `\(\beta_j\)` 
+e variância `\(\sigma^2\, C_{jj}\)`, onde `\(C_{jj}\)` é o `\(j+1\)`-ésimo elemento diagonal
+da matriz `\(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`. Dessa forma,
+
+`$$Z=\frac{\widehat{\beta}_j-\beta_j}{\sqrt{\sigma^2C_{jj}}}$$`
+segue uma distribuição normal padrão.
+
+Ainda, temos que `\(\frac{SQ_{Res}}{\sigma^2}\)` segue uma distribuição `\(\chi^2_{n-p}\)`. Daí,
+
+`$$t=\frac{Z}{\sqrt{\frac{SQ_{Res}}{\sigma^2(n-p)}}}=\frac{\frac{\widehat{\beta}_j-\beta_j}{\sqrt{\sigma^2C_{jj}}}}{\sqrt{\frac{QM_{Res}}{\sigma^2}}}=\frac{\widehat{\beta}_j-\beta_j}{\sqrt{QM_{Res}\, C_{jj}}}$$`
+segue uma distribuição `\(t_{n-p}\)`.
+
+---
+class: animated, slideInRight
+
+### Testes de hipóteses e intervalos de confiança para `\(\beta\)` - I
+
+#### Intervalos de confiança
+
+Dessa forma, `\(t\)` é uma quantidade pivotal para o parâmetro `\(\beta_j\)`. Daí, um
+intervalo de `\((1-\alpha)\times 100\%\)` de confiança para `\(\beta_j\)` é dado por
+
+`$$\widehat{\beta}_j\pm t_{1-\alpha/2,n-p}\sqrt{QM_{Res}\, C_{jj}}.$$`
+#### Teste de hipóteses
+
+Considere as seguintes hipóteses
+
+  &lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0&amp;:\beta_j=0 &amp; H_1&amp;:\beta_j\ne0.
+  \end{aligned}
+  $$
+  &lt;/div&gt;
+
+Seja `\(t_0\)` que representa a quantidade pivotal `\(t\)` sob `\(H_0\)`. Assim, `\(t_0\)` segue
+uma distribuição `\(t_{n-p}\)`.
+
+Rejeitamos `\(H_0\)`, em favor de `\(H_1\)`, se `\(|t_0|&gt;t_{1-\alpha/2,n-p}\)`.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Correção da soma de quadrados
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - III
+
+#### Algumas considerações
+
+* A soma de quadrados total (*não-corrigida*) foi particionada na soma de 
+quadrados devido ao modelo de regressão e a soma de quadrados dos resíduos
+
+`$$Y'Y = \widehat{Y}'\widehat{Y}+e'e=\widehat{\beta}'\mathbf{X}'Y+e'e.$$`
+* Eventualmente teremos interesse em explicar a variação de `\(Y\)` em torno da 
+sua média (ao invés do em torno de zero) e determinar com quanta informação as 
+covariáveis contribuem para tal explicação. 
+
+  &gt; **Caso 1.** Se nenhuma informação das covariáveis estiver disponível, o 
+  melhor preditor de `\(Y\)` é a melhor estimativa disponível da média da população. 
+  Nesse sentido,
+  `$$\mathbb{E}\left[Y|\mathbf{X}\right]=\beta_0,$$`
+  daí, `\(\widehat{\beta}_0=\bar{Y}\)`;
+ 
+ 
+---
+class: animated, fadeIn
+
+### Análise de variância (ANOVA) - IV
+
+&gt; **Caso 2.** Quando as covariáveis estão disponíveis, ou seja
+`$$\mathbb{E}\left[Y|\mathbf{X}\right]=\mathbf{X}\beta,$$`
+o interesse está em saber com quanta informação as covariáveis contribuem para a 
+explicação da variação de `\(Y\)`, além da contribuição fornecida apenas pela média 
+de `\(Y\)`.
+
+Dessa forma, a informação adicional fornecida pelas covariáveis será representada
+como 
+`$$SQ_{Reg} = SQ_{Modelo} - SQ_{\mu},$$`
+onde `\(SQ_{Modelo}\)` representa a soma de quadrados da regressão quando as
+covariáveis **estão** disponíveis, e `\(SQ_{\mu}\)` representa a soma de quadrados da 
+regressão quando **nenhuma** covariável está disponível. O modelo sem covariáveis 
+contém apenas um único parâmetro, nesse caso a média geral `\(\mu\)`.
+
+&lt;br&gt;&lt;/br&gt;
+
+--
+
+.center[
+&lt;font size="6"&gt; Objetivo: Comparar os Casos 1 e 2.&lt;/font&gt;
+]
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+O modelo quando `\(\mu\)` é o único parâmetro é dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon},$$`
+onde `\(\mathbf{X}\)` é um o vetor coluna de `\(1's\)`, denotado por `\(\mathbf{1}\)`, e 
+`\(\beta=\mu\)`. Daí,
+
+`$$\widehat{\beta}=\left(\mathbf{1}'\mathbf{1}\right)^{-1}\mathbf{1}'Y=\frac{1}{n}\mathbf{1}'Y=\bar{Y}$$`
+e
+
+`$$SQ_{\mu}=\widehat{\beta}'\mathbf{X}'Y=\frac{1}{n}\left(\mathbf{1}'Y\right)'\left(\mathbf{1}'Y\right)=Y'\left(\frac1n\mathbf{11}'\right)Y=Y'\left(\frac1n\mathbf{J}\right)Y.$$`
+&gt; Uma outra forma para representar `\(SQ_\mu\)` é dada por 
+`$$SQ_\mu=\frac1n\left(\sum_{i=1}^nY_i\right)^2=n\bar{Y}^2.$$`
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+A matriz `\(\frac1n\mathbf{J}\)` é dada por
+ 
+&lt;div class="math"&gt;
+\[\frac1n\mathbf{J}=\frac1n\mathbf{11}'=\frac1n\left[
+\begin{array}{ccccc}
+1&amp;1&amp;1&amp;\cdots&amp;1 \\
+1&amp;1&amp;1&amp;\cdots&amp;1 \\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+1&amp;1&amp;1&amp;\cdots&amp;1
+\end{array}
+\right]_{n\times n}.
+\]
+&lt;/div&gt;
+
+Pode-se observar que a matriz `\(\frac1n\mathbf{J}\)` é idempotente, daí o posto é igual a 
+`\(\mathrm{tr}\left(\frac1n\mathbf{J}\right)=1\)`. Dessa forma, a forma quadrática
+
+`$$\frac{SQ_{\mu}}{\sigma^2}=\frac{1}{\sigma^2}Y'\left(\frac1n\mathbf{J}\right)Y$$`
+segue uma distribuição `\(\chi^2_{1,\lambda}\)`, com 
+
+`$$\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\left(\frac1n\mathbf{J}\right)\mathbf{X}\beta=\frac{1}{n\sigma^2}\left(\mathbf{X}\beta\right)'\mathbf{1}\mathbf{1}'\mathbf{X}\beta=\frac{1}{n\sigma^2}\left(\mathbf{1}'\mathbf{X}\beta\right)^2.$$`
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+A `\(SQ_{Reg}\)` é dada por
+
+`$$SQ_{Reg}=SQ_{Modelo}-SQ_\mu=Y'\mathbf{H}Y-Y'\left(\frac1n\mathbf{J}\right)Y=Y'\left(\mathbf{H}-\frac1n\mathbf{J}\right)Y.$$`
+Dessa forma, `\(\frac{SQ_{Reg}}{\sigma^2}=\frac{1}{\sigma^2}Y'\left(\mathbf{H}-\frac1n\mathbf{J}\right)Y\)`
+segue uma distribuição `\(\chi^2_{p-1,\lambda}\)`, com
+
+`$$\lambda=\frac{1}{\sigma^2}\beta'\mathbf{X}'\left(\mathbf{H}-\frac1n\mathbf{J}\right)\mathbf{X}\beta=\frac{1}{\sigma^2}\beta'\mathbf{X}'\left(\mathbf{I}-\frac1n\mathbf{J}\right)\mathbf{X}\beta.$$`
+&lt;br&gt;&lt;/br&gt;
+
+**&lt;span style="color:red"&gt;Exercício:&lt;/span&gt;** Mostre que a matriz `\(\frac1n\mathbf{J}\)`
+é ortogonal às matrizes `\(\mathbf{H}-\frac1n\mathbf{J}\)` e `\(\mathbf{I}-\mathbf{H}\)`.
+
+
+
+---
+class: animated, slideInRight
+
+### Análise de variância (ANOVA) - V
+
+Dessa forma, a soma de quadrados total pode ser particionada em três componentes
+tal que
+
+`$$Y'Y=SQ_\mu+SQ_{Reg}+SQ_{Res}=Y'\left(\frac1n\mathbf{J}\right)Y+Y'\left(\mathbf{H}-\frac1n\mathbf{J}\right)Y+Y'\left(\mathbf{I}-\mathbf{H}\right)Y.$$`
+Dessa forma, podemos construir uma tabela para a **Análise de Variância**, com a
+soma de quadrados corrigida, dada por:
+
+
+ | Fonte        | Graus de liberdade |  Somas de quadrados  | Quadrados médios  |
+ |:------------:|:------------------:|:--------------------:|:-----------------:|
+ |    Regressão |         `\(p-1\)`        | `\(SQ_{Reg}\)`         |  `\(QM_{Reg}\)`       |
+ |     Resíduos |         `\(n-p\)`        | `\(SQ_{Res}\)`         |  `\(QM_{Res}\)`       |
+ |              |                      |                    |                   |
+ |        Total |         `\(n-1\)`        | `\(SQ_{Total}\)`       |                   |
+ 
+
+---
+class: animated, slideInRight
+
+### Teste de significância da regressão
+
+O teste de significância da regressão permite verificar se existe uma relação 
+linear entre a variável dependente `\(Y\)` e as covariáveis.
+
+Considere as seguintes hipóteses
+
+  &lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0&amp;:\beta_1=\beta_2=\beta_3=\cdots=\beta_k=0 &amp; H_1&amp;:\text{algum }\beta_j\ne0, \quad j=1,2,\ldots,k.
+  \end{aligned}
+  $$
+A rejeição de `\(H_0\)` implica que pelo menos uma das covariáveis contribui ao modelo.
+
+Sob `\(H_0\)`,
+
+`$$F_0=\frac{SQ_{Reg}/(p-1)}{SQ_{Res}/(n-p)}=\frac{QM_{Reg}}{QM_{Res}}$$`
+segue uma distribuição `\(F_{p-1,n-p}\)`. Rejeitamos `\(H_0\)` se `\(F_0&gt;F_{p-1,n-p,\alpha}\)`.
+
+&gt; O coeficiente de determinação ajustado define-se como
+`$$R^2_{Ajust}=1-\frac{SQ_{Res}/(n-p)}{SQ_{Total}/(n-1)}.$$`
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Muirhead, R. J. (2005). _Aspects of Multivariate Statistical Theory_.
+Wiley-Interscience.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

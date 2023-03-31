@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabio A. Fajardo Molinares" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+&lt;br&gt;&lt;/br&gt;
+### 
+### LECON/DEST - UFES
+### Vitória, ES. - 23/06/2021
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
+class: animated, slideInRight
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+
+# Plano de Ensino
+  * **Horário:** Seg - Qua - Sex / 07:00 - 09:00h
+  
+  * **Ementa:** Planejamento de um estudo de Regressão - Distribuição de Formas Lineares e quadráticas de Vetores   conjuntamente   Normais - Regressão linear  simples - Regressão Linear Múltipla Análise dos Resíduos - Transformações de Box-Cox. Noções Gerais de Educação Ambiental.
+  
+  * **Objetivos:** 
+    - Apresentar as técnicas de análise de regressão para capacitar o aluno a entender asrelações entre variáveis;
+    - Analisar e modelar dados, dando ênfase às aplicações que ressaltam situações que compõem a educação ambiental;
+    - Aplicar as metodologias apresentadas por meio do uso de programas computacionais estatísticos.
+
+
+  * **Pré-requisitos:** STA13820 INFERÊNCIA ESTATÍSTICA I
+---
+[//]: &lt;&gt; (class: center, middle, animated, slideInRight/ class: animated slideInRight fadeOutLeft)
+class: animated, fadeIn
+
+# Programa
+
+1. INTRODUÇÃO: 1.1. Regressão e a construção de modelos; 1.2. Exemplos; 1.3. O modelo geral; 1.4. Razões importantes para usar modelos de regressão; 1.5. Usos da regressão.
+
+--
+
+1. REGRESSÃO LINEAR SIMPLES: 2.1. O Modelo; 2.2. Pressupostos do modelo; 2.3.Estimação de parâmetros; 2.4. Valores ajustados, resíduos e estimativa da variância; 2.5. Propriedades do estimador de mínimos quadrados ordinários; 2.6. Inferência sobre os parâmetros da regressão; 2.7. Predição de novas observações; 2.8. Coeficiente de determinação `\(R^2\)`; 2.9. Regressão através da origem.
+
+--
+
+1. REGRESSÃO LINEAR MÚLTIPLA: 3.1. O modelo linear geral; 3.2. Estimação dos parâmetros do modelo; 3.3. Interpretação geométrica dos coeficientes; 3.4. Propriedades do estimador de mínimos quadrados ordinários; 3.5. Inferência sobre os parâmetros da regressão; 3.6. Predição de novas observações; 3.7. O princípio da soma de quadrados adicionais; 3.8. Coeficiente de determinação `\(R^2\)`; 3.9. Estimação por mínimos quadrados generalizados; 3.10. Estimação por mínimos quadrados ponderados.
+
+--
+
+1. VERIFICAÇÃO DO MODELO: 4.1. Análise residual 4.2. Teste de falta de ajuste; 4.3. Multicolinearidade; 4.4. Heteroscedasticidade; 4.5. Autocorrelação; 4.6. Não-normalidade; 4.7. O efeito dos casos individuais.
+
+--
+
+1. SELEÇÃO DE MODELOS: 5.1. Critérios de informação; 5.2. Seleção Forward; 5.3. Seleção Backward; 5.4.Regressão Stepwise
+
+---
+[//]: &lt;&gt; (https://github.com/emitanaka/anicon)
+[//]: &lt;&gt; (https://github.com/mitchelloharawild/icons)
+[//]: &lt;&gt; (https://slides.yihui.org/2020-genentech-rmarkdown.html#1)
+[//]: &lt;&gt; (https://github.com/gadenbuie/xaringanExtra)
+[//]: &lt;&gt; (class: center, middle, animated, slideInRight)
+
+class: animated, slideInRight
+
+# Bibliografia Básica
+* MONTGOMERY, Douglas C.; PECK, Elizabeth A.; VINING, G. Geoffrey. Introduction to linear regression analysis. 5th ed. New Jersey: Wiley Interscience, 2012. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://bityli.com/eT9nc)
+
+* DRAPER, Norman Richard; SMITH, Harry. Applied regression analysis. 3rd ed. New York: John Wiley, c1998. xvii, 706 p.
+[<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://bityli.com/BLHBJ)
+
+* HOFFMANN,   Rodolfo;   VIEIRA,   Sônia.   Análise   de   regressão:   uma   introdução à econometria. 3. ed. São Paulo: Hucitec, 2006 viii, 379p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://bityli.com/TDinv)
+
+* GUJARATI, Damodar N.; PORTER, Dawn C. Econometria básica. 5. ed. Rio de Janeiro, RJ: AMGH, 2011. 924 p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://bityli.com/BsMfq)
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+**Observação:** Por favor consultar a bibliografía complementar no PPC 2019 do curso, [**PPC 2019 do curso**](https://estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13824_analise_de_regressao_0.pdf).
+
+---
+class: inverse, hide-logo, center, middle, animated, bounceInDown
+
+# Atividades avaliativas
+
+
+---
+class: animated, slideInRight
+
+# Atividades avaliativas
+As atividades avaliativas consistirão de três provas escritas 
+( `\(P_1\)`, `\(P_2\)` e `\(P_3\)` ) e dois trabalhos práticos ( `\(TP\)` ). A nota final ( `\(NF\)` ) será
+calculada como:
+`$$NF=0.6\times \bar{P} + 0.4\times TP,$$`
+onde `\(\bar{P}=\frac13\sum_{i=1}^3P_i\)`.
+
+Alunos que não obtiverem nota final igual ou superior a `\(7.0\)` (sete) ao final 
+do período letivo ficarão de prova final.
+
+
+**Trabalhos práticos**
+
+Ao longo do semestre você deverá escrever o texto de 2 (dois) trabalhos práticos.
+É MUITO FORTEMENTE recomendado que as atividades avaliativas apresentadas
+sejam tipografadas usando `\(\LaTeX\)`. Para auxiliar a elaboração dos documentos, o
+estudante poderá optar pelo uso do [*R Markdown*](https://rmarkdown.rstudio.com/lesson-1.html).
+O *R Markdown* utiliza a linguagem simples de marcação *Markdown*, a mesma usada para
+conversão de textos para HTML. 
+
+Algumas sugestões para explorar o *R Markdown*: Xie, Allaire, and Grolemund (2021);
+Xie, Dervieux, and Riederer (2020).
+
+---
+class: animated, bounceInDown
+## Sobre a redação dos trabalhos - I
+
+No que se refere à redação dos trabalhos, recomenda-se que eles estejam bem escritos e
+que seus textos estejam gramaticalmente corretos. Evite também cometer erros de ortografia, 
+mantenha sempre do lado seu dicionário de confiança. Os documentos devem
+ser estruturados em formato de *trabalho cientı́fic*o. Eles devem sempre iniciar com uma
+introdução ao problema em estudo e uma motivação para as técnicas utilizadas. Algumas
+regras básicas devem ser seguidas&lt;sup&gt;1&lt;/sup&gt;:
+
+**R1.** Os parágrafos não devem ser demasiado curtos nem exaustivamente longos. 
+Parágrafos de duas ou três linhas devem ser evitados;
+
+**R2.** As idéias e argumentos incluı́dos nos parágrafos e ao longo do texto
+devem estar logicamente encadeados;
+
+**R3.** Os resultados apresentados em tabelas ou figuras devem ser descritos e 
+discutidos. Não é aceitável incluir gráficos, tabelas ou alguma outra forma de 
+apresentação de resultados sem uma menção explı́cita no texto e sem uma discussão
+de seu conteúdo e implicações;
+
+**R4.** Todas as tabelas e gráficos devem ser enumerados, devem ter tı́tulo e
+devem ser referenciados no texto;
+
+**R5.** O documento deve ser dividido em seções, estando estas logicamente 
+ordenadas;
+
+[1] Editado das _regras de elaboração de trabalhos_ por [F. Cribari-Neto](http://www.de.ufpe.br/%7Ecribari/)(DE-UFPE).
+
+---
+class: animated, fadeIn
+## Sobre a redação dos trabalhos - II
+
+**R6.** A seção de conclusões (ao final do trabalho) deve ser um apanhado geral do que foi
+feito ao logo do documento e as discusões sobre as implicações dos resultados obtidos
+devem ser apresentadas;
+
+**R7.** As referências bibliográficas devem ser colecionadas ao final do documento 
+e listadas alfabeticamente. Todas as referências bibliográficas incluı́das nesta
+listagem devem ter sido referenciadas ao longo do texto. Não inclua referências 
+bibliográficas que não foram explicitamente citadas no texto, mesmo que você 
+tenha consultado. Sugere-se o uso dos programas `\(BibTeX\)` / `\(BibLaTeX\)` para o 
+gerenciamento da suas referências bibliográficas;
+
+**R8.** Todas as siglas utilizadas ao longo do texto devem ser definidas na 
+primeira vez que aparecerem, **NÃO** use siglas que não foram definidas;
+
+**R9.** No que se refere às equações destacadas em linhas separadas, apenas 
+aquelas explicitamente citadas devem ser enumeradas. As equações destacadas 
+devem ser pontuadas normalmente;
+
+**R10.** Todos os simbolos matemáticos utilizados no texto devem ser definidos 
+explicitamente. Lembre: *A CLAREZA ANTES DA ASTÚCIA*, i.e. procure escrever de
+forma clara e evite construções rebuscadas. A clareza do texto deve ser sua meta
+central. Um bom texto deve ser admirado pelo seu conteúdo e não por sua forma.
+Seja objetivo. A objetividade é componente importante de qualquer texto cientı́fico.
+
+---
+class: inverse, hide-logo, middle, center
+
+# Metodologia
+
+---
+class: animated, slideInRight
+# Aulas síncronas
+
+&gt; &lt;span style="color:grey"&gt;As aulas síncronas são aquelas que ocorrem em tempo 
+real, ou seja, o professor e os alunos estão conectados simultaneamente, no 
+mesmo horário e na mesma sala virtual, e podem interagir uns com os outros 
+durante a transmissão ao vivo.&lt;/span&gt;
+
+As aulas síncronas serão ministradas às segundas, quartas e sextas-feiras das 
+7:00 às 09:00h, respeitando o mínimo de `\(25\%\)` da carga horária 
+total da disciplina, como disposto no §2&lt;sup&gt;o&lt;/sup&gt; do Art. 4&lt;sup&gt;o&lt;/sup&gt; da 
+Resolução No. 30/2020.
+
+* **Frequência:** Será computada durante as aulas. Solicita-se informar a sua 
+participação na aula no mural do classroom. Importante não esquecer de informar 
+a presença, pois o sistema não permite o abono da falta após do horário 
+programado. Independente da nota, o aluno que não tiver frequência igual ou 
+superior a `\(75\%\)` será &lt;ins&gt;**reprovado por faltas**&lt;/ins&gt;.
+
+---
+class: animated, slideInRight
+# Datas importantes
+
+- **Inicio das aulas:** Segunda-feira 14/06/2021 
+
+&gt; **Prova 1:** Sexta-feira 23/07/2021
+
+&gt; **Prova 2:** Segunda-feira 30/08/2021
+
+&gt; **Prova 3:** Quarta-feira 29/09/2021
+
+&gt; **Trabalho prático 1:** Sexta-feira 27/08/2021
+
+&gt; **Trabalho prático 2:** Segunda-feira 27/09/2021
+
+- **Fim das aulas:** Sexta-feira 08/10/2021
+
+- **Provas finais:** Sexta-feira 15/10/2021
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Xie, Y., J. Allaire, and G. Grolemund (2021). _R Markdown: The
+Definitive Guide_. ISBN 9781138359338. Boca Raton, Florida: Chapman and
+Hall/CRC. URL:
+[https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown).
+
+Xie, Y., C. Dervieux, and E. Riederer (2020). _R Markdown Cookbook_.
+ISBN 9780367563837. Boca Raton, Florida: Chapman and Hall/CRC. URL:
+[https://bookdown.org/yihui/rmarkdown-cookbook](https://bookdown.org/yihui/rmarkdown-cookbook).
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

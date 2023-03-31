@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introdução à Ciência de Dados</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introdução à Ciência de Dados
+]
+.subtitle[
+## Uma breve história
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 27/04/2022
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+
+class: animated, fadeIn
+
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### O que é Ciência de Dados? - I
+
+&gt; A *ciência de dados* é a **arte** e a **ciência** de adquirir 
+conhecimento por meio de dados.
+&gt;
+&gt; .right[-- &lt;cite&gt;Ozdemir (2016)&lt;/cite&gt;.]
+
+O termo "*ciência de dados*" surgiu apenas recentemente para designar
+uma nova profissão que trata da coleta de dados, como usamos eles para 
+adquirir conhecimento e depois como usamos esse conhecimento para
+tomar decisões, prever o futuro, entender o passado/presente, 
+entre outras coisas.
+
+&lt;img src="images/computer_girl.gif" width="25%" style="float:right; padding:10px" /&gt;
+
+Algumas das técnicas usadas em *ciência de dados* têm uma longa 
+história e têm suas raízes na estatística aplicada, no aprendizado de máquina, na visualização de dados e Ciência da Computação. Algumas 
+dessas técnicas acabaram atingindo a popularidade que merecem graças à
+evolução dos computadores.
+
+
+A história de como a ciência de dados se tornou a profissão mais sexy 
+do século XXI, de acordo com [Davenport &amp; Patil (2012)](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century), é principalmente a história do acoplamento da **Estatística** e a **ciência da computação**. 
+
+***
+
+Sugere-se também a leitura do Capítulo 1 do livro [Doing Data Science](https://www.oreilly.com/library/view/doing-data-science/9781449363871/ch01.html) escrito por Schutt and O'neil (2013).
+
+---
+class: animated, fadeIn
+
+### O que é Ciência de Dados? - II
+
+&lt;iframe src="https://deeplearning.lipingyang.org/2017/10/08/the-data-science-venn-diagram-by-drew-conway/" height="510" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
+
+---
+class: animated, slideInLeft
+
+### [Batalha dos diagramas de Venn em ciência de dados](https://www.kdnuggets.com/2016/10/battle-data-science-venn-diagrams.html)
+
+&lt;img src="images/venn_diagram4.png" width="25%" style="float:left; padding:20px" /&gt;
+&lt;img src="images/venn_diagram5.png" width="25%" style="float:left; padding:20px" /&gt;
+&lt;img src="images/venn_diagram2.png" width="20%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="images/venn_diagram3.png" width="25%" style="float:right; padding:20px" /&gt;
+
+&lt;img src="images/venn_diagram1.png" width="25%" style="float:right; padding:20px" /&gt;
+
+&lt;img src="images/venn_diagram6.png" width="35%" style="float:right; padding:20px" /&gt;
+
+---
+class: animated, slideInRight
+
+### Um pouco de história - I
+
+Dar sentido aos dados tem uma longa história e tem sido muito 
+discutido por cientistas, estatísticos, cientistas da computação, 
+bibliotecários e outros, há muitos anos. A linha do tempo a seguir 
+traça a evolução do termo "*Data Science*" e seu uso, tentativas de 
+defini-lo e termos relacionados.
+
+
+&lt;img src="images/tukey.jpg" width="15%" style="float:right; padding:20px" /&gt;
+* Talvez seja [Tukey (1962)](http://www.mat.ufrgs.br/~viali/estatistica/mat2274/material/textos/2237638.pdf), o primeiro em chamar a atenção para o 
+que hoje é conhecido como *Ciência de Dados*, sugerindo dar 
+maior ênfase ao uso de técnicas para uma análise preliminar de dados, 
+antes mesmo de uma análise inferencial.  
+&gt; Nesse trabalho, Tukey afirma que a análise de dados é intrinsecamente uma ciência empírica.
+
+  Em 1977, Tukey publicou seu livro *Exploratory Data Analysis*, 
+reafirmando a necessidade de dar mais ênfase ao uso de dados para 
+sugerir hipóteses a serem testadas e que a Análise Exploratória de 
+Dados e a Análise Confirmatória de Dados "podem - e devem - prosseguir    lado a lado".
+
+***
+Sugere-se a leitura de [A Very Short History of Data Science](https://www.forbes.com/sites/gilpress/2013/05/28/a-very-short-history-of-data-science/?sh=2120001955cf) por Gil Press (2013) e [A Brief History of Data Science](https://www.dataversity.net/brief-history-data-science/) por
+Keith D. Foote (2021).
+
+---
+class: animated, slideInLeft
+
+### Um pouco de história - II
+
+&lt;img src="images/conciseSmall.jpg" width="15%" style="float:right; padding:20px" /&gt;
+* É provável que a primeira aparição explícita do termo 
+"*ciência de dados*" na literatura tenha sido no
+prefácio ao livro de Peter Naur "*Concise Survey of Computer Methods*"
+em 1974.
+
+No prefácio, o autor define a *ciência de dados* como:
+&gt; "a ciência de lidar com dados, uma vez que eles foram estabelecidos, enquanto a relação dos dados com o que eles representam é delegada a outros campos e ciências". 
+&gt; .right[-- &lt;cite&gt;Naur (1974)&lt;/cite&gt;.]
+
+Outro termo introduzido por Naur em 1968 é "*dadologia*" que refere-se
+à ciência dos dados e dos processos de dados e seu lugar na educação.
+
+Essas definições são claramente mais específicas do que as que discutimos hoje. No entanto, elas inspiraram a mudança significativa de hoje para a exploração mais abrangente do conteúdo científico e do desenvolvimento
+dos termos.
+
+---
+class: animated, slideInRight
+
+### Um pouco de história - III
+
+&lt;img src="images/IASC.png" width="15%" style="float:right; padding:20px" /&gt;
+
+* Em 1977, A Associação Internacional de Computação Estatística (*International Association for Statistical Computing* - IASC) é estabelecida como uma Seção do ISI, cuja missão é vincular a metodologia estatística tradicional, a moderna tecnologia da computação e o conhecimento de especialistas para converter dados em informação e conhecimento.
+
+&lt;img src="images/girl_3.gif" width="30%" style="float:right; padding:10px" /&gt;
+
+&gt; Desempenhando um papel importante na **Estatística**, a *descriptive analytics* (também chamada de estatística descritiva na comunidade estatística) resume ou descreve quantitativamente as características e medidas de um conjunto de dados. Hoje, a análise descritiva forma a base para a análise e a confecção de relatórios e ferramentas em projetos  de análise de dados e inteligência de negócios (*business intelligence*).
+
+* A publicação de Graham (2012) The art of Data Science [*In Astrostatistics and Data Mining, Springer Series in Astrostatistics, Vol. 2, p. 47–59*] tem atraído crescente interesse de uma ampla variedade de disciplinas. Assim, autores de diversas origens apresentaram visões ou focos muito diferentes sobre o assunto. Alguns exemplos sugerem que a *ciência de dados* é a nova geração da **Estatística**. A mesma configura-se como uma consolidação de vários campos interdisciplinares. 
+
+
+---
+class: animated, slideInLeft
+
+### Um pouco de história - IV
+* Cao (2017) afirma que a *ciência de dados* 
+também tem implicações para fornecer recursos e práticas para a profissão de dados, ou para geração de estratégias de negócios. De acordo com o autor, os estatísticos têm muito a dizer sobre o assunto, 
+já que são eles que realmente criaram o termo "*ciência de dados*" e promoveram a atualização da **Estatística** para a **Ciência de Dados** como uma disciplina mais abrangente. Isso se reflete nos seguentes trabalhos:
+
+  - De acordo com a literatura, o primeiro registro do uso do termo 
+"*ciência de dados*" deve-se a [Wu (1997)](www2.isye.gatech.edu/~jeffwu/presentations/datascience.pdf) 
+durante sua palestra na Universidade de Michigan intitulada 
+"*Estatística = Ciência de Dados?*". O autor defende o uso do termo 
+"**ciência de dados**" como um nome moderno para a **Estatística** e 
+os *estatísticos* devem ser conhecidos como "*cientistas de dados*". 
+A intenção era mudar o foco da **Estatística** na *coleta de dados, modelagem, análise, compreensão/resolução de problemas e toma de decisões* para direções 
+futuras sobre *grandes conjuntos de dados, abordagem empírico-física, representação e exploração do conhecimento*.
+
+  - Cleveland (2001) sugeriu que seria apropriado alterar o campo da **Estatística** para a **ciência de dados** e *ampliar as principais áreas de trabalho técnico do campo da estatística* destacando a parceria com cientistas da computação.
+
+  - Breiman (2001) sugeriu que era necessário 
+  afastar-se da exclusividade dependência de modelos de dados 
+  (em estatística) e adotar um conjunto mais diversificado de 
+  ferramentas como como *modelagem algorítmica*, que trata o mecanismo 
+  de dados como desconhecido.
+
+
+---
+class: animated, slideInRight
+
+### Um pouco de história - VI
+
+* De acordo com [Yu (2014)](https://imstat.org/2014/10/01/ims-presidential-address-let-us-own-data-science/), a *ciência de dados* está na moda na mídia. A maioria das pessoas concorda que tem três pilares: **Estatística**, **Ciência da Computação**  e **conhecimento de domínio/ciência**. Alguns acreditam 
+que a *ciência de dados* é a interseção dos três, enquanto outros pensam que é a união.
+
+&lt;iframe src="https://imstat.org/2014/10/01/ims-presidential-address-let-us-own-data-science/" height="310" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
+
+
+- Em 2015, uma declaração sobre o papel da estatística na ciência de dados foi divulgada em um [artigo ASA](https://magazine.amstat.org/blog/2015/10/01/asa-statement-on-the-role-of-statistics-in-data-science/), dizendo que "_a **Estatística** e aprendizado de máquina (Machine Learning) desempenham um papel fundamental na ciência de dados_".
+
+
+---
+class: animated, slideInLeft
+
+### Um pouco de história - V
+
+* [Blei e Smyth (2017)](https://www.pnas.org/doi/epdf/10.1073/pnas.1702076114) discutem as relações entre **Estatística** e **Ciência de Dados** sob três perspectivas: estatı́stica, computacional e humana. Segundo
+os autores, Ciência de Dados é uma filha da Estatı́stica e da Ciência da Computação. 
+
+&lt;img src="images/dashboard.gif" width="45%" style="float:right; padding:10px" /&gt;
+
+* Weihs and Ickstadt (2018) reiteram o papel fundamental da
+**Estatística** na *Ciência de Dados*, pois proporciona as ferramentas e
+métodos para encontrar estrutura e fornecer uma visão mais profunda dos
+dados, assim como para analisar e quantificar a incerteza. Paradoxalmente,
+alguns autores acham que **Estatística** é a parte menos importante de
+*Ciência de Dados* e, dessa forma, a sua importância é subestimada em 
+comparação com a Ciência da Computação. Ignorando pensamento estatístico moderno ou o uso de métodos estatísticos/análise de dados simplistas 
+podem levar a **falácias** evitáveis. O mesmo vale para a análise de grandes e/ou complexos conjunstos de dados.
+
+* Em 17/02/2022, a ocupação de cientista de dados foi inserida na base 
+de dados da Classificação Brasileira de Ocupações (CBO) do Ministério 
+do Trabalho, ficando definida na mesma família dos Estatísticos (2112-05):
+cientista de dados (2112-20).
+
+---
+class: animated, slideInRight
+
+### E no final... qual a definição?
+
+&lt;img src="images/social-media.gif" width="30%" style="float:left; padding:10px" /&gt;
+
+A ciência de dados tornou-se popular durante a última década com o *boom* de muitos grandes corporações da internet, como Yahoo, Google, Linkedin, Facebook e Amazon e muitas startups construídas a partir de dados. Atualmente, a "*ciência de dados*", juntamente com "*big data*", tornou-se uma das frases mais usadas em locais como negócios, notícias, mídia, redes sociais, entre outros.
+
+&lt;img src="images/cloud_words.png" width="40%" style="float:right; padding:10px" /&gt;
+
+Apesar do fato de que o termo se tornou tão popular, e estamos usando produtos habilitados pela *ciência de dados* quase diariamente, 
+atualmente **não há consenso** sobre a sua definição. 
+
+Podemos então sugerir que &lt;span style="color:rgba(141, 0, 69, 1)"&gt;a *ciência de dados* é uma ciência interdisciplinar que se baseia na Estatística, Computação, Comunicação, Gestão e Sociologia para estudar dados e seu ambiente e para transformar eles em *insights* e decisões. 
+&lt;/span&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+### Data Science vs Data Mining vs Machine Learning vs Deep Learning vs Artificial Intelligence
+
+
+---
+class: animated, lightSpeedIn
+
+### Data Mining
+
+&lt;img src="images/data_mining.gif" width="30%" style="float:left; padding:10px" /&gt;
+
+A mineração de dados (*Data Mining*) é um conjunto de técnicas e 
+ferramentas amplamente utilizadas por cientistas e pesquisadores 
+para extrair informações grandes conjuntos de dados e transformá-los 
+em informação. Na base das modernas tecnologias de mineração de dados, 
+há um conceito de encontrar anomalias, padrões ocultos e correlações 
+em grandes conjuntos de dados.
+
+O processo de mineração de dados consiste em duas partes: o 
+*pré-processamento de dados* e *mineração de dados real*. 
+A primeira abrange etapas como limpeza de dados, integração de dados 
+e transformação de dados, enquanto a mineração de dados trata de 
+avaliação de padrões e representação de conhecimento de dados de 
+forma fácil de entender. A mineração de dados é frequentemente vista 
+como parte de um campo mais extenso chamado 
+*Knowledge Discovery in Databases* ou *KDD*.
+
+&lt;img src="images/data_mining2.gif" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_1.png")
+background-size: contain
+
+### Data Mining
+
+---
+class: animated, slideInRight
+
+### Deep Learning
+
+Originalmente, o termo *aprendizado profundo* indicava a aplicação de
+redes neurais profundas, i.e., redes com mais de uma camada oculta.
+Mas, na prática, ele descreve uma ampla variedade de arquiteturas
+neuronais. Dessa forma, o aprendizado profundo não é mais do que um 
+subconjunto do *aprendizado de máquina* que utiliza um nivel 
+hierárquico de redes neurais artificiais, com múltiplas camadas 
+ocultas, para realizar o processo de *aprendizado de máquina*.
+
+&lt;img src="images/kitten.png" width="30%" style="float:center; padding:10px" /&gt;&lt;img src="images/muffin.png" width="30%" style="float:center; padding:10px" /&gt;&lt;img src="images/chicken.png" width="30%" style="float:center; padding:10px" /&gt;
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_2.png")
+background-size: contain
+
+### Deep Learning
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_3.png")
+background-size: contain
+
+### Deep Learning
+
+
+---
+class: animated, slideInRight
+
+### Machine Learning
+
+&lt;img src="images/ML2.png" width="40%" style="float:right; padding:10px" /&gt;
+
+O aprendizado de máquina é um conjunto de métodos, ferramentas e 
+algoritmos de computador usados para treinar máquinas para analisar, 
+entender e encontrar padrões ocultos em dados e fazer previsões. 
+
+O objetivo final do aprendizado de máquina é utilizar dados para 
+autoaprendizagem, eliminando a necessidade de programar máquinas de 
+maneira explícita. Uma vez treinadas em conjuntos de dados, as máquinas 
+podem aplicar padrões memorizados em novos dados e, assim, fazer melhores 
+previsões.
+
+&lt;br/&gt;
+
+&lt;font size="6"&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Algoritmos que aprendem dos dados!&lt;/span&gt;
+&lt;/font&gt;
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_3.png")
+background-size: contain
+
+### Machine Learning
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_4.png")
+background-size: contain
+
+### Machine Learning
+
+
+---
+class: animated, fadeIn
+
+### Modelos estatísticos: Enfoques
+Breiman (2001) argumenta que existem duas culturas no uso de 
+modelos estatísticos (em especial modelos de regressão):
+
+* **Data modeling**: Esse enfoque domina a 
+&lt;span style="color:rgba(141, 0, 69, 1)"&gt;comunidade estatística&lt;/span&gt;. 
+Sob essa abordagem, testar se   as suposições do modelo (por exemplo, 
+normalidade dos erros, linearidade,   multicolinearidade, homocedasticidade, 
+independência, etc.) são válidas é de fundamental importância. Ainda que 
+predição muitas vezes faça parte dos objetivos, o foco em geral está na 
+&lt;ins&gt;inferência&lt;/ins&gt;.
+
+--
+
+* **Algorithmic modeling**: Esse enfoque domina a comunidade de 
+&lt;span style="color:rgba(141, 0, 69, 1)"&gt;aprendizado de máquina&lt;/span&gt;. Nesse contexto, o foco 
+é a &lt;ins&gt;predição&lt;/ins&gt; de novas observações. Não se assume que o modelo 
+utilizado para os dados é correto. 
+O modelo é utilizado apenas para criar bons algoritmos para prever bem novas 
+observações. Muitas vezes não há nenhum modelo probabilístico explícito por 
+trás dos algoritmos utilizados. Mesmo que o objetivo primordial de uma problema 
+de predição seja obter um bom "poder" preditivo, a *interpretabilidade* do 
+modelo final também é relevante.
+
+&lt;img src="images/machine_learning.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Tipos de Aprendizado I
+
+* **Supervisionado**: O objetivo é prever o valor de uma variável resposta 
+(*output*) a partir de variáveis preditoras (*input*). Dentre as técnicas mais 
+utilizadas com essa finalidade temos:
+  - &lt;ins&gt;Modelos de regressão&lt;/ins&gt; (linear, ridge, lasso, elastic net, esparsa, 
+  robusta, Bayes ingênuo (*Naive Bayes*), etc.)
+  - &lt;ins&gt;Modelos de classificação&lt;/ins&gt; baseados em modelos de regressão logística,
+  algoritmos de suporte vetorial (SVM - *support vector machines*), redes 
+  neurais, análise discriminante linear e quadrática, árvores de decisão, 
+  método do `\(k\)`-ésimo vizinho mais próximo (*KNN*), bagging e florestas 
+  aleatórias, boosting etc.
+
+* **Não-supervisionado**: O objetivo é descrever associações e padrões entre
+variáveis. Nesse caso, não há uma distinção entre variáveis preditoras e
+respostas e só dispomos de um conjunto de variáveis (*inputs*). Dentre as técnicas 
+mais utilizadas com essa finalidade, temos:
+  - &lt;ins&gt;Redução de dimensionalidade&lt;/ins&gt;: Análise de componentes principais, análise de 
+  componentes independentes, análise fatorial, projeções aleatórias, *Autoencoders*, 
+  etc.
+  - &lt;ins&gt;Análise de agrupamentos&lt;/ins&gt;: análise de conglomerados (*cluster*), *k*-médias 
+  (*k-means*), métodos hierárquicos (*hierarchical clustering*), agrupamento 
+  espectral, etc.
+  - &lt;ins&gt;Detecção de anomalias&lt;/ins&gt;: Fator de outlier local (LOF - *local outlier factor*),
+  floresta de isolamento (*Isolation Forest*), etc.
+  - &lt;ins&gt;Abordagens para aprender modelos de variáveis latentes&lt;/ins&gt;: Algoritmo EM, método 
+  dos momentos e técnicas de separação de sinal cego (*Blind signal separation*), etc.
+
+---
+class: animated, fadeIn
+
+### Tipos de Aprendizado II
+  
+* **Por reforço**: *Aprendizagem por reforço* é uma área de aprendizagem de 
+máquina preocupada de como os agentes inteligentes devem realizar ações em um 
+ambiente a fim de maximizar a noção de recompensa cumulativa. 
+A aprendizagem por reforço difere da aprendizagem supervisionada por não precisar 
+da apresentação de pares de entrada/saída rotulados e por não precisar que ações 
+abaixo do ideal sejam explicitamente corrigidas. Em vez disso, o foco está em 
+encontrar um equilíbrio entre a exploração (de território não mapeado) e a 
+exploração (de conhecimento atual). Dentre as técnicas mais utilizadas com essa 
+finalidade, temos:
+ - Critério de otimização (*Criterion of optimality*), Força bruta (*Brute force*), 
+ aproximação ao valor da função (*Value function*), método de Monte Carlo, método
+ de diferenças temporais, etc. 
+
+* **Semi-supervisionada**: Na aprendizagem semi-supervisionada os 
+modelos são treinados com um pequeno volume de dados rotulados e um 
+volume muito maior de dados não-rotulados, fazendo uso tanto do 
+aprendizado supervisionado quanto do não supervisionado.
+
+---
+class: animated, fadeIn
+background-image: url("images/evolucao_ML.png")
+background-size: contain
+
+#### Evolução do aprendizado de máquina
+---
+class: animated, lightSpeedIn
+
+### Artificial Intelligence
+
+A partir da década de 1990, o aprendizado automático criou um novo paradigma 
+para analisar dados dificilmente solucionáveis sem o recente avanço na capacidade 
+computacional. &lt;br&gt;&lt;/br&gt;
+"*IA é um esforço para automatizar tarefas intelectuais usualmente realizadas 
+por seres humanos.*"
+.right[-- &lt;cite&gt;Chollet (2018)&lt;/cite&gt;]
+
+Em termos simples, a *inteligência artificial* refere-se a sistemas 
+ou máquinas que imitam a inteligência humana para executar tarefas e 
+podem se aprimorar iterativamente com base nas informações que coletam.
+
+&lt;img src="images/AI3.gif" width="48%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_4.png")
+background-size: contain
+
+### Artificial Intelligence
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_5.png")
+background-size: contain
+
+### Artificial Intelligence
+
+---
+class: animated, fadeIn
+background-image: url("images/data_science_vs_ml_6.png")
+background-size: contain
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Data Analysis vs Data Analytics
+
+
+---
+class: animated, fadeIn
+
+### Data Analysis vs Data Analytics - I
+
+De acordo com o dicionário *Merriam-Webster*: 
+
+&gt; [*analysis*](https://www.merriam-webster.com/dictionary/analysis) é 
+a separação de um todo em pequenas componentes;
+
+&gt; [*analytics*](https://www.merriam-webster.com/dictionary/analytics) 
+é o método de análise lógica. 
+
+Dessa forma, a *análise de dados* (*data analysis*) é o processo de 
+estudar em detalhes um determinado conjunto de dados, dividindo-os em 
+pequenos componentes e estudando os subcomponentes individualmente e 
+suas relações. Em outras palavras, a *análise de dados* é um 
+processo de estudo, refinamento, transformação e treinamento dos dados 
+coletados para obter informações úteis, sugerir conclusões e tomar 
+decisões.
+
+--
+
+A *analítica de dados* (*data analytics*), por outro lado, é um termo 
+mais abrangente que se refere a uma disciplina que compreende o 
+gerenciamento completo de dados, incluindo ferramentas de aprendizado 
+de máquina, análise estatística e reconhecimento de padrões para obter 
+melhores *insights* e projetar melhores estratégias.
+
+&gt; Em outras palavras, a *análise de dados* é um processo ou método, 
+enquanto a *analítica de dados* é a ciência ou o processo cognitivo 
+que um analista usa para reconhecer problemas e examinar os dados da 
+maneira mais significativa.
+
+---
+class: animated, lightSpeedIn
+
+### Data Analysis vs Data Analytics - II
+
+&lt;img src="images/data_analytics.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+* **Diagnostic analytics**: Mais ou menos na linha da análise descritiva, 
+a diagnóstica também serve para entender o contexto atual. A diferença
+é que nela o objetivo é explicar por que algo aconteceu e as razões 
+pelas quais acontenceu. Também conhecido como *Análise causal*.
+
+***
+
+Para detalhes, sugere-se a leitura do artigo de Cao, L. (2017) e 
+Shah (2020).
+
+---
+class: animated, lightSpeedIn
+
+## Ciência de dados para crianças
+
+&lt;iframe src="https://www.codingal.com/blog/coding/best-data-science-platforms-for-kids/" height="480" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
+
+---
+class: animated, fadeIn
+
+### Uma sugestão de leitura
+
+&lt;iframe src="https://www.dominodatalab.com/childrens-book-florence-the-data-scientist" height="480" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
+
+[PDF disponível aqui](https://bit.ly/3MbaMik).
+
+---
+class: animated, lightSpeedIn
+### Referências
+
+Breiman, L. (2001). "Statistical Modeling: The Two Cultures (with
+comments and a rejoinder by the author)". In: _Statistical Science_
+16.3, pp. 199 - 231.
+
+Cao, L. (2017). "Data Science: A Comprehensive Overview". In: _ACM
+Computing Surveys_ 50, pp. 1-42.
+
+Chollet, F. (2018). _Deep learning with R_. 1st edition. Shelter
+Island, NY: Manning Publications. ISBN: 1-61729-554-X.
+
+Cleveland, W. (2001). "Data science: An action plan for expanding the
+technical areas of the field of statistics". In: _International
+Statistical Review_ 69, pp. 21-26.
+
+Ozdemir, S. (2016). _Principles of Data Science_. 1st Edition. Packt.
+
+Schutt, R. and C. O'neil (2013). _Doing Data Science: Straight Talk
+from the Frontline_. 1st Edition. O'Reilly Media.
+
+Shah, C. (2020). _A Hands-On Introduction to Data Science_. 1st
+Edition. Cambridge university press.
+
+Tukey, J. (1962). "The future of data analysis". In: _The Annals of
+Mathematical Statistics_ 33, pp. 1-67.
+
+Weihs, C. and K. Ickstadt (2018). "Data Science: the impact of
+statistics". In: _International Journal of Data Science and Analytics_
+6, pp. 189-194.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

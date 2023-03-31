@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13820 - Inferência Estatística I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13820 - Inferência Estatística I
+## Amostragem e distribuições amostrais
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória. ES - 05/02/2022
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Algumas definições básicas - I
+
+* **Definição 1.** *População alvo* é o conjunto de unidade experimentais.
+
+* **Definição 2.** Uma *amostra aleatória* define-se como uma sequência 
+de variáveis aleatórias `\(X_1,X_2,\ldots,X_n\)` independentes e 
+identicamente distribuidas.
+
+&gt; **Observação**: Se as variáveis aleatórias (va's) `\(X_1,X_2,\ldots,X_n\)`
+são contínuas e sua função de densidade conjunta é dada por
+`$$f_X(x_1,x_2,\ldots,x_n)=f(x_1)f(x_2)\cdots f(x_n)=\prod_{i=1}^nf(x_i),$$`
+então `\(f(\cdot)\)` é a função de densidade marginal para cada `\(X_i\)`, onde
+`\(i=1,2,3,\ldots,n\)`.
+
+* **Definição 3.** Seja `\(X_1,X_2,\ldots,X_n\)` uma amostra aleatória de 
+tamanho `\(n\)`. A *distribuição da amostra* define-se como a distribuição 
+conjunta da sequência de variáveis aleatórias.
+
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - I
+
+**Exemplo 1.** Seja `\(X\)` uma variável aleatória de uma população com densidade `\(f(\cdot)\)`
+e se seja `\(X_1,X_2\)` uma amostra aleatória de tamanho `\(2\)`.
+Por definição, a distribuição conjunta de `\(X_1,X_2\)` é dada por
+`$$f_{X_1,X_2}(x_2,x_2)=f(x_1)f(x_2).$$`
+Suponha que `\(X\)` é uma variável aleatória de uma população com 
+distribuição Bernoulli com parâmetro `\(p\)`, ou seja
+`$$\mathbb{P}\left[X=x\right]=p^x(1-p)^{1-x}\mathbb{I}_{\{0,1\}}(x).$$`
+Dessa forma,
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{P}\left[X_1=x_1,X_2=x_2\right]&amp;=\mathbb{P}[X_1=x_1]\mathbb{P}[X_2=x_2]
+    =p^{x_1}(1-p)^{1-x_1}p^{x_2}(1-p)^{1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2)\\
+    &amp;=p^{x_1+x_2}(1-p)^{2-x_1-x_2}\mathbb{I}_{\{0,1\}}(x_1)\mathbb{I}_{\{0,1\}}(x_2).
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Algumas definições básicas - I
+  
+&gt; **Observação**: Note que a distribuição da amostra é diferente da 
+distribuição do número de sucessos, i.e., a natureza probabilística
+de `\(Y=X_1+X_2\)` é dada por
+`$$\mathbb{P}[Y=y]=\binom{2}{y}p^y(1-p)^{2-y}\mathbb{I}_{\{0,1,2\}}(y).$$`
+Observe que, no primeiro caso, `\(\mathbb{P}[X_1=x_1, X_2=x_2]\)` representa
+a distribuição da amostra na ordem da coleta, i.e., 
+`\(\mathbb{P}[X_1=0,X_2=1]\)` é a probabilidade de coletar primeiro `\(0\)` e
+depois `\(1\)`.
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - II
+
+* **Definição 4.** Seja `\(\Omega\)` qualquer conjunto com elementos 
+`\(\omega\)` e `\(A\)` um subconjunto de `\(\Omega\)`. A *Função Indicadora* de 
+um conjunto `\(A\)` define-se tal que 
+
+  $$\mathbb{I}_A(\omega)=\begin{cases}1, &amp; \text{se } \omega\in A;\\\
+  0, &amp; \text{se } \omega\notin A. \end{cases}$$ 
+ - **Propriedades.** Seja `\(\Omega\)` qualquer conjunto com elementos 
+`\(\omega\)` e `\(A, A_1,A_2,\ldots,A_n\)` uma sequência de subconjuntos de `\(\Omega\)`.
+Temos que:
+      - `\(\mathbb{I}_A^2(\omega)=\mathbb{I}_A(\omega)\)`;
+      - `\(\mathbb{I}_A(\omega)=1-\mathbb{I}_{A^c}(\omega)\)`, onde `\(A^c\)` é
+      o complementar de `\(A\)`;
+      - `\(\mathbb{I}_{A_1\cap A_2}(\omega)=\min\{\mathbb{I}_{A_1}(\omega),\mathbb{I}_{A_2}(\omega)\}\)`. Em geral, `\(\mathbb{I}_{A_1\cap A_2\cap\cdots\cap A_n}(\omega)=\mathbb{I}_{A_1}(\omega)\mathbb{I}_{A_2}(\omega)\cdots\mathbb{I}_{A_n}(\omega)\)`;
+      - `\(\mathbb{I}_{A_1\cup A_2}(\omega)=\max\{\mathbb{I}_{A_1}(\omega),\mathbb{I}_{A_2}(\omega)\}=\mathbb{I}_{A_1}(\omega)+\mathbb{I}_{A_2}(\omega)-\mathbb{I}_{A_1}(\omega)\mathbb{I}_{A_2}(\omega)\)`. Em geral, temos que `\(\mathbb{I}_{A_1\cup A_2\cup\cdots\cup A_n}(\omega)=\max\left\{\mathbb{I}_{A_1}(\omega),\mathbb{I}_{A_2}(\omega),\cdots,\mathbb{I}_{A_n}(\omega)\right\}\)`;
+      - `\(\mathbb{I}_{A_1\Delta A_2}(\omega)=\left(\mathbb{I}_{A_1}(\omega)-\mathbb{I}_{A_2}(\omega)\right)^2\)`, onde `\(A_1\Delta A_2\)` representa a diferença simétrica entre `\(A_1\)` e `\(A_2\)`.
+
+&gt; **&lt;span style="color:#8f0e04"&gt;Exercício.&lt;/span&gt;** Verifique todas 
+as propiedades acima.
+
+---
+class: animated, fadeIn
+
+### Algumas definições básicas - II
+
+**Exemplo 2.** Seja `\(f(\cdot)\)` dada por 
+`\(f(x)=\begin{cases}0, &amp; \text{ para } x\le0; \\ x, &amp; \text{ para } 0&lt;x\le1; \\ 2-x, &amp; \text{ para } 1&lt;x\le2; \\ , 0 &amp; \text{ para } 2&lt;x. \end{cases}\)`
+
+Usando a função indicadora, `\(f(x)\)` pode ser escrita como
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    f(x)&amp;=x\mathbb{I}_{(0,1]}(x)+(2-x)\mathbb{I}_{(1,2]}(x)=(1-|1-x|)\mathbb{I}_{(0,2]}(x).
+  \end{align*}
+&lt;/div&gt;
+
+--
+
+**Exemplo 3.** Seja `\((\Omega,\cal{F}, \mathbb{P})\)` um espaço de 
+probabilidade. Considere os eventos `\(A\in\cal{F}\)` e `\(B\in\cal{F}\)`, 
+então, a função indicadora do evento `\(A\)` é uma variável aleatória 
+definida como
+
+&lt;div class="math"&gt;
+ \begin{align*}
+    \mathbb{I}_A(\omega)=\begin{cases}
+    1, &amp; \text{ se } \omega\in A; \\ 
+    0, &amp; \text{ se } \omega\notin A.
+    \end{cases}
+ \end{align*}
+&lt;/div&gt;
+
+Dessa forma, temos que  `\(\mathbb{E}\left[\mathbb{I}_A(\omega)\right]=\mathbb{P}\left[A\right]\)`,
+`\(\mathrm{var}\left[\mathbb{I}_A(\omega)\right]=\mathbb{P}\left[A\right](1-\mathbb{P}\left[A\right])\)` e `\(\mathrm{cov}\left[\mathbb{I}_A(\omega), \mathbb{I}_B(\omega)\right]=\mathbb{P}\left[A\cap B\right]-\mathbb{P}\left[A\right]\mathbb{P}\left[B\right]\)`.
+
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - III
+
+#### Tipos de convergência
+
+* **Definição 5.** Uma sequência `\(X_1,X_2,\ldots,X_n\)` de variáveis 
+aleatórias *converge em probabilidade* para uma variável aleatória `\(X\)` 
+se, para todo `\(\epsilon&gt;0\)`,
+`$$\lim_{n\to\infty}\mathbb{P}\left[\left|X_n-X\right|\ge0\right]=0.$$`
+Denotamos `\(X_n\overset{p}{\longrightarrow}X.\)`
+
+**Teorema 1.** Seja `\(g:\mathbb{R}^k\longrightarrow\mathbb{R}^m\)` uma 
+função contínua em cada ponto `\(a\in C\)`, tal que `\(\mathbb{P}[X\in C]=1\)`.
+Se `\(X_n\overset{p}{\longrightarrow}X\)`, então `\(g\left(X_n\right)\overset{p}{\longrightarrow}g\left(X\right).\)`
+
+&lt;/br&gt;
+
+&gt; &lt;span style="color:gray"&gt;Uma outra notação que será usada para sequências de 
+variáveis aleatórias é `\(\{X_n; n=1,2,3,\ldots\}\)` ou 
+simplesmente `\(\{X_n\}\)`.&lt;/span&gt;
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - III
+
+#### Tipos de convergência
+
+**Corolario 1.** Se `\(X_n\overset{p}{\longrightarrow}X\)` e 
+`\(Y_n\overset{p}{\longrightarrow}Y\)`, então
+  
+  - `\(X_n\pm W_n\overset{p}{\longrightarrow}X\pm W\)`;
+  - `\(X_n W_n\overset{p}{\longrightarrow}X W\)`;
+  - `\(aX_n\pm bW_n\overset{p}{\longrightarrow}aX\pm bW\)`, com `\(a,b\)` constantes;
+  - `\(\frac{X_n}{W_n}\overset{p}{\longrightarrow}\frac{X}{W}\)`, com `\(\mathbb{P}[W_n\ne0]=\mathbb{P}[W\ne0]=1\)`;
+  - `\(X_n^2\overset{p}{\longrightarrow}X^2\)`;
+  - `\(\frac{1}{X_n}\overset{p}{\longrightarrow}\frac{1}{X}\)`, com `\(\mathbb{P}[X_n\ne0]=\mathbb{P}[X\ne0]=1.\)`
+  
+
+---
+class: animated, fadeIn
+
+### Algumas definições básicas - III
+
+* **Definição 6.** Uma sequência `\(X_1,X_2,\ldots,X_n\)` de variáveis 
+aleatórias *converge quase-certamente* para uma variável aleatória `\(X\)` 
+se 
+`$$\mathbb{P}\left[\lim_{n\to\infty} X_n=X\right]=1.$$`
+Denotamos `\(X_n\overset{q.c}{\longrightarrow}X.\)`
+
+**Exemplo 4.** (*convergência quase-certa*) Seja `\(\{X_n\}\)` uma 
+sequência de variáveis aleatórias definidas por
+
+  &lt;div class="math"&gt;
+    \begin{align*}
+      X_n&amp;=\begin{cases}
+        0, &amp; \text{ com probabilidade } 1-\frac{1}{2^n};\\
+        1, &amp; \text{ com probabilidade } \frac{1}{2^n},
+      \end{cases}.
+    \end{align*}
+  &lt;/div&gt;
+  
+para `\(n=1,2,3,\ldots\)`.
+
+Sabemos que `\(\mathbb{E}X_n=\mathbb{E}X_n^2=\frac{1}{2^n}\)` e 
+`\(\mathrm{var}[X_n]=\frac{1}{2^n}-\frac{1}{2^{2n}}=\frac{2^{2n}-1}{2^{2n}}\)`.
+
+--
+Pela desigualdade de Tchebyshev, temos que
+`$$\mathbb{P}[X_n\ge\epsilon]\le\frac{\mathbb{E}X_n^2}{\epsilon^2}=\frac{1}{2^n\epsilon^2}.$$`
+Daí, `\(\lim_{n\to\infty}\mathbb{P}[X_n\ge\epsilon]=0\)`, ou seja 
+`\(X_n\overset{p}{\longrightarrow}0\)`. Ainda, 
+`\(\mathbb{P}\left[\lim_{n\to\infty}X_n=0\right]=1\)`, então `\(X_n\overset{q.c}{\longrightarrow}0\)`.
+
+---
+class: animated, slideInRight
+
+### Algumas definições básicas - III
+
+#### Tipos de convergência
+
+* **Definição 7.** Uma sequência `\(X_1,X_2,\ldots\)` de variáveis 
+aleatórias *converge em distribuição* para uma variável aleatória `\(X\)` 
+se
+`$$\lim_{n\to\infty}F_n(x)=F(x),$$`
+para todo `\(x\in\mathbb{R}\)` no qual `\(F\)` é contínua. As funções `\(F_n\)` e 
+`\(F\)` são as funções de distribuição acumulada das variáveis aleatórias
+`\(X_n\)` e `\(X\)`, respectivamente. Denotamos `\(X_n\overset{d}{\longrightarrow}X.\)`
+
+---
+class: inverse, hide-logo, middle, center
+
+# Estatísticas e Momentos Amostrais
+
+
+---
+class: animated, fadeIn
+
+###  Momentos amostrais - I
+No estudo de populações com densidade `\(f(\cdot;\theta)\)`, onde a forma
+analítica da densidade é conhecida, mas depende de um parâmetro 
+desconhecido, é um problema muito comum na **Estatística**.
+
+Um caminho para solucionar o problema é coletar uma smotra de tamanho
+`\(n\)` e encontrar uma função da amostra que permita aproximar ou estimar 
+o verdadeiro valor do parâmetro `\(\theta\)`.
+
+--
+
+&gt; **Objetivo:** Nosso interesse é determinar a "melhor" função que permita &lt;b&gt;estimar&lt;/b&gt;
+o parâmetro `\(\theta\)`, usando a informação proporcionada pela amostra.
+
+--
+
+* **Definição 8.** Uma **Estatística** é uma função de variáveis 
+aleatórias (observáveis), a qual é variável aleatória e não depende de
+parâmetros desconhecidos.
+
+  **Exemplos:** Sendo `\(X, X_1,X_2,\ldots,X_n\)` variáveis aleatórias, então
+  `$$X,\, X^2,\, X+ 3,\, X+\log X,\, \frac1n\sum_{i=1}^nX_i,\, \min\{X_1,X_2,\ldots,X_n\},$$`
+  são *Estatísticas*.
+
+  &gt; Funções do tipo `\(X-\mu, \, \frac{X}{\sigma}, \,X+\log \theta\,\)` **não
+  são consideradas *Estatísticas***.
+
+
+---
+class: animated, slideInRight
+
+### Momentos amostrais - II
+* **Definição 9.** Seja `\(X_1,X_2,\ldots,X_n\)` uma amostra aleatória
+de uma população com função de densidade de probabilidade (ou função
+de probabilidade de massa),
+denotada por `\(f(\cdot;\theta)\)`&lt;sup&gt;&lt;font size="3"&gt;1&lt;/font&gt;&lt;/sup&gt;.
+
+  O `\(r\)`-ésimo momento amostral em torno de zero define-se como
+
+`$$M_r'=\frac1n\sum_{i=1}^nX_i^r.$$`
+&gt; O `\(r\)`-ésimo momento amostral em torno da média amostral define-se como
+
+`$$M_r=\frac1n\sum_{i=1}^n\left(X_i-M_1'\right)^r=\frac1n\sum_{i=1}^n\left(X_i-\bar{X}\right)^r.$$`
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Tanto para o caso contínuo, quanto para o caso discreto
+usaremos a mesma notação, pois as definições podem ser aplicadas da 
+mesma em ambos contextos.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### Momentos amostrais - III
+
+* **Teorema 1.** Seja `\(X_1,X_2,\ldots,X_n\)` uma amostra aleatória
+de uma população com função de densidade de probabilidade `\(f(\cdot;\theta)\)`.
+O valor esperado do `\(r\)`-ésimo momento amostral (em torno de zero) é 
+igual ao `\(r\)`-ésimo momento populacional (se existe), ou seja
+
+`$$\mathbb{E}M_r'=\mathbb{E}\left[\frac1n\sum_{i=1}^nX_i^r\right]=\frac1n\sum_{i=1}^n\mathbb{E}\left[X_r'\right]=\mathbb{E}\left[X_r'\right]=\mu_r'.$$`
+&gt; **Observação:** No caso da variância, a mesma tem a seguinte forma
+analítica
+
+`$$\mathrm{var}\left[M_r'\right]=\mathrm{var}\left[\frac1n\sum_{i=1}^nX_i^r\right]=\frac{1}{n^2}\sum_{i=1}^n\mathrm{var}\left[X_i^r\right]=\frac1n\left[\mathbb{E}X^{2r}-\left(\mathbb{E}X^r\right)^2\right].$$`
+* **Corolario 1.** Seja `\(X_1,X_2,\ldots,X_n\)` uma amostra aleatória
+de uma população com função de densidade de probabilidade `\(f(\cdot;\theta)\)`.
+Seja `\(\bar{X}_n=\bar{X}=\frac1n\sum_{i=1}^nX_i\)` a média amostral, então
+`\(\mathbb{E}\bar{X}=\mathbb{E}X=\mu\)` e 
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathrm{var}\left[\bar{X}\right]&amp;=\frac1n\left[\mathbb{E}X^2-\left(\mathbb{E}X\right)^2\right]=\frac1n\sigma^2.
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Momentos amostrais - IV
+* **Definição 10.** Seja `\(X_1,X_2,\ldots,X_n\)`  uma amostra aleatória
+de uma população com função de densidade de probabilidade `\(f(\cdot;\theta)\)`.
+A *variância amostral* define-se como:
+`$$S^2=\frac{1}{n-1}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2, \quad n&gt;1.$$`
+
+&gt; **&lt;span style="color:#8f0e04"&gt;Exercício.&lt;/span&gt;** Mostre que 
+`\(\mathbb{E}\left[S^2\right]=\sigma^2\)` e 
+`$$\mathrm{var}\left[S^2\right]=\frac1n\left(\mu_4-\frac{n-3}{n-1}\sigma^4\right), \quad n&gt;1,$$`
+onde `\(\mu_r = \mathbb{E}[X-\mu]^r\)`.
+
+---
+class: animated, fadeIn
+
+### Exemplo II
+Considere um estudo cujo objetivo é avaliar como a distância com que motoristas 
+conseguem distinguir um determinado objeto varia com a idade. 
+Nesse caso, a variável &lt;ins&gt;resposta&lt;/ins&gt; é a distância e a variável 
+&lt;ins&gt;explicativa&lt;/ins&gt; é a idade. (Tomado de: Morettin &amp; Singer(2020) 
+[*Introdução à Ciência de Dados: Fundamentos e aplicações*.](https://bityli.com/ahLca)).
+
+.pull-left[
+* O gráfico de dispersão sugere uma tendência decrescente da distância com a idade;
+
+* Como a resposta para motoristas com a mesma idade (ou com idades bem
+próximas) varia, o foco da análise é a estimação de uma tendência média;
+ 
+* O objetivo da análise de regressão é quantificar essa tendência.
+]
+
+---
+class: animated, slideInRight
+
+### Recursos computacionais 
+
+Ao longo da disciplina usaremos preferencialmente a linguagem `R`. O repositório
+de pacotes está disponível no site do [projeto R](ohttp://CRAN.R-project.org).
+Dentre os pacotes estatı́sticos disponı́veis na linguagem R, aqueles mais
+utilizados neste texto são: `car`, `stats`, `MASS`, `e1071`, `forecast`, `ggplot2`, 
+`caret`, `robust`, `glmnet`, `Lars`, entre outros. As funções de cada pacote 
+necessárias para a realização das análises serão indicadas ao longo da disciplina.
+
+&lt;img src="https://www.r-project.org/Rlogo.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+&gt; Sugere-se a leitura do livro [Fox and Weisberg (2019) An R Companion to Applied Regression. 3rd Edition](https://bityli.com/gTnsQ).
+
+
+---
+class: animated, fadeIn
+### Termo de erro (ou perturbação estocástica) - II
+
+* *Princípio da parcimônia*: Este princípio sugere que 
+**modelos mais simples devem ser escolhidos** em detrimento dos mais complexos,
+desde que a qualidade do ajuste seja similar. É claro que devemos evitar excluir 
+variáveis importantes apenas para manter um modelo simples.
+
+
+&lt;img src="images/overfitting.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+&gt; Quando avaliamos a qualidade de um ajuste, a utilização exclusiva do termo de 
+erro pode levar a resultados enganosos. Um "bom" modelo não pode sofrer de 
+_underfitting_ (subajuste) nem de overfitting (sobreajuste). Nesse último, o
+modelo se ajusta muito bem aos dados, mas o seu desempenho para previsão é ruim.
+
+
+---
+class: animated, fadeIn
+
+###  Termo de erro (ou perturbação estocástica) - III
+.pull-left[
+#### Underfitting
+
+Neste cenário o desempenho do modelo já é &lt;ins&gt;ruim&lt;/ins&gt; no próprio treinamento. 
+O modelo não consegue encontrar relações entre as variáveis e o teste nem precisa 
+acontecer. Este modelo já pode ser **descartado**, pois não terá utilidade.
+&lt;img src="images/underfitting.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+#### Overfitting
+Neste cenário, o modelo tem um desempenho excelente com os dados de *treino*, 
+porém quando utilizamos os dados de *teste* o resultado é &lt;ins&gt;ruim&lt;/ins&gt;. 
+É comum ouvirmos que neste cenário o modelo *treinado* não tem capacidade de 
+*generalização*.
+&lt;img src="images/overfitting2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Chollet, F. (2018). _Deep learning with R_. 1st
+edition. Shelter Island, NY: Manning Publications.
+ISBN: 1-61729-554-X.
+
+Fox, J. and S. Weisberg (2019). _An R Companion to
+Applied Regression_. 3rd edition. Sage publications.
+ISBN: 978-1-5443-3647-3.
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful
+for Statistics_. 2nd edition. Wiley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

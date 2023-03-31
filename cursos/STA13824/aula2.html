@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabio A. Fajardo Molinares" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Estimação dos parâmetros
+&lt;br&gt;&lt;/br&gt;
+### 
+### LECON/DEST - UFES
+### Vitória, ES. - 23/06/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+### Alguns resultados da álgebra matricial - I
+* **Trasposta**: A trasposta de uma matriz `\(\mathbf{A}\)` é a matriz que se obtém 
+da troca das linhas pelas colunas da matriz, ou seja, se 
+`\(\mathbf{A}=(a_{ij})_{i,j=1}^{m,n}\)`, então `\(\mathbf{A}'=(a_{ij})_{i,j=1}^{n,m}\)`.
+Em outras palavras,
+
+&lt;div class="math"&gt;
+\[\mathbf{A}=\left[
+\begin{array}{ccccc}
+a_{11}&amp;a_{12}&amp;a_{13}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;a_{23}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+a_{m1}&amp;a_{m2}&amp;a_{m3}&amp;\cdots&amp;a_{mn} \\
+\end{array}
+\right]
+\qquad 
+\mathbf{A}'=\left[
+\begin{array}{ccccc}
+a_{11}&amp;a_{21}&amp;a_{31}&amp;\cdots&amp;a_{m1} \\
+a_{12}&amp;a_{22}&amp;a_{32}&amp;\cdots&amp;a_{m2} \\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+a_{1n}&amp;a_{2n}&amp;a_{3n}&amp;\cdots&amp;a_{mn} \\
+\end{array}
+\right]
+\]
+&lt;/div&gt;
+
+**Propriedades**: Sejam `\(\mathbf{A}\)` e `\(\mathbf{B}\)` matrizes com dimensões adequadas.
+1. `\(\left(\mathbf{A}'\right)'=\mathbf{A}\)`;
+1. `\((\mathbf{A}+\mathbf{B})'=\mathbf{A}'+\mathbf{B}'\)`;
+1. `\(\left(c\mathbf{A}\right)'=c\mathbf{A}'\)`;
+1. `\(\left(\mathbf{AB}\right)'=\mathbf{B}'\mathbf{A}'\)`;
+1. `\(\left(\mathbf{A}'\right)^{-1}=\left(\mathbf{A}^{-1}\right)'\)`, `\(\, \mathbf{A}\)` 
+não-singular;
+1. `\(\det\left(\mathbf{A}'\right)=\det\left(\mathbf{A}\right)\)`;
+
+
+---
+class: animated, slideInRight
+
+### Alguns resultados da álgebra matricial - II
+* **Simétrica**: Uma matriz quadrada `\(\mathbf{A}\)` é simétrica se `\(\mathbf{A}=\mathbf{A}'\)`.
+
+**Exemplos**: Seja `\(\mathbf{A}\)` uma matriz quadrada, então as matrizes
+`\(\mathbf{A}'+\mathbf{A}\)` e `\(\mathbf{A}\mathbf{A}'=\mathbf{A}'\mathbf{A}\)` são
+simétricas.
+
+* **Autovalores**: Seja `\(\lambda\)` um escalar. Dizemos que `\(\lambda\)` é *autovalor*
+de uma matriz quadrada `\(\mathbf{A}\)`, se existe um vetor não-nulo `\(\mathbf{x}\)`,
+tal que
+
+`$$\mathbf{Ax}=\lambda\mathbf{x}$$`
+ou equivalentemente
+
+`$$\left(\mathbf{A}-\lambda\mathbf{I}\right)\mathbf{x}=\mathbf{0}.$$`
+Fica evidente que `\(\lambda\)` é *autovalor* de `\(\mathbf{A}\)` see a matriz
+`\(\mathbf{A}-\lambda\mathbf{I}\)` é singular, i.e., `\(\lambda\)` é *autovalor* da
+`\(\mathbf{A}\)` see 
+`$$\det\left(\mathbf{A}-\lambda\mathbf{I}\right)=\left|\mathbf{A}-\lambda\mathbf{I}\right|=0.$$`
+---
+class: animated, slideInRight
+
+### Alguns resultados da álgebra matricial - III
+
+* **Formas quadráticas**:  Uma forma quadrática em `\(\mathbb{R}^n\)` é uma função 
+polinomial em que todos os termos são de segundo grau. Em outras palavras,
+seja `\(\mathbf{A}\)` uma matriz simétrica e considere um vetor 
+`\(\mathbf{x}=\left(x_1,x_2,\ldots,x_n\right)'\)`, então
+
+`$$\mathbf{x}'\mathbf{Ax}=\sum_{i,j}a_{ij}x_ix_j=\sum_{i=1}^na_{ii}x_i^2+2\sum_{i&lt;j}a_{ij}x_ix_j$$`
+é uma *forma quadrática*.
+
+* **Derivada de formas quadráticas**&lt;sup&gt;1&lt;/sup&gt;: Seja `\(\mathbf{A}\)` uma matriz simétrica e 
+`\(\mathbf{x}'\mathbf{Ax}\)` a forma quadrática associada à matriz. Então:
+  - `\(\frac{\partial\mathbf{x}'\mathbf{Ax}}{\partial\mathbf{x}}=2\mathbf{Ax}\)`;
+  - `\(\frac{\partial^2\mathbf{x}'\mathbf{Ax}}{\partial\mathbf{x}\partial\mathbf{x}'}=2\mathbf{A}\)`;
+  - `\(\frac{\partial\mathbf{x}'\mathbf{Ax}}{\partial\mathbf{A}}=\mathbf{x}\mathbf{x}'\)`.
+   
+&gt; Para formas lineares, considere `\(\mathbf{Ax}\)`, então 
+`\(\frac{\partial\mathbf{Ax}}{\partial\mathbf{x}'}=\mathbf{A}\)` e
+`\(\frac{\partial\left(\mathbf{Ax}\right)'}{\partial\mathbf{x}}=\mathbf{A}'\)`. 
+
+
+&lt;font size="2"&gt; &lt;sup&gt;1&lt;/sup&gt;Para detalhes ver Magnus and Neudecker (2019) e 
+Harville (1997).&lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+### Alguns resultados da álgebra matricial - IV
+
+* **Matriz definida positiva**: Uma matriz quadrada `\(\mathbf{A}\)` se diz *definida positiva*
+se a forma quadrática associada à matriz é positiva, isto é, `\(\mathbf{x}'\mathbf{Ax}&gt;0\)`,
+para todo `\(\mathbf{x}\ne\mathbf{0}\)`.
+
+  - Uma matriz simétrica `\(\mathbf{A}\)` se diz *definida negativa* se `\(-\mathbf{A}\)` é
+definida positiva;
+  -  Uma matriz simétrica `\(\mathbf{A}\)` se diz *semidefinida positiva* se 
+  `\(\mathbf{x}'\mathbf{Ax}\ge0\)`, para todo `\(\mathbf{x}\ne\mathbf{0}\)`;
+  - Uma matriz simétrica `\(\mathbf{A}\)` se diz *semidefinida negativa* se `\(-\mathbf{A}\)` é
+semidefinida positiva.
+
+* **Propriedades**&lt;sup&gt;2&lt;/sup&gt;: Seja `\(\mathbf{A}\)` uma matriz 
+simétrica definida positiva, então
+  - `\(\mathbf{A}\)` é não-singular;
+  - Os autovalores de `\(\mathbf{A}\)` são todos positivos;
+  - `\(\mathbf{A}^{-1}\)` é positiva definida.
+
+
+&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;
+
+&lt;font size="2"&gt; &lt;sup&gt;2&lt;/sup&gt; Para detalhes ver Searle and Khuri (2017).&lt;/font&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# A2. A matriz `\(\mathbf{X}\)` tem posto coluna completo 
+
+---
+class: animated, bounceInDown
+
+### Mínimos quadrados ordinários (MQO) - I
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+ou
+`$$Y=\beta_0\mathbf{1}+\beta_1\mathbf{x}_1+\beta_2\mathbf{x}_2+\cdots+\beta_k\mathbf{x}_k+\mathbf{\epsilon}.$$`
+Nosso objetivo é estimar o vetor de parâmetros `\(\mathbf{\beta}\)`. O método de
+mínimos quadrados é um dos tantos métodos existentes na literatura, que 
+permitirá atingir nosso objetivo. 
+
+O método MQO tem como meta minimizar a seguinte função objetivo
+
+&lt;div class="math"&gt;
+$$
+\begin{aligned}
+S(\mathbf{\beta})=\mathbf{\epsilon}'\mathbf{\epsilon}&amp;=(Y-\mathbf{X\,\beta})'(Y-\mathbf{X\,\beta}) \\
+&amp;=Y'Y-Y'\mathbf{X\beta}-\mathbf{\beta}'\mathbf{X}'Y+\mathbf{\beta}'\mathbf{X}'\mathbf{X\beta}\\
+&amp;=Y'Y-2Y'\mathbf{X\beta}+\mathbf{\beta}'\mathbf{X}'\mathbf{X\beta}.
+\end{aligned}
+$$
+&lt;/div&gt;
+
+Dessa forma,
+$$
+\widehat{\mathbf{\beta}}=\underset{\mathbf{\beta}\,\in\,\Theta}{\arg\min}\, S(\mathbf{\beta}).
+$$
+
+---
+class: animated, slideInRight
+
+### Mínimos quadrados ordinários (MQO) - II
+
+A minimização se dá ao derivar `\(S(\mathbf{\beta})\)` em relação ao `\(\mathbf{\beta}\)`
+e igualar a vetor `\(\mathbf{0}\)`, daí
+
+$$
+\frac{\partial S(\mathbf{\beta})}{\partial\beta}=-2\mathbf{X}'Y+2\mathbf{X}'\mathbf{X\beta}.
+$$
+Igualando a `\(\mathbf{0}\)`, temos que
+
+$$
+\mathbf{X}'\mathbf{X\widehat{\beta}}=\mathbf{X}'Y.
+$$
+O sistema de equações acima é denominado **equações normais**. O nome deve-se
+a que podemos reescrever o sistema de equações como
+
+$$
+\mathbf{X}'\left(\mathbf{X\widehat{\beta}}-Y\right)=\mathbf{0}.
+$$
+O vetor `\(\mathbf{X\widehat{\beta}}-Y\)` é chamado de *vetor de resíduos* e, segundo
+a equação acima, esse vetor é *normal* (ortogonal) aos vetores linha de `\(\mathbf{X}\)`.
+
+---
+class: animated, slideInRight
+
+### Mínimos quadrados ordinários (MQO) - III
+
+
+De acordo com **A2.**, a matriz `\(\mathbf{X}\)` tem posto coluna completo, então
+`\(\mathbf{X}'\mathbf{X}\)` é uma matrix simétrica e não-singular, ou seja,
+`\(\mathbf{X}'\mathbf{X}\)` tem inversa. Dessa forma,
+
+&lt;div class="math"&gt;
+$$
+\begin{aligned}
+\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.
+\end{aligned}
+$$
+&lt;/div&gt;
+
+Para o ponto crítico ser ponto de mínimo, calcula-se a segunda derivada da função 
+objetivo `\(S(\mathbf{\beta})\)` e verifica-se se a matriz resultante é definida
+positiva. Dessa forma,
+
+`$$\frac{\partial^2 S(\mathbf{\beta})}{\partial\beta\partial\beta'}=2\mathbf{X}'\mathbf{X}.$$`
+Seja `\(\mathbf{v}=\mathbf{Xc}\)`, para algum vetor não-nulo `\(\mathbf{c}\)`. Seja 
+`\(q=\mathbf{v}'\mathbf{v}\)`. Observe que, a menos que cada elemento de 
+`\(\mathbf{v}\)` seja zero, `\(q\)` é positivo. Por outra parte, se `\(\mathbf{v}\)` pudesse 
+ser zero, então `\(\mathbf{v}\)` seria uma combinação linear das colunas de `\(\mathbf{X}\)`
+iguai a zero, o que contradiz a suposição **A2**. Dessa forma `\(q&gt;0\)`, i.e., 
+`\(\mathbf{X}'\mathbf{X}\)` é definida positiva.
+
+&gt; Se `\(\mathbf{X}\)` tem posto coluna completo, então a solução das **equações normais**
+é &lt;ins&gt;única&lt;/ins&gt; e minimiza `\(S(\mathbf{\beta})\)`.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# A3. Exogeneidade das variáveis independentes
+
+---
+class: animated, bounceInDown
+
+### Mínimos quadrados ordinários (MQO) - IV
+
+#### Propriedades do estimador
+
+Sabemos que o estimador MQO é dado por
+
+&lt;div class="math"&gt;
+$$
+\begin{aligned}
+\mathbf{\widehat{\beta}}&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y
+=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\left(\mathbf{X\beta}+\mathbf{\epsilon}\right)\\
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{X\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}.
+\end{aligned}
+$$
+&lt;/div&gt;
+
+Daí, pela Suposição **A3.**, i.e., `\(\mathbb{E}[\mathbf{\epsilon}|\mathbf{X}]=\mathbf{0}\)`,
+temos que:
+
+`$$\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\mathbb{E}\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}.$$`
+&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`.
+
+---
+class: inverse, hide-logo, middle, center
+
+# A4. Esfericidade dos erros
+
+---
+class: animated, bounceInDown
+
+### Mínimos quadrados ordinários (MQO) - IV
+
+#### Propriedades do estimador - II
+
+Sabemos que,
+
+`$$\mathbf{\widehat{\beta}}-\mathbf{\beta}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}.$$`
+Dessa forma,
+
+&lt;div class="math"&gt;
+$$
+\begin{aligned}
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\mathbb{E}\left[\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)\left(\mathbf{\widehat{\beta}}-\mathbf{\beta}\right)'\,\Big|\,\mathbf{X}\right]=\mathbb{E}\left[\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)\left(\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\right)'\,\Big|\,\mathbf{X}\right]\\
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
+\end{aligned}
+$$
+&lt;/div&gt;
+
+Pela Suposição **A4.**, i.e., `\(\mathbb{E}[\mathbf{\epsilon\epsilon}'|\mathbf{X}]=\sigma^2\mathbf{I}\)`,
+temos que
+
+
+&lt;div class="math"&gt;
+$$
+\begin{aligned}
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\sigma^2\mathbf{I}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}\\
+&amp;=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
+\end{aligned}
+$$
+&lt;/div&gt;
+
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Harville, D. A. (1997). _Matrix algebra from a statistician's
+perspective_. New York: Springer.
+
+Magnus, J. R. and H. Neudecker (2019). _Matrix Differential Calculus
+with Applications in Statistics and Econometrics_. 3rd edition. John
+Wiley.
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_.
+2nd edition. Wiley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

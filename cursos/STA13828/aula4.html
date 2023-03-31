@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análise de Séries Temporais</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análise de Séries Temporais
+]
+.subtitle[
+## Processos com representação ARMA(p,q) - II
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 01/12/2022
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+[//]: &lt;&gt; (https://github.com/animate-css/animate.css/blob/main/animate.css)
+[//]: &lt;&gt; (xaringan::inf_mr())
+
+class: animated, fadeIn
+
+
+
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+### Preditores lineares - I
+
+* **Definição** (Operador de predição): Sejam `\(W_n,W_{n-1},\ldots, W_1\)`
+e `\(Y\)` variáveis aleatórias com segundos momentos finitos. A função
+`\(P(\cdot|\mathbf{W})\)`, tal que
+`$$P(Y|\mathbf{W})=\mu_Y+\pmb{a}'(\mathbf{W}-\pmb{\mu}_W),$$`
+onde `\(\mathbf{W}=(W_n,W_{n-1},\ldots, W_1)'\)`, `\(\pmb{\mu}_W=(\mu_n,\mu_{n-1},\ldots,\mu_1)'\)`,
+com `\(\mu_i=\mathbb{E}W_i\)` e `\(\pmb{a}=(a_1,a_{1},\ldots,a_n)'\)`, sendo
+`\(\pmb{a}\)` qualquer solução de `\(\Gamma\pmb{a}=\pmb{\gamma}\)`, onde
+`$$\Gamma=\mathrm{Cov}\left(\mathbf{W},\mathbf{W}\right)=\left[\mathrm{Cov}\left(W_{n+1-i},W_{n+1-j}\right)\right]_{i,j=1}^n$$`
+e
+`$$\pmb{\gamma}=\mathrm{Cov}\left(Y,\mathbf{W}\right)=\left(\mathrm{Cov}\left(Y,W_n\right),\mathrm{Cov}\left(Y,W_{n-1}\right),\ldots,\mathrm{Cov}\left(Y,W_1\right)\right)'.$$`
+
+&gt; O Erro Quadrático Médio (EQM) do preditor linear é dado por
+`$$\mathbb{E}\left[Y-P(Y|\mathbf{W})\right]^2=\mathrm{Var}\,Y-\pmb{a}'\pmb{\gamma}.$$`
+
+***
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016),
+Wei (2005) e Morettin and Toloi (2006).
+
+---
+class: animated, fadeUp
+
+### Preditores lineares - I
+
+* **Propriedades do operador de predição**: Sejam `\(U\)` e `\(V\)` variáveis
+aleatórias, tal que `\(\mathbb{E}U^2&lt;\infty\)` e `\(\mathbb{E}V^2&lt;\infty\)`.
+O operador de predição satisfaz as seguintes propriedades:
+
+  - `\(P(U|\mathbf{W})=\mathbb{E}U+\pmb{a}'(\mathbf{W}-\mathbb{E}\mathbf{W})\)`,
+  onde `\(\Gamma\pmb{a}=\mathrm{Cov}(U,\mathbf{W})\)`, com
+  `\(\Gamma=\mathrm{Cov}(\mathbf{W},\mathbf{W})\)`, `\(\pmb{a}=(a_1,a_2,\ldots,a_n)'\)`
+  e `\(\mathbf{W}=(W_n,W_{n-1},\ldots, W_1)'\)`;
+  
+  - `\(\mathbb{E}\left[(U-P(U|\mathbf{W}))\mathbf{W}\right]=\pmb{0}\)` e 
+  `\(\mathbb{E}[U-P(U|\mathbf{W})]=0\)`;
+  
+  - `\(\mathbb{E}\left[U-P(U|\mathbf{W})\right]^2=\mathrm{Var}(U)-\pmb{a}'\mathrm{Cov}(U,\mathbf{W})\)`;
+  
+  - `\(P(\alpha_1U+\alpha_2V+\beta|\mathbf{W})=\alpha_1P(U|\mathbf{W})+\alpha_2P(V|\mathbf{W})+\beta\)`;
+  
+  - `\(P\left(\sum_{i=1}^n\alpha_iW_i+\beta|\mathbf{W}\right)=\sum_{i=1}^n\alpha_iW_i+\beta\)`, 
+  onde `\(\alpha_1, \alpha_2, \ldots, \alpha_n, \beta\)` são constantes;
+  
+  - `\(P(U|\mathbf{W})=\mathbb{E}U\)` se `\(\mathrm{Cov}(U,\mathbf{W})=\pmb{0}\)`;
+  
+  - `\(P(U|\mathbf{W})=P\left(P(U|\mathbf{W},\mathbf{V})|\mathbf{W}\right)\)` se `\(\mathbf{V}\)`
+  é um vetor aleatório tal que as componentes de `\(\mathbb{E}\mathbf{V}\mathbf{V}'\)` são
+  todas finitas.
+
+
+---
+class: animated, fadeLeft
+
+### Preditores lineares - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo com representação AR `\(\!(1)\)`, i.e.
+`\(X_t=\phi X_{t-1}+Z_t\)`, com `\(t\in\mathbb{Z}\)`, `\(|\phi|&lt;1\)` e `\(\{Z_t\}\)` um
+processo de ruído branco com média `\(0\)` e variância `\(\sigma^2\)`.
+Considere as variáveis `\(X_1\)` e `\(X_3\)` e a ideia é encontrar uma combinação
+linear de `\(X_1\)` e `\(X_3\)` para prever `\(X_3\)` com menor EQM.
+
+Das propriedades do operador de predição, sabemos que `\(P(U|\mathbf{W})=\mathbb{E}U+\pmb{a}'(\mathbf{W}-\mathbb{E}\mathbf{W})\)`,
+em termos do atual cenário, temos que
+`$$P(X_2|\mathbf{W})=\mathbb{E}X_2+\pmb{a}'(\mathbf{W}-\mathbb{E}\mathbf{W}),$$`
+onde `\(\mathbf{W}=(X_3,X_1)'\)`. 
+
+&lt;br&gt;
+
+O valor de `\(\pmb{a}\)` satisfaz `\(\Gamma\pmb{a}=\mathrm{Cov}(X_2,\mathbf{W})=\left(\mathrm{Cov}(X_2,X_3), \mathrm{Cov}(X_2,X_1)\right)'=(\gamma(1),\gamma(1))'\)` e 
+`\(\Gamma=\mathrm{Cov}(\mathbf{W},\mathbf{W})=\left[\mathrm{Cov}(W_{n+1-i}, W_{n+1-j})\right]_{i,j=1}^n\)`. Em termos da correlação, temos que
+&lt;div class='math'&gt;
+  \begin{align*}
+    \begin{bmatrix}
+    1 &amp; \phi^2\\
+    \phi^2 &amp; 1
+    \end{bmatrix}
+    \begin{bmatrix}
+    a_1\\
+    a_2
+    \end{bmatrix}&amp;=
+    \begin{bmatrix}
+    a_1+\phi^2a_2\\
+    \phi^2a_1+a_2
+    \end{bmatrix}=
+    \begin{bmatrix}
+    \phi\\
+    \phi
+    \end{bmatrix}.
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeRight
+
+### Preditores lineares - I
+
+Daí, `\(\pmb{a}=\frac{1}{1+\phi^2}\begin{bmatrix}\phi\\ \phi \end{bmatrix}\)`, então
+`$$P(X_2|\mathbf{W})=\mathbb{E}X_2+\pmb{a}'(\mathbf{W}-\mathbb{E}\mathbf{W})=\left(\frac{\phi}{1-\phi^2}, \frac{\phi}{1-\phi^2}\right)\begin{bmatrix}X_3\\ X_1 \end{bmatrix}=\frac{\phi}{1-\phi^2}(X_3+X_1).$$`
+O EQM do preditor é dado por
+&lt;div class='math'&gt;
+  \begin{align*}
+    \mathbb{E}\left[X_2-P(X_2|\mathbf{W})\right]^2&amp;=\mathrm{Var}(X_2)-\pmb{a}'\mathrm{Cov}(X_2,\mathbf{W})\\
+    &amp;=\frac{\sigma^2}{1-\phi^2}-\left(\frac{\phi}{1+\phi^2}, \frac{\phi}{1+\phi^2}\right)\begin{bmatrix}\gamma(1)\\ \gamma(1)\end{bmatrix}
+    =\frac{\sigma^2}{1-\phi^2}-\left(\frac{\phi}{1+\phi^2}, \frac{\phi}{1+\phi^2}\right)\begin{bmatrix}\frac{\sigma^2\phi}{1-\phi^2}\\ \frac{\sigma^2\phi}{1-\phi^2}\end{bmatrix}\\
+    &amp;=\frac{\sigma^2}{1-\phi^2}-\frac{2\sigma^2\phi^2}{(1+\phi^2)(1-\phi^2)}
+    =\frac{\sigma^2+\sigma^2\phi^2-2\sigma^2\phi^2}{(1+\phi^2)(1-\phi^2)}
+    =\frac{\sigma^2}{1+\phi^2}.
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeIn
+
+### Preditores lineares - II
+
+* **Definição** (Preditor linear): Suponha que temos um processo estacionário `\(\{X_t\}\)`, com 
+média `\(\mu\)`, para `\(t=1,2,3,\ldots,n\)`. O melhor preditor linear de `\(X_{n+h}\)` em termos de 
+`\(1,X_n,X_{n-1}, X_{n-2}, \ldots, X_1\)`, denotado por `\(P_nX_{n+h}\)`, define-se
+como a combinação linear
+`$$P_nX_{n+h}=a_0+a_1X_n+\cdots+a_nX_1,$$`
+com menor erro quadrático médio (EQM) que prevê `\(X_{n+h}\)`, onde 
+`\(a_0,a_1,\ldots,a_n\)` são valores reais. Em outras palavras, para 
+encontrar o melhor preditor linear de `\(X_{n+h}\)` é necessário encontrar
+os valores `\(a_0,a_1,\ldots,a_n\)` que minimizam
+`$$S=S(a_0,a_1,\ldots,a_n)=\mathbb{E}\left[X_{n+h}-a_0-a_1X_n-\cdots-a_nX_1\right]^2.$$`
+
+&lt;br&gt;
+
+  O mínimo da função `\(S(a_0,a_1,\ldots,a_n)\)` deve satisfazer as equações
+
+`$$\frac{\partial S(a_0,a_1,\ldots,a_n)}{\partial a_j}=0, \quad j=0,1,2,\ldots,n.$$`
+
+---
+class: animated, fadeUp
+
+### Preditores lineares - II
+
+
+Ou de outra forma,
+
+&lt;div class='math'&gt;
+  \begin{align*}
+    \mathbb{E}\left[X_{n+h}-a_0-\sum_{i=1}^na_iX_{n+1-i}\right]&amp;=0\\
+    \mathbb{E}\left[\left(X_{n+h}-a_0-\sum_{i=1}^na_iX_{n+1-i}\right)X_{n+1-j}\right]&amp;=0, \quad j=1,2,\ldots, n.
+  \end{align*}
+&lt;/div&gt;
+
+Daí,
+&lt;div class='math'&gt;
+  \begin{align*}
+    a_0&amp;=\mu\left(1-\sum_{j=1}^na_j\right) &amp; \text{ e } &amp; &amp;
+    \Gamma_n\pmb{a}_n&amp;=\gamma_n(h),
+  \end{align*}
+&lt;/div&gt;
+
+onde `\(\pmb{a}_n=(a_0,a_1,\ldots,a_n)'\)`, 
+`\(\Gamma_n=\left[\gamma(i-j)\right]_{i,j=1}^n\)` e
+`\(\gamma_n(h)=\left(\gamma(h),\gamma(h+1),\ldots,\gamma(h+n-1)\right)'\)`.
+
+
+---
+class: animated, fadeDown
+
+### Preditores lineares - II
+
+Portanto, 
+`$$P_nX_{n+h}=\mu+\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right).$$`
+
+&gt; O valor esperado do erro de predição é zero, i.e., `$$\mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]=0.$$`
+A variância do erro de predição é dada por
+&lt;div class='math'&gt;
+  \begin{align*}
+   \mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]^2&amp;=\mathbb{E}\left[X_{n+h}-\mu-\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right)\right]^2=\mathbb{E}\left[X_{n+h}-\mu\right]^2\\
+   &amp;-2\,\mathbb{E}\left(X_{n+h}-\mu\right)\left(\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right)\right)+\mathbb{E}\left[\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right)\right]^2
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeLeft
+
+### Preditores lineares - II
+
+&gt; &lt;div class='math'&gt;
+  \begin{align*}
+   \mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]^2&amp;=\mathbb{E}\left[X_{n+h}-\mu\right]^2
+   -2\,\mathbb{E}\left[\left(X_{n+h}-\mu\right)\left(\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right)\right)\right]\\&amp;\hspace{14cm}+\mathbb{E}\left[\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right)\right]^2\\
+   &amp;=\gamma(0)-2\sum_{i=1}^na_i\gamma(h+i-1)+\sum_{i=1}^n\sum_{j=1}^na_ia_j\gamma(i-j)\\
+   &amp;=\gamma(0)+\sum_{i=1}^n\sum_{j=1}^na_i\gamma(i-j)a_j-2\sum_{i=1}^na_i\gamma(h+i-1)\\
+   &amp;=\gamma(0)+\pmb{a}_n'\Gamma_n\pmb{a}_n-2\pmb{a}_n'\gamma_n(h)=\gamma(0)+\pmb{a}_n'\gamma_n(h)-2\pmb{a}_n'\gamma_n(h)\\
+   &amp;=\gamma(0)-\pmb{a}_n'\gamma_n(h).
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Então,
+&gt; `$$\mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]^2=\gamma(0)-\pmb{a}_n'\gamma_n(h).$$`
+
+---
+class: animated, fadeLeft
+
+### Preditores lineares - II
+
+* **Propriedades de `\(P_nX_{n+h}\)`**: O preditor linear `\(P_nX_{n+h}\)` satisfaz
+as seguintes propriedades:
+
+  - `\(P_nX_{n+h}=\mu+\sum_{i=1}^na_i\left(X_{n+1-i}-\mu\right)\)`, onde 
+  `\(\pmb{a}_n=(a_0,a_1,\ldots,a_n)'\)`, tal que `\(\Gamma_n\pmb{a}_n=\gamma_n(h)\)`;
+  
+  - `\(\mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]^2=\gamma(0)-\pmb{a}_n'\gamma_n(h)\)`,
+  onde `\(\gamma_n(h)=\left(\gamma(h),\gamma(h+1),\ldots,\gamma(h+n-1)\right)'\)`;
+  
+  - `\(\mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]=0\)`;
+  
+  - `\(\mathbb{E}\left[\left(X_{n+h}-P_nX_{n+h}\right)X_{j}\right]=0\)` 
+  para `\(j=0,1,2,\ldots,n\)`.
+
+&lt;br&gt;
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo com representação AR `\(\!(1)\)`, i.e.
+`\(X_t=\phi X_{t-1}+Z_t\)`, com `\(t\in\mathbb{Z}\)`, `\(|\phi|&lt;1\)` e `\(\{Z_t\}\)` um
+processo de ruído branco com média `\(0\)` e variância `\(\sigma^2\)`. O melhor
+preditor linear de `\(X_{n+1}\)` em termos de `\(\{1,X_n,X_{n-1},\ldots,X_1\}\)`
+é dado por 
+`$$P_nX_{n+h}=a_0+a_1X_n+\cdots+a_nX_1=\pmb{a}_n'\mathbf{X}_n,$$`
+onde `\(\mathbf{X}_n=(X_n,X_{n-1},\ldots,X_1)'\)`.
+
+
+---
+class: animated, fadeInDown
+
+### Preditores lineares - II
+
+Sabemos que `\(\gamma(h)=\dfrac{\sigma^2}{1-\phi^2}\phi^h\)`, então
+&lt;div class='math'&gt;
+  \begin{align*}
+   \begin{bmatrix}
+   1          &amp; \phi   &amp; \phi^2 &amp; \cdots &amp; \phi^{n-1}\\
+   \phi       &amp; 1      &amp; \phi &amp; \cdots &amp; \phi^{n-2}\\
+   \phi^2     &amp;  \phi      &amp;1     &amp; \cdots   &amp;\vdots\\
+   \vdots     &amp; \vdots &amp;  \vdots&amp; \ddots     &amp; \phi\\
+   \phi^{n-1} &amp; \phi^{n-2} &amp; \phi^{n-3} &amp; \cdots &amp; 1
+   \end{bmatrix}
+   \begin{bmatrix}
+   a_1\\
+   a_2\\
+   a_3\\
+   \vdots\\
+   a_{n}
+   \end{bmatrix}&amp;=
+   \begin{bmatrix}
+   \phi\\
+   \phi^2\\
+   \phi^3\\
+   \vdots\\
+   \phi^{n}
+   \end{bmatrix}.
+  \end{align*}
+&lt;/div&gt;
+
+Uma solução para o sistema é dada por `\(\pmb{a}_n=(\phi,0,0,\ldots,0)'\)`.
+Daí, o melhor preditor linear para `\(X_{n+1}\)` em termos de 
+`\(\{1,X_n,X_{n-1},\ldots,X_1\}\)`, é dado por
+`$$P_nX_{n+h}=\pmb{a}_n'\mathbf{X}_n=\phi X_n,$$`
+com EQM dado por
+`\(\mathbb{E}\left[X_{n+1}-P_nX_{n+1}\right]^2=\gamma(0)-\pmb{a}_n'\gamma_n(1)=\dfrac{\sigma^2}{1-\phi^2}-\phi\gamma(1)=\dfrac{\sigma^2}{1-\phi^2}-\phi\gamma(1)=\sigma^2\)`.
+
+
+---
+class: animated, fadeLeft
+
+### Preditores lineares - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t\}\)` um processo estacionário com média `\(\mu\)` e FAC `\(\rho(\cdot)\)`.
+Mostre que o melhor preditor linear de `\(X_{n+h}\)` da forma `\(aX_n+b\)` é
+obtido quando `\(a=\rho(h)\)` e `\(b=\mu(1-\rho(h))\)`.
+
+Sabemos que
+&lt;div class='math'&gt;
+  \begin{align*}
+   \mathbb{E}\left[X_{n+h}-P_nX_{n+h}\right]&amp;=\mathbb{E}\left[X_{n+h}-aX_{n}-b\right]
+   =\mathbb{E}\left[X_{n+h}\right]-a\mathbb{E}\left[X_{n}\right]-b\\
+   &amp;=\mu-a\mu-b=\mu(1-a)-b=0.
+  \end{align*}
+&lt;/div&gt;
+
+Daí, `\(b=\mu(1-a)\)`.
+
+Por outro lado,
+&lt;div class='math'&gt;
+  \begin{align*}
+   \mathbb{E}\left[\left(X_{n+h}-P_nX_{n+h}\right)X_{n}\right]&amp;=\mathbb{E}\left[\left(X_{n+h}-aX_{n}-b\right)X_{n}\right]=\mathbb{E}\left[X_{n+h}X_n\right]-a\mathbb{E}X_{n}^2-b\mathbb{E}X_n\\
+   &amp;=\gamma(h)+\mu^2-a(\gamma(0)+\mu^2)-b\mu=0.
+  \end{align*}
+&lt;/div&gt;
+
+Daí, `\(\gamma(h)+\mu^2-a(\gamma(0)+\mu^2)-\mu^2(1-a)=\gamma(h)-a\gamma(0)=0\)`,
+então `\(a=\frac{\gamma(h)}{\gamma(0)}=\rho(h)\)` e `\(b=\mu(1-\rho(h))\)`. Dessa
+forma, o preditor linear é dado por
+`$$P_nX_{n+h}=\rho(h)X_n+\mu(1-\rho(h)).$$`
+
+---
+class: inverse, hide-logo, middle, center
+
+### Algoritmo de Durbin-Levinson
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Durbin-Levinson
+
+O problema de determinar o melhor preditor linear requer a 
+determinação de uma solução de um sistema de `\(n\)` equações lineares, 
+que para um valor de `\(n\)` grande, o procedimento pode se tornar 
+difícil e demorado. 
+
+Para processos estacionários em geral, poderiamos pensar em calcular o 
+preditor um passo à frente `\(P_nX_{n+1}\)`, baseado nas `\(n\)` observações 
+anteriores, e usá-lo para calcular `\(P_{n+1}X_{n+2}\)`, i.e., o 
+preditor um passo à frente baseado nas `\(n+1\)` observações anteriores e
+assim sucessivamente até obter o número desejado de preditores.
+
+Algoritmos de predição que utilizam essa ideia são chamados de 
+*recursivos*. Dois exemplos importantes são o **algoritmo de Durbin-Levinson**
+e o **algoritmo de inovações**.
+
+
+
+---
+class: animated, fadeInDown
+
+### Algoritmo de Durbin-Levinson
+
+Lembrando que 
+`\(P(U|\mathbf{W})=\mu_U+\pmb{a}'(\mathbf{W}-\mathbb{E}\mathbf{W})\)`,
+onde `\(\pmb{a}\)` é qualquer solução de `\(\Gamma\pmb{a}=\pmb{\gamma}\)`, onde 
+`\(\pmb{\gamma}=\mathrm{Cov}(U,\mathbf{W})=\left(\mathrm{Cov}(U,W_n),\ldots,\mathrm{Cov}(U,W_1)\right)'\)` e `\(\Gamma=\mathrm{Cov}(\mathbf{W},\mathbf{W})=\left[\mathrm{Cov}(W_{n+1-i},W_{n+1-j})\right]_{i,j=1}^n\)`. O EQM do preditor é dado por
+`$$\mathbb{E}\left[U-P(U|\mathbf{W})\right]^2=\mathrm{Var}(U)-\pmb{a}'\mathrm{Cov}(U,\mathbf{W}).$$`
+&lt;br&gt;
+
+Suponha `\(\mathbf{W}=(X_n,X_{n-1},\ldots,X_1)'\)`, `\(U=X_n+1\)` e `\(\pmb{a}=\phi_n=(\phi_{n1},\phi_{n2}\ldots,\phi_{nn})'\)`, temos que 
+`$$P(U|\mathbf{W})=P_nX_{n+1}=\phi_n'\mathbf{W}=\phi_{n1}X_n+\phi_{n2}X_{n-1}+\cdots+\phi_{nn}X_1,$$`
+onde `\(\phi_n=\Gamma_n^{-1}\pmb{\gamma}_n\)`, com `\(\pmb{\gamma}_n=(\gamma(1),\gamma(2),\ldots,\gamma(n))'\)`. O EQM do 
+preditor é dado por
+`$$\nu_n=\mathbb{E}\left[X_{n+1}-P_nX_{n+1}\right]^2=\gamma(0)-\phi_n'\mathrm{Cov}(X_{n+1},\mathbf{W})=\gamma(0)-\phi_n'\pmb{\gamma}_n.$$`
+&gt; Uma condição suficiente para a não-singularidade da sequência de
+autocovariâncias `\(\Gamma_1, \Gamma_2, \ldots\)` é que `\(\gamma(0)&gt;0\)` e
+`\(\gamma(h)\to0\)` quando `\(h\to\infty\)`.
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Durbin-Levinson
+Os coeficientes `\(\phi_{n1}, \phi_{n2},\ldots ,\phi_{nn}\)` são calculados
+recursivamente das equações
+`$$\phi_{nn}=\left[\gamma(n)-\sum_{j=1}^{n-1}\phi_{n-1,j}\gamma(n-j)\right]\nu_{n-1}^{-1},$$`
+&lt;div class='math'&gt;
+  \begin{align*}
+   \begin{bmatrix}
+   \phi_{n1}\\
+   \phi_{n2}\\
+   \vdots\\
+   \phi_{n,n-1}
+   \end{bmatrix}=
+   \begin{bmatrix}
+   \phi_{n-1,1}\\
+   \phi_{n-1,2}\\
+   \vdots\\
+   \phi_{n-1,n-1}
+   \end{bmatrix}-\phi_{nn}
+   \begin{bmatrix}
+   \phi_{n-1,n-1}\\
+   \phi_{n-1,n-2}\\
+   \vdots\\
+   \phi_{n-1,1}
+   \end{bmatrix}
+  \end{align*}
+&lt;/div&gt;
+
+e `\(\nu_n=\nu_{n-1}[1-\phi_{nn}^2]\)`, onde `\(\phi_{11}=\rho(1)\)` e `\(\nu_0=\gamma(0)\)`.
+
+&gt; Sob as condições definidas acima, a função definida por
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \alpha(n)&amp;=\begin{cases}
+      1, &amp; \text{ para } n=0;\\
+      \phi_{nn}, &amp; \text{ para } n=1,2,\ldots,
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+é conhecida como **função de autocorrelação parcial** do processo `\(\{X_t\}\)`.
+
+---
+class: inverse, hide-logo, middle, center
+
+### Algoritmo de Inovações
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Inovações
+
+O algoritmo de inovações pode ser aplicado em qualquer processo com 
+segundos momentos finitos, independente dele ser estacionão ou 
+não-estacionário.
+
+Suponha que `\(\{X_t\}\)` é um processo com média zero e 
+`\(\mathbb{E}|X_t|^2&lt;\infty\)`, para todo `\(t\)`. As *inovações*, o erros de 
+predição um passo à frente definem-se como
+`$$U_n=X_n-\hat{X}_n,$$`
+onde 
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{X}_n&amp;=\begin{cases}
+      0, &amp; \text{ para } n=1;\\
+      P_{n-1}X_n, &amp; \text{ para } n=2, 3,\ldots
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+e `\(\ \nu_n=\mathbb{E}\left[X_{n+1}-P_nX_{n+1}\right]^2\)`.
+
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Inovações
+
+Em termos matriciais, temos que `\(\mathbf{U}_n=A_n\mathbf{X}_n\)`, onde 
+`\(\mathbf{U}_n=\left(U_1,U_2,\ldots,U_n\right)'\)`, sendo `\(U_n=X_n-\hat{X}_n\)`, 
+e `\(\mathbf{X}_n=\left(X_1,X_2,\ldots,X_n\right)'\)`, com 
+
+&lt;div class='math'&gt;
+  \begin{align*}
+    \mathbf{A}_n&amp;=\begin{bmatrix}
+      1 &amp; 0 &amp; 0 &amp;\cdots &amp; 0\\
+      a_{11} &amp; 1 &amp; 0 &amp; \cdots &amp; 0\\
+      a_{22} &amp; a_{21} &amp; 1 &amp; \cdots &amp; 0 \\
+      \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; 0\\
+      a_{n-1,n-1} &amp; a_{n-1,n-2} &amp; a_{n-1,n-3} &amp; \cdots &amp; 1  
+    \end{bmatrix}
+  \end{align*}
+&lt;/div&gt;
+
+--
+
+Dessa forma, o vetor de preditores lineares um passo à frente é dado por
+`$$\hat{\mathbf{X}}_n=\left(X_1,P_1X_2,\ldots,P_{n-1}X_n\right)',$$`
+que podemos reescrever como
+
+`$$\hat{\mathbf{X}}_n=\mathbf{X}_n-\mathbf{U}_n=\mathbf{A}_n^{-1}\mathbf{U}_n-\mathbf{U}_n=\mathbf{\Theta}_n\mathbf{U}_n=\mathbf{\Theta}_n\left(\mathbf{X}_n-\hat{\mathbf{X}}_n\right),$$`
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Inovações
+
+onde, a matriz `\(\mathbf{\Theta}_n\)` é dada por
+
+&lt;div class='math'&gt;
+  \begin{align*}
+    \mathbf{\Theta}_n&amp;=\begin{bmatrix}
+      0 &amp; 0 &amp; 0 &amp;\cdots &amp; 0\\
+      \theta_{11} &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\
+      \theta_{22} &amp; \theta_{21} &amp; 0 &amp; \cdots &amp; 0 \\
+      \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; 0\\
+      \theta_{n-1,n-1} &amp; \theta_{n-1,n-2} &amp; \theta_{n-1,n-3} &amp; \cdots &amp; 0  
+    \end{bmatrix}.
+  \end{align*}
+&lt;/div&gt;
+
+Dessa forma, sendo `\(\hat{\mathbf{X}}_n=\mathbf{\Theta}_n\left(\mathbf{X}_n-\hat{\mathbf{X}}_n\right)\)`, os preditores lineares um passo à frente podem ser calculados 
+recursivamente, como
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{X}_{n+1}&amp;=\begin{cases}
+      0, &amp; \text{ para } n=0;\\
+      \sum_{j=1}^n\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), &amp; \text{ para } n=1,2, 3,\ldots
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Daí, calculando os coeficientes `\(\theta_{ij}\)` temos então os preditores lineares
+e seus respectivos erros quadráticos médios `\(\nu_i=\mathbb{E}\left[X_{i+1}-\hat{X}_{i+1}\right]^2\)`.
+
+---
+class: animated, fadeInUp
+
+### Algoritmo de Inovações
+
+Os coeficientes `\(\theta_{n1}, \theta_{n2}, \ldots, \theta_{nn}\)` podem
+ser calculados recursivamente por meio das seguintes equações
+
+&lt;div class='math'&gt;
+  \begin{align*}
+    \nu_0&amp;=\kappa(1,1),\\
+    \theta_{n,n-k}&amp;=\nu_k^{-1}\left(\kappa(n+1,k+1)-\sum_{j=0}^{k-1}\theta_{k,k-j}\,\theta_{n,n-j}\,\nu_j\right), \quad 0\le k&lt; n\\
+  \end{align*}
+&lt;/div&gt;
+
+e `\(\ \nu_n=\kappa(n+1,n+1)-\sum_{j=0}^{n-1}\theta_{n,n-j}^2\,\nu_j\)`, onde `\(\kappa(i,j)=\mathbb{E}[X_iX_j]\)`.
+
+&gt; * O algoritmo de Durbin-Levinson permite o cálculo dos coefficientes de
+`\(X_n, X_{n-1}, \ldots, X_1\)` na representação 
+`\(\hat{X}_{n+1}=\sum_{j=1}^n\phi_{nj}X_{n+1-j}\)`;
+
+&gt; * O algoritmo de inovações proporciona os coeficientes de `\(X_n-\hat{X}_n, X_{n-1}-\hat{X}_{n-1}, \ldots, X_1-\hat{X}_1\)`, usando uma recursão alternativa
+dada por `\(\hat{X}_{n+1}=\sum_{j=1}^n\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right)\)`
+
+&gt; * Uma vantagem evidente do algoritmo de inovações é que as inovações não estão correlacionadas.
+
+---
+class: animated, fadeInRight
+
+### Algoritmo de Inovações
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t\}\)` um processo com representação ARMA `\(\!(p,q)\)`, causal, i.e.
+`$$\phi(B)X_t=\theta(B)Z_t,$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variância 
+`\(\sigma^2\)`.
+
+Para simplificar a aplicação do algoritmo de inovações, Brockwell and Davis (2016) sugerem o uso da transformação sugerida por
+Ansley (1979)&lt;sup&gt;1&lt;/sup&gt; e dada por
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    W_t&amp;=\begin{cases}
+      \sigma^{-1}X_t, &amp; \text{ para } t=1,2,\ldots,m;\\
+      \sigma^{-1}\phi(B)X_t, &amp; \text{ para } t&gt;m,
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+onde `\(m=\max\{p,q\}\)`.
+
+&gt; * Assuma `\(p\ge1\)` e `\(q\ge1\)` e que `\(\theta_0=1\)` e `\(\theta_j=0\)` para `\(j&gt;q\)`;
+&gt; * O processo transformado `\(\{W_t\}\)` permite que cada `\(X_n\)` , com  `\(n\ge 1\)`, 
+possa ser escrito como um combinação linear de `\(W_j\)`, `\(j=1,2,\ldots,n\)`, e viceversa;
+
+
+***
+&lt;sup&gt;1&lt;/sup&gt;&lt;font size=3&gt;Ansley, C. F. (1979). An algorithm for the exact likelihood of a mixed
+autoregressive moving-average process. Biometrika, 66, 59–65.&lt;/font&gt;
+
+
+---
+class: animated, fadeInDown
+
+### Algoritmo de Inovações
+
+A função de autocovariância do processo `\(\{X_t\}\)` é calculada usando
+os métodos sugeridos anteriormente (vide, [aula 3.html, p. 19](https://ffajardo64.github.io/statistical_learning/STA13828/aula3.html#19)).
+Dessa forma,
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \kappa(i,j)&amp;=\begin{cases}
+      \sigma^{-1}\gamma_X(i-j), &amp; \text{ para } 1\le i,j\le m;\\
+      \sigma^{-1}\left[\gamma_X(i-j)-\sum_{r=1}^p\phi_r\gamma_X(r-|i-j|)\right], &amp; \text{ para } \min(i,j)\le m&lt; \max(i,j)\le 2m;\\
+      \sum_{r=0}^q\theta_r\theta_{r+|i-j|}, &amp; \text{ para } \min(i,j)&gt; m;\\
+      0, &amp; \text{ em caso contrário.} 
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Aplicando o algoritmo de inovações ao processo `\(\{W_t\}\)`, temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \widehat{W}_t&amp;=\begin{cases}
+      \sum_{j=1}^n\theta_{nj}\left(W_{n+1-j}-\widehat{W}_{n+1-j}\right), &amp; \text{ para } 1\le n&lt; m;\\
+      \sum_{j=1}^q\theta_{nj}\left(W_{n+1-j}-\widehat{W}_{n+1-j}\right), &amp; \text{ para } n\ge m.
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Os coeficientes `\(\theta_{nj}\)` e o erro quadrático médio 
+`\(r_n=\mathbb{E}\left[W_{n+1}-\widehat{W}_{n+1}\right]^2\)` são calculados
+de forma recursiva usando o algoritmo de inovações.
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Inovações
+
+Dessa forma, o preditor linear um passo à frente de `\(W_{n+1}\)` é dado
+por `\(\widehat{W}_{n+1}=P_nW_{n+1}\)`. Da mesma forma, para `\(X_{n+1}\)` o
+preditor linear é dado por `\(\hat{X}_{n+1}=P_{n}X_{n+1}\)`.
+
+
+Daí, sabendo que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    W_t&amp;=\begin{cases}
+      \sigma^{-1}X_t, &amp; \text{ para } t=1,2,\ldots,m;\\
+      \sigma^{-1}\phi(B)X_t, &amp; \text{ para } t&gt;m,
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+e da linearidade do preditor, temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \widehat{W}_t&amp;=\begin{cases}
+      \sigma^{-1}\hat{X}_t, &amp; \text{ para } t=1,2,\ldots,m;\\
+      \sigma^{-1}\phi(B)\hat{X}_t=\sigma^{-1}\left[\hat{X}_t-\phi_1{X}_{t-1}-\cdots-\phi_p{X}_{t-p}\right], &amp; \text{ para } t&gt;m,
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Assim, temos que
+`$$X_t-\hat{X}_t=\sigma\left[W_t-\widehat{W}_t\right]$$`
+para todo `\(t=1,2,3,\ldots\)`.
+
+---
+class: animated, fadeInDown
+
+### Algoritmo de Inovações
+
+Considerando
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \widehat{W}_t&amp;=\begin{cases}
+      \sum_{j=1}^n\theta_{nj}\left(W_{n+1-j}-\widehat{W}_{n+1-j}\right), &amp; \text{ para } 1\le n&lt; m;\\
+      \sum_{j=1}^q\theta_{nj}\left(W_{n+1-j}-\widehat{W}_{n+1-j}\right), &amp; \text{ para } n\ge m.
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+e substituindo `\(W_t-\widehat{W}_t\)` por `\(\sigma^{-1}\left[X_t-\hat{X}_t\right]\)`, 
+podemos determinar os preditores um passo à frente `\(\hat{X}_2,\hat{X}_3, \ldots\)`, 
+da seguinte forma
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{X}_{n+1}&amp;=\begin{cases}
+      \sum_{j=1}^n\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), &amp; \text{ para } 1\le n&lt; m;\\
+      \phi_1X_n+\cdots+\phi_pX_{n+1-p}+\sum_{j=1}^q\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), &amp; \text{ para } n\ge m
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+e `\(\mathbb{E}\left[X_{n+1}-\hat{X}_{n+1}\right]^2=\sigma^2\mathbb{E}\left[W_{n+1}-\widehat{W}_{n+1}\right]^2.\)`
+
+&gt; Os valores de `\(\theta_{nj}\)` e `\(\mathbb{E}\left[W_{n+1}-\widehat{W}_{n+1}\right]^2\)` são
+calculados usando o algoritmo de inovações.
+
+
+---
+class: animated, fadeInRight
+
+### Algoritmo de Inovações
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt;  Para o
+caso ARMA `\(\!(p,0)\)`, temos que `\(m=\max(p,0)=p\)`, então
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{X}_{n+1}&amp;=\begin{cases}
+      \sum_{j=1}^n\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), &amp; \text{ para } 1\le n&lt; p;\\
+      \phi_1X_n+\cdots+\phi_pX_{n+1-p}, &amp; \text{ para } n\ge p.
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt;  Para o
+caso ARMA `\(\!(0,q)\)`, temos que `\(m=\max(0,q)=q\)`, então
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{X}_{n+1}&amp;=\begin{cases}
+      \sum_{j=1}^n\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), &amp; \text{ para } 1\le n&lt; q;\\
+      \sum_{j=1}^q\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), &amp; \text{ para } n\ge q
+    \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+ou
+
+`$$\hat{X}_{n+1}=\sum_{j=1}^{\min(n,q)}\theta_{nj}\left(X_{n+1-j}-\hat{X}_{n+1-j}\right), \quad n\ge 1,$$`
+
+onde os coeficientes `\(\theta_{nj}\)` são calculados usando o algoritmo de 
+inovações.
+
+---
+class: animated, fadeInDown
+
+### Algoritmo de Holt-Winters
+Considere o processo o processo `\(\{Y_t\}\)` com a seguinte representação
+`$$Y_t=m_t+S_t+X_t, \quad t=1,2,\ldots,n,$$`
+onde `\(m_t\)` é a componente de tendência, `\(S_t\)` representa uma componente 
+sazonal de periodo `\(s\)` e `\(X_t\)` representa uma componente estocástica 
+estacionária.
+
+* **Caso 1.** Considere a representação do processo com componente 
+de tendência, i.e. `\(Y_t=m_t+X_t\)`. A componente de tendência pode ser 
+estimada usando:
+
+  - **Filtro de médias móveis**: Seja `\(q\)` um inteiro não-negativo, então
+  `$$\hat{m_t}=\frac{1}{2q+1}\sum_{j=-q}^qY_{t-j}, \quad q+1\le t\le n-q;$$`
+  
+  - **Alisamento exponencial**: Para um valor `\(\alpha\in[0,1]\)` fixo, 
+  temos `\(\hat{m}_1=Y_1\)` e para `\(t=2,3,\ldots,n\)`, temos que
+  `$$\hat{m}_t=\alpha Y_t+(1-\alpha)\hat{m}_{t-1}.$$`
+
+---
+class: animated, fadeIn
+
+### Algoritmo de Holt-Winters
+
+* **Caso 1.** Considere a representação do processo com componente 
+de tendência, i.e. `\(Y_t=m_t+X_t\)`. A componente de tendência pode ser 
+estimada usando:
+
+  - **Ajuste polinomial**: Nesse caso, suponha que a forma analítica 
+  de `\(m_t\)` é polinomial, ou seja, `\(m_t=a_0+a_1t+a_2t^2+\cdots+a_kt^k\)`.
+  Dessa forma, realiza-se o ajuste usando estimação por mínimos 
+  quadrados ordinários.
+  
+  - **Alisamento por eliminação de componentes de alta frequência**: 
+  Nesse caso, o alisamento é feito pela eliminação das componentes de 
+  alta frequência de sua expansão em série de Fourier.
+  
+
+&gt; A aplicação de filtros de diferenciação permitem a eliminação da 
+componente de tendência sem necessidade de estimar a mesma. Por exemplo,
+se a componente de tendência é linear, i.e. `\(m_t=c_0+c_1t\)`, então,
+se o operador `\(\nabla=1-B\)` é aplicado a `\(m_t\)`, temos que
+`$$\nabla m_t=m_t-m_{t-1}=c_0+c_1t-c_0-c_1(t-1)=c_1.$$`
+
+&gt; Dessa forma, se a componente de tendência é um polinômio de ordem 
+superior, i.e. `\(m_t=\sum_{j=0}^kc_jt^j\)`, então podemos aplicar o 
+filtro `\(\nabla^k\)`.
+
+---
+class: animated, fadeInUp
+
+### Algoritmo de Holt-Winters
+* **Caso 2.** Considere a representação do processo com componente 
+de tendência e sazonal, i.e. `\(Y_t=m_t+S_t+X_t\)`. Nesse caso, primeiro
+estima-se a tendência é estimada usando um filtro de médias móveis da 
+seguinte forma: Seja `\(s\)` o período sazonal, Se `\(s\)` é ímpar, use o filtro de 
+médias móveis tradicional. Se `\(s=2k\)` (par), então
+`$$\hat{m}_t=\frac1s\left(0.5y_{t-k}+y_{t-k+1}+\cdots+y_{t+k-1}+0.5y_{t+k}\right), \quad k&lt; t\le n-k.$$`
+
+Logo, estima-se a componente sazonal calculando a média dos desvios
+`\(\{y_{q+js}-\hat{m}_{q+js}; k&lt; q+js\le n-k\}\)`, denotada por `\(w_q\)`. 
+Dessa forma,
+`$$\hat{S}_q=w_q-\frac1s\sum_{i=1}^sw_i, \quad q=1,2,\ldots,s.$$`
+
+---
+class: animated, fadeInLeft
+
+### Algoritmo de Holt-Winters
+
+Para o caso do algoritmo de Holt-Winters, considere
+
+* **Caso 1.** A representação do processo com componente 
+de tendência, i.e. `\(Y_t=m_t+X_t\)`, e a componente `\(m_t\)` estima-se
+usando alisamento exponencial. Se o processo é estacionário, então
+`\(m_t\)` é constante e o preditor de `\(Y_{n+h}\)` baseado em 
+`\(Y_1, Y_2, \ldots,Y_n\)` é dado por
+`$$P_nY_{n+h}=\hat{m}_n, \quad h=1,2,\ldots.$$`
+
+No caso em que a componente `\(m_t\)` não seja constante, uma generalização 
+natural do preditor linear é dada por
+`$$P_nY_{n+h}=\hat{a}_n+\hat{b}_nh, \quad h=1,2,\ldots,$$`
+onde `\(\hat{a}_n\)` e `\(\hat{b}_n\)` são as estimações para o nível e a
+inclinação da componente de tendência no tempo `\(n\)`, respectivamente.
+
+---
+class: animated, fadeInUp
+
+### Algoritmo de Holt-Winters
+
+Holt (1957)&lt;sup&gt;1&lt;/sup&gt; sugere um procedimento recursivo para calcular
+`\(\hat{a}_n\)` e `\(\hat{b}_n\)`, dado por
+
+&lt;div class='math'&gt;
+  \begin{align*}
+    \hat{a}_{n+1}&amp;=\alpha Y_{n+1}+(1-\alpha)\left(\hat{a}_n+\hat{b}_n\right);\\
+    \hat{b}_{n+1}&amp;=\beta\left(\hat{a}_{n+1}-\hat{a}_n\right)+(1-\beta)\hat{b}_n,
+  \end{align*}
+&lt;/div&gt;
+
+onde `\(0\le\alpha\le1\)` e `\(0\le\beta\le1\)`. 
+
+&gt; * Os valores de `\(\alpha\)` e `\(\beta\)` dependem da dinâmica dos dados e 
+muitas vezes são encontrados por ensaio e erro sobre a série histórica. 
+Frequentemente são selecionados aqueles que minimizam o erro quadrático 
+médio;
+
+&gt; * Para resolver recursivamente as equações acima, faz-se necessário 
+de condições iniciais. Uma escolha natural desses valores é dada por
+`\(\hat{a}_2=Y_2\)` e `\(\hat{b}_2=Y_2-Y_1\)`.
+
+&lt;br /&gt;
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Holt, C. C. (1957). Forecasting seasonals and trends by exponentially weighted
+moving averages. ONR research memorandum (Vol. 52). Pittsburgh, PA: Carnegie
+Institute of Technology.&lt;/font&gt;
+
+
+
+---
+class: animated, fadeInRight
+
+### Algoritmo de Holt-Winters
+
+* **Caso 2**. Considere a representação do processo com componente 
+de tendência e sazonal, i.e. `\(Y_t=m_t+S_t+X_t\)`. Dessa forma,
+`$$P_{n}Y_{n+h}=\hat{a}_n+\hat{b}_nh+\hat{c}_{n+h}, \quad h=1,2,\ldots,$$`
+onde `\(\hat{a}_n\)` e `\(\hat{b}_n\)` são as estimações para o nível e a
+inclinação da componente de tendência no tempo `\(n\)`, respectivamente, e
+`\(\hat{c}_n\)` a estimação da componente sazonal. Os valores de `\(\hat{a}_n\)`,
+`\(\hat{b}_n\)` e `\(\hat{c}_n\)`, são calculados recursivamente da seguinte forma
+
+&lt;div class='math'&gt;
+  \begin{align*}
+    \hat{a}_{n+1}&amp;=\alpha\left(Y_{n+1}-\hat{c}_{n+1-s}\right)+(1-\alpha)\left(\hat{a}_n+\hat{b}_n\right);\\
+    \hat{b}_{n+1}&amp;=\beta\left(\hat{a}_{n+1}-\hat{a}_n\right)+(1-\beta)\hat{b}_n;\\
+    \hat{c}_{n+1}&amp;=\gamma\left(Y_{n+1}-\hat{a}_{n+1}\right)+(1-\gamma)\hat{c}_{n+1-s},
+  \end{align*}
+&lt;/div&gt;
+
+sendo `\(s\)` o período sazonal, `\(0\le\alpha\le1\)`, `\(0\le\beta\le1\)` e
+`\(0\le\gamma\le1\)`. Os valores iniciais são dados por 
+`\(\hat{a}_{s+1}=Y_{s+1}\)`, `\(\hat{b}_{s+1}=\frac1s\left(Y_{s+1}-Y_1\right)\)`
+e `\(\hat{c}_i=Y_i-\left(Y_1+\hat{b}_{s+1}(i-1)\right)\)`, com `\(i=1,2,\ldots,s+1\)`.
+
+---
+class: animated, lightSpeedIn
+### Referências
+
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
+
+Morettin, P. and C. Toloi (2006). _Análise de Séries Temporais_.
+Editora Blucher: ABE - Projeto Fisher.
+
+Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate
+Methods_. 2nd. Addison Wesley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

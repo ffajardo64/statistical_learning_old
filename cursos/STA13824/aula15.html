@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Violação de suposições: Heteroscedasticidade e Autocorrelação
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 30/09/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### A4. Esfericidade dos erros
+
+De acordo com **A4.**, a variância dos erros é tal que 
+
+`$$\mathbb{E}[\mathbf{\epsilon\epsilon}'|\mathbf{X}]=\sigma^2\mathbf{I},$$`
+i.e., a matriz de covariâncias do termo de erro é uma matriz diagonal. Em outras
+palavras, as variâncias dos elementos do vetor `\(\epsilon\)` são todas iguais e os
+mesmo são não-correlacionados. Dessa forma, temos que
+
+&lt;div class="math"&gt;
+$$
+  \begin{aligned}
+    \textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]&amp;=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}.
+  \end{aligned}
+$$
+&lt;/div&gt;
+
+
+#### Considerações
+
+1. E se as variâncias dos elementos do vetor `\(\epsilon\)` são diferentes, i.e.,
+o termo de erro é heterogêneo?
+
+--
+
+1. E se os elementos fora da diagonal da matriz 
+`\(\mathbb{E}[\mathbf{\epsilon\epsilon}'|\mathbf{X}]=\sigma^2\mathbf{I}\)`
+são diferentes de zero, i.e., existe uma estrutura de dependência entre os
+elementos do vetor `\(\epsilon\)`?
+
+&lt;br&gt;&lt;/br&gt;
+
+Para detalhes Montgomery and Peck (2007), Greene (2007) e Gujarati, Porter, and Gunasekar (2017).
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - I
+
+A **Heteroscedasticidade** refere-se apenas à diferença nas variâncias dos elementos
+do termo de erro. Entre outras razões, a heteroscedasticidade pode ser causada por:
+
+* **Dados atípicos**: A presença de dados atípicos no conjunto de observações
+causa efeitos significativos na variabilidade do conjunto;
+
+* **Assimetria na distribuição das covariáveis**: dependendo do grau de assimetria,
+a evidencia pode ser maior;
+
+* **Transformações incorretas**: a heterocedasticidade também pode surgir pelo uso
+de transformações incorretas nos dados ou por causa da forma funcional incorreta 
+do modelo, por exemplo, o uso de modelos lineares ao invés de modelos log-lineares
+e viceversa.
+
+&lt;br&gt;&lt;/br&gt;
+
+Sugestão de leitura,  Goldberger, A. S. (1964). Econometric Theory. New York: John Wiley &amp; Sons. pp. 238–243.
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - II
+
+#### Estimadores de MQO
+
+A solução dos sistema de equações normais é dada por
+
+&lt;div class="math"&gt;
+$$
+  \begin{aligned}
+\mathbf{\widehat{\beta}}&amp;=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}.
+  \end{aligned}
+$$
+&lt;/div&gt;
+
+Daí, pela Suposição **A3.**, i.e., `\(\mathbb{E}[\mathbf{\epsilon}|\mathbf{X}]=\mathbf{0}\)`,
+temos que:
+
+`$$\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\mathbb{E}\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}.$$`
+
+&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`.
+
+Mesmo se houver heteroscedasticidade o estimador de MQO é **consistente**. No 
+cenário heteroscedástico, podemos supor que `\(\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]=\sigma^2\Omega\)`.
+Dessa forma, a covariância do estimador é dada por
+
+&lt;div class="math"&gt;
+$$
+  \begin{aligned}
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}
+=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\Omega\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},
+  \end{aligned}
+$$
+&lt;/div&gt;
+
+diferente de `\(\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`. Dessa forma,
+o Teorema de Gauss-Markov não é mais válido.
+
+
+---
+class: animated, slideInRight
+
+### Alguns exemplos - I
+
+O vetor de erros será heteroscedástico se a sua variância depende de `\(i\)`, ou seja, se `\(\sigma^2=\sigma^2_i\)`, com `\(i=1,2,3,\ldots,n\)`. Se as variâncias `\(\sigma_i^2\)` são 
+conhecidas, pode-se obtar pela seguinte transformção
+
+`$$\frac{Y_i}{\sigma_i}=\beta_0\frac{1}{\sigma_i}+\beta_1\frac{x_{1i}}{\sigma_i}+\cdots+\beta_k\frac{x_{ki}}{\sigma_i}+\frac{\epsilon_{i}}{\sigma_i},$$`
+ou
+
+`$$Y_i^*=\beta_0^*+\beta_1^*x_{1i}^*+\cdots+\beta_k^*x_{ki}^*+\epsilon_{i}^*.$$`
+Observe que,
+
+`$$\mathrm{var}\left[\epsilon_i^*\right]=\mathbb{E}\left[\frac{\epsilon_i}{\sigma_i}\right]^2=\frac{1}{\sigma_i^2}\mathbb{E}\left[\epsilon_i^2\right]=\frac{1}{\sigma^2_i}\sigma^2_i=1.$$`
+A variância do termo de erro transformado é constante.
+
+
+---
+class: animated, slideInRight
+
+### Alguns exemplos - II
+
+Outros cenários plausíveis temos quando 
+
+* A variância do erro é proporcional a uma das covariáveis, i.e., `\(\sigma^2_i=\sigma^2 x_i\)`.
+Nesse caso, pondere com `\(\frac{1}{\sqrt{x_i}}\)`;
+
+* `\(\sigma^2_i\)` é proporcional ao quadrado de uma das covariáveis, i.e., `\(\sigma^2_i=\sigma^2 x_i^2\)`.
+Nesse caso, pondere com `\(\frac{1}{x_i}\)`;
+
+* `\(\sigma^2_i\)` é proporcional ao quadrado do valor médio de `\(Y\)`, i.e., `\(\sigma^2_i=\sigma^2\left(\mathbb{E}\left[Y_i\right]\right)^2\)`. Nesse caso, pondere com
+`\(\frac{1}{\mathbb{E}\left[Y_i\right]}\)`;
+
+Aplicando as ponderações, o estimador de MQO para os dados transformados é dado por
+
+&lt;div class="math"&gt;
+$$
+  \begin{aligned}
+\mathbf{\widehat{\beta}}&amp;=\left(\mathbf{X^*}'\mathbf{X^*}\right)^{-1}\mathbf{X^*}'Y^*.
+  \end{aligned}
+$$
+&lt;/div&gt;
+
+Dessa forma, se as Suposições **A1-A3** são satisfeitas, o Teorema de Gauss-Markov é 
+válido.
+
+&gt; Para o caso em que `\(\mathrm{cov}[\epsilon|\mathbf{X}]=\sigma^2\Omega\)`, pode-se
+estender o resultado de Gauss-Markov referente às propriedades do estimador de MQO
+para `\(\beta\)`.
+
+
+---
+class: animated, slideInRight
+
+### Teorema de Gauss-Markov-Aitken
+
+Considere o modelo `\(Y=\mathbf{X}\beta+\epsilon\)`, onde 
+`\(\mathbb{E}[\epsilon|\mathbf{X}]=0\)` e `\(\mathrm{cov}[\epsilon|\mathbf{X}]=\sigma^2\Omega\)`.
+O estimador de mínimos quadrados generalizados (MQG) do vetor `\(\beta\)`, i.e.,
+
+`$$\widehat{\beta}=\left(\mathbf{X}'\Omega^{-1}\mathbf{X}\right)^{-1}\mathbf{X}'\Omega^{-1}Y$$`
+é o melhor estimador linear não-viesado e de mínima variância para `\(\beta\)`. A
+matriz de covariâncias de `\(\widehat{\beta}\)` é dada por 
+
+`$$\mathrm{cov}\left[\widehat{\beta}\right]=\sigma^2\left(\mathbf{X}'\Omega^{-1}\mathbf{X}\right)^{-1}.$$`
+&gt; Um estimador para `\(\sigma^2\)` é dado por
+
+`$$s^2=\frac{\left(Y-\mathbf{X}\beta\right)'\Omega^{-1}\left(Y-\mathbf{X}\beta\right)}{n-p}.$$`
+Para detalhes, Rao and Toutenburg (1999), Yan and Su (2009).
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - VI
+
+#### Consequências
+
+* Mesmo na presença de heterocedasticidade os estimadores por MQO são 
+não-viesados e consistentes. Porém, esses estimadores não têm variância mínima
+e não são mais eficientes, i.e., o teorema de Gauss-Markov não é mais válido;
+
+* Desde que as variâncias dos elementos do vetor `\(\epsilon\)` sejam conhecidas, os
+estimadores fornecidos pelo método de mínimos quadrados ponderados serão os
+melhores estimadores lineares não-viesados;
+
+* Os resultados dos testes para verificar significância dos parâmetros são
+comprometidos;
+
+* Há vários testes disponíveis para diagnósticar a heteroscedasticidade, mas 
+é difícil dizer com certeza qual deles funcionará em determinada situação;
+
+* O problema de heteroscedasticidade é difícil de corrigir, dependerá muito do 
+padrão da mesma. Se a amostra é grande, podem-se obter estimaivas dos erros 
+padrão com base nos estimadores de MQO. Outra alternativa é transformar os dados 
+originais de tal forma que, nos dados transformados, relaxar o problema de 
+heterocedasticidade.
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - V
+
+#### Métodos para detecção - I
+
+Como no caso da multicolinearidade, não temos regras estabelecidas para detectar
+a presença da heteroscedasticidade. Por exemplo. nos Casos 1 e 2, citados 
+anteriormente, requer-se o conhecimento da variância dos elementos do vetor 
+`\(\epsilon\)`, o que torna mais difícil a detecção. Alguns procedimentos gráficos podem ajudar na sua identificação.
+
+.pull-left[
+
+- Diagrama de dispersão dos resíduos contra `\(\widehat{Y}\)` ou as covariáveis;
+
+- Diagrama de dispersão dos resíduos ao quadrado contra `\(\widehat{Y}\)` ou as 
+covariáveias;
+
+]
+
+.pull-right[
+&lt;img src="images/resid_plots.gif" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - VI
+
+#### Métodos para detecção - II
+
+* **Teste de White**: Proposto por White (1980)&lt;sup&gt;1&lt;/sup&gt;, o teste propõe uma 
+forma geral para avaliar a heteroscedasticidade e não presume uma forma particular 
+da mesma. Infelizmente, pouco pode ser dito sobre seu poder. Para amostras finitas
+o teste apresenta propriedades insatisfatórias, a menos que haja muito poucas 
+covariáveis. O teste de White na verdade é um teste baseado em multiplicadores de Lagrange
+para amostras suficientemente grandes, e não depende da suposição de normalidade 
+do vetor de erros.
+
+  Para ilustrar o teste, suponha o modelo `\(\quad Y_i=\beta_0+\beta_1x_{1i}+\beta_2x_{2i}+\epsilon_i\)`, 
+com `\(i=1,2,\ldots,n\)`.
+
+  `\(i.\)` Ajuste o modelo de regressão e calcule os resíduos, isto é `\(e_i=Y_i-\widehat{Y}_i\)`;
+  
+  `\(ii.\)`  Ajuste o modelo auxiliar dado por
+  
+  `$$e^2_i=\beta_0+\beta_1x_{1i}+\beta_2x_{2i}+\beta_3x^2_{1i}+\beta_4x^2_{2i}+\beta_5x_{1i}x_{2i}+\epsilon_i$$`
+e calcule o coeficiente de determinação, `\(R^2\)`;
+
+***
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;White, H. (1980) *A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity*. Econometrica, 48(4), 817-838.&lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - VI
+
+* **Teste de White**:
+
+  `\(iii.\)` Sob a hipótese nula de que não há heteroscedasticidade, pode-se mostrar 
+  que o tamanho da amostra multiplicado pelo `\(R^2\)` da regressão auxiliar segue 
+  assintoticamente uma distribuição de qui-quadrado com graus de liberdade 
+  iguais ao número de covariáveis (excluindo-se o termo constante) na regressão 
+  auxiliar. Dessa forma, para o exemplo, sob `\(H_0\)`,  `\(n\,R^2\)` segue uma 
+  distribuição `\(\chi^2_{5}\)`.
+  
+  `\(iv.\)` Se `\(n\,R^2&gt;\chi^2_{\alpha,5}\)` rejeita-se `\(H_0\)`, em favor de `\(H_1\)`, i.e.,
+  existe evidência suficiente para afirmar que há heteroscedasticidade. Caso
+  contrário, se `\(n\,R^2&lt;\chi^2_{\alpha,5}\)` implica que `\(\beta_1=\beta_2=\cdots=\beta_5=0\)`,
+  ou seja não há heteroscedasticidade.
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - VII
+
+* **Testes de Park&lt;sup&gt;1&lt;/sup&gt;, Glejser&lt;sup&gt;2&lt;/sup&gt; e Breusch–Pagan-Godfrey&lt;sup&gt;3&lt;/sup&gt;**: 
+Os 3 testes são similares e assim como o teste de White, cada um deles é um teste baseado
+em multiplicadores de Lagrange.
+
+**Algumas considerações**
+1. O teste de Park é um caso especial do teste geral proposto por A. C. Harvey, A. C. em “Estimating regression models with multiplicative Heteroscedasticity.” Econometrica, 1976. v. 44, n. 3, p. 461-465;
+
+1. Park sugere que `\(\sigma^2_i\)` seja uma função de uma das covariável, tal que 
+  `\(\sigma^2_i=\sigma^2x^\beta_i\exp\{u_i\}.\)`  Dessa forma, `\(\log\sigma^2_i=\log\sigma^2+\beta\log x_i+u_i\)`.;
+
+1. Devido à similaridade dos testes propostos por Breusch &amp; Pagan (1979) e Godfrey (1978), esses testes são conhecidos como testes de Breusch-Pagan-Godfrey para heteroscedasticidade.
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Park, R. E. (1966) *Estimation with heteroscedastic error terms*. Econometrica, v. 34, n. 4, p. 888. &lt;/font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Glejser, H. (1969) *A new test for heterocedasticity*. Journal of the American Statistical Association, v. 64, p. 316-323. &lt;/font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;3&lt;/sup&gt;Breusch, T.; Pagan, A. (1979) *A simple test for heteroscedasticidade and random coefficient variation*. Econometrica, v. 47, p. 1287-1294. &lt;/font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;3&lt;/sup&gt;Godfrey, L. (1978) *Testing for multiplicative heteroscedasticity*. Journal
+of Econometrics, v. 8, p. 227-236. &lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - VIII
+
+Para ilustrar os testes, suponha o modelo 
+
+  `$$Y_i=\beta_0+\beta_1x_{1i}+\beta_2x_{2i}+\cdots+\beta_kx_{ki}+\epsilon_i, \qquad i=1,2,\ldots,n.$$`
+  `\(i.\)` Ajuste o modelo de regressão e calcule os resíduos, isto é `\(e_i=Y_i-\widehat{Y}_i\)`;
+  
+  `\(ii.\)`  Ajuste os seguintes modelos auxiliares e calcule os respectivos 
+  coeficientes de determinação:
+  
+  - **Park (1966)**: `\(\log e^2_i=\alpha_0+\alpha_1\log z_{1i}+\alpha_2\log z_{2i}+\cdots+\alpha_p\log z_{pi}+\epsilon_i\)`;
+
+  - **Glejser (1969)**: `\(e^2_i=\alpha_0+\alpha_1z_{1i}+\alpha_2 z_{2i}+\cdots+\alpha_pz_{pi}+\epsilon_i\)`;
+
+  - **Breusch, Pagan &amp; Godfrey (1978-79)**: `\(\widetilde{e}^2_i=\alpha_0+\alpha_1z_{1i}+\alpha_2 z_{2i}+\cdots+\alpha_pz_{pi}+\epsilon_i\)`, onde `\(\widetilde{e}^2_i=\frac{e^2_i}{\frac1n\sum_{i=1}^ne^2_i}.\)`
+
+&gt; As variáveis `\(z_{1i},z_{2i},\ldots,z_{pi}\)` no modelo auxiliar pode ser consideradas 
+como algumas (ou todas) as covariáveis do modelo, i.e., `\(x_{1i},x_{2i},\ldots,x_{ki}\)`.
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - VIII
+
+`\(iii.\)` Sob a hipótese nula de que não há heterocedasticidade, a estatística 
+`\(n\,R^2\)` é *assintoticamente* qui-quadrado com graus de liberdade iguais ao 
+número de regressores (não incluindo o termo constante) na regressão auxiliar;
+
+`\(iv.\)` Se `\(n\,R^2&gt;\chi^2_{\alpha,\,p}\)` rejeita-se `\(H_0\)`, em favor de `\(H_1\)`, i.e.,
+existe evidência suficiente para afirmar que há heteroscedasticidade. Caso
+contrário, se `\(n\,R^2&lt;\chi^2_{\alpha,\,p}\)` implica que `\(\alpha_1=\alpha_2=\cdots=\alpha_p=0\)`,
+ou seja não há heteroscedasticidade.
+  
+&gt; **Algumas considerações** 
+  - Os testes Park, Glesjer e Breusch-Pagan-Godfrey exigem conhecimento sobre a 
+origem da heterocedasticidade, ou seja, as variáveis `\(z_{1i}, z_{2i},\ldots, z_{pi}\)` 
+são conhecidas por serem "responsáveis" pela heterocedasticidade;
+  - No teste de Park, o termo de erro na regressão auxiliar pode não satisfazer 
+  as suposições do modelo de regressão não-linear clássico e pode ser 
+  heterocedástico em si. 
+  - No teste de Glejser, o termo de erro é diferente de zero, é correlacionado 
+  e é ironicamente heterocedástico. 
+  - No Teste de Breusch-Pagan-Godfrey, o termo de erro é bastante sensível à 
+  suposição de normalidade em amostras finitas.
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - IX
+
+* **Teste de Goldfeld–Quandt&lt;sup&gt;1&lt;/sup&gt;**: Proposto por Goldfeld &amp; Quandt (1972),
+o teste baseia-se na realização de um teste `\(F\)` para igualdade de variâncias.
+Se os elementos do vetor de erros são homocedásticos, então a variância dos 
+resíduos de uma parte das observações da amostra deve ser igual à variância dos 
+resíduos de outra parte das observações da amostra. 
+
+  Para ilustrar o teste, suponha o modelo 
+
+  `$$Y_i=\beta_0+\beta_1x_{1i}+\beta_2x_{2i}+\cdots+\beta_kx_{ki}+\epsilon_i, \qquad i=1,2,\ldots,n.$$`
+  `\(i.\)` Identifique uma variável à qual a variância do erro está relacionada. 
+Para fins ilustrativos, suponha que seja `\(X_1\)` a covariável que está relacionada
+positivamente com `\(\sigma^2_i\)`;
+
+  `\(ii.\)` Ordene ou classifique as observações de acordo com os valores de `\(X_1\)`, 
+começando com o menor valor de `\(X_1\)`;
+
+  `\(iii.\)` Omita `\(c\)` observações centrais, onde `\(c\)` é especificado *a priori*, e 
+divida as `\(n - c\)` observações restantes em dois grupos cada um de `\(\frac{n - c}{2}\)` 
+observações. 
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Goldfeld, Stephen M.; Quandt, Richard E. (1972) Nonlinear methods in econometrics. Amsterdã: North Holland Publishing Company, p. 93-94. &lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - IX
+
+`\(iv.\)` Ajuste regressões separadas para as primeiras e as últimas `\(\frac{n - c}{2}\)` 
+observações, e calcule as respectivas soma dos quadrados dos residuos. Sejam
+`\(SQ_{Res1}\)` e `\(SQ_{Res2}\)` as somas dos quadrados dos resíduos correspondentes
+aos menores valores de `\(X_1\)` (grupo com a menor variabilidade) e aos maiores 
+valores de `\(X_1\)` (o grupo com a maior variabilidade), respectivamente;
+
+`\(v.\)` Calcule a estatística `\(F\)`
+
+`$$F=\frac{SQ_{Res1}/gl}{SQ_{Res2}/gl},$$`
+onde `\(gl=\frac{n-c-2(k+1)}{2}\)`, `\(k\)` é o número de parâmetros a serem estimados 
+(incluindo o intercepto);
+
+`\(vi.\)` Supondo **A5**, e sob `\(H_0\)` (Homoscedasticidade), então `\(F\)` segue uma distribuição `\(F_{\alpha,gl,gl}\)`. Rejeita-se `\(H_0\)` se `\(F&gt;F_{\alpha,gl,gl}\)`.
+
+&gt; A escolha de `\(c\)`, na maior parte, é arbitrária. Alguns autores sugeresm considerar
+um valor de `\(c\)` entre `\(\frac16\)` e `\(\frac13\)` do total de observações.
+
+
+---
+class: animated, slideInRight
+
+### Heteroscedaticidade - X
+
+#### Outros testes de heteroscedasticidade
+
+* Koenker, R. (1981). *A note on studentizing a test for heteroscedasticity*. Journal of Econometrics, 17(1), 107-112.
+
+* Koenker R.; Bassett, G. (1982) *Robust tests for heteroscedastividy based on regression quantiles*. Econometrica. v. 50, p. 43-61.
+
+* Harrison, M. J. and McCabe, B. P. (1979) *A test for heteroscedasticity based on ordinary least squares Residuals*. Journal of the American Statistical Association, v. 74, p. 494-499. 
+
+* SZROETER, J. (1978) *A class of parametric tests for heteroscedasticity in linear econometric models*. Econometrica, v. 46, p. 1.311-1.327. 
+
+* Evans, M. A. and King, M. L. (1988) *A further class of tests for heteroscedasticity*. Journal of Econometrics, v. 37, p. 265-276.
+
+&gt; Lyon, J., &amp; Tsai, C. (1996). [A Comparison of Tests for Heteroscedasticity](https://sci-hub.se/https://www.jstor.org/stable/2988471). Journal of the Royal Statistical Society. Series D (The Statistician), 45(3), 337-349.
+
+No `R` use os pacotes: [`car`](https://cran.r-project.org/web/packages/car/car.pdf), [`lmtest`](https://cran.r-project.org/web/packages/lmtest/lmtest.pdf), [`skedastic`](https://cran.r-project.org/web/packages/skedastic/skedastic.pdf), [`plm`](https://cran.r-project.org/web/packages/plm/plm.pdf).
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Medidas corretivas
+
+---
+class: animated, fadeIn
+
+### Estimação de matrizes de covariâncias - I
+
+Considere o modelo
+ 
+`$$Y=\mathbf{X}\beta+\epsilon.$$`
+
+No cenário heteroscedástico, suponha que `\(\mathbb{E}\left[\mathbf{\epsilon}\mathbf{\epsilon}'\,\big|\,\mathbf{X}\right]=\sigma^2_i\mathbf{I}=\Omega\)`, com `\(i=1,2,3\ldots,n\)`. Dessa forma, a covariância do estimador é dada por
+
+&lt;div class="math"&gt;
+$$
+  \begin{aligned}
+\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\Omega\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}=\Psi.
+  \end{aligned}
+$$
+&lt;/div&gt;
+
+--
+&lt;br&gt;&lt;/br&gt;
+
+.center[
+### &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Objetivo:&lt;/span&gt;  obter um estimador de consistente para `\(\Psi\)` tanto sob homoscedasticidade quanto sob heteroscedasticidade de forma desconhecida.
+]
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - II
+
+* **Estimador `\(\textrm{HC}0\)`**: Proposto por White (1980)&lt;sup&gt;1&lt;/sup&gt;, sugere o
+seguinte estimador para `\(\Psi\)`
+
+`$$\widehat{\Psi}_0=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\textrm{diag}\left(e^2_i\right)\)`.
+
+&gt; Este estimador é amplamente usado na literatura e é fácil para implementar. 
+O estimador é consistente tanto na homoscedasticidade, quanto na 
+heteroscedasticidade. No entanto, tende a ser viesado (_subestima as variâncias_) 
+e não confiável na presença de pontos de alavancagem e, portanto, os testes 
+quase-t associados tendem a ser liberais (_rejeitam `\(H_0\)` quando a mesma é 
+verdadeira com uma frequência superior ao nivel de significância `\(\alpha\)`._)
+
+&lt;br&gt;&lt;/br&gt;
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;White, H. (1980) A heteroskedasticity-consistent covariance matrix
+estimator and a direct test for heteroskedasticity. Econometrica,
+48(4), p. 817–838. &lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - II
+
+**Teste quase-t**: Suponha que deseja-se testar a seguinte 
+hipótese `\(H_0: \beta_i=\beta_i^{(0)}\)` vs `\(H_1: \beta_i\ne\beta_i^{(0)}\)`, para
+algum `\(i=1,2,\ldots, k\)`. Podemos usar a estatística 
+
+`$$\tau=\frac{\widehat{\beta}_i-\beta_i^{(0)}}{\widehat{\textrm{var}}\left[\widehat{\beta}_i\right]},$$` 
+onde `\(\widehat{\textrm{var}}\left[\widehat{\beta}_i\right]\)` é o `\(i\)`-ésimo elemento
+diagonal da matriz `\(\widehat{\Psi}_0\)`.
+
+White (1980) mostrou que `\(\tau\overset{\textrm{d}}{\longrightarrow}N(0,1)\)` quando
+`\(n\to\infty\)`. Dessa forma, use quantis de uma normal-padrão para avaliar o teste.
+Assim, rejeita-se `\(H_0\)` quando `\(|\tau|&gt;z_{\alpha/2}\)`.
+
+&gt; **Obs:** Não foi necessária a suposição de normalidade no vertor de erro.
+
+
+---
+class: animated, slideInRight
+
+
+### Estimação de matrizes de covariâncias - III
+
+Para melhorar o estimador de White (1980), várias variantes do `\(\textrm{HC}0\)` 
+foram propostas na literatura.
+
+* **Estimador `\(\textrm{HC}1\)`**: Proposto por Hinkley (1977)&lt;sup&gt;1&lt;/sup&gt;, sugere o
+seguinte estimador para `\(\Psi\)`
+
+`$$\widehat{\Psi}_1=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\frac{n}{n-p}\textrm{diag}\left(e^2_i\right)\)`.
+
+&gt; O estimador propõe uma correção dos graus de liberdade. Embora o viés do 
+estimador seja menor do que `\(\textrm{HC}0\)`, ele ainda existe.
+
+
+&lt;br&gt;&lt;/br&gt;
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Hinkley, D.V. (1977) Jackknifing in unbalanced 
+situations. Technometrics, 19(3), p. 285–292. &lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - IV
+
+* **Estimador `\(\textrm{HC}2\)`**: Proposto por McKinnon &amp; White (1985)&lt;sup&gt;1&lt;/sup&gt;, 
+sugerem o seguinte estimador para `\(\Psi\)`
+
+`$$\widehat{\Psi}_2=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde 
+
+`$$\widehat{\Omega}=\textrm{diag}\left(\frac{e^2_i}{(1-h_{ii})^{\delta_{i}}}\right),$$`
+com `\(h_{ii}\)` o `\(i\)`-ésimo elemento diagonal da matriz `\(\mathbf{H}\)` e `\(\delta_i=1\)`.
+
+&gt; O estimador leva em consideração os pontos de alavancagem. Embora seja
+imparcial sob homocedasticidade, irá produzir viés devido aos pontos de alta 
+alavancagem.
+
+&lt;br&gt;&lt;/br&gt;
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;McKinnon, J.G. and White, H. (1985) Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample
+properties. Journal of Econometrics, 29(3), p. 305–325. &lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - V
+
+* **Estimador `\(\textrm{HC}3\)`**: Proposto por Davidson &amp; McKinnon (1993)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando `\(\delta_i=2\)`.
+
+&gt; A proposta é um ligeiro ajuste do estimador `\(\textrm{HC}2\)`, que desconta mais
+os efeitos dos pontos de alavancagem. O `\(\textrm{HC}3\)` apresenta melhor desempenho
+em termos da distribuição assintótica de teste quase-t. Recomenda-se para cenários
+com pequena amostra, no entanto, para grandes amostras os estimadores `\(\textrm{HC}0\)`,
+`\(\textrm{HC}1\)`, `\(\textrm{HC}2\)` e `\(\textrm{HC}3\)` têm quase o mesmo comportamento. 
+Na presença de pontos de alavancagem o estimador tende a ser mais tendencioso e, 
+portanto, o os testes quase-t associados tendem a ser mais liberais.
+
+* **Estimador `\(\textrm{HC}4\)`**: Proposto por Cribari-Neto (2004)&lt;sup&gt;2&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+`\(\delta_i=\min\left\{\dfrac{h_{ii}}{\bar{h}},4\right\}\)`, onde 
+`\(\bar{h}=\frac{1}{n}\sum_{i=1}^nh_{ii}=\frac{1}{n}\textrm{tr}(\mathbf{H})=\frac{1}{n}p\)`,
+daí, `\(\delta_i=\min\left\{\frac{n\, h_{ii}}{p},4\right\}\)`.
+
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Davidson, R. and McKinnon, J. (1993) Estimation and Inference in
+Econometrics. New York, Oxford University Press. &lt;/font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Cribari-Neto, F. (2004) Asymptotic inference under heteroskedasticity of unknown form. Computational Statistics &amp; Data Analysis, 45(2), p. 215–233. &lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - VI
+
+* **Estimador `\(\textrm{HC}4m\)`**: Proposto por Cribari-Neto &amp; Silva (2011)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+`\(\delta_i=\min\left\{\frac{n\,h_{ii}}{p},\gamma_1\right\}+\min\left\{\frac{n\,h_{ii}}{p},\gamma_2\right\}\)`, onde `\(\gamma_1=1\)` e `\(\gamma_2=1.5\)`.
+
+* **Estimador `\(\textrm{HC}5\)`**: Proposto por Cribari-Neto, Souza &amp; Vasconcellos (2007)&lt;sup&gt;2&lt;/sup&gt;, 
+sugere o seguinte estimador para `\(\Psi\)`
+
+  `$$\widehat{\Psi}_5=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\textrm{diag}\left(\dfrac{e^2_i}{\sqrt{(1-h_{ii})^{\delta_{i}}}}\right)\)`, onde
+`\(\delta_i=\min\left\{\dfrac{n\,h_{ii}}{p},\max\left\{4,\dfrac{n\,k\,h_{\max}}{p}\right\}\right\}\)`, com
+`\(k=0.7\)` e `\(h_{\max}=\max\{h_{ii}, i=1,2,\ldots,n\}\)`.
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Cribari-Neto, F. and da Silva, W. B. (2011) A new heteroskedasticity-
+consistent covariance matrix estimator for the linear regression
+model. AStA Advances in Statistical Analysis, 95(2), p. 129–146.&lt;/font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Cribari-Neto, F., Souza, T. C. and Vasconcellos, K. L. (2007) Inference under heteroskedasticity and leveraged data. Communications in Statistics—Theory and Methods, 36(10), p. 1877–1888.&lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - VII
+
+* **Estimador `\(\textrm{HC}5m\)`**: Proposto por Li, Zhang, Zhang &amp; Wang (2017)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+
+`$$\delta_i=k_1\min\left\{\frac{n\,h_{ii}}{p},\gamma_1\right\}+k_2\min\left\{\frac{n\,h_{ii}}{p},\gamma_2\right\}+k_3\min\left\{\frac{n\,h_{ii}}{p},\max\left\{4,\frac{nkh_{\max}}{p}\right\}\right\},$$`
+onde `\(h_{\max}=\max\{h_{ii}, i=1,2,\ldots,n\}\)`, `\(\gamma_1=1\)` e `\(\gamma_2=1.5\)` e `\(k_i\ge0\)`. Os autores sugerem `\(k_1=1, k_2=0, k_3=1\)`.
+
+
+* **Estimador `\(\textrm{HC}6\)`**: Proposto por Aftab &amp; Chand (2018)&lt;sup&gt;2&lt;/sup&gt;, 
+sugere a mesma forma funcional do estimador `\(\textrm{HC}2\)`, considerando 
+`\(\delta_i=\min\left\{\frac{n\, h_{ii}}{p},\sqrt{\frac{n\,h_{\max}}{2p}}\right\}\)`.
+
+***
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Li, S., Zhang, N., Zhang, X. and Wang, G. (2017) A new
+heteroskedasticity-consistent covariance matrix estimator and inference under heteroskedasticity. Journal of Statistical Computation and Simulation, 87(1), p. 198–210.&lt;/font&gt;
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Aftab, N. and Chand, S. (2018) A simulation-based evidence on
+the improved performance of a new modified leverage adjusted heteroskedastic consistent covariance matrix estimator in the linear regression model. Kuwait Journal of Science, 45(3), p. 29–38.&lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+### Estimação de matrizes de covariâncias - VIII
+
+* **Estimador `\(\textrm{HC}7\)`**: Proposto por Aftab &amp; Chand (2016)&lt;sup&gt;1&lt;/sup&gt;, 
+sugere o seguinte estimador para `\(\Psi\)`
+
+  `$$\widehat{\Psi}_7=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\widehat{\Omega}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1},$$`
+onde `\(\widehat{\Omega}=\textrm{diag}\left(\sqrt{d_{ii}e^2_i}\right)\)`, onde `\(d_{ii}=\dfrac{r^2_ih_{ii}}{p\,(1-h_{ii})}\)` e `\(r^2_i=\dfrac{e^2_ i}{s^2(1-h_{ii})}\)`
+são os [resíduos estudentizados internamente](https://ffajardo64.github.io/statistical_learning/STA13824/aula9.html#3).
+
+&gt; Outras variantes são apresentadas em Salem, M., Fattah, A. A. and Rady, E. H. (2019) [A New Heteroscedasticity Consistent Covariance Matrix Estimator and Inference Based on Robust Methods](https://scholar.cu.edu.eg/sites/default/files/elhoussainy/files/16ctn07-pp2687_0.pdf).
+Journal of Computational and Theoretical Nanoscience, 16(7), p. 2687–2694.
+
+&lt;br&gt;&lt;/br&gt;
+
+***
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Aftab, N. and Chand, S. (2016) A new heteroskedastic consistent
+covariance matrix estimator using deviance measure. Pakistan Journal of Statistics and Operation Research, 12(2), p. 235–244.&lt;/font&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Autocorrelação
+
+---
+class: animated, slideInRight
+
+### Algumas definições - I
+
+* **Processo estocástico**: Um processo estocástico `\(\{X_t, t\in \cal{T}\}\)` é uma
+familia de variáveis aleatórias no mesmo espaço de probabilidade. O conjunto 
+`\(\cal{T}\)` é geralmente considerado como o conjunto de números inteiros ou o
+conjunto de números reais.
+
+&gt; Uma série temporal não é mais do que a realização de um processo estocástico.
+
+* **Estacionariedade estrita:** Um processo estocástico se diz *estritamente*
+estacionário se todas as distribuições unidimensionais são invariantes sob
+translações do tempo, i.e.,
+
+  `$$F(x_{t_1+\tau},x_{t_2+\tau},\ldots,x_{t_n+\tau})=F(x_{t_1},x_{t_2},\ldots,x_{t_n}),$$`
+  para quaisquer `\(t_1,t_2,\ldots,t_n,\tau\in \cal{T}\)`. Dessa forma, a média e a 
+variância são constantes, i.e.
+
+  `$$\mathbb{E}[X_t]=\mu \qquad \text{e} \qquad \textrm{var}[X_t]=\sigma^2,$$`
+para todo `\(t\in\cal{T}\)`.
+
+  Da mesma forma, a **função de autocovariância** de um processo 
+estritamente estacionário é dada por
+
+  `$$\gamma(\tau)=\textrm{cov}[X_t,X_{t+\tau}].$$`
+---
+class: animated, slideInRight
+
+### Algumas definições - II
+
+* **Estacionariedade fraca:** Um processo estocástico se diz *fracamente*
+estacionário *see*:
+
+  - `\(\mathbb{E}[X_t]=\mu\)`, para todo `\(t\in \cal{T}\)`;
+  - `\(\mathbb{E}[X^2_ t]&lt; \infty\)`, para todo `\(t\in \cal{T}\)`;
+  - `\(\textrm{cov}[X_{t_1},X_{t_2}]=\gamma(t_1,t_2)\)` é uma função exclusiva de 
+  `\(|t_1-t_2|\)`. De outra forma, `\(\gamma(\tau)=\textrm{cov}[X_t,X_{t+\tau}]\)`.
+
+&gt; Na literatura, muitos autores referem-se à estacionariedade fraca como
+*estacionariedade de segunda ordem* ou simplesmente como *estacionariedade*.
+
+* **Função de autocovariância**: Seja `\(\{X_t;\, t\in \mathbb{Z}\}\)` um processo
+estacionário, com média zero. A função de autocovariância do processo define-se 
+como `\(\gamma(h)=\mathbb{E}[X_tX_{t+h}]\)` e tal que
+  - `\(\gamma(0)&gt;0\)`;
+  - `\(\gamma(-h)=\gamma(h)\)`;
+  - `\(|\gamma(h)|\le\gamma(0)\)`, para todo `\(h\)`;
+  - `\(\gamma(h)\)` é não-negativa definida, i.e., para quaisquer números reais 
+  `\(a_1,a_2,\ldots,a_n\)`, temos que
+   
+   `$$\sum_{i=1}^n\sum_{j=1}^na_i\gamma(i-j)a_j\ge0.$$`
+
+---
+class: animated, slideInRight
+
+### Algumas definições - III
+
+* **Função de autocovariância**: Seja `\(\{X_t;\, t\in \mathbb{Z}\}\)` um processo
+estacionário, com média zero. A função de autocorrelação define-se como
+
+  `$$\rho(h)=\frac{\gamma(h)}{\gamma(0)}, \quad h=0\pm1,\pm2,\ldots$$`
+* **Ruído branco**: Dizemos que `\(\{\varepsilon_t;\, t\in \mathbb{Z}\}\)` é um
+processo de _ruído branco_ se as variáveis aleatórias `\(\varepsilon_t\)` são 
+não-correlacionadas, i.e. 
+
+&lt;div class="math"&gt;
+  \[
+  \begin{aligned}
+  \gamma(h)=\begin{cases}
+  \sigma^2, &amp; \text{ se }\,  h=0;\\
+  0, &amp; \text{ se }\,  h\ne0.
+  \end{cases}
+  \end{aligned}
+  \]
+  &lt;/div&gt;
+
+
+* **Processos autorregressivos**: Dizemos que `\(\{X_t,\,t\in \mathbb{Z}\}\)` é um
+processo autorregressivo de ordem `\(p\)` se satisfaz a equação em diferenças
+
+`$$X_t = \phi_0+ \phi_1X_{t-1}+\phi_2X_{t-2}+\cdots+\phi_pX_{t-p}+\varepsilon_t,$$`
+onde `\(\{\varepsilon_t\}\)` é um processo de ruído branco.
+
+
+---
+class: animated, slideInRight
+
+### Processos AR(1)
+
+Dizemos que `\(\{X_t,\,t\in \mathbb{Z}\}\)` é um
+processo autorregressivo de ordem `\(1\)` se satisfaz a equação em diferenças
+
+`$$X_t =\phi_0+\phi_1 X_{t-1}+\varepsilon_t,$$`
+onde `\(\{\varepsilon_t\}\)` é um processo de ruído branco com média `\(0\)` e variância
+`\(\sigma^2\)`. Denota-se como `\(\textrm{AR}(1)\)`.
+
+&gt; Um processo `\(\textrm{AR}(1)\)` será considerado estacionário quando `\(|\phi_1|&lt;1\)`.
+Nesse caso, 
+* `\(\mathbb{E}[X_t]=\dfrac{\phi_0}{1-\phi_1}\)` e `\(\textrm{var}[X_t]=\dfrac{\sigma^2}{1-\phi_1^2}\)`;
+* A função de autocovariância é dada por 
+`$$\gamma(h)=\dfrac{\sigma^2}{1-\phi_1^2}\phi^{|h|}, \quad h\in\mathbb{Z},$$`
+  assim a função de autocorrelação (FAC) é dada por
+  `$$\rho(h)=\phi_1^{|h|}, \quad h\in\mathbb{Z}.$$`
+  
+---
+class: animated, slideInRight
+
+### Exemplo:  AR(1) com `\(\phi_1=0.3\)`
+.pull-left[
+&lt;img src="aula15_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+]
+
+.pull-right[
+&lt;img src="aula15_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto 0 auto auto;" /&gt;
+]
+
+
+---
+class: animated, slideInRight
+
+### Exemplo:  AR(1) com `\(\phi_1=0.9\)`
+.pull-left[
+&lt;img src="aula15_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+]
+
+.pull-right[
+&lt;img src="aula15_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto 0 auto auto;" /&gt;
+]
+
+
+---
+class: animated, slideInRight
+
+### Autocorrelação - I
+
+O caso mais comum é o de autocorrelação de primeira ordem. Neste cenário, 
+considere 
+
+`$$Y_t=\beta_0+\beta_1x_{t1}+\cdots+\beta_kx_{tk}+\varepsilon_t,$$`
+onde `\(\varepsilon_t=\rho\,\varepsilon_{t-1}+\epsilon_t\)`, para `\(t=1,2,3,\ldots,n\)` 
+e `\(\{\epsilon_t\}\)` um processo de ruído branco.
+
+Quando `\(|\rho|&lt;1\)`, `\(\{\varepsilon_t\}\)` é um processo estacionário com média `\(0\)` e
+variância `\(\sigma_\varepsilon^2=\dfrac{\sigma^2_\epsilon}{1-\rho^2}\)`.
+
+#### Algumas considerações
+
+* Observe que `\(\sigma_\epsilon^2\ge\sigma_\varepsilon^2\)`;
+* `\(\textrm{cor}(\varepsilon_t,\varepsilon_{t-1})=\dfrac{\textrm{cov}(\varepsilon_t,\varepsilon_{t-1})}{\sqrt{\text{var}[\varepsilon_t]\textrm{var}[\varepsilon_{t-1}]}}=\dfrac{\rho\sigma^2_{\varepsilon}}{\sigma^2_\varepsilon}=\rho\)`. Ou seja, o parâmetro `\(\rho\)` representa a correlação entre `\(\varepsilon_t\)` e `\(\varepsilon_{t-1}\)`;
+
+&gt; Em geral, `\(\textrm{cor}(\varepsilon_t,\varepsilon_{t-k})=\rho^k\)`, para 
+`\(k=0,1,2,3,\ldots\)`.
+
+---
+class: animated, slideInRight
+
+### Autocorrelação - II
+
+#### Estimador de MQO
+
+Na presença de autocorrelação, a matriz de covariâncias do vetor de erros é dada por
+
+&lt;div class="math"&gt;
+\[\mathbb{E}[\varepsilon\varepsilon']=\dfrac{\sigma^2_\epsilon}{1-\rho^2}
+\left[
+\begin{array}{ccccc}
+1&amp;\rho&amp;\rho^2&amp;\cdots&amp;\rho^{n-1} \\
+\rho&amp;1&amp;\rho&amp;\cdots&amp;\rho^{n-2} \\
+\rho^2 &amp;\rho&amp;1&amp;&amp;\vdots&amp; \\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots &amp;\rho\\
+\rho^{n-1}&amp;\rho^{n-2}&amp;\cdots&amp;\rho&amp;1 \\
+\end{array}
+\right].
+\]
+&lt;/div&gt;
+
+&gt; Quando `\(\rho=0\)`,  temos que `\(\mathbb{E}[\varepsilon\varepsilon']=\sigma^2\mathbf{I}\)`.
+
+Assim como no caso heteroscedástico, na presença de autocorrelação, o estimador 
+de MQO é não-viesado e consistente, mas não é eficiente. Dessa forma, o Teorema 
+de Gauss-Markov não é mais válido.
+
+
+---
+class: animated, fadeIn
+
+### Exemplo - I
+
+Considere o modelo
+
+`$$Y_t=\beta_0+\beta_1x_{t}+\varepsilon_t, \quad t=1,2,3,\ldots, n,$$`
+onde `\(\varepsilon_t=\rho\,\varepsilon_{t-1}+\epsilon_t\)` e `\(|\rho|&lt;1\)`.
+
+Observe que,
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+    Y_t&amp;=\beta_0+\beta_1x_{t}+\varepsilon_t=\beta_0+\beta_1x_{t}+\rho\varepsilon_{t-1}+\epsilon_t=\beta_0+\beta_1x_{t}+\rho\left(Y_{t-1}-\beta_0-\beta_1x_{t-1}\right)+\epsilon_t\\
+    &amp;=\beta_0-\rho\beta_0+\rho Y_{t-1}+\beta_1x_{t}-\beta_1x_{t-1}+\epsilon_t
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+ou `\(Y_t-\rho Y_{t-1}=(1-\rho)\beta_0+\beta_1\left(x_{t}-\rho x_{t-1}\right)+\epsilon_t\)`, 
+de outra forma, `\(Y_t^*=\beta_0^*+\beta_1x^*_{t}+\epsilon_t\)`.
+
+
+&gt; **Sugestão**: Transforme as variáveis e use MQO no novo modelo.
+
+--
+
+**Problemas**: 
+
+1. perdemos a primeira observação;
+1. `\(\rho\)` é desconhecido.
+
+
+---
+class: animated, slideInRight
+
+### Exemplo - II
+
+#### **Problema 1.** Pérdida da primeira observação.
+
+Para resolver o primer problema, sugere-se modelar a primeira observação e 
+incorporá-la ao modelo.
+
+`$$\sqrt{1-\rho^2}\,Y_1=\sqrt{1-\rho^2}\,\beta_0+\sqrt{1-\rho^2}\,\beta_1x_{1}+\sqrt{1-\rho^2}\,\varepsilon_1,$$`
+ou
+
+`$$Y_1^*=\beta_0x_{11}^*+\beta_1x_{12}^*+\varepsilon_1^*,$$`
+onde `\(Y_1^*=\sqrt{1-\rho^2}\,Y_1\)`, `\(x_{11}^*=\sqrt{1-\rho^2}\)`, `\(x_{12}^*=\sqrt{1-\rho^2}x_1\)` e 
+`\(\varepsilon_1^*=\sqrt{1-\rho^2}\,\varepsilon_1\)`.
+
+
+&gt; Observe que `\(\mathbb{E}[\varepsilon_1^*]=0\)` e 
+`\(\textrm{var}[\varepsilon_1^*]=\textrm{var}\left[\sqrt{1-\rho^2}\,\varepsilon_1\right]=(1-\rho^2)\textrm{var}[\varepsilon_1]=(1-\rho^2)\dfrac{\sigma_\epsilon^2}{1-\rho^2}=\sigma_\epsilon^2\)`.
+
+---
+class: animated, slideInRight
+
+### Exemplo - II
+
+Dessa forma, o novo modelo é dado por `\(Y^*=\mathbf{X}^*\beta+\varepsilon^*\)`, onde
+
+&lt;div class="math"&gt;
+\[Y^*=\left[
+\begin{array}{c}
+\sqrt{1-\rho^2}\,Y_1 \\
+Y_2-\rho Y_1 \\
+\vdots\\
+Y_n-\rho Y_{n-1}
+\end{array}
+\right],\quad 
+\mathbf{X}^*=\left[
+\begin{array}{cc}
+\sqrt{1-\rho^2}&amp;\sqrt{1-\rho^2}x_{1} \\
+1-\rho&amp;x_{2}-\rho x_{1} \\
+\vdots&amp;\vdots\\
+1-\rho&amp;x_{n-2}-\rho x_{n-1}
+\end{array}
+\right] \quad \text{ e } \quad
+
+\varepsilon^*=
+\left[
+\begin{array}{c}
+\sqrt{1-\rho^2}\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots\\
+\varepsilon_n
+\end{array}
+\right].
+\]
+&lt;/div&gt;
+
+Aplicando MQG, temos que 
+
+`$$\widehat{\beta}=\left({\mathbf{X}^*}'\mathbf{X}^*\right)^{-1}{\mathbf{X}^*}'Y^*.$$`
+Pelo Teorema de Gauss-Markov-Aitken, `\(\widehat{\beta}\)` é o melhor estimador linear 
+não-viesado e de mínima variância para `\(\beta\)`.
+
+
+---
+class: animated, slideInRight
+
+### Exemplo - III
+
+#### **Problema 2.** `\(\,\rho\)` desconhecido.
+
+Para estimar `\(\rho\)`, sugere-se o seguinte procedimento:
+
+1. Tome a equação de autocorrelação `\(\varepsilon_t=\rho\,\varepsilon_{t-1}+\epsilon_t\)`;
+1. `\(\varepsilon_t\)` pode ser aproximado por `\(e_t=Y_t-\widehat{\beta}_0-\widehat{\beta_1}x_1\)`. Dessa forma, `\(e_t=\rho\,e_{t-1}+u_t\)`;
+1. Estime `\(\rho\)` por MQO,
+  
+  `$$\widehat{\rho}=\dfrac{\sum_{t=2}^ne_te_{t-1}}{\sum_{t=2}^ne_{t-1}^2}.$$`
+Use `\(\widehat{\rho}\)` para transformar as variáveis e obter `\(Y^*\)` e `\(\mathbf{X}^*\)`. Depois calcule
+o estimador de MQO para `\(\beta\)`, i.e.
+
+`$$\widehat{\widehat{\beta}}=\left({\mathbf{X}^*}'\mathbf{X}^*\right)^{-1}{\mathbf{X}^*}'Y^*.$$`
+&gt; Quando `\(n\)` é suficientemente grande, as propriedades estatísticas de `\(\widehat{\widehat{\beta}}\)` e `\(\widehat{\beta}\)` são bem parecidas. Para pequenas amostras os comportamentos são bem distintos.
+
+---
+class: animated, slideInRight
+
+#### Alternativas para estimar `\(\rho\)`
+
+* Theil (1971)&lt;sup&gt;1&lt;/sup&gt; sugero o estimador dado por `\(\widehat{\rho}=\dfrac{n-p}{n-1}\dfrac{\sum_{t=2}^ne_te_{t-1}}{\sum_{t=2}^ne_{t-1}^2}.\)`
+
+* Durbin and Watson (1950, 1951)&lt;sup&gt;2&lt;/sup&gt; sugerem o seguinte estimador `\(\widehat{\rho}=1-\dfrac{d}{2}\)`, onde
+
+`$$d=\dfrac{\sum_{t=2}^n\left(e_t-e_{t-1}\right)^2}{\sum_{t=2}^ne_{t-1}^2}.$$`
+* Theil &amp; Nagar (1961) sugerem o estimador dado por `\(\widehat{\rho}=\dfrac{n^2\left(1-\frac{d}{2}\right)+p^2}{n^2-p^2}\)`.
+
+***
+  &lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Theil, H. (1971) Principles of Econometrics. New York: John Wiley &amp; Sons. &lt;/font&gt;
+
+  &lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Durbin, J., and Watson, G. S. (1950) Testing for serial correlation in least squares regression (I), Biometrika 37: 409–428.&lt;/font&gt; 
+
+  &lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;Durbin, J., and Watson, G. S. (1951) Testing for serial correlation in least squares regression (II), Biometrika 38: 159–178.&lt;/font&gt;
+
+  &lt;font size="3"&gt;&lt;sup&gt;3&lt;/sup&gt;Theil, H., &amp; Nagar, A.L. (1961) Testing the Independence of Regression Disturbances. Journal of the American Statistical Association, 56, 793-806.&lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Mais uma alternativa
+
+#### Estime `\(\rho\)` e `\(\beta\)` de forma simultânea
+
+Considere `\(Y_t-\rho Y_{t-1}=(1-\rho)\beta_0+\beta_1\left(x_{t}-\rho x_{t-1}\right)+\epsilon_t\)`, dessa forma estime `\(\rho, \beta_0\)` e `\(\beta_1\)` minimizando a soma de quadrados dos erros, i.e.,
+
+`$$S(\rho,\beta_0,\beta_1)=\sum_{t=2}^n \left(Y_t-\rho Y_{t-1}-(1-\rho)\beta_0-\beta_1\left(x_{t}-\rho x_{t-1}\right)\right)^2.$$`
+Para incorporar a primeira observação, minimize
+
+`$$S(\rho,\beta_0,\beta_1)=S^*(\rho,\beta_0,\beta_1)+\left(\sqrt{1-\rho^2}\,\varepsilon_1\right)^2=S^*(\rho,\beta_0,\beta_1)+(1-\rho^2)(Y_1-\beta_0-\beta_1x_1).$$`
+Daí, os estimadores não tem forma fechada e precisam ser obtidos usando algoritmos de otimização
+não-linear, por exemplo: Newton-Rapshon, BHHH, BFGS, DFP, etc.
+
+---
+class: inverse, hide-logo, middle, center
+
+# Métodos para detecção
+
+---
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - I
+
+* **Estatística de Durbin-Watson**: Proposto por Durbin &amp; Watson (1950)&lt;sup&gt;1&lt;/sup&gt;, a estatística
+permitirá avaliar a ausência de autocorrelação com as seguintes hipóteses
+`\(H_0: \rho=0\)` vs `\(H_1:\rho\ne0\)`. A estatística `\(d\)` é dada por
+
+`$$d=\dfrac{\sum_{t=2}^n\left(e_t-e_{t-1}\right)^2}{\sum_{t=2}^ne_{t-1}^2}.$$`
+&gt; A estatística `\(d\)` pode ser aproximada pela expressão `\(d\approx 2(1-\widehat{\rho})\)`. Dessa forma,
+as realizações de `\(d\)` variam no intervalo `\([0,4]\)`.
+  - Quando a realização de `\(d\)` é próxima de `\(2\)` existe evidência de ausência de autocorrelação;
+  - Quando a realização de `\(d\)` é próxima de `\(0\)` existe evidência de autocorrelação positiva;
+  - Quando a realização de `\(d\)` é próxima de `\(4\)` existe evidência de autocorrelação negativa;
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Durbin, J., and Watson, G. S. (1950) Testing for serial correlation in least squares regression (I), Biometrika 37: 409–428.&lt;/font&gt; 
+
+---
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - II
+
+* **Teste de Durbin-Watson**: Para a construção do teste requer-se a definição
+de uma região crítica, obtida a partir da distribuição da estatística `\(d\)`.
+
+  Durbin &amp; Watson (1950) mostraram que, sob `\(H_0\)`, a distribuição da estatística 
+`\(d\)` depende da matriz `\(\mathbf{X}\)`. Isso é um problema porque impede a tabulação 
+dos valores críticos. Para resolver o impasse, os autores encontraram duas 
+estatísticas `\(d_L\)` e `\(d_U\)` cujas distribuições sob `\(H_0\)` não dependem de `\(\mathbf{X}\)`
+e tais que `\(d_L&lt;d&lt;d_U\)` com probabilidade `\(1\)`.
+
+  **Cenário 1**: Considere `\(H_0:\rho=0\,\)` vs `\(\, H_1:\rho&gt;0\)`. 
+  
+  - Rejeita-se `\(H_0\)` se  `\(d&lt;d_{L_c}\)`, onde `\(d_{L_c}\)` é o quantil da distribuição 
+  da estatística `\(d_L\)` (sob `\(H_0\)`) fixando um nivel de significância `\(\alpha\)`;
+  - No caso em que `\(d&gt;d_{U_c}\)`, não há evidencia suficiente para rejeitar `\(H_0\)`;
+  - Se `\(d_{L_c}&lt;d&lt;d_{U_c}\)` o teste é inconclusivo.
+
+&gt;  Uma vantagem ao considerar `\(d_{L_c}\)` e `\(d_{U_c}\)` é que dependem apenas de `\(n\)` e
+`\(p\)`. Dessa forma, podemos tabelar os valores críticos.
+
+---
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - III
+
+**Cenário 2**: Considere `\(H_0:\rho=0\,\)` vs `\(\, H_1:\rho&lt;0\)`.
+
+- Rejeita-se `\(H_0\)` se  `\(d&gt;4-d_{L_c}\)`;
+  - No caso em que `\(d&lt;4-d_{U_c}\)`, não há evidencia suficiente para rejeitar `\(H_0\)`;
+  - Se `\(4-d_{U_c}&lt;d&lt;4-d_{L_c}\)` o teste é inconclusivo.
+
+**Algumas considerações**
+
+O teste de Durbin-Watson ao longo dos anos tornou-se tão respeitado que os 
+usuários muitas vezes se esquecem das hipóteses que o fundamentam. Em especial, 
+das seguintes hipóteses:
+  1. As covariáveis são determinísticas; 
+  1. O termo de erro segue uma distribuição normal; 
+  1. Os modelos de regressão não incluem os valores defasados das covariáveis; 
+  1. Apenas a autocorrelação de primeira ordem é levada em consideração;
+  1. A estatística `\(d\)` pode não indicar necessariamente autocorrelação. Em vez 
+  disso, ela pode ser indicação de omissão de variáveis relevantes no modelo.
+  
+---
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - IV
+
+* **Teste de Breusch e Godfrey (BG)**: Proposto por Breusch (1978)&lt;sup&gt;1&lt;/sup&gt; e 
+Godfrey (1978)&lt;sup&gt;2&lt;/sup&gt;, o teste é baseado em multiplicadores de Lagrange e
+o objetivo é avaliar as seguintes hipóteses:
+
+  `\(H_0:\)` "Não autocorrelação" vs `\(\, H_1:\)` "O termo de erro segue um modelo ARMA(p,q)".  
+
+  Para ilustrar o mecanismo por trás do teste BG, considere o seguinte modelo
+  
+  `$$Y_t=\beta_0+\beta_1x_t+\varepsilon_t, \quad t=1,2,3,\ldots, n,$$`
+  onde `\(\varepsilon_t=\rho_1\varepsilon_{t-1}+\rho_2\varepsilon_{t-2}+\cdots+\rho_p\varepsilon_{t-p}+\epsilon_t\)`, i.e., o termo de erro segue um modelo autorregressivo de ordem `\(p\)` e 
+  `\(\{\epsilon_t\}\)` um processo de ruído branco.
+
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;BREUSCH, T. S. (1978) Testing for autocorrelation in dynamic linear models. Australian Economic Papers, 17, p. 334–355.&lt;/font&gt; 
+
+&lt;font size="3"&gt;&lt;sup&gt;2&lt;/sup&gt;GODFREY, L. G. (1978) Testing against general autoregressive and moving average error models when the regressor includes lagged dependent variables. Econometrica, v. 46, p. 1293–1302.&lt;/font&gt; 
+
+
+---
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - IV
+
+Dessa forma, a hipótese nula é `\(H_0: \rho_1=\rho_2=\cdots=\rho_p=0\)`. Daí,
+
+1. Obtenha os resíduos usando o estimador de MQO e denote eles como 
+`\(\widehat{\varepsilon}_t\)`;
+1. Ajuste o modelo de regressão auxiliar de `\(\widehat{\varepsilon}_t\)` contra `\(x_t\)` e 
+`\(\widehat{\varepsilon}_{t-1},\widehat{\varepsilon}_{t-2},\ldots,\widehat{\varepsilon}_{t-p}\)`, i.e.
+
+  `$$\widehat{\varepsilon}_t=\alpha_1+\alpha_2x_t+\widehat{\rho}_1\widehat{\varepsilon}_{t-1}+\widehat{\rho}_2\widehat{\varepsilon}_{t-2}+\cdots+\widehat{\rho}_p\widehat{\varepsilon}_{t-p}+u_t.$$`
+  e calcule o coeficiente de determinação;
+  &gt; Caso que houver mais covariáveis no modelo original, as mesmas devem ser incluídas
+  na regressão auxiliar.
+
+3. A estatística `\((n-p)R^2\)` é assintotocamente `\(\chi^2_p\)`. Dessa forma, rejeita-se 
+`\(H_0\)` se `\((n-p)R^2&gt;\chi^2_{p,1-\alpha}\)`.
+
+
+---
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - IV
+
+* **Teste Box-Pierce**: Proposto por Box &amp; Pierce (1970)&lt;sup&gt;1&lt;/sup&gt;, o teste
+avalia hipótese de não-autocorrelação com a seguinte estatística de teste
+
+  `$$Q_{BP}=n\sum_{k=1}^h\widehat{\rho}^2_k,$$`
+  onde `\(\widehat{\rho}_k=\dfrac{\sum_{t=k+1}^ne_te_{t-k}}{\sum_{t=1}^ne^2_t}\)` e 
+  `\(h\)` o número de defasagens que estão sendo consideradas na avaliação.
+  
+  Rejeita-se `\(H_0\)`, se `\(Q_{BP}&gt;\chi^2_{h, 1-\alpha}\)`.
+
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Box, G. E. P. and Pierce, D. A. (1970) Distribution of Residual Autocorrelations in Autoregressive-Integrated Moving Average Time Series Models. Journal of the American Statistical Association, 65: 1509–1526.&lt;/font&gt; 
+
+
+---
+class: animated, slideInRight
+
+class: animated, slideInRight
+
+### Autocorrelação
+
+#### Métodos para detecção - IV
+
+* **Teste Ljung-Box**: Proposto por Ljung &amp; Box (1978)&lt;sup&gt;1&lt;/sup&gt;, os autores
+propõem uma variante do teste de Box-Pierce usando a seguinte estatística de 
+teste
+
+  `$$Q=n(n+2)\sum_{k=1}^h\dfrac{\widehat{\rho}^2_k}{n-k}.$$`
+  Rejeita-se `\(H_0\)`, se `\(Q_{LB}&gt;\chi^2_{h, 1-\alpha}\)`.
+
+
+&gt; O teste de Ljung-Box apresenta melhor desempenho mesmo para tamanho de amostra
+pequena.
+
+
+***
+
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt;Ljung, G. M. and Box, G. E. P. (1978). On a Measure of a Lack of Fit in Time Series Models. Biometrika 65 (2): 297-303.&lt;/font&gt; 
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
+
+Gujarati, D., D. Porter, and S. Gunasekar (2017). _Basic econometrics_.
+5th. McGraw-Hill/Irwin.
+
+Montgomery, D. and E. Peck (2007). _Introduction to Linear Regression
+Analysis_. 4th. Wiley-Interscience.
+
+Rao, C. and H. Toutenburg (1999). _Linear Models: Least Squares and
+Alternatives_. 2nd ed.. Springer Series in Statistics. Springer New
+York.
+
+Yan, X. and X. G. Su (2009). _Linear Regression Analysis: Theory and
+Computing_. World Scientific Publishing Company.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

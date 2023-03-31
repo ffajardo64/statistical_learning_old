@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13848 - Tópicos Especiais em Estatística Computacional</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA13848 - Tópicos Especiais em Estatística Computacional
+]
+.subtitle[
+## Introdução à Ciência de Dados
+]
+.author[
+### <br /><br />
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 27/03/2023
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
+[//]: &lt;&gt; (https://github.com/emitanaka/anicon)
+[//]: &lt;&gt; (https://github.com/mitchelloharawild/icons)
+[//]: &lt;&gt; (https://slides.yihui.org/2020-genentech-rmarkdown.html#1)
+[//]: &lt;&gt; (https://github.com/gadenbuie/xaringanExtra)
+[//]: &lt;&gt; (class: center, middle, animated, slideInRight)
+[//]: &lt;&gt; (https://yihui.org/en/2019/02/ultimate-inf-mr/)  
+[//]: &lt;&gt; (&lt;span style="color:rgba(141, 0, 69, 1)""color:grey"&gt;REVISAR&lt;/span&gt;)
+
+class: animated, slideInRight
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+
+# Plano de Ensino
+  * **Horário:** Ter/Qui 09:00 - 11:00h
+  
+  * **Ementa:** Introdução e motivação. Tópicos avançados em estatística computacional. Simulação de experimentos probabilísticos. Aplicações.
+  
+  * **Objetivos:** 
+    - Estudar tópicos especiais de Estatística Computacional não contemplados nas disciplinas que compõem a matriz curricular do curso. 
+
+
+  * **Pré-requisitos:** STA13818 - ESTATÍSTICA COMPUTACIONAL II.
+  
+---
+[//]: &lt;&gt; (class: center, middle, animated, slideInRight/ class: animated slideInRight fadeOutLeft)
+class: animated, fadeIn
+
+# Programa
+
+1. INTRODUÇÃO: 1.1. O que é Ciência de Dados (CD)? 1.2. Um pouco de História; 1.3. Data Science vs Data Mining vs Machine Learning vs Deep Learning vs Artificial Intelligence; 1.4. O ciclo de vida do processo de ciência de dados; 1.5 Como criar um portfólio de projetos; 1.6. Ferramentas computacionais para ciência de dados.
+
+--
+
+1. ANÁLISE EXPLORATÓRIA: 2.1. Tipos de dados; 2.2. Coleta de dados; 2.3. Preparação dos dados: Valores faltantes, valores atípicos e transformações; 2.3. Modelagem; 2.4. Visualização de dados.
+
+--
+
+1. APRENDIZADO ESTATÍSTICO: 3.1. Tipos de aprendizado; 3.2. Aprendizado supervisionado: Regressão e Classificação; 3.3. Aprendizado não-supervisionado: Redução de dimensionalidade, Análise de associação e análise de agrupamentos;
+
+--
+
+1. PROCESSAMENTO DE LINGUAGEM NATURAL: 4.1. Tokenização; 4.2. Análise léxica; 4.3. Análise sintática; 4.4. Análise semântica; 4.5. Análise pragmática; 4.6. Visualização de dados textuais.
+
+---
+class: animated, slideInRight
+
+## Algumas referências bibliográficas
+* ARNOLD, T., KANE, M. &amp; LEWIS, B. W. **A Computational Approach to Statistical Learning**. 1st ed. Chapman &amp; Hall/CRC Texts in Statistical Science, 2019. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.google.com.br/books/edition/A_Computational_Approach_to_Statistical/yyiFDwAAQBAJ?hl=pt-BR&amp;gbpv=0)
+
+* BERK, R. A. **Statistical Learning from a Regression Perspective**. Springer International Publishing, 2020. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.google.com.br/books/edition/Statistical_Learning_from_a_Regression_P/IFruDwAAQBAJ?hl=pt-BR&amp;gbpv=0)
+
+* CARTER, N. **Data Science for Mathematicians**. 1st ed. CRC Press, 2020. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.google.com.br/books/edition/Data_Science_for_Mathematicians/M174DwAAQBAJ?hl=pt-BR&amp;gbpv=0)
+
+* HASTIE, T., TIBSHIRANI, R. &amp; FRIEDMAN, J. **Elements of Statistical Learning**. 2nd ed. Springer, 2017. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://hastie.su.domains/ElemStatLearn/)
+
+* JAMES, G., WITTEN, D., HASTIE, T. &amp; TIBSHIRANI, R. **An Introduction to Statistical Learning**. 2nd ed. Springer, 2021. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://stanford.io/3jTwET3)
+
+* KROESE, D.P., BOTEV, Z.I., TAIMRE, T. and VAISMAN, R. **Data Science and Machine Learning: Mathematical and Statistical Methods**. 1st ed. Chapman &amp; Hall/CRC machine learning &amp; pattern recognition, 2019. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.google.com.br/books/edition/Data_Science_and_Machine_Learning/F7zADwAAQBAJ?hl=pt-BR&amp;gbpv=0)
+
+Algumas referências online estão disponíves em [https://ffajardo64.github.io/statistical_learning/](https://ffajardo64.github.io/statistical_learning/).
+---
+class: inverse, hide-logo, center, middle, animated, bounceInDown
+
+# Atividades avaliativas
+
+---
+class: animated, slideInRight
+
+# Atividades avaliativas
+As atividades avaliativas consistirão na resolução de `\(4\)`
+problemas práticos ( `\(A_i, i=1,2,3,4\)` ). A média final ( `\(MF\)` ) 
+será calculada como:
+`$$MF=\sum_{i=1}^4 f_iA_i,$$`
+com `\(f_1=0.20, f_2=f_3=0.25, f_4=0.30\)`.
+
+Alunos que não obtiverem nota final igual ou superior a `\(7.0\)` (sete) ao final do período letivo ficarão de prova final. A prova final será no **formato escrito** e cobrirá todos os assuntos tratados na disciplina.
+
+**Trabalhos práticos**
+
+Ao longo do semestre você deverá escrever o texto dos 4 (quatro) trabalhos práticos. Os mesmos **deverão** ser apresentados na *homepage* do estudante, onde deverá construir o portfólio de projetos trabalhados em sala de aula. Todos os códigos desenvolvidos para a resolução dos problemas **deverão** ficar a disposição no `GitHub` dos estudantes. Todas as atividades serão anunciadas com antecedência.
+
+---
+class: animated, bounceInDown
+## Sobre a redação dos trabalhos - I
+
+No que se refere à redação dos trabalhos, recomenda-se que eles estejam bem escritos e
+que seus textos estejam gramaticalmente corretos. Evite também cometer erros de ortografia, 
+mantenha sempre do lado seu dicionário de confiança. Os documentos devem
+ser estruturados em formato de *trabalho científico*. Eles devem sempre iniciar com uma introdução ao problema em estudo e uma motivação para as técnicas utilizadas. Algumas regras básicas devem ser seguidas&lt;sup&gt;1&lt;/sup&gt;:
+
+**R1.** Os parágrafos não devem ser demasiadamente curtos nem exaustivamente longos. 
+Parágrafos de duas ou três linhas devem ser evitados;
+
+**R2.** As idéias e argumentos incluı́dos nos parágrafos e ao longo do texto
+devem estar logicamente encadeados;
+
+**R3.** Os resultados apresentados em tabelas ou figuras devem ser descritos e 
+discutidos. Não é aceitável incluir gráficos, tabelas ou alguma outra forma de 
+apresentação de resultados sem uma menção explı́cita no texto e sem uma discussão
+de seu conteúdo e implicações;
+
+**R4.** Todas as tabelas e gráficos devem ser enumerados, devem ter tı́tulo e
+devem ser referenciados no texto;
+
+**R5.** O documento deve ser dividido em seções, estando estas logicamente 
+ordenadas;
+
+[1] Editado das _regras de elaboração de trabalhos_ por [F. Cribari-Neto](http://www.de.ufpe.br/%7Ecribari/) (DE-UFPE).
+
+---
+class: animated, fadeIn
+## Sobre a redação dos trabalhos - II
+
+**R6.** A seção de conclusões (ao final do trabalho) deve ser um apanhado geral do que foi
+feito ao logo do documento e as discusões sobre as implicações dos resultados obtidos
+devem ser apresentadas;
+
+**R7.** As referências bibliográficas devem ser colecionadas ao final do documento 
+e listadas alfabeticamente. Todas as referências bibliográficas incluı́das nesta
+listagem devem ter sido referenciadas ao longo do texto. Não inclua referências 
+bibliográficas que não foram explicitamente citadas no texto, mesmo que você 
+tenha consultado;
+
+**R8.** Todas as siglas utilizadas ao longo do texto devem ser definidas na 
+primeira vez que aparecerem, **NÃO** use siglas que não foram definidas;
+
+**R9.** No que se refere às equações destacadas em linhas separadas, apenas 
+aquelas explicitamente citadas devem ser enumeradas. As equações destacadas 
+devem ser pontuadas normalmente;
+
+**R10.** Todos os simbolos matemáticos utilizados no texto devem ser definidos explicitamente. Lembre: *A CLAREZA ANTES DA ASTÚCIA*, i.e. procure escrever de forma clara e evite construções rebuscadas. A clareza do texto deve ser sua meta central. Um bom texto deve ser admirado pelo seu conteúdo e não por sua forma.
+Seja objetivo. A objetividade é componente importante de qualquer texto cientı́fico.
+
+---
+class: inverse, hide-logo, middle, center
+
+# Metodologia
+
+---
+class: animated, slideInRight
+### Sobre as aulas
+As aulas terão inicio na terça-feira dia 21/03/2023 e finalizam na quinta-feira dia 20/07/2023.
+
+&gt; &lt;span style="color:grey"&gt;O processo ensino-aprendizagem será baseado em aulas expositivas nas terças e quintas-feiras das 09:00 às 11:00h no laboratório de Estatística do prédio IC-I.&lt;/span&gt;
+
+* **Frequência:** Será computada durante as aulas. Solicita-se informar a sua participação na aula. Importante não esquecer de informar a presença, pois independente da nota, o aluno que não tiver frequência igual ou superior a `\(75\%\)` será &lt;ins&gt;**reprovado por faltas**&lt;/ins&gt;.
+
+### Datas importantes
+
+&gt; **Não haverá aula**: 24/04/2023 a 28/04/2023 
+
+&gt; **Atividade 1:** terça-feira 27/04/2023
+
+&gt; **Atividade 2:** quinta-feira 25/05/2023
+
+&gt; **Atividade 3:** terça-feira 20/06/2023
+
+&gt; **Atividade 4:** terça-feira 18/07/2023
+
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

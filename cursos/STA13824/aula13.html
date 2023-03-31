@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Violação de suposições: Linearidade
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 16/08/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### A1. Linearidade - I
+
+A hipótese da linearidade do modelo de regressão linear clássico é diretamente 
+relacionada com a forma funcional da função de regressão, dada por
+
+`$$\mathbb{E}[Y|\mathbf{X}]=\mathbf{X}\beta,$$`
+i.e., existe um vetor `\(\beta\)` tal que a equação acima é válida. Esta suposição é 
+fundamental, pois se não for satisfeita isto significa que não temos uma regressão 
+linear. Nesse caso, a relação entre `\(Y\)` e `\(\mathbf{X}\)` é de natureza não-linear.
+
+&gt; Lembrando que a **linearidade nos parâmetros** é fundamental para o 
+desenvolvimento teórico realizado até agora.
+
+Quando analisamos funções não-lineares dos parâmetros e modelos de regressão 
+não-linear, a maioria dos resultados obtidos até agora não são mais válidos. 
+
+
+
+&lt;br&gt;&lt;/br&gt;
+
+Para detalhes Greene (2007) e Krämer and Sonnberger (1986).
+
+---
+class: animated, slideInRight
+
+### A1. Linearidade - II
+
+O problema geral é testar uma hipótese que envolve uma função não-linear dos 
+coeficientes de regressão:
+
+`$$H_0: c(\beta)=q.$$`
+Uma estatística de teste que pode-se usar para avaliar a hipótese acima é dada 
+por `\(z=\frac{c(\widehat{\beta})-q}{\mathrm{dp}\left(c\left(\widehat{\beta}\right)\right)},\)`
+onde `\(\mathrm{dp}\)` representa o desvio-padrão. A estatística `\(z\)` segue uma 
+distribuição `\(t_{n-p}\)`.
+
+&gt; Observe que estimativa da variância de `\(c\left(\widehat{\beta}\right)-q\)`, 
+envolve a variância de uma função não-linear de `\(\widehat{\beta}\)`.
+
+A aproximação da variância é realizada por meio da aproximação em série de Taylor
+de primeiro grau, tal que 
+
+`$$c\left(\widehat{\beta}\right)\approx c(\beta)+\left(\frac{\partial c(\beta)}{\partial\beta}\right)'\left(\widehat{\beta}-\beta\right).$$`
+Dessa forma,
+
+`$$\mathrm{var}\left[c\left(\widehat{\beta}\right)\right]\approx \left(\frac{\partial c(\beta)}{\partial\beta}\right)'\mathrm{var}\left(\widehat{\beta}\right)\left(\frac{\partial c(\beta)}{\partial\beta}\right).$$`
+
+---
+class: animated, slideInRight
+
+### A1. Linearidade - III
+
+#### Teste RESET (_Regression Specification Error Test_)
+
+Ramsey (1969) Tests for Specification Errors in Classical Linear Least-Squares 
+Regression Analysis, Journal of the Royal Statistical Society. Series B (Methodological), 
+Vol. 31, No. 2, pp. 350-371.
+
+`$$H_0: Y=\mathbf{X}\beta+\epsilon\qquad H_1: Y=\mathbf{X}\beta+\mathbf{Z}\gamma+\epsilon$$`
+ou
+
+`$$H_0: ``\text{O modelo está bem especificado}"\qquad H_1: ``\text{O modelo está mal especificado}".$$`
+Os elementos da matriz `\(\mathbf{Z}\)` podem ser potências do `\(\widehat{Y}\)` ou das 
+colunas de `\(\mathbf{X}\)`. Nesse caso, `\(\mathbf{Z}\)` tem dimensão `\(n\times q.\)`
+
+Sob `\(H_0\)`, a estatística de teste para determinar se essas variáveis adicionais 
+influenciam significativamente segue uma distribuição `\(F_{q,n-p-q}\)`.
+
+No `R`, use a função `lmtest::resettest`
+
+
+```
+## function (formula, power = 2:3, type = c("fitted", "regressor", 
+##     "princomp"), data = list(), vcov = NULL, ...) 
+## NULL
+```
+
+---
+class: animated, slideInRight
+
+### A1. Linearidade - IV
+
+#### Teste arco-íris (_rainbow test_)
+
+Utts (1982) The Rainbow Test for Lack of Fit in Regression. 
+Communications in Statistics – Theory and Methods 11, 2801–2815.
+
+&gt; De acordo com a autora, o nome do teste é supostamente para cobrir um amplo 
+espectro de possíveis problemas, além da não-linearidade.
+
+A ideia básica por trás do teste arco-íris é que mesmo quando a verdadeira relação 
+é não-linear, um bom ajuste linear ainda pode ser obtido em subconjuntos da amostra. 
+Rejeita-se a hipótese nula sempre que o ajuste geral é significativamente pior 
+do que o ajuste para a sub-amostra. 
+
+
+&gt; **Ideia**: As somas de quadrados dos resíduos das duas regressões devem ser
+próximas.
+
+
+---
+background-image: url("images/rainbow1.png")
+background-size: contain
+
+class: animated, slideInRight
+### Teste arco-íris (_rainbow test_) 
+
+&lt;br&gt;&lt;/br&gt;
+`\(\hspace{10cm} R^2=0.62\)`
+
+&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;
+
+`\(\color{blue}{\left(Y\quad \mathbf{X}\right)}\)`: `\(n\)` observações completas
+
+---
+background-image: url("images/rainbow2.png")
+background-size: contain
+
+class: animated, fadeIn
+### Teste arco-íris (_rainbow test_)
+
+&lt;br&gt;&lt;/br&gt;
+`\(\hspace{10cm} R^2=0.89\)`
+
+&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;/br&gt;
+
+`\(\color{blue}{\left(\underset{\sim}{Y_1}\quad \mathbf{X_1}\right)}\)`: `\(n_1\)` observações (subamostra)
+
+---
+class: animated, slideInRight
+
+### Teste arco-íris (_rainbow test_)
+
+&lt;div class="math"&gt;
+\[
+  \begin{aligned}
+  \left[
+  \begin{array}{c}
+  \underset{\sim}{Y_1} \\
+  \underset{\sim}{Y_2}
+  \end{array}
+  \right]&amp;=
+  \left[
+  \begin{array}{c}
+  \mathbf{X_1} \\
+  \mathbf{X_2}
+  \end{array}
+  \right]\beta+
+  \left[
+  \begin{array}{c}
+  \mathbf{0} \\
+  \mathbf{I}_{n-n_1}
+  \end{array}
+  \right]\gamma+
+  \left[
+  \begin{array}{c}
+  \epsilon_1 \\
+  \epsilon_2
+  \end{array}
+  \right]
+  \end{aligned}
+\]
+&lt;/div&gt;
+
+Dessa forma,
+
+`$$H_0: \gamma=0\qquad H_1: \gamma\ne0$$`
+ou
+
+`$$H_0: ``\text{linearidade}"\qquad H_1: ``\text{não-linearidade}".$$`
+Sob `\(H_0\)`, a estatística de teste para verificar linearidade segue uma 
+distribuição `\(F_{n-n_1,n_1-p}\)`.
+
+
+No `R`, use a função `lmtest::raintest`
+
+
+```
+## function (formula, fraction = 0.5, order.by = NULL, center = NULL, 
+##     data = list()) 
+## NULL
+```
+
+---
+class: animated, slideInRight
+
+### A1. Linearidade - V
+
+#### Teste Harvey-Collier
+
+Harvey and Collier (1977) Testing for functional misspecification in regression analysis. 
+Journal of Econometrics 6, 103–119.
+
+A opção alternativa do teste Rainbow é o teste Harvey-Collier. Sob `\(H_0\)`, estatística de 
+teste segue uma distribuição `\(t_{n-p-1}\)` e a mesma é função dos resíduos [recursivos](https://ffajardo64.github.io/statistical_learning/STA13824/aula9.html#13). 
+
+Se a relação verdadeira não for linear, mas convexa (ou côncava), a média dos 
+resíduos recursivos deve ser significativamente diferente de zero. Um resultado 
+estatisticamente significativo significa que podemos rejeitar `\(H_0\)`, i.e., o 
+modelo é linear.
+
+
+No `R`, use a função `lmtest::harvtest`
+
+
+```
+## function (formula, order.by = NULL, data = list()) 
+## NULL
+```
+
+A função `strucchange::recresid` calcula os resíduos recursivos.
+
+---
+class: animated, slideInRight
+
+### A1. Linearidade - VI
+
+#### Teste Chow para mudança estrutural
+
+Chow, G. C. (1960) Tests of equality between sets of coefficients in two linear regressions. Econometrica, 28:591–605, 1960.
+
+O teste de Chow é usado para testar se os coeficientes verdadeiros em duas 
+regressões lineares em conjuntos de dados diferentes são iguais. O teste é
+semelhante ao teste arco-íris, nesse caso `\(n_1\)` é o ponto em que foi identificada
+a mudança estrutural.
+
+No `R`, use a função `strucchange::Fstats`
+
+
+```
+## function (formula, from = 0.15, to = NULL, data = list(), vcov. = NULL) 
+## NULL
+```
+
+Também existe as função `strucchange::sctest` e `strucchange::breakpoints`. 
+Para detalhes, Zeileis A.,  Leisch F., Hornik K., Kleiber C. (2002), 
+[An R Package for Testing for Structural Change in Linear Regression Models](file:///tmp/strucchange.pdf).
+
+---
+class: animated, slideInRight
+
+### Modelos intrinsecamente lineares
+
+#### Modelo linear vs modelo log-linear
+
+Os modelos log-lineares ilustram um caso intermediário de um modelo de regressão 
+não-linear. Considere
+
+`$$Y_i=\alpha X_i^{\beta_1}\exp\{\epsilon_i\},$$`
+daí
+
+`$$\log Y_i=\log\alpha +\beta_1\log  X_i+\epsilon_i$$`
+ou
+
+`$$Y'_i =\beta_0 +\beta_1X'_i+\epsilon_i.$$`
+O teste de Box-Cox permite avaliar a equivalência do modelo linear com o modelo
+log-linear. Dessa forma, considere as seguintes hipóteses
+
+`$$H_0: ``\text{Os modelos são equivalentes}"\qquad H_1: ``\text{Os modelos não são equivalentes}".$$`
+---
+class: animated, slideInRight
+
+### Modelos intrinsecamente lineares
+
+#### Modelo linear vs modelo log-linear
+
+O teste de Box-Cox consiste no seguinte:
+
+1. Calcule a média geométrica de `\(Y_1,Y_2,\ldots,Y_n\)`, ou seja `\(\bar{Y}_G=\sqrt{\prod_{i=1}^nY_i}\)`;
+1. Sejam `\(SQ_{Res_L}\)` e `\(SQ_{Res_{LL}}\)` as somas de quadrados resíduais para os modelos linear e log_linear, respectivamente; 
+1. O teste compara `\(SQ_{Res_{LL}}\)` e `\(\frac{SQ_{Res_{L}}}{\bar{Y}_G^2}\)`. Sob `\(H_0\)`, 
+a estatística 
+
+`$$l=\frac{n}{2}\left|\log\frac{\frac{SQ_{Res_{L}}}{\bar{Y}_G^2}}{SQ_{Res_{LL}}}\right|$$`
+segue uma distribuição `\(\chi_{(1)}^2\)`.
+
+---
+class: animated, slideInRight
+
+### Modelos intrinsecamente lineares
+
+#### Modelo linear vs modelo log-linear
+
+Outra alternativa é o teste de MacKinnon-White-Davidson (PE) para comparar 
+especificações lineares e log-lineares em regressões lineares.
+
+No `R`, use a função `lmtest::petest`
+
+
+```
+## function (formula1, formula2, data = list(), vcov. = NULL, ...) 
+## NULL
+```
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Greene, W. H. (2007). _Econometric Analysis_. 6th. Prentice Hall.
+
+Harvey, A. C. and P. Collier (1977). "Testing for functional
+misspecification in regression analysis". In: _Journal of Econometrics_
+6.1, pp. 103-119.
+
+Krämer, W. and H. Sonnberger (1986). _The Linear Regression Model under
+Test_. Heidelberg: Physica.
+
+Ramsey, J. B. (1969). "Tests for Specification Errors in Classical
+Linear Least-Squares Regression Analysis". In: _Journal of the Royal
+Statistical Society. Series B (Methodological)_ 31.2, pp. 350-371.
+
+Utts, J. M. (1982). "The rainbow test for lack of fit in regression".
+In: _Communications in Statistics – Theory and Methods_ 11, pp.
+2801-2815.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

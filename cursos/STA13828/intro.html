@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13828 - Séries Temporais I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STA13828 - Séries Temporais I
+]
+.subtitle[
+## Plano de Ensino
+]
+.author[
+### <br /><br />
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 13/09/2022
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/extra-awesome-xaringan/intro/index.html#1)
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+[//]: &lt;&gt; (https://www.biostatistics.dk/talks/CopenhagenRuseRs-2019/index.html#1)
+[//]: &lt;&gt; (https://rstudio-education.github.io/sharing-short-notice/#1)
+[//]: &lt;&gt; (https://www.kirenz.com/slides/xaringan-demo-slides.html#1)
+[//]: &lt;&gt; (https://github.com/yihui/xaringan/issues/26)
+[//]: &lt;&gt; (https://github.com/emitanaka/anicon)
+[//]: &lt;&gt; (https://github.com/mitchelloharawild/icons)
+[//]: &lt;&gt; (https://slides.yihui.org/2020-genentech-rmarkdown.html#1)
+[//]: &lt;&gt; (https://github.com/gadenbuie/xaringanExtra)
+[//]: &lt;&gt; (class: center, middle, animated, slideInRight)
+[//]: &lt;&gt; (https://yihui.org/en/2019/02/ultimate-inf-mr/)  
+[//]: &lt;&gt; (&lt;span style="color:rgba(141, 0, 69, 1)""color:grey"&gt;REVISAR&lt;/span&gt;)
+
+class: animated, slideInRight
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+
+# Plano de Ensino
+  * **Horário:** Qua / Sex 09:00 - 11:00h
+  
+  * **Ementa:** Introdução – Processos estacionários – Processos ARMA – Modelagem e previsão
+com modelos ARMA – processos não-estacionários – processos sazonais – Testes
+de raiz unitária – Análise de intervenção e identificação de dados atípicos –
+Técnicas de previsão. Algumas aplicações na educação ambiental.
+  
+  * **Objetivos:** 
+    - Apresentar as terminologias, os conceitos básicos da teoria de tratamento estatístico
+de séries temporais e os principais modelos de séries temporais; 
+    - Preparar o aluno para análise, identificação e previsão de uma série temporal;
+    - Aplicar as metodologias apresentadas por meio do uso de programas computacionais estatísticos; 
+    - Discutir aplicações práticas de análise de séries temporais para desenvolver as práticas de conscientização ambiental. 
+
+
+  * **Pré-requisitos:** STA13824 - Análise de regressão.
+  
+---
+class: animated, fadeIn
+
+### Programa da disciplina
+
+1. **Introdução**;
+
+1. **Processos Estacionários**: 2.1. Função de autocovariância e autocorrelação;
+2.2. Processo de ruido branco; 2.3. Processos autorregressivos AR(p); 
+2.4. Processos de médias móveis MA(q); 2.5. Relação dual entre os processos AR(p) e MA(q);
+
+--
+
+1. **Processos ARMA(p,q)**: 3.1. Média amostral e função de autocorrelação; 3.2. Função de autocorrelação parcial; 3.4. Estimação preliminar;
+3.5. Diagnóstico de modelos ARMA(p,q); 3.6. Previsão com modelos ARMA(p,q);
+
+--
+
+1. **Análise espectral e filtragem**: 4.1. Densidade espectral;
+4.2. Periodograma e transformada discreta de Fourier; 
+4.3. Estimação espectral não-paramétrica; 4.4. filtros lineares;
+4.4. Ondaletas (*Wavelets*);
+
+1. **Processos não-estacionários**: 5.1. Não-estacionariedade na média e na variância;
+5.2. Transformações para estabilização da variância; 5.3. Procedimento de identificação de modelos ARIMA(p,d,q); 5.4. Função de autocorrelação estendida e outros procedimentos de
+identificação; 5.5. Estimação de modelos ARIMA(p,d,q) e testes de adequação do modelo;
+5.6. Aplicações;
+
+---
+class: animated, fadeIn
+
+### Programa da disciplina - II
+
+&lt;ol type = "1" start='6'&gt;
+  &lt;li&gt;&lt;b&gt;Processos sazonais&lt;/b&gt;: 6.1. Introdução; 6.2. Sazonalidade determinística: Identificação, estimação e verificação; 6.3. Sazonalidade estocástica: Identificação, estimação e verificação;
+6.4. Aplicações em pacotes estatísticos: R, SPSS, Minitab, etc; &lt;/li&gt; &lt;br /&gt;
+  &lt;li&gt;&lt;b&gt;Testes de raiz unitária&lt;/b&gt;: 7.1. Introdução; 7.2. Teste de Dickey-Fuller e extensões;
+7.3. Outros testes de raiz unitária; &lt;/li&gt; &lt;br /&gt;
+  &lt;li&gt;&lt;b&gt;Análise de intervenção e identificação de dados atípicos&lt;/b&gt;: 8.1. Introdução;
+8.2. Efeitos da intervenção; 8.3. Estimação e e testes; 8.4. Valores atípicos e modelos para valores atípicos; 8.5. Estimação do efeito de observações atípicas; 
+8.6. Detecção de observações atípicas; 8.7. Aplicações.&lt;/li&gt;
+&lt;/ol&gt;
+
+---
+class: animated, slideInRight
+
+### Algumas referências bibliográficas
+* BROCKWELL, P. J.; DAVIS, R. A. **Introduction to time series and forecasting**. 3rd ed.
+New York, N.Y.: Springer, 2016. xiv, 425 p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.amazon.com.br/Introduction-Time-Forecasting-Peter-Brockwell/dp/3319298526)
+
+* SHUMWAY, R.; Stoffer, D. S. **Time series analysis and its applications: with R examples**. 4th ed. New York: Springer-Verlag, 2017. 562 p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.amazon.com.br/Time-Analysis-Its-Applications-Examples/dp/3319524518)
+
+* WEI, W. S. **Time series analysis: univariate and multivariate methods**. 2nd ed.
+Boston: Addison-Wesley Publishing Company, 2006. 478 p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.amazon.com.br/Time-Analysis-Univariate-Multivariate-Methods/dp/0134995368/)
+
+* BOX, G. E. P.; JENKINS, G. M.; REINSEL, G. C.; LJUNG, G. M. **Time series analysis: forecasting and control**. 5th ed. Hoboken, N.J.: John Wiley &amp; Sons, 2016. 712 p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.amazon.com.br/Time-Analysis-George-Edward-Pelham/dp/1118675029)
+
+* HAMILTON, J. D. **Time series analysis**. Princeton, N.J.: Princeton University
+Press, 1994. xiv, 799 p. [<span>&lt;i class="fas  fa-book fa-2x faa-vertical animated "&gt;&lt;/i&gt;</span>](https://www.amazon.com.br/Time-Analysis-James-Hamilton/dp/0691042896)
+
+Algumas referências online estão disponíves no **[PPC 2019](http://www.estatistica.ufes.br/sites/estatistica.ufes.br/files/field/anexo/sta13828_series_temporais_i_0.pdf)** do curso de Bacharealdo em Estatística e no repositório **[https://ffajardo64.github.io/statistical_learning/](https://ffajardo64.github.io/statistical_learning/)**.
+
+---
+class: inverse, hide-logo, center, middle, animated, bounceInDown
+
+# Atividades avaliativas
+
+---
+class: animated, slideInRight
+
+# Atividades avaliativas
+As atividades avaliativas consistirão em duas provas escritas `\((P_i, i=1,2)\)`.
+Em cada prova serão julgados os conhecimentos teóricos `\((T)\)` e práticos `\((S)\)` 
+da disciplina. A média final das provas será calcula da seguinte forma:
+`$$MFP_i=0.6\times T_i + 0.4\times S_i, \quad i=1,2.$$`
+A média final ( `\(MF\)` ) será calculada como:
+`$$MF=\frac12\sum_{i=1}^2 MFP_i.$$`
+
+Alunos que não obtiverem nota final igual ou superior a `\(7.0\)` (sete) 
+ao final do período letivo ficarão de prova final. Notas como 
+`\(6.85, 6.86, \ldots, 6.98\)` ou mesmo `\(6.99\)` não são matematicamente 
+equivalentes a `\(7.0\)`, certamente você aprendeu isto nos cursos 
+matemática básica. No que se refere a requerimentos matemáticos, o 
+aluno deve ser familiar com cálculo diferencial e integral, geometria 
+analítica e álgebra linear. Enquanto a conhecimentos estatísticos, eu 
+assumirei que o aluno possui conhecimentos de **probabilidade** e 
+**inferência estatística**, **processos estocásticos**, 
+**análise de regressão**, **estatística multivariada**
+e **estatística computacional**.
+
+---
+class: animated, bounceInDown
+### Sobre a redação dos trabalhos - I
+
+&gt; A prova prática deve ser entregue em formato de *trabalho científico*.
+Elas devem sempre iniciar com uma introdução ao problema em estudo e 
+uma motivação para as técnicas utilizadas. Sugere-se o uso do pacote
+**[rticles](https://bookdown.org/yihui/rmarkdown/journals.html)** para
+o uso do &lt;tt&gt;Rmarkdown&lt;/tt&gt; ou do estilo **[amsart](https://ctan.org/pkg/amsart?lang=en)** do `\(\LaTeX\)`.
+
+No que se refere à redação dos trabalhos, recomenda-se que eles estejam 
+bem escritos e que seus textos estejam gramaticalmente corretos. Evite 
+também cometer erros de ortografia, mantenha sempre do lado seu dicionário 
+de confiança. Algumas regras básicas devem ser seguidas:
+
+**R1.** Os parágrafos não devem ser demasiadamente curtos nem exaustivamente longos. 
+Parágrafos de duas ou três linhas devem ser evitados;
+
+**R2.** As idéias e argumentos incluı́dos nos parágrafos e ao longo do texto
+devem estar logicamente encadeados;
+
+**R3.** Os resultados apresentados em tabelas ou figuras devem ser descritos e 
+discutidos. Não é aceitável incluir gráficos, tabelas ou alguma outra forma de 
+apresentação de resultados sem uma menção explı́cita no texto e sem uma discussão
+de seu conteúdo e implicações;
+
+**R4.** Todas as tabelas e gráficos devem ser enumerados, devem ter tı́tulo e
+devem ser referenciados no texto;
+
+---
+class: animated, fadeIn
+### Sobre a redação dos trabalhos - II
+
+**R5.** O documento deve ser dividido em seções, estando estas logicamente 
+ordenadas;
+
+**R6.** A seção de conclusões (ao final do trabalho) deve ser um apanhado geral do que foi
+feito ao logo do documento e as discusões sobre as implicações dos resultados obtidos
+devem ser apresentadas;
+
+**R7.** As referências bibliográficas devem ser colecionadas ao final do documento 
+e listadas alfabeticamente. Todas as referências bibliográficas incluı́das nesta
+listagem devem ter sido referenciadas ao longo do texto. Não inclua referências 
+bibliográficas que não foram explicitamente citadas no texto, mesmo que você 
+tenha consultado;
+
+**R8.** Todas as siglas utilizadas ao longo do texto devem ser definidas na 
+primeira vez que aparecerem, **NÃO** use siglas que não foram definidas;
+
+**R9.** No que se refere às equações destacadas em linhas separadas, apenas 
+aquelas explicitamente citadas devem ser enumeradas. As equações destacadas 
+devem ser pontuadas normalmente;
+
+**R10.** Todos os simbolos matemáticos utilizados no texto devem ser definidos explicitamente. Lembre: *A CLAREZA ANTES DA ASTÚCIA*, i.e. procure escrever de forma clara e evite construções rebuscadas. A clareza do texto deve ser sua meta central. Um bom texto deve ser admirado pelo seu conteúdo e não por sua forma.
+Seja objetivo. A objetividade é componente importante de qualquer texto cientı́fico&lt;sup&gt;1&lt;/sup&gt;.
+
+[1] Editado das _regras de elaboração de trabalhos_ por [F. Cribari-Neto](http://www.de.ufpe.br/%7Ecribari/)(DE-UFPE).
+
+---
+class: inverse, hide-logo, middle, center
+
+# Metodologia
+
+---
+class: animated, slideInRight
+
+### Sobre as aulas - I
+
+As aulas terão inicio na quarta-feira dia 14/09/2022 e 
+finalizam na sexta-feira dia 10/02/2023.
+
+&gt; &lt;span style="color:grey"&gt;O processo ensino-aprendizagem será baseado 
+em aulas expositivas nas quartas e sextas das 09:00 às 11:00h na sala 
+32 do prédio IC-I. As aulas computacionais serão realizadas serão
+realizadas no LCex.&lt;/span&gt;
+
+* **Frequência:** Será computada durante as aulas. Solicita-se informar 
+a sua participação na aula. Importante não esquecer de informar a presença, 
+pois independente da nota, o aluno que não tiver frequência igual ou 
+superior a `\(75\%\)` será &lt;ins&gt;**reprovado por faltas**&lt;/ins&gt;.
+
+### Datas importantes
+
+&gt; **Participação na Rbras**: 16 a 18 de novembro de 2022
+
+&gt; **Prova 1:** Quarta-feira 09 de novembro de 2022
+
+&gt; **Prova 2:** Quarta-feira 08 de fevereiro de 2023
+
+&gt; **Prova Final:** Quarta-feira 15 de fevereiro de 2023
+
+---
+class: animated, slideInRight
+
+### Sobre as aulas - II
+
+A parte computacional será executada preferencialmente na linguagem
+**R**. Nada impede de usar outras linguagens de programação da sua 
+preferência, e.g., **Python**.
+
+* No caso do **R**, existe uma basta quantidade de pacotes especializados 
+na Análise de Séries Temporais. Sugere-se dar uma olhada no &lt;tt&gt;[CRAN Task View: Time Series](https://cran.r-project.org/web/views/TimeSeries.html) Analysis&lt;/tt&gt;.
+
+&gt; Quem tiver interesse na instalação de todos os pacotes relacionados da área,
+basta instalar o pacote &lt;tt&gt;[ctv](https://cran.r-project.org/web/packages/ctv/index.html)&lt;/tt&gt; 
+e usar o comando &lt;b&gt;&lt;tt&gt;ctv::install.views("TimeSeries", coreOnly = TRUE)&lt;/tt&gt;&lt;/b&gt; na
+linha de comando.
+
+* Ainda, recomenda-se a instalação dos pacotes &lt;tt&gt;[tsdl](https://pkg.yangzhuoranyang.com/tsdl/)&lt;/tt&gt; (_Time Series Data Library_) e &lt;tt&gt;[datasets](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html)&lt;/tt&gt;.
+Esses pacotes proporcionam uma grande quantidade de conjuntos de dados 
+para treinar as metodologías discutadas em sala de aula.
+
+* Algumas referências online:
+  - [Time Series Analysis with R](http://leg.ufpr.br/~lucambio/CE017/20192S/tsar.pdf)
+  - [Hands On Time Series Analysis with R](https://github.com/PacktPublishing/Hands-On-Time-Series-Analysis-with-R)
+  - [Using R for Time Series Analysis](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html#)
+  - [R Cookbook](https://rc2e.com/timeseriesanalysis)
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material 
+protegido pela legislação brasileira, sendo certo que, por ser o 
+detentor dos direitos sobre o conteúdo disponível na plataforma, o 
+**LECON** e o **NEAEST** detém direito exclusivo de usar, fruir e 
+dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da 
+Constituição Federal e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da 
+Lei 9.610/98. A divulgação e/ou veiculação do conteúdo em sites 
+diferentes à plataforma e sem a devida autorização do **LECON** e o 
+**NEAEST**, pode configurar violação de direito autoral, nos termos da 
+Lei 9.610/98, inclusive podendo caracterizar conduta criminosa, 
+conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do 
+Código Penal. É considerada como contrafação a reprodução não 
+autorizada, integral ou parcial, de todo e qualquer conteúdo disponível 
+na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

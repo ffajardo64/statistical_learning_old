@@ -1,0 +1,5 @@
+theme: "jekyll-theme-cayman"
+title: "Análise de dados com R"
+description: Repositório exclusivo para informações sobre métodos, códigos em R e Python, datasets e entre outros.
+github:
+  is_project_page: false

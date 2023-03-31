@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Caso particular: Modelo de regressão linear simples
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 24/06/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Alguns resultados da álgebra matricial - I
+* **Particição de matrizes**: Uma matriz `\(\mathbf{A}\)` pode ser subdividida em 
+blocos, ou particionada em matrizes menores, inserindo cortes horizontais e 
+verticais entre linhas e colunas. Dessa forma, a matriz `\(\mathbf{A}\)` pode ser
+representada com
+
+&lt;div class="math"&gt;
+\[\mathbf{A}=
+\left[
+\begin{array}{cc}
+\mathbf{A}_{11}&amp; \mathbf{A}_{12} \\
+\mathbf{A}_{21} &amp; \mathbf{A}_{22}
+\end{array}
+\right].
+\]
+&lt;/div&gt;
+
+&gt; Por conveniência, assumiremos que a dimensão do `\(\mathbf{A}_{11}\)` é `\(n\times n\)` e a dimensão do
+`\(\mathbf{A}_{22}\)` é `\(m\times m\)`.
+
+#### Propriedades - I
+
+* **Trasposta**:
+
+&lt;div class="math"&gt;
+\[\mathbf{A}'=
+\left[
+\begin{array}{cc}
+\mathbf{A}'_{11}&amp; \mathbf{A}'_{21} \\
+\mathbf{A}'_{12} &amp; \mathbf{A}'_{22}
+\end{array}
+\right].
+\]
+&lt;/div&gt;
+
+* **Determinante**:
+
+&lt;div class="math"&gt;
+\[\det\mathbf{A}=\left|\textbf{A}\right|=
+\left|
+\begin{array}{cc}
+\mathbf{A}_{11}&amp; \mathbf{A}_{12} \\
+\mathbf{A}_{21} &amp; \mathbf{A}_{22}
+\end{array}
+\right|=\left|\textbf{A}_{11}\right|\left|\textbf{A}_{22}-\textbf{A}_{21}\textbf{A}_{11}^{-1}\textbf{A}_{12}\right|=\left|\textbf{A}_{22}\right|\left|\textbf{A}_{11}-\textbf{A}_{12}\textbf{A}_{22}^{-1}\textbf{A}_{21}\right|.
+\]
+&lt;/div&gt;
+
+---
+class: animated, slideInRight
+
+### Alguns resultados da álgebra matricial - II
+
+#### Propriedades - II
+
+* **Inversa**:
+
+&lt;div class="math"&gt;
+\[ A^{-1}=
+\left[ 
+\begin{array}{cc}
+\mathbf{A}_{11}&amp;\mathbf{A}_{12}\\
+\mathbf{A}_{21}&amp;\mathbf{A}_{22}
+\end{array} \right]^{-1}
+=
+\left[ 
+\begin{array}{cc}
+\mathbf{A}_{11}^{-1}+\mathbf{A}_{11}^{-1}\mathbf{A}_{12}\mathbf{Q}^{-1}\mathbf{A}_{21}\mathbf{A}_{11}^{-1}&amp;-\mathbf{A}_{11}^{-1}\mathbf{A}_{12}\mathbf{Q}^{-1}\\
+-\textbf{Q}^{-1}\mathbf{A}_{21}\mathbf{A}_{11}^{-1}&amp;\mathbf{Q}^{-1}
+\end{array} \right],
+\]
+&lt;/div&gt;
+
+onde a matriz `\(\mathbf{Q}=\mathbf{A}_{22}-\mathbf{A}_{21}\mathbf{A}_{11}^{-1}\mathbf{A}_{12}\)`
+é chamada de *complemento de Schur*. A inversa da matriz `\(\textbf{A}\)` existe see
+o *complemento de Schur* é não-singular. Para detalhes ver, por exemplo, o livro de Greene (2003). 
+
+* **Adição**:
+
+&lt;div class="math"&gt;
+\[\mathbf{A}+\mathbf{B}=
+\left[
+\begin{array}{cc}
+\mathbf{A}_{11}&amp; \mathbf{A}_{12} \\
+\mathbf{A}_{21} &amp; \mathbf{A}_{22}
+\end{array}
+\right]+
+\left[
+\begin{array}{cc}
+\mathbf{B}_{11}&amp; \mathbf{B}_{12} \\
+\mathbf{B}_{21} &amp; \mathbf{B}_{22}
+\end{array}
+\right]=
+\left[
+\begin{array}{cc}
+\mathbf{A}_{11}+\mathbf{B}_{11}&amp; \mathbf{A}_{12}+\mathbf{B}_{12} \\
+\mathbf{A}_{21}+\mathbf{B}_{21} &amp; \mathbf{A}_{22}+\mathbf{B}_{22}
+\end{array}
+\right].
+\]
+&lt;/div&gt;
+
+* **Produto**:
+
+&lt;div class="math"&gt;
+\[\mathbf{A}\mathbf{B}=
+\left[
+\begin{array}{cc}
+\mathbf{A}_{11}\mathbf{B}_{11}+\mathbf{A}_{12}\mathbf{B}_{21}&amp; \mathbf{A}_{11}\mathbf{B}_{12}+\mathbf{A}_{12}\mathbf{B}_{22}  \\
+\mathbf{A}_{21}\mathbf{B}_{11}+\mathbf{A}_{22}\mathbf{B}_{21} &amp; \mathbf{A}_{21}\mathbf{B}_{12}+\mathbf{A}_{22}\mathbf{B}_{22}
+\end{array}
+\right].
+\]
+&lt;/div&gt;
+
+---
+class: animated, slideInRight
+
+### Modelo de regressão linear - I
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+Pelas Suposições **A1** e **A2**, o estimador de MQO para `\(\mathbf{\beta}\)` é 
+dado por
+
+`$$\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y.$$`
+&gt; Pelas Suposições **A1-A3**, o estimador MQO é não-viesado para `\(\mathbf{\beta}\)`, i.e.,
+`\(\mathbb{E}\left[\widehat{\mathbf{\beta}}\,\big|\,\mathbf{X}\right]=\mathbf{\beta}.\)`
+
+&gt; Pelas Suposições **A1-A4**, `\(\textrm{cov}\left[\widehat{\beta}\,\big|\,\mathbf{X}\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}\)`.
+
+Considere o caso particular quando `\(k=1\)`. Nesse caso, a matrix de covariáveis é dada por:
+
+&lt;div class="math"&gt;
+\[\textbf{X}=
+\left[
+\begin{array}{cc}
+1&amp;x_{1}\\
+1&amp;x_{2}\\
+\vdots&amp;\vdots\\
+1&amp;x_{n}\\
+\end{array}
+\right]_{n\times 2}=[\mathbf{1} \quad \mathbf{x}_1].
+\]
+&lt;/div&gt;
+
+---
+class: animated, slideInRight
+
+### Modelo de regressão linear - II
+
+A representação matricial do modelo linear simples, i.e., quando `\(k=1\)`, é dada por
+
+&lt;div class="math"&gt;
+\[
+\left[
+\begin{array}{c}
+Y_1 \\
+Y_2 \\
+\vdots\\
+Y_n
+\end{array}
+\right]=
+\left[
+\begin{array}{cc}
+1&amp;x_{1}\\
+1&amp;x_{2}\\
+\vdots&amp;\vdots\\
+1&amp;x_{n}\\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\mathbf{\beta}_0 \\
+\mathbf{\beta}_1 \\
+\end{array}
+\right]+
+\left[
+\begin{array}{c}
+\mathbf{\epsilon}_1 \\
+\mathbf{\epsilon}_2 \\
+\vdots\\
+\mathbf{\epsilon}_n
+\end{array}
+\right]=[\mathbf{1} \quad \mathbf{x}_1]
+\left[
+\begin{array}{c}
+\mathbf{\beta}_0 \\
+\mathbf{\beta}_1 \\
+\end{array}
+\right]+\mathbf{\epsilon}
+\]
+&lt;/div&gt;
+
+ou
+
+`$$Y = \beta_0\mathbf{1}+\mathbf{\beta}_1\mathbf{x}_1+\mathbf{\epsilon}.$$`
+Pelas Suposições **A1** e **A2**, o estimador de MQO para `\(\mathbf{\beta}\)` é 
+dado por
+
+`$$\mathbf{\widehat{\beta}}=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'Y$$`
+ou
+
+&lt;div class="math"&gt;
+\[\widehat{\mathbf{\beta}}=
+\left[
+\begin{array}{cc}
+\mathbf{1}'\mathbf{1} &amp; \mathbf{1}'\mathbf{x}_1  \\
+\mathbf{x}'_1\mathbf{1} &amp; \mathbf{x}'_1\mathbf{x}_1 \\
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{c}
+\mathbf{1}'Y\\
+\mathbf{x}'_1Y
+\end{array}
+\right]=
+\left[
+\begin{array}{cc}
+n &amp; \sum_{i=1}^nx_i  \\
+\sum_{i=1}^nx_i &amp; \sum_{i=1}^nx_i^2 \\
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{c}
+\sum_{i=1}^nY_i\\
+\sum_{i=1}^nx_iY_i
+\end{array}
+\right]
+\]
+&lt;/div&gt;
+
+
+---
+class: animated, fadeIn
+
+### Modelo de regressão linear - II
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\widehat{\mathbf{\beta}}&amp;=
+\left[
+\begin{array}{c}
+\widehat{\beta}_0\\
+\widehat{\beta}_1
+\end{array}\right]=
+\left[
+\begin{array}{cc}
+n &amp; \sum_{i=1}^nx_i  \\
+\sum_{i=1}^nx_i &amp; \sum_{i=1}^nx_i^2 \\
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{c}
+\sum_{i=1}^nY_i\\
+\sum_{i=1}^nx_iY_i
+\end{array}
+\right]\\
+&amp;=\frac{1}{n\sum_{i=1}^nx_i^2-\left(\sum_{i=1}x_i\right)^2}
+\left[
+\begin{array}{cc}
+\sum_{i=1}^nx_i^2 &amp; -\sum_{i=1}^nx_i  \\
+-\sum_{i=1}^nx_i &amp; n \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\sum_{i=1}^nY_i\\
+\sum_{i=1}^nx_iY_i
+\end{array}
+\right]\\
+&amp;=\frac{1}{n\sum_{i=1}^nx_i^2-\left(\sum_{i=1}x_i\right)^2}
+\left[
+\begin{array}{c}
+\sum_{i=1}^nx_i^2\sum_{i=1}^nY_i-\sum_{i=1}^nx_i\sum_{i=1}^nx_iY_i\\
+-\sum_{i=1}^nx_i\sum_{i=1}^nY_i+n\sum_{i=1}^nx_iY_i
+\end{array}
+\right]
+\end{aligned}
+\]
+&lt;/div&gt;
+
+Daí,
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\widehat{\mathbf{\beta}}_1&amp;=
+\frac{n\sum_{i=1}^nx_iY_i-\sum_{i=1}^nx_i\sum_{i=1}^nY_i}{n\sum_{i=1}^nx_i^2-\left(\sum_{i=1}x_i\right)^2}=
+\frac{n\sum_{i=1}^n\left(x_i-\bar{x}\right)(Y_i-\bar{Y})}{n\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}
+=\frac{\sum_{i=1}^n\left(x_i-\bar{x}\right)(Y_i-\bar{Y})}{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}.\\ \\
+
+\widehat{\mathbf{\beta}}_0&amp;=
+\frac{\sum_{i=1}^nx_i^2\sum_{i=1}^nY_i-\sum_{i=1}^nx_i\sum_{i=1}^nx_iY_i}{n\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}
+=\frac{\sum_{i=1}^nx_i^2\bar{Y}-\bar{x}\sum_{i=1}^nx_iY_i}{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}
+\end{aligned}
+\]
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Modelo de regressão linear - II
+
+Observe que
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\widehat{\mathbf{\beta}}_0&amp;=
+\frac{\sum_{i=1}^nx_i^2\bar{Y}-\bar{x}\sum_{i=1}^nx_iY_i}{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}
+=\frac{\sum_{i=1}^nx_i^2\bar{Y}-\bar{x}\sum_{i=1}^nx_iY_i+n\bar{x}^2\bar{Y}-n\bar{x}^2\bar{Y}}{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}\\
+&amp;=\frac{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2\bar{Y}-\bar{x}\sum_{i=1}^n\left(x_i-\bar{x}\right)(Y_i-\bar{Y})}{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}\\
+&amp;=\bar{Y}-\widehat{\beta}_1\bar{x}.
+\end{aligned}
+\]
+&lt;/div&gt;
+
+Dessa forma, os estimador de MQO para `\(\beta_0\)` e `\(\beta_1\)` são dados, 
+respectivamente,  por
+
+&lt;div class="math"&gt;
+\[
+\widehat{\mathbf{\beta}}_0=\bar{Y}-\widehat{\beta}_1\bar{x} 
+\qquad
+\text{ e }
+\qquad
+\widehat{\mathbf{\beta}}_1=
+\frac{\sum_{i=1}^n\left(x_i-\bar{x}\right)(Y_i-\bar{Y})}{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}.
+\]
+&lt;/div&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# Teorema de Gauss-Markov
+
+---
+class: animated, slideInRight
+
+### Teorema de Gauss-Markov - I
+
+Considere o modelo é linear, dado por
+
+`$$Y=\mathbf{X\,\beta}+\mathbf{\epsilon}.$$`
+
+O teorema de Gauss-Markov afirma que, dadas as Suposições **A1-A4**, o estimador 
+de MQO do vetor `\(\beta\)` é o melhor estimador linear não-viesado e de mínima variância.
+
+
+**Prova**
+
+Defina a classe de estimadores lineares de `\(\beta\)` como 
+`\(\beta^*=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]Y\)`, onde 
+`\(\mathbf{C}\)` é uma matriz determinística de dimensão `\((k+1)\times n\)`.
+
+Note que o estimador de MQO, `\(\widehat{\beta}\)`, é um membro desta classe quando 
+`\(\mathbf{C}\)` é a matriz nula. Observe ainda que
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\beta^*&amp;=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]Y=
+\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right](\mathbf{X\beta}+\epsilon)\\
+&amp;=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{X\beta}+\mathbf{C}\mathbf{X\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\epsilon+\mathbf{C}\epsilon\\
+&amp;=\beta+\mathbf{C}\mathbf{X\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\epsilon+\mathbf{C}\epsilon\\
+\end{aligned}
+\]
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Teorema de Gauss-Markov - II
+
+Dessa forma, 
+
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\beta^*&amp;=\beta+\mathbf{C}\mathbf{X\beta}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\epsilon+\mathbf{C}\epsilon\\
+\end{aligned}
+\]
+&lt;/div&gt;
+
+Calculando o valor esperado, temos que
+
+`$$\mathbb{E}\beta^*=\beta+\mathbf{C}\mathbf{X\beta}=\left(\mathbf{I}+\mathbf{CX}\right)\beta.$$`
+Assim, para que `\(\beta^*\)` seja não-viesado requer-se que `\(\mathbf{CX}=0\)`.
+
+Temos então, 
+
+`$$\beta^*-\beta=\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\epsilon+\mathbf{C}\epsilon
+=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]\epsilon$$`
+
+e portanto
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\left(\beta^*-\beta\right)\left(\beta^*-\beta\right)'
+&amp;=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]\epsilon\epsilon'\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]'
+=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]\epsilon\epsilon'\left[\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\mathbf{C}'\right]
+\end{aligned}
+\]
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Teorema de Gauss-Markov - III
+
+A matriz de covariâncias de `\(\beta^*\)` é dada por
+
+&lt;div class="math"&gt;
+\[
+\begin{aligned}
+\textrm{cov}\left[\beta^*\right]&amp;=\mathbb{E}\left[\left(\beta^*-\beta\right)\left(\beta^*-\beta\right)'\right]
+=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]\mathbb{E}\left[\epsilon\epsilon'\right]\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]'\\
+&amp;=\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'+\mathbf{C}\right]\sigma^2\mathbf{I}\left[\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\mathbf{C}'\right]\\
+&amp;=\sigma^2\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\mathbf{C}\mathbf{X}\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\left(\mathbf{X}'\mathbf{X}\right)^{-1}\mathbf{X}'\mathbf{C}'+\mathbf{C}\mathbf{C}'\right]\\
+&amp;=\sigma^2\left[\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\mathbf{C}\mathbf{C}'\right]=\sigma^2\left(\mathbf{X}'\mathbf{X}\right)^{-1}+\sigma^2\mathbf{C}\mathbf{C}'=\textrm{cov}\left[\widehat{\beta}\right]+\sigma^2\mathbf{C}\mathbf{C}'.
+\end{aligned}
+\]
+&lt;/div&gt;
+
+As variâncias são os elementos diagonais da matriz de covariâncias. Dessa forma,
+`\(\textrm{var}(\beta_i^*)=\textrm{var}(\widehat{\beta}_i)+c_i\)`, onde `\(c_i\)` é 
+não-negativo para `\(i=1,2,3,\ldots, k+1\)`. Assim, 
+
+`$$\textrm{var}(\beta_i^*)\ge\textrm{var}(\widehat{\beta}_i),$$`
+onde a igualdade se tem quando `\(\mathbf{C}\)` é a matriz nula, i.e. `\(\beta^*=\widehat{\beta}\)`.
+
+
+Para detalhes ver, por exemplo, o livro de Montgomery, Peck, and Vining (2006).
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Greene, W. H. (2003). _Econometric Analysis_. 5th edition. Pearson
+Education.
+
+Montgomery, D. C., E. A. Peck, and G. G. Vining (2006). _Introduction
+to Linear Regression Analysis_. 4th edition. Wiley &amp; Sons.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

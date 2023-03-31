@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análise de Séries Temporais</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análise de Séries Temporais
+]
+.subtitle[
+## Processos Lineares
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 05/10/2022
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+[//]: &lt;&gt; (https://github.com/animate-css/animate.css/blob/main/animate.css)
+[//]: &lt;&gt; (xaringan::inf_mr())
+
+class: animated, fadeIn
+
+
+
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Alguns resultados preliminares
+
+* **Definição (Operador de defasagem)**: Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)`.
+O operador de defasagem, denotado por `\(B\)` (_Backward_), define-se como
+`$$BX_t=X_{t-1}.$$`
+
+&gt; O operador de defasagem pode ser aplicado sucessivamente da seguinte 
+forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  B^2X_{t}&amp;=B\left(BX_{t}\right)=BX_{t-1}=X_{t-2}\\
+  B^3X_{t}&amp;=B^2\left(BX_{t}\right)=B^2X_{t-1}=X_{t-3}\\
+  &amp;\vdots\\
+  B^kX_{t}&amp;=X_{t-k}, \quad \text{ para } k=0,1,2,\ldots.
+  \end{align}
+&lt;/div&gt;
+
+&gt; &lt;span style="color:grey"&gt; Como convenção, será definido `\(B^0X_t=X_t\)`,
+i.e., o operador `\(B^0\)` será considerado como um operador identidade.&lt;/span&gt;
+
+***
+
+Para detalhes, sugere-se a leitura do livro de Hamilton (1994).
+
+---
+class: animated, fadeInDownBig
+
+### Alguns resultados preliminares
+
+* **Definição (Operador de diferenciação)**: Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)`.
+O operador de diferenciação, denotado por `\(\nabla=1-B\)`, define-se como
+`$$\nabla X_t=X_t - X_{t-1}.$$`
+
+&gt; Para `\(d=0, 1, 2, \ldots\)`, temos o seguinte resultado
+`$$\nabla^d=(1-B)^d=\sum_{j=0}^d\binom{d}{j}(-1)^jB^j,$$`
+onde `\(\dbinom{d}{j}=\dfrac{d!}{j!(d-j)!}=\dfrac{\Gamma(d+1)}{\Gamma(j+1)\Gamma(d-j+1)}\)`,
+onde `\(\Gamma(t)=\int_{0}^\infty x^{t-1}e^{-x}\,dx\)`, para `\(t&gt;0\)` e `\(\Gamma(t)=\dfrac{\Gamma(1+t)}{t}\)`, para `\(t&lt;0\)`.
+
+&gt; Em geral, para qualquer `\(d\)` real, com `\(d&gt;-1\)`, temos que
+`$$\nabla^d=(1-B)^d=\sum_{j=0}^\infty \frac{\Gamma(j-d)}{\Gamma(j+1)\Gamma(-d)}B^j.$$`
+
+---
+class: animated, fadeInLeft
+
+### Alguns resultados preliminares
+
+* **Definição (Operador de diferenciação sazonal)**: Considere o processo 
+`\(\{X_t; t\in\mathbb{Z}\}\)`. O operador de diferenciação sazonal, denotado 
+por `\(\nabla_d=1-B^d\)`, define-se como
+`$$\nabla_d X_t=X_t - X_{t-d}.$$`
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla^2X_t=\nabla(\nabla X_t)=(1-B)(1-B)X_t=(1-2B+B^2)X_t=X_t-2X_{t-1}+X_{t-2}.$$`
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla_6X_t=(1-B^6)X_t=X_t-X_{t-6}.$$`
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla\nabla_{12}X_t=(1-B)(1-B^{12})X_t=(1-B-B^{12}+B^{13})X_t=X_t-X_{t-1}-X_{t-12}+X_{t-13}.$$`
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja 
+`\(\{X_t;t\in\mathbb{Z}\}\)` um processo estocástico. Então,
+`$$\nabla_{12}^2X_t=(1-B^{12})^2X_t=(1-2B^{12}+B^{24})X_t=X_t-2X_{t-12}+X_{t-24}.$$`
+
+---
+class: animated, lightSpeedIn
+
+### Alguns resultados preliminares
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+Encontre as expressões para `\(BX_t\)` e `\(B^2X_t\)`, quando `\(\{X_t\}\)` tem
+as seguintes representações:
+
+&lt;div class="math"&gt;
+  \begin{align}
+  a.\, X_t&amp;=\beta_0; &amp; b.\,X_t&amp;=\beta_0+\beta_1t; &amp; c.\,X_t&amp;=\beta_0+\beta_1Z_t+\beta_2t; &amp; d.\, X_t&amp;=\beta_1Z_t+\beta_2Y_t,\\
+  \end{align}
+&lt;/div&gt;
+
+onde `\(\beta_0, \beta_1\)` e `\(\beta_2\)` são constantes e `\(\{Z_t\}\)` e `\(\{Y_t\}\)`
+são processos quaisquer.
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\left\{X_t\right\}\)` um processo estocástico cm representação polinomial, i.e.,
+`$$X_t=\beta_0+\beta_1t+\beta_2t^2+\cdots+\beta_dt^d+Z_t,$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média zero e variância `\(\sigma^2\)`.
+Mostre que `\(\{\nabla^dX_t\}\)` é um processo estacionário com representação
+`$$\nabla^dX_t=d!\,\beta_d+\nabla^dZ_t.$$`
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt; Seja `\(\{Y_t\}\)`
+um processo estacionário com média `\(0\)` e função de autocovariância `\(\gamma_Y(\cdot)\)`.
+* Se `\(X_t=a+bt+s_t+Y_t\)` (com prob. 1), onde `\(s_t\)` representa uma componente 
+sazonal de período `\(12\)`. Mostre que `\(\{\nabla\nabla_{12}X_t\}\)` é um processo 
+estacionário e calcule sua FACV em função de `\(\gamma_Y(\cdot)\)`.
+
+
+---
+class: animated, fadeInDown
+
+### Processos lineares - I
+
+* **Definição (Processo Linear)**: Um processo `\(\{X_t; t\in\mathbb{Z}\}\)`
+é dito **linear** se a representação do processo é dada por
+`$$X_t=\sum_{j=-\infty}^\infty\psi_jZ_{t-j}, \quad \text{(com prob. 1)}$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variância
+`\(\sigma^2\)` e `\(\{\psi_j\}\)` é uma sequência absolutamente somável de 
+escalares, i.e.
+`$$\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty.$$`
+
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+***
+
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016).
+
+---
+class: animated, fadeIn
+
+### Processos lineares - I
+
+#### Algumas considerações
+
+* Podemos reescrever a definição acima em termos do operador de 
+defasagem, assim
+`$$X_t=\psi(B)Z_t,$$`
+onde `\(\psi(B)=\sum_{j=-\infty}^\infty\psi_jB^j\)`;
+
+--
+
+* A condição `\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)` garante que a soma
+infinita na representação do processo, i.e., `\(X_t=\sum_{j=-\infty}^\infty\psi_jZ_{t-j}\)`,
+converge com probabilidade 1, pois, pela desigualdade de Jensen, `\(\mathbb{E}|Z_t|\le\left(\mathbb{E}|Z_t|^2\right)^{\frac12}=\sigma\)`, e
+`$$\mathbb{E}|X_t|\le\sum_{j=-\infty}^\infty\left(|\psi_j|\, \mathbb{E}|Z_{t-j}|\right)\le\left(\sum_{j=-\infty}^\infty|\psi_j|\right)\sigma&lt;\infty.$$`
+
+
+---
+class: animated, fadeIn
+
+### Processos lineares - I
+
+#### Algumas considerações
+
+* A condição `\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)` também garante 
+que `\(\sum_{j=-\infty}^\infty\psi_j^2&lt;\infty\)`. Dessa forma, o processo
+converge em média quadrática, i.e., 
+`$$\mathbb{E}\left|X_t-\sum_{j=-n}^n\psi_jZ_{t-j}\right|^2\longrightarrow0, \quad \text{ quando } n\to\infty;$$` 
+
+* O operador `\(\psi(B)\)` pode ser pensado como um **filtro linear**, que 
+quando aplicado ao processo de ruído branco, `\(\{Z_t\}\)` (processo de "entrada")
+produz o processo `\(\{X_t\}\)` (processo de "saída");
+
+* `\(\psi(B)\)` também é chamado de **_Função de transferência_** do filtro linear;
+
+
+---
+class: animated, fadeInRight
+
+### Processos lineares - I
+
+&lt;img src="images/filtro_linear.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: animated, fadeInRight
+
+### Processos lineares - II
+
+* **Proposição**: Seja `\(\{Y_t\}\)` um processo estacionário de segunda ordem
+com média `\(0\)` e função de autocovariância `\(\gamma_Y(\cdot)\)`. Se
+`\(\sum_{j=-\infty}^\infty|\psi_j|&lt;\infty\)`, então o processo `\(\{X_t\}\)`,
+com representação
+`$$X_t=\sum_{j=-\infty}^\infty\psi_jY_{t-j}=\psi(B)Y_t$$`
+é estacionário com média `\(0\)` e função de autocovariância
+`$$\gamma_X(h)=\sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty\psi_j\psi_k\gamma_Y(h+k-j).$$`
+
+&gt; Se o processo `\(\{X_t\}\)` for linear, então
+`$$\gamma_X(h)=\sum_{j=-\infty}^\infty\psi_j\psi_{j+h}\sigma^2.$$`
+
+---
+class: animated, fadeInDown
+
+### Processos lineares - II
+
+*Prova.* 
+Primeiramente, observe que `\(\psi(B)Y_t\)` converge absolutamente com 
+probabilidade 1:
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[\sum_{j=-\infty}^\infty |\psi_j||Y_{t-j}|\right]
+  &amp;=\lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n |\psi_j||Y_{t-j}|\right].
+  \end{align}
+&lt;/div&gt;
+
+Sendo `\(\{Y_t\}\)` um processo estacionário de segunda ordem, então `\(\mathbb{E}|Y_t|\le\left(\mathbb{E}|Y_t|^2\right)^{\frac12}=c\)`, onde `\(c\)` é uma
+constante que não depende de `\(t\)`. Dessa forma, pelo teorema de convergência monótona, temos que
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n |\psi_j||Y_{t-j}|\right]\le\lim_{n\to\infty}\left(\sum_{j=-n}^n|\psi_j|\right)\mathbb{E}|Y_t|&lt;\infty.
+  \end{align}
+&lt;/div&gt;
+
+Daí,
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}X_{t}&amp;=\lim_{n\to\infty}\mathbb{E}\left[\sum_{j=-n}^n \psi_jY_{t-j}\right]=\sum_{j=-\infty}^\infty \psi_j\mathbb{E}Y_{t-j}=0.
+  \end{align}
+&lt;/div&gt;
+
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+
+
+---
+class: animated, fadeInUp
+
+### Processos lineares - II
+
+*Prova.* 
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[X_{t+h}X_t\right]&amp;=\mathbb{E}\left[\left(\sum_{j=-\infty}^\infty \psi_jY_{t+h-j}\right)\left(\sum_{k=-\infty}^\infty \psi_kY_{t-k}\right)\right]=
+  \sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty  \psi_j\psi_k\mathbb{E}\left[Y_{t+h-j}Y_{t-k}\right]\\
+  &amp;=\sum_{j=-\infty}^\infty\sum_{k=-\infty}^\infty  \psi_j\psi_k\gamma\left(h-j+k\right).
+  \end{align}
+&lt;/div&gt;
+
+&gt; Pode-se observar que, a convergência absoluta de `\(\psi(B)Y_t\)` implica
+que filtros da forma `\(\sum_{j=-\infty}^\infty\alpha_jB^j\)`, com coeficientes
+absolutamente somáveis, podem ser aplicados sucessivamente a um processo
+estacionário, para gerar um novo processo estacionário. Por exemplo: podemos
+considerar um novo processo `\(\{W_t\}\)` com representação
+`$$W_t=\sum_{j=-\infty}^\infty\psi_jY_{t-j}=\psi(B)Y_t=\alpha(B)\beta(B)Y_t=\beta(B)\alpha(B)Y_t,$$`
+onde `\(\alpha(B)=\sum_{j=-\infty}^\infty\alpha_jB^j\)` e `\(\beta(B)=\sum_{j=-\infty}^\infty\beta_jB^j\)`.
+
+
+---
+class: animated, fadeIn
+
+### Processos lineares - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Seja
+`\(\{X_t; t\in\mathbb{Z}\}\)` um processo estocástico com representação
+AR(1), i.e., `\(X_t=\phi X_{t-1}+Z_t\)` (com prob. 1),
+onde `\(\{Z_t\}\)` representa um processo de ruído branco com média `\(0\)` e 
+variância `\(\sigma^2&lt;\infty\)`, tal que `\(Z_t\)` é não-correlacionado com `\(X_s\)`, 
+para todo `\(s&lt;t\)` e `\(\phi\)` um escalar, tal que `\(|\phi|&lt;1\)`.
+
+Em termos do operador de defasagem, o processo pode ser representado como
+`$$(1-\phi B)X_t=\Phi(B)X_t=Z_t,$$`
+ou, como `\(|\phi|&lt;1\)`, então
+`$$X_t=(1-\phi B)^{-1}Z_t=\sum_{j=0}^\infty\phi^jZ_{t-j},$$`
+ou seja, um processo com representação AR(1) é **linear**.
+
+Pela proposição anterior, `\(\mathbb{E}X_t=0\)` e `\(\gamma_X(h)=\sum_{j=0}^\infty\phi^j\phi^{j+h}\sigma^2=\dfrac{\sigma^2}{1-\phi^2}\phi^h\)`, para `\(h=0,1,2,3,\ldots\)`.
+
+
+---
+class: animated, fadeInLeft
+
+### Processos lineares - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt;
+Considere o processo `\(\{X_t; t\in\mathbb{Z}\}\)` com representação
+AR(1), como no exemplo anterior. Pode-se mostrar que 
+`$$X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}$$`
+é a **única** solução estacionária da equação `\((1-\phi B)X_t=Z_t\)`.
+
+Para isso, considere que existe uma outra solução estacionária, tal que
+&lt;div class="math"&gt;
+  \begin{align}
+  Y_t&amp;=\phi Y_{t-1}+Z_t=\phi (\phi Y_{t-2}+Z_{t-1})+Z_t=Z_t+\phi Z_{t-1}+\phi^2Y_{t-2}\\
+  &amp;=Z_t+\phi Z_{t-1}+\phi^2(\phi Y_{t-3}+Z_{t-2})=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\phi^3 Y_{t-3}\\
+  &amp;\ \ \vdots\\
+  &amp;=Z_t+\phi Z_{t-1}+\phi^2Z_{t-2}+\cdots+\phi^kZ_{t-k}+\phi^{k+1} Y_{t-k-1}\\
+  &amp;=\sum_{j=0}^k\phi^jZ_{t-j}+\phi^{k+1} Y_{t-k-1}.
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Processos lineares - II
+
+Daí, `\(Y_t=\sum_{j=0}^k\phi^jZ_{t-j}+\phi^{k+1} Y_{t-k-1}\)`. Sendo `\(\{Y_t\}\)`
+um processo estacionário de segunda ordem, então `\(\mathbb{E}Y_t^2&lt;\infty\)`, então
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[Y_t-\sum_{j=0}^k\phi^jZ_{t-j}\right]^2&amp;=\phi^{2k+2}\,\mathbb{E}Y_{t-k-1}^2.
+  \end{align}
+&lt;/div&gt;
+
+Dessa forma, quando `\(k\to\infty\)`, então
+
+&lt;div class="math"&gt;
+  \begin{align}
+  \mathbb{E}\left[Y_t-\sum_{j=0}^k\phi^jZ_{t-j}\right]^2&amp;\longrightarrow0.
+  \end{align}
+&lt;/div&gt;
+
+Em outras palavras, `\(Y_t\)` converge em média quadrática para
+`\(\sum_{j=0}^\infty\phi^jZ_{t-j}\)`, sendo essa a mesma representação
+dada para o processo `\(\{X_t\}\)`, o que confirma que `\(X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}\)`
+é a **única** solução da equação `\((1-\phi B)X_t=Z_t\)`.
+
+
+---
+class: animated, fadeInDown
+
+### Processos lineares - II
+
+Para o caso `\(|\phi|&gt;1\)`, `\(X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}\)` não é convergente. Nesse caso, podemos reescrever a representação do processo, tal que
+`$$X_t=-\phi^{-1}Z_{t+1}+\phi^{-1}X_{t+1}.$$`
+Iterando, podemos observar que
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=-\phi^{-1}Z_{t+1}+\phi^{-1}X_{t+1}=-\phi^{-1}Z_{t+1}+\phi^{-1}(-\phi^{-1}Z_{t+2}+\phi^{-1}X_{t+3})\\
+  &amp;=-\phi^{-1}Z_{t+1}-\phi^{-2}Z_{t+2}+\phi^{-2}X_{t+3}\\
+  &amp;\ \ \vdots\\
+  &amp;=-\sum_{j=1}^{k+1}\phi^{-j}Z_{t+j}+\phi^{-k-1} X_{t+k+1}.
+  \end{align}
+&lt;/div&gt;
+
+Seguindo os mesmos argumento do caso anterior, `\(X_t=-\sum_{j=1}^{\infty}\phi^{-j}Z_{t+j}\)` é 
+a **única** solução estacionária de `\((1-\phi B)X_t=Z_t\)`.
+
+
+---
+class: animated, fadeInLeft
+
+### Processos lineares - II
+
+#### Algumas considerações
+
+* A solução `\(X_t=-\sum_{j=1}^{\infty}\phi^{-j}Z_{t+j}\)` não apresenta uma utilidade
+prática, no sentido que, a variável `\(X_t\)` é definida em função de valores futuros.
+Por motivos práticos, restringimos a atenção em processos AR(1) com
+`\(|\phi|&lt;1\)`;
+
+* Um processo `\(\{X_t\}\)` com representação AR(1), em termos de `\(\{Z_s,s\le t\}\)`,
+será chamado de processos AR(1) **causal**. O termo **causal** faz
+menção a que a representação do processo não depende de termos futuros;
+
+* Como observado no exemplo anterior, um processo AR(1) não-causal pode 
+ser reescrito para encontrar sua representação causal;
+
+* Vale ressaltar que quando `\(|\phi| &lt; 1\)` a solução estacionária única
+`\(X_t=\sum_{j=0}^\infty\phi^jZ_{t-j}\)` pode ser encontrada imediatamente 
+usando `\(\psi(B)=\Phi(B)\pi(B)=1\)`, onde `\(\Phi(B)=1-\phi B\)` e `\(\pi(B)=\sum_{j=0}^\infty\phi^jB^j\)`.
+
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+No exemplo anterior, suponha que `\(\phi=\pm1\)` e mostre que não existe
+uma solução estacionária para a equação `\(X_t-\phi X_{t-1}=Z_t\)`.
+
+---
+class: inverse, hide-logo, middle, center
+
+### Equações em diferenças
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+O termo _equações em diferenças_ serve para denotar o equivalente discreto
+das equações diferenciais. Uma forma de escrever essa equivalencia seria:
+  &lt;center&gt;
+  `\(\dfrac{\nabla X_t}{\nabla t}\)` é o equivalente discreto de `\(\dfrac{dX}{dt}\)`.
+  &lt;/center&gt;
+
+Entretanto, já que `\(t\in\mathbb{Z}\)`, então `\(\nabla t=1\)`. Dessa forma, `\(\nabla X_t\)`
+considera-se o equivalente de `\(\frac{dX}{dt}\)`.
+
+* **Definição (Equação em diferenças de ordem p)**: A equação em diferenças 
+de ordem p define-se como
+`$$a_0X_t+a_1X_{t-1}+\cdots+a_pX_{t-p}=C(B)X_t=Z_t,$$`
+onde `\(a_i\)`, com `\(i=0,1,2,\ldots,p\)` são escalares, com `\(a_0=1\)`, `\(a_p\ne0\)` e 
+`\(C(B)=\sum_{j=0}^pa_jB^j\)`.
+
+&gt; * Se `\(Z_t=0\)`, a equação em diferenças é chamada de **homogênea**, em caso
+contrário é dita de **não-homogênea**;
+
+&gt; * A equação `\(C(z)=0\)` é chamada de **equação auxiliar**,
+ou **equação característica**, associada à equação em diferenças.
+
+
+---
+class: animated, fadeInUp
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere
+a equação em diferenças dada por `\(X_t=a_0+a_1X_{t-1}\)`, com `\(a_0\)`, `\(a_1\ne0\)` 
+constantes. Podemos obter a solução da equação de forma iterativa
+da seguinte forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  X_1&amp;=a_0+a_1X_0\\
+  X_2&amp;=a_0+a_1X_1=a_0+a_1(a_0+a_1X_0)=a_0(1+a_1)+a_1^2X_0\\
+  X_3&amp;=a_0+a_1X_2=a_0+a_1(a_0(1+a_1)+a_1^2X_0)=a_0(1+a_1+a_1^2)+a_1^3X_0\\
+  &amp;\vdots\\
+  X_t&amp;=a_0(1+a_1+a_1^2+\cdots+a_1^{t-1})+a_1^tX_0=a_0\sum_{j=0}^{t-1}a_1^j+a_1^tX_0, \quad t=1,2,3,\ldots
+  \end{align}
+&lt;/div&gt;
+
+Se `\(a_1\ne1\)`, então `\(\sum_{j=0}^{t-1}a_1^j=\dfrac{1-a_1^t}{1-a_1}\)`. Daí, 
+`\(X_t=a_0\dfrac{1-a_1^t}{1-a_1}+a_1^tX_0=\dfrac{a_0}{1-a_1}+\left(X_0-\dfrac{a_0}{1-a_1}\right)a_1^t\)`. 
+
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - I
+
+Dessa forma, a solução da equação em diferenças é dada por
+`$$X_t=\dfrac{a_0}{1-a_1}+\left(X_0-\dfrac{a_0}{1-a_1}\right)a_1^t.$$`
+* Se `\(|a_1|&lt;1\)`, `\(\lim_{t\to\infty}X_t=\frac{a_0}{1-a_1}\)`. Em outras palavras,
+a função tende a estabilizar-se no ponto `\(\frac{a_0}{1-a_1}\)`, conforme `\(t\)` aumenta;
+
+* Se `\(|a_1|&gt;1\)`, `\(X_t\)` não estabiliza.
+
+Em particular, considere a equação em diferenças `\((1-0.5B)X_t=2\)` e considere 
+a condição inicial `\(X_0=50\)`. Dessa forma,
+`$$X_t=4+46\,(0.5)^t.$$`
+Como `\(|0.5|&lt;1\)` a função tende a estabilizar-se em `\(\dfrac{a_0}{1-a_1}=4\)`.
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-2-1.png" width="52%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - I
+
+* **Proposição.** Seja `\(C(B)X_t=0\)` uma equação em diferenças homogênea.
+Se `\(C(z)=\prod_{j=1}^N(1-R_jz)^{m_j}\)`, onde `\(\sum_{j=1}^Nm_j=p\)` e
+`\(z_j=R_j^{-1}\in\mathbb{C}\)`, com `\(j=1,2,3,\ldots,N\)`, são as raízes de 
+multiplicidade `\(m_j\)` de `\(C(z)=0\)`.
+Então,
+`$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{t}.$$`
+
+&gt; Em particular, se `\(m_j=1\)` para todo `\(j\)`, então
+`$$X_t=\sum_{i=1}^Nb_{i}\,R_{i}^{t}.$$`
+
+
+*Prova.* Para a revisão da prova, sugere-se a leitura do livro de 
+Wei (2005).
+
+---
+class: animated, fadeInLeft
+
+### Equações em diferenças - I
+
+Quando `\(C(z)=0\)` tem raízes complexas, então, as mesmas se apresentam por pares, i.e.,
+se `\(R_1^{-1}=c+d\,i\)` é raíz, então `\(R_2^{-1}=c-d\,i\)` também é raíz.
+
+Em geral, qualquer número complexo pode ser escrito em forma polar, sendo então
+`$$c\pm d\,i=\alpha(\cos\phi\pm i\,\mathrm{sen}\,\phi),$$`
+onde, `\(\alpha=\sqrt{c^2+d^2}\)` e `\(\phi=\tan^{-1}\left(\dfrac{d}{c}\right)\)`. Ainda,
+pela fórmula de Moivre, temos que `\((c\pm d\,i)^t=\alpha^t(\cos\phi t\pm i\,\mathrm{sen}\,\phi t)\)`.
+Dessa forma, se o par `\(c\pm d\,i\)` tem multiplicidade `\(m\)`, a solução da
+equação em diferenças deverá conter as sequências
+`$$\alpha^t\cos\phi t,\, t\alpha^t\cos\phi t,\ldots,\, t^{m-1}\alpha^t\cos\phi t$$`
+e
+`$$\alpha^t\mathrm{sen}\,\phi t,\, t\alpha^t\mathrm{sen}\,\phi t,\ldots,\, t^{m-1}\alpha^t\mathrm{sen}\,\phi t.$$`
+&gt; As sequências acima resultam evidentes do termo `\(\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{t}\)` da solução geral de uma equação em diferenças homogênea.
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação característica dada por `\(1-a_1z-a_2z^2=(1-R_1z)(1-R_2z)=0\)`,
+onde `\(R_1=c+d\,i=\alpha(\cos\phi+i\,\mathrm{sen}\,\phi)\)` e `\(R_2\)` seu conjugado.
+
+Pela proposição acima, sabemos que `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_{i}^{t}\)`. Daí, 
+temos que
+`$$X_t=b_1R_1^{t}+b_2R_ 2^{t}=b_1\alpha^t(\cos\phi t + i\,\mathrm{sen}\,\phi t)+b_2\alpha^t(\cos\phi t - i\,\mathrm{sen}\,\phi t).$$`
+Se assumimos `\(b_1\)` e `\(b_2\)` números complexos e `\(b_2\)` o conjugado de `\(b_1=x+i\,y\)`, então
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=\alpha^t\left[(x+i\,y)(\cos\phi t + i\,\mathrm{sen}\,\phi t)+(x-i\,y)(\cos\phi t - i\,\mathrm{sen}\,\phi t)\right]\\
+  &amp;=\alpha^t\left[2x\cos\phi t + 2i^2y\,\mathrm{sen}\,\phi t\right]=e_1\alpha^t\cos\phi t + e_2\alpha^t\,\mathrm{sen}\,\phi t,
+  \end{align}
+&lt;/div&gt;
+
+onde `\(e_1\)` e `\(e_2\)` são números reais.
+
+---
+class: animated, fadeInUp
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Encontre 
+a solução da equação em diferenças dada por `\(X_t-2X_{t-1}+1.5X_{t-2}-0.5X_{t-3}=0\)`.
+A equação característica é dada por 
+`$$C(z)=1-2z+1.5z^2-0.5z^3=(0.5z^2-z+1)(1-z)=0.$$`
+Dessa forma, pelo teorema fundamental da álgebra temos `\(3\)` raízes. No entanto,
+como o grau do polinômio é ímpar, então, temos pelo menos uma raíz real. Daí,
+as raízes da equação característica são dadas por `\(R_1^{-1}=1\)` com multiplicidade `\(1\)` e
+&lt;div class="math"&gt;
+  \begin{align}
+  z&amp;=\frac{1\pm\sqrt{1-4\,(0.5)}}{2\,(0.5)}=1\pm i,
+  \end{align}
+&lt;/div&gt;
+
+então, `\(R_2^{-1}=1+i\)` e `\(R_3^{-1}=1-i\)`, ambos com multiplicidade `\(1\)`, onde `\(R_2=\frac{1-i}{2}\)` e `\(R_3=\frac{1+i}{2}\)`.
+
+&gt; &lt;span style="color:grey"&gt; Lembre que, 
+`$$\frac{1}{a+i\,b}=\frac{1}{a+i\,b}\frac{a-i\,b}{a-i\,b}=\frac{a-i\,b}{a^2+b^2}.$$`
+&lt;/span&gt;
+
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;**..._continua_**
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - I
+
+Dessa forma, temos `\(R_1=1\)`, `\(R_2=\frac{1-i}{2}\)` e `\(R_3=\frac{1+i}{2}\)`.
+Reescrevendo as últimas na forma polar, temos que
+`$$\alpha=(c^2+ d^2)^{\frac12}=\sqrt{\left(\frac12\right)^2+\left(\frac12\right)^2}=\sqrt{\frac12}$$`
+e
+`$$\phi=\tan^{-1}\left(\frac{d}{c}\right)=\tan^{-1}\left(1\right)=\frac{\pi}{4}.$$`
+Daí,
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{t}=b_{10}+b_{20}\left(\sqrt{\frac12}\right)^t\left(\cos\frac{\pi}{4}t+i\,\mathrm{sen}\,\frac{\pi}{4}t\right)+b_{30}\left(\sqrt{\frac12}\right)^t\left(\cos\frac{\pi}{4}t-i\,\mathrm{sen}\,\frac{\pi}{4}t\right)\\
+  &amp;=b_{1}+b_{2}\left(\sqrt{\frac12}\right)^t\cos\frac{\pi}{4}t+b_{3}\left(\sqrt{\frac12}\right)^t\,\mathrm{sen}\,\frac{\pi}{4}t.
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-3-1.png" width="52%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças dada por `\(X_t-2X_{t-1}+X_{t-2}=0\)` ou `\((1-2B+B^2)X_t\)`. Para encontrar 
+a solução da equação, considere a seguinte equação característica:
+`$$C(z)=1-2z+z^2=(1-z)^2=0.$$`
+Pelo teorema fundamental da álgebra, sabe-se que a equação característica
+tem duas raízes, sendo `\(R_1^{-1}=1\)` com multiplicidade `\(m_1=2\)`. Daí,
+`$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{t}=\sum_{i=1}^1\sum_{j=0}^{m_i-1}b_{ij}\,t^j=b_{10}\,t^0+b_{11}\,t^1=b_{1}+b_{2}\,t.$$`
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere a equação em diferenças
+`\((1-\phi B)(1-B)^2X_t=0\)`. A equação característica é dada por
+`$$C(z)=(1-\phi z)(1-z)^2=0.$$`
+Então, `\(R_1^{-1}=\phi^{-1}\)` com multiplicidade `\(1\)` e `\(R_2^{-1}=1\)` com multiplicidade `\(2\)`. Daí, `\(X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{t}=\sum_{j=0}^0b_{1j}t^jR_1^{t}+\sum_{j=0}^1b_{2j}t^jR_2^{t}=b_1\phi^t+b_2+b_3t\)`.
+
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="float:left; padding:20px" /&gt;
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="float:right; padding:20px" /&gt;
+
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - I
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças dada por `\(X_t-X_{t-1}+0.21X_{t-2}=0\)`.
+A equação característica é dada por
+`$$C(z)=1-z+0.21z^2=0.$$`
+Daí,
+&lt;div class="math"&gt;
+  \begin{align}
+  z&amp;=\frac{1\pm\sqrt{1-4\,(0.21)}}{2\,(0.21)}=\frac{1\pm\sqrt{1-\frac{21}{25}}}{\frac{21}{50}}=\frac{1\pm\sqrt{\frac{4}{25}}}{\frac{21}{50}}=\frac{1\pm\frac{2}{5}}{\frac{21}{50}}.
+  \end{align}
+&lt;/div&gt;
+
+Assim, as raízes da equação característica são dadas por `\(R_1^{-1}=\frac{10}{3}\)` e `\(R_2^{-1}=\frac{10}{7}\)`.
+Então,
+`$$X_t=\sum_{i=1}^N\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{t}=\sum_{i=1}^2\sum_{j=0}^{m_i-1}b_{ij}\,t^jR_i^{t}=b_{10}\left(\frac{3}{10}\right)^{t}+b_{20}\left(\frac{7}{10}\right)^{t}=b_{1}\left(\frac{3}{10}\right)^{t}+b_{2}\left(\frac{7}{10}\right)^{t}.$$`
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - I
+
+&lt;img src="aula2_files/figure-html/unnamed-chunk-6-1.png" width="52%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeInUp
+
+### Equações em diferenças - I
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+Considere a equação em diferenças de segunda ordem, dada pela seguinte representação `\((1-a_1B-a_2B^2)X_t=(1-R_1B)(1-R_2B)X_t=0\)`.
+
+* Mostre que a solução geral para a equação é dada por:
+
+&lt;div class="math"&gt;
+  \begin{align}
+  X_t&amp;=\begin{cases}
+  b_1R_1^{t}+b_2R_2^{t}, &amp; \text{para } R_1^{-1} \text{ e } R_2^{-1} \, \text{ raízes reais };\\
+  \alpha^t\left[(b_1+b_2)\cos\phi t + i(b_1-b_2)\,\mathrm{sen}\,\phi t)\right], &amp; \text{para } R_1^{-1} \text{ e } R_2^{-1} \, \text{ raízes complexas };\\
+  b_1R_1^{t}+b_2\,tR_2^{t}, &amp; \text{para } R_1^{-1} = R_2^{-1}.
+  \end{cases}
+  \end{align}
+&lt;/div&gt;
+
+* Note que as condições para estabilidade dinâmica da função `\(X_t\)`, em 
+termos das suas raízes, são dadas por `\(|R_1|&lt;1\)` e `\(|R_2|&lt;1\)` ou 
+equivalentemente:
+
+&lt;div class="math"&gt;
+  \begin{align}
+  %\tag{1}
+  i.\,\, &amp; R_i&lt;1; &amp; ii.\,\, &amp; -R_i&lt;1, \quad i=1,2; &amp;\text{e}&amp; &amp; iii.\,\, &amp; |R_1R_2|&lt;1.
+  \end{align}
+&lt;/div&gt;
+  
+&amp;emsp;&amp;emsp; Mostre que as condições acimas podem ser reescritas em 
+termos de, `\(a_1\)` e `\(a_2\)`, da seguinte forma:
+&lt;div class="math"&gt;
+  \begin{align}
+  %\tag{2}
+  i.\,\, &amp; a_2+a_1&lt;1; &amp; ii.\,\, &amp; a_2-a_1&lt;1; &amp;\text{e}&amp; &amp; iii.\,\, &amp; |a_2|&lt;1.
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeInRight
+
+### Equações em diferenças - II
+
+* **Teorema (Critério de Schur-Cohn)**: Seja `\(C(z)=\sum_{j=0}^pa_jz^j=0\)` 
+a equação característica de uma equação em diferenças de ordem p, com `\(a_p\ne0\)`.
+Se os determinantes
+&lt;div class="math"&gt;
+  \begin{align}
+  D_k&amp;=\left|\begin{array}{cccc:cccc}
+  a_0       &amp; 0           &amp; \cdots &amp; 0      &amp; a_p     &amp;a_{p-1}&amp; \cdots &amp; a_{p-k+1}\\
+  a_1       &amp; a_0         &amp; \cdots &amp; 0      &amp; 0       &amp; a_p &amp; \cdots &amp; a_{p-k+2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots&amp; \ddots &amp; \vdots\\
+  a_{k-1}   &amp; a_{k-2}     &amp; \cdots &amp; a_0    &amp; 0       &amp; 0 &amp; \cdots &amp; a_p\\ \hdashline
+  \bar{a}_p       &amp;  0          &amp; \cdots &amp; 0      &amp; \bar{a}_0 &amp; \bar{a}_1     &amp; \cdots &amp; \bar{a}_{k-1}\\
+  \bar{a}_{p-1}   &amp;   \bar{a}_p       &amp; \cdots &amp; 0      &amp; 0 &amp; \bar{a}_0       &amp;\cdots  &amp; \bar{a}_{k-2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots &amp; \ddots&amp; \vdots\\
+  \bar{a}_{p-k+1} &amp; \bar{a}_{p-k+2}   &amp; \cdots &amp; \bar{a}_p    &amp; 0       &amp; 0 &amp; \cdots &amp; \bar{a}_0\\
+  \end{array}\right|, \quad k=1,2,3,\ldots,p,
+  \end{align}
+&lt;/div&gt;
+
+são diferentes de zero, então, `\(C(z)\)` não possui zeros em `\(|z|=1\)` e possui
+`\(m\)` zeros em `\(|z|&lt;1\)`, onde `\(m\)` é o número de variação de sinal da sequência
+`\(1,D_1,D_2,\ldots,D_p\)` e `\(\bar{a_i}\)` representa o conjuado de `\(a_i\)`, com
+`\(i=0,1,2,\ldots,p\)`.
+
+---
+class: animated, fadeInDown
+
+### Equações em diferenças - II
+
+&gt; O Critério de Schur-Cohn afirma que o módulo das raízes da equação 
+característica serão menores do que `\(1\)`, _see_ os `\(p\)` determinates `\(D_1,D_2,\ldots,D_p\)`
+são todos positivos, i.e., para verificar a estabilidade de uma equação
+em diferenças de ordem requer-se que todos os `\(p\)` determinantes sejam 
+positivos. Em caso, que um dos determinantes não seja positivo, então
+não teremos estabilidade na solução.
+
+Por exemplo, para `\(k=1, 2\)` e `\(3\)`
+
+&lt;div class="math"&gt;
+\begin{align}
+  D_1&amp;=\left|\begin{array}{c:c}
+  a_0       &amp; a_{p}\\ \hdashline
+  \bar{a}_p &amp; \bar{a}_0
+  \end{array}\right| &amp;
+  D_2&amp;=\left|\begin{array}{cc:cc}
+  a_0 &amp; 0  &amp; a_p &amp; a_{p-1}\\
+  a_1 &amp; a_0  &amp; 0 &amp; a_{p}\\ \hdashline
+  \bar{a}_p &amp; 0 &amp; \bar{a}_0 &amp; \bar{a}_1\\
+  \bar{a}_{p-1} &amp; \bar{a}_p &amp; 0 &amp;\bar{a}_0
+  \end{array}\right| &amp;
+  D_3&amp;=\left|\begin{array}{ccc:ccc}
+  a_0 &amp; 0 &amp; 0  &amp; a_p &amp; a_{p-1} &amp; a_{p-2}\\
+  a_1 &amp; a_0  &amp; 0 &amp; 0 &amp;a_{p} &amp; a_{p-1}\\
+  a_2 &amp; a_1  &amp; 0 &amp; 0 &amp;0 &amp; a_{p}\\ \hdashline
+  \bar{a}_p &amp; 0 &amp;0&amp; \bar{a}_0 &amp; \bar{a}_1 &amp; \bar{a}_2\\
+  \bar{a}_{p-1} &amp; \bar{a}_p&amp; 0 &amp;  0 &amp; \bar{a}_0 &amp;\bar{a}_1\\
+  \bar{a}_{p-2} &amp; \bar{a}_{p-1}&amp; a_p &amp;  0 &amp; 0 &amp;\bar{a}_0
+  \end{array}\right|
+  \end{align}
+  
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Equações em diferenças - II
+
+Para `\(k=p\)`
+&lt;div class="math"&gt;
+\begin{align}
+  D_p&amp;=\left|\begin{array}{cccc:cccc}
+  a_0       &amp; 0           &amp; \cdots &amp; 0      &amp; a_p     &amp;a_{p-1}&amp; \cdots &amp; a_{1}\\
+  a_1       &amp; a_0         &amp; \cdots &amp; 0      &amp; 0       &amp; a_p &amp; \cdots &amp; a_{2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots&amp; \ddots &amp; \vdots\\
+  a_{p-1}   &amp; a_{p-2}     &amp; \cdots &amp; a_0    &amp; 0       &amp; 0 &amp; \cdots &amp; a_p\\ \hdashline
+  \bar{a}_p       &amp;  0          &amp; \cdots &amp; 0      &amp; \bar{a}_0 &amp; \bar{a}_1     &amp; \cdots &amp; \bar{a}_{p-1}\\
+  \bar{a}_{p-1}   &amp;   \bar{a}_p       &amp; \cdots &amp; 0      &amp; 0 &amp; \bar{a}_0       &amp;\cdots  &amp; \bar{a}_{p-2}\\
+  \vdots    &amp; \vdots      &amp; \ddots &amp; \vdots &amp; \vdots  &amp; \vdots &amp; \ddots&amp; \vdots\\
+  \bar{a}_{1} &amp; \bar{a}_{2}   &amp; \cdots &amp; \bar{a}_p    &amp; 0       &amp; 0 &amp; \cdots &amp; \bar{a}_0\\
+  \end{array}\right|
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeLeft
+
+### Equações em diferenças - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças dada por `\((1-a_1B-a_2B^2)X_t=0\)`. A equação 
+característica é dada por
+`$$C(z)=1-a_1z-a_2z^2=0.$$`
+Dessa forma, os determinantes a considerar são dados por
+&lt;div class="math"&gt;
+\begin{align}
+  D_1&amp;=\left|\begin{array}{c:c}
+  -1       &amp; a_2\\ \hdashline
+  a_2 &amp; -1
+  \end{array}\right|=1-a^2=(1-a_2)(1+a_2)\\
+  D_2&amp;=\left|\begin{array}{cc:cc}
+  -1 &amp; 0  &amp; a_2 &amp; a_{1}\\
+  a_1 &amp; -1  &amp; 0 &amp; a_{2}\\ \hdashline
+  a_2 &amp; 0 &amp; -1 &amp; a_1\\
+  a_1 &amp; a_2 &amp; 0 &amp;-1
+  \end{array}\right|=(-1)\left(-1+a_2^2\right)+a_2\left(-a_1^2a_2-a_2-a_1^2+a_2^3\right)-a_1\left(a_1a_2+a_1\right)\\
+  &amp;\hspace{7.2cm}=1-2a_2^2-a_1^2\left(1+2a_2+a_2^2\right)+ a_2^4=\left(1-a_2^2\right)^2-a_1^2(1+a_2)^2\\
+  &amp;\hspace{7.2cm}=(1+a_2)^2\left[(1-a_2)^2-a_1^2\right].
+  \end{align}
+&lt;/div&gt;
+
+---
+class: animated, fadeUp
+
+### Equações em diferenças - II
+
+Temos então, `\(D_1=1-a^2\)` e `\(D_2=(1+a_2)^2\left[(1-a_2)^2-a_1^2\right]\)`. Daí,
+a condição `\(D_1&gt;0\)` é equivalente a `\(1-a_2^2&gt;0\)` ou `\(|a_2|&lt;1\)`. Enquanto que,
+a condição `\(D_2&gt;0\)` é equivalente a
+`$$(1+a_2)^2\left[(1-a_2)^2-a_1^2\right]&gt;0.$$`
+O que significa que, `\(D_2&gt;0\)` _see_ `\((1-a_2)^2&gt;a_1^2\)` ou `\(|1-a_2|&gt;|a_1|\)`.
+Dessa forma, as condições de estabilidade são dada por
+&lt;div class="math"&gt;
+  \begin{align}
+    |a_2|&amp;&lt; 1; &amp; a_2+a_1&amp;&lt;1; &amp; \text{ e } &amp; &amp; a_2-a_1&amp;&lt;1.
+  \end{align}
+&lt;/div&gt;
+
+
+&lt;b&gt;&lt;span style="color:rgba(0, 114,4, 1)"&gt;Exercício.&lt;/span&gt;&lt;/b&gt;
+Considere a equação em diferenças de terceira ordem, dada pela seguinte 
+representação `\((1-a_1B-a_2B^2-a_3B^3)X_t=0\)`. Mostre que as condições
+de estabilidade são dadas por
+&lt;div class="math"&gt;
+  \begin{align}
+    |a_3|&amp;&lt; 1; &amp; a_3+a_2+a_1&amp;&lt;1; &amp; a_2-a_1-a_3&amp;&lt;1;&amp; a_3\,(a_3+a_1)-a_2&lt;1;\quad \text{e}
+  \end{align}
+&lt;/div&gt;
+
+&lt;div class="math"&gt;
+  \begin{align}
+    3a_3-a_2-a_1&lt;3\quad \text{ou} \quad a_1-a_2-3a_3&lt;3.
+  \end{align}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeDown
+
+### Equações em diferenças - II
+
+&lt;b&gt;&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Exemplo.&lt;/span&gt;&lt;/b&gt; Considere 
+a equação em diferenças de ordem p, dada por `\((1-a_1B-a_2B^2-\cdots-a_pB^p)X_t=0\)`,
+com `\(a_p\ne0\)`. Daí, a equação característica é dada por
+`$$1-a_1z-a_2z^2-\cdots-a_{p-1}z^{p-1}-a_pz^p=0.$$`
+Dessa forma, pelo teorema fundamental da álgebra, temos que 
+`$$(1-R_1B)(1-R_2B)\cdots(1-R_pB)=0,$$`
+onde as raízes da equação característica são dadas por
+`\(R_1^{-1}, R_2^{-1}, R_3^{-1}. \ldots, R_p^{-1}\)`. 
+
+Se todas as raízes são diferentes, então a solução da equação em diferenças é dada 
+por
+`$$X_t=b_1R_1^t+b_2R_2^t+\cdots+b_pR_p^t.$$`
+
+---
+class: animated, fadeLeft
+
+### Equações em diferenças - II
+
+Se `\(1&lt;m\le p\)` raízes reais iguais, tal que `\(R_1=R_2=\cdots=R_m=R\)`, então
+a solução é dada por
+`$$X_t=R^t\sum_{j=1}^mb_jt^{j-1}+\sum_{j=m+1}^pb_jR_j^t.$$`
+Em geral, se `\(m=p\)` e `\(|R|&lt;1\)` a solução é dada por
+`$$X_t=R^t\sum_{j=1}^pb_jt^{j-1}.$$`
+
+Usando o Critério de Schur-Cohn podemos concluir que, para uma 
+equação em diferenças de ordem `\(p\ge1\)`, para que exista estabilidade, ou
+equilibrio, no longo prazo é necessário que
+&lt;div class="math"&gt;
+  \begin{align}
+  |a_p|&amp;&lt;1 &amp; &amp; \text{ e}&amp; &amp; a_p+a_{p-1}+\cdots+a_1&lt;1,
+  \end{align}
+&lt;/div&gt;
+
+que em outras palavras significa que `\(|R_i|&lt;1\)` para `\(i=1,2,3,\ldots,p\)`.
+
+
+---
+class: animated, lightSpeedIn
+### Referências
+
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
+
+Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University
+Press.
+
+Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate
+Methods_. 2nd. Addison Wesley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Censo Demográfico: Uma visão acadêmica</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabio Fajardo Molinares  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <script src="libs/jszip/jszip.min.js"></script>
+    <script src="libs/pdfmake/pdfmake.js"></script>
+    <script src="libs/pdfmake/vfs_fonts.js"></script>
+    <link href="libs/dt-ext-buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="libs/dt-ext-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.html5.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.colVis.min.js"></script>
+    <script src="libs/dt-ext-buttons/js/buttons.print.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <script src="libs/plotly-binding/plotly.js"></script>
+    <script src="libs/typedarray/typedarray.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Censo Demográfico: Uma visão acadêmica
+]
+.subtitle[
+## <br/><br/>
+]
+.author[
+### Fabio Fajardo Molinares<br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 01/08/2022
+]
+
+---
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Censo Demográfico: 150 anos de história!
+
+&lt;img src="images/historia_censo.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Importância do Censo Demográfico
+
+* &lt;font size=5&gt;Questionar a relevância do **Censo Demográfico** de um país é como 
+questionar a nossa necessidade de respirar;&lt;/font&gt;
+&lt;img src="images/nosso_povo.png" width="25%" style="float:right; padding:10px" /&gt;
+
+--
+
+* &lt;font size=5&gt;Permite que o planejamento de políticas públicas seja 
+sustentado com informações que vão de encontro às reais necessidades 
+da população;&lt;/font&gt;
+
+&lt;img src="images/politicas_publicas.png" width="30%" style="float:left; padding:10px" /&gt;
+
+--
+
+* &lt;font size=5&gt;O **Censo Demográfico** é uma das ferramentas mais 
+importantes para o planejamento de um país;&lt;/font&gt;
+&lt;img src="images/CD2022.png" width="30%" style="float:right; padding:10px" /&gt;
+
+--
+
+* &lt;font size=5&gt;&lt;b&gt;Nenhuma&lt;/b&gt; outra pesquisa no país produz informações 
+tão detalhadas como aquelas proporcionadas pelo &lt;b&gt;Censo Demográfico&lt;/b&gt;;&lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+### Importância do Censo Demográfico
+
+* &lt;font size=5&gt; O &lt;b&gt;Censo Demográfico&lt;/b&gt; é um raio X que ajuda a 
+estabelecer um diagnóstico da realidade de todo o território 
+brasileiro;&lt;/font&gt;
+
+&lt;center&gt;
+&lt;img src="images/xray2.png" width="45%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+#  Em 150 anos, o que mudou?
+
+
+---
+class: inverse, hide-logo, middle, center
+
+#  Instrumento de coleta
+
+---
+class: animated, fadeIn
+
+### Instrumento de coleta
+
+.pull-left[
+#### Questionário 1872
+
+&lt;img src="images/censo1872.jpg" width="85%" style="float:left; padding:10px" /&gt;
+
+&lt;br/&gt;
+
+Questionários aplicados no Censo 2022:
+
+* [Questionário Básico](https://censos.ibge.gov.br/np_download/censo2022/questionario_basico_completo_CD2022_atualizado.pdf)
+* [Questionário Amostra](https://censos.ibge.gov.br/np_download/censo2022/questionario_amostra_completo_CD2022_atualizado.pdf)
+* [Questionário da Pesquisa do Entorno](https://censos.ibge.gov.br/np_download/censo2022/questionario_pesquisa_urbanistica_do_entorno_dos_domicilios.pdf)
+* [Questionário de Abordagem Indígena](https://censos.ibge.gov.br/np_download/censo2022/questionario_abordagem_indigena.pdf)
+]
+
+.pull-right[
+#### Questionário básico 2022
+
+&lt;img src="images/questionario_CD2022.png" width="60%" style="float:left; padding:0px" /&gt;
+]
+
+---
+class: animated, fadeIn
+
+### Instrumento de coleta
+
+.pull-left[
+#### Coleta em 1872
+
+&lt;img src="images/censo1872.jpg" width="85%" style="float:left; padding:10px" /&gt;
+]
+
+.pull-right[
+#### Coleta em 2022
+
+&lt;img src="images/coleta_CD2022.jpg" width="85%" style="float:left; padding:0px" /&gt;
+]
+
+&lt;br/&gt;
+
+&lt;font size=5&gt;Em 2022, os agentes censitários usarão smartphones Android 
+personalizados para realizar a coleta das informações.&lt;/font&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+#  Variáveis: classificação mais precisa
+
+---
+class: animated, fadeIn
+
+### Pessoas com deficiência
+
+&lt;center&gt;
+&lt;img src="images/deficientes1872a.png" width="100%" style="float:center; padding:10px" /&gt;
+&lt;/center&gt;
+
+
+---
+class: animated, fadeIn
+
+### Pessoas com deficiência
+
+&lt;center&gt;
+&lt;img src="images/deficientes1872b.png" width="100%" style="float:center; padding:10px" /&gt;
+&lt;/center&gt;
+
+&lt;font size=5&gt;&lt;b&gt;Classificação:&lt;/b&gt; Cegos, Sordo-mudos, aleijados, dementes e alienados.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### Pessoas com deficiência
+
+&lt;center&gt;
+&lt;img src="images/deficientes2022.png" width="65%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+&lt;font size=5&gt;Maior precisão na caracterização das diferentes 
+classificações para pessoas com deficiência.&lt;/font&gt;
+
+
+---
+class: animated, fadeIn
+
+### Classificação da raça/cor
+
+&lt;center&gt;
+&lt;img src="images/raca1872a.png" width="100%" style="float:center; padding:10px" /&gt;
+&lt;/center&gt;
+
+
+---
+class: animated, fadeIn
+
+### Classificação da raça/cor
+
+&lt;center&gt;
+&lt;img src="images/raca1872b.png" width="100%" style="float:center; padding:10px" /&gt;
+&lt;/center&gt;
+
+&lt;font size=5&gt;&lt;b&gt;Classificação:&lt;/b&gt; Brancos, pardos, pretos e caboclos.&lt;/font&gt;
+
+
+---
+class: animated, fadeIn
+
+### Classificação da raça/cor
+
+&lt;center&gt;
+&lt;img src="images/indigena2022.png" width="45%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+&lt;font size=5&gt;Questionário próprio de abordagem indígena.&lt;/font&gt;
+
+
+---
+class: animated, fadeIn
+
+### Grau de instrução
+
+&lt;center&gt;
+&lt;img src="images/instrucao1872.png" width="100%" style="float:center; padding:10px" /&gt;
+&lt;/center&gt;
+
+&lt;font size=5&gt;&lt;b&gt;Classificação:&lt;/b&gt; Sabem ler e escrever e analfabetos.&lt;/font&gt;
+
+
+---
+class: animated, fadeIn
+
+### Grau de instrução
+
+&lt;center&gt;
+&lt;img src="images/instrucao2022a.png" width="100%" style="float:center; padding:20px" /&gt;
+&lt;/center&gt;
+
+---
+class: animated, fadeIn
+
+### Grau de instrução
+
+&lt;center&gt;
+&lt;img src="images/instrucao2022b.png" width="35%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+&lt;font size=5&gt;.&lt;/font&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+#  População
+
+
+---
+class: animated, slideInRight
+
+### População
+
+.pull-left[
+<div id="htmlwidget-c7b733a9a053b08289a7" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c7b733a9a053b08289a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[[1,2,3,4,5,6,7,8,9,10,11,12],[1872,1890,1900,1920,1940,1950,1960,1970,1980,1991,2000,2010],[9930478,14333915,17438434,30635605,41236315,51944397,70992343,94508583,121150573,146917459,169590693,190755799]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>ident<\/th>\n      <th>Ano<\/th>\n      <th>Populacao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"tBp","buttons":[{"extend":"csv","filename":"populacao"},{"extend":"excel","filename":"populacao"},{"extend":"pdf","filename":"populacao"}],"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[0,1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+ 
+]
+.pull-right[
+<div id="htmlwidget-950be0314435e04008f7" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-950be0314435e04008f7">{"x":{"visdat":{"6877a77e85178":["function () ","plotlyVisDat"]},"cur_data":"6877a77e85178","attrs":{"6877a77e85178":{"x":{},"y":{},"mode":"lines","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"width":400,"height":400,"margin":{"b":80,"l":50,"t":80,"r":50,"pad":4},"xaxis":{"domain":[0,1],"automargin":true,"range":[1872,2020],"title":"Ano"},"yaxis":{"domain":[0,1],"automargin":true,"title":"População"},"autosize":false,"showlegend":false,"hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1872,1890,1900,1920,1940,1950,1960,1970,1980,1991,2000,2010],"y":[9930478,14333915,17438434,30635605,41236315,51944397,70992343,94508583,121150573,146917459,169590693,190755799],"mode":"lines","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]  
+
+
+---
+class: animated, slideInRight
+
+### População
+
+&lt;center&gt;
+&lt;img src="images/IBGE_projecao_pop.png" width="100%" style="float:center; padding:20px" /&gt;
+&lt;/center&gt;
+
+&lt;br/&gt;
+
+***
+
+**Fonte:** [https://www.ibge.gov.br/apps/populacao/projecao/index.html](https://www.ibge.gov.br/apps/populacao/projecao/index.html)
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# O que podemos responder com o Censo 2022?
+
+---
+class: animated, fadeIn
+
+### O que podemos responder com o Censo 2022?
+
+* &lt;font size=5&gt;Quanto o país mudou nos últimos 12 anos? &lt;/font&gt;
+
+
+* &lt;font size=5&gt;Em 2015, a cidade de Mariana, em Minas Gerais, sofreu o rompimento 
+de uma barragem de mineração e teve uma mudança significativa na 
+população. Para quais municípios esses habitantes foram? Em 2019, mais 
+uma tragédia atinge a população de MG, agora em Brumadinho. Como muda
+o repasse de verbas do Fundo de Participação dos Municípios (FPM)?&lt;/font&gt;
+
+
+* &lt;font size=5&gt;Como as crises sanitárias (Covid-19, dengue, zika, etc.) têm 
+afetado as taxas de natalidade e mortalidade da população? &lt;/font&gt;
+
+
+* &lt;font size=5&gt;Em abril de 2020, o sistema funerário em Manaus ficou 
+à beira do colapso. Qual o atual cenário da população do estado do 
+Amazonas?&lt;/font&gt;
+
+
+* &lt;font size=5&gt;Certamente existem muitos outros questionamentos que 
+podem ser respondidos!&lt;/font&gt;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# Como usamos os dados censitários no âmbito acadêmico?
+
+---
+class: animated, slideInRight
+
+### Alguns exemplos: [https://www.periodicos.capes.gov.br](https://www.periodicos.capes.gov.br)
+
+&lt;center&gt;
+&lt;img src="images/periodicos_capes1.png" width="85%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+---
+class: animated, slideInRight
+
+### Alguns exemplos: [https://www.periodicos.capes.gov.br](https://www.periodicos.capes.gov.br)
+
+&lt;center&gt;
+&lt;img src="images/periodicos_capes2.png" width="85%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+---
+class: animated, slideInRight
+
+### Alguns exemplos: [https://scholar.google.com.br](https://scholar.google.com.br)
+
+&lt;center&gt;
+&lt;img src="images/google1.png" width="85%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos: Incidência de dengue na Grande Vitória
+
+&lt;center&gt;
+&lt;img src="images/dengue.png" width="85%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos: Taxas de incidência COVID-19
+
+&lt;center&gt;
+&lt;img src="images/covid.png" width="70%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos: Observatório Obstétrico Brasileiro
+
+&lt;center&gt;
+&lt;img src="images/oobr.png" width="60%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+
+---
+class: animated, fadeIn
+
+### Alguns exemplos: Incompletitude em dados públicos da área de saúde materna do Brasil
+
+&lt;center&gt;
+&lt;img src="images/materno.png" width="60%" style="float:center; padding:0px" /&gt;
+&lt;/center&gt;
+
+---
+class: animated, lightSpeedIn
+# Contato
+
+&lt;font size=6&gt;&lt;b&gt;Fabio A. Fajardo Molinares&lt;/b&gt; (fabio.molinares@ufes.br)&lt;/font&gt;
+
+Laboratório de Estatística e Computação Natural
+
+Departamento de Estatística - [www.estatistica.ufes.br](www.estatistica.ufes.br)
+
+Universidade Federal do Espírito Santo
+
+&lt;br/&gt;
+
+&lt;center&gt;&lt;font size=20&gt;&lt;b&gt;Obrigado!&lt;/b&gt;&lt;/font&gt;&lt;/center&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_lecon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 170px;
+  height: 188px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

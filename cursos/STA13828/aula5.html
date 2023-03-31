@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análise de Séries Temporais</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análise de Séries Temporais
+]
+.subtitle[
+## Modelagem em processos com representação ARMA(p,q) - I
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 15/12/2022
+]
+
+---
+
+[//]: &lt;&gt; (https://pkg.garrickadenbuie.com/countdown/#1)
+[//]: &lt;&gt; (https://github.com/animate-css/animate.css/blob/main/animate.css)
+[//]: &lt;&gt; (xaringan::inf_mr())
+
+class: animated, fadeIn
+
+
+
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+### Modelagem em processos com representação ARMA(p,q)
+
+Na construção de modelos para séries temporais, 
+Box and Jenkins (1976) propuseram uma metodologia baseada
+em quatro etapas:
+
+* **Identificação**: Refere-se à determinação dos valores das ordens da
+representação em diferenças, i.e. se a representação adequada é ARIMA,
+então a ideia é determinar as ordens `\(p, d\)` e `\(q\)`;
+
+* **Estimação**: Refere-se à estimação dos parâmetros envolvidos na 
+representação. Existem vários métodos para estimação dos parâmetros;
+
+* **Verificação**: Nesta etapa deve-se avaliar se o ajuste é adequado,
+i.e., se todas as suposições são satisfeitas. Caso as suposições não 
+sejam satisfeitas as etapas anteriores devem ser repetidas;
+
+* **Uso do modelo**: Cumpridas as etapas anteriores, procede-se no
+uso do modelo ajustado. O modelo ajustado pode ser utilizado para
+predição, controle de processos, simulação ou simplesmente para estudar
+a dinâmica dos fenômenos sob estudo.
+
+&lt;br /&gt;
+
+***
+Para detalhes, sugere-se a leitura do livro de Brockwell and Davis (2016),
+Wei (2005) e Hamilton (1994).
+
+---
+class: animated, fadeUp
+
+### Modelagem em processos com representação ARMA(p,q)
+
+&lt;img src="images/etapas_BJ.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+## 1. Identificação
+
+
+---
+class: animated, fadeInDown
+
+### Transformações
+
+Caso a não-estacionariedade seja causada pela variância do processo, i.e.,
+a variância do processo não é constante, então uma primeira tentativa
+é usar uma transformação de potência. De acordo com Bartlett (1974)&lt;sup&gt;1&lt;/sup&gt;, 
+esse tipo de transformação permite "*estabilizar*" a variância do 
+processo, mesmo antes de remover a tendência polinomial do mesmo.
+
+Suponha que a variância do processo `\(\{X_t\}\)` pode ser escrita em função 
+da sua média, i.e.,
+`$$\sigma^2_t=f(\mu_t),$$`
+dessa forma, se `\(T(\cdot)\)` é uma função, cuja primeira derivada existe,
+então, a função `\(T\)` pode ser aproximada por
+`$$T(X_t)=T(\mu_t)+\left(\frac{dT}{dX_t}\Biggr|_{X_t=\mu_t}\right)(X_t-\mu_t).$$`
+
+&lt;br /&gt;&lt;br /&gt;
+
+***
+&lt;font size=3&gt;Barttlet, M. S. (1974) &lt;b&gt;The use of transformations&lt;/b&gt;. Biometrika, 3, 39-52.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### Transformações
+
+Daí, uma aproximação linear para a variância do processo 
+`\(\{T(X_t)\}\)` é dada por
+`$$\mathrm{var}(T)=\left(\frac{dT}{dX_t}\Biggr|_{X_t=\mu_t}\right)^2f(\mu_t).$$`
+
+Já que o objetivo é tornar a variância constante, então
+
+`$$\frac{dT}{dX_t}\Biggr|_{X_t=\mu_t}=\sqrt{\frac{\mathrm{var}(T)}{f(\mu_t)}}=\frac{C}{\sqrt{f(\mu_t)}}$$`
+e, dessa forma
+
+`$$T(\mu_t)=\int\frac{C}{\sqrt{f(\mu_t)}}\,d\mu_t.$$`
+De acordo com o resultado, faz-se necessário conhecer a forma analítica 
+da função `\(f\)`, para determinar o tipo de transformação que estabilize 
+a variância do processo.
+
+
+---
+class: animated, fadeIn
+
+### Transformações
+
+Se a variável `\(X_t\)` é positiva, podemos supor que a variância do
+processo é proporcional a `\(\mu_t^{2(1-\lambda)}\)`, onde `\(\lambda\)` é um
+valor constante, em outras palavras, `\(f(\mu_t)\propto \mu_t^{2(1-\lambda)}\)`.
+Daí, 
+
+&lt;div class="math"&gt;
+  \begin{align*}
+  T(\mu_t)&amp;\propto\begin{cases}
+  \mu_t^\lambda, &amp; \text{ se } \lambda\ne 0;\\
+  \log(\mu_t), &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Dessa forma, o último resultado sugere que, a função `\(T(\cdot)\)` 
+que torna a variância do processo aproximadamente constante é dada por
+
+&lt;div class="math"&gt;
+  \begin{align*}
+  T(X_t)&amp;=\begin{cases}
+  X_t^\lambda, &amp; \text{ se } \lambda\ne 0;\\
+  \log(X_t), &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Na prática, para `\(t=1,2,\ldots,n\)`, deve-se escolher um valor `\(\lambda\)`, 
+tal que
+`$$\frac{\sigma_t}{\mu_t^{1-\lambda}}\equiv \text{ constante}.$$`
+
+---
+class: animated, fadeIn
+### Transformações
+
+Para estimar `\(\sigma_t\)`, Guerrero (1993)&lt;sup&gt;1&lt;/sup&gt; sugere o seguinte
+método:
+
+1. A partir da `\(n\)` observações, crie `\(H\)` grupos homogêneos de 
+tamanho `\(R=\frac{n-N}{H}\)`, onde `\(N\)` é o número de observações 
+desconsideradas para os cálculos, tal que `\(0\le N&lt; R\)`. As `\(N\)` 
+observações podem ser do início ou do final da série temporal;
+
+1. Calcule a média e o desvio padrão dentro de cada grupo. Dessa forma,
+teremos `\(H\)` pares `\((S_h,\bar{X}_h)\)`, com `\(h=1,2,\ldots, H\)`, tal que,
+se `\(X_{h,r}\)` é a `\(r\)`-ésima observação do grupo `\(H\)`, então
+`$$\bar{X}_h=\frac{1}{R}\sum_{r=1}^RX_{h,r}$$`
+e 
+`$$S_h=\sqrt{\frac{1}{R-1}\sum_{r=1}^R\left(X_{h,r}-\bar{X}_h\right)^2}.$$`
+
+***
+&lt;font size=3&gt;Guerrero, V. (1993). &lt;b&gt;Time series analysis supported by power transformations&lt;/b&gt;. Journal of forecasting, 12, 37-48.&lt;/font&gt;
+
+
+---
+class: animated, fadeIn
+
+### Transformações
+
+| &lt;td colspan=5&gt; `\(\hspace{5cm} \lambda\)` &lt;/td&gt;
+|:-------:|:----:|:------:|:-----:|:-----:|:-----:|
+|   Grupo |   -1 |  -0.5  |   0   |  0.5  |   1   |
+|   1     | `\(\frac{S_1}{\bar{X}_1^2}\)` | `\(\frac{S_1}{\bar{X}_1^{1.5}}\)` | `\(\frac{S_1}{\bar{X}_1}\)` | `\(\frac{S_1}{\bar{X}_1^{0.5}}\)` | `\(S_1\)` |
+|   2     | `\(\frac{S_2}{\bar{X}_2^2}\)` | `\(\frac{S_2}{\bar{X}_2^{1.5}}\)` | `\(\frac{S_2}{\bar{X}_2}\)` | `\(\frac{S_2}{\bar{X}_2^{0.5}}\)` | `\(S_2\)` |
+| `\(\vdots\)`| `\(\vdots\)` | | | `\(\vdots\)`| `\(\vdots\)`
+|   `\(h\)`   | `\(\frac{S_h}{\bar{X}_h^2}\)` | `\(\frac{S_h}{\bar{X}_h^{1.5}}\)` | `\(\frac{S_h}{\bar{X}_h}\)` | `\(\frac{S_h}{\bar{X}_h^{0.5}}\)` | `\(S_h\)` |
+| `\(\vdots\)`| `\(\vdots\)` | | | `\(\vdots\)`| `\(\vdots\)`
+|    `\(H\)`  | `\(\frac{S_H}{\bar{X}_H^2}\)` | `\(\frac{S_H}{\bar{X}_H^{1.5}}\)` | `\(\frac{S_H}{\bar{X}_H}\)` | `\(\frac{S_H}{\bar{X}_H^{0.5}}\)` | `\(S_H\)` |
+| Coef. de variação| `\(\mathrm{CV}(-1)\)` | `\(\mathrm{CV}(-0.5)\)` |  `\(\mathrm{CV}(0)\)` | `\(\mathrm{CV}(0.5)\)` | `\(\mathrm{CV}(1)\)` |
+
+
+---
+class: animated, fadeLeft
+
+### Transformações
+
+O coeficiente de variação calcula-se como 
+`$$\mathrm{CV}(\lambda)=\frac{dp(\lambda)}{M(\lambda)}=\frac{\sqrt{\frac{1}{H-1}\sum_{h=1}^H\left[\frac{S_h}{\bar{X}_h^{1-\lambda}}-\frac{1}{H}\sum_{h=1}^H\left(\frac{S_h}{\bar{X}_h^{1-\lambda}}\right)\right]^2}}{\frac{1}{H}\sum_{h=1}^H\left(\frac{S_h}{\bar{X}_h^{1-\lambda}}\right)}.$$`
+Daí, o valor de `\(\lambda\)` selecionado é aquel que proporcione o menor
+valor do coeficiente de variação. Assim, o processo resultante é 
+dado por
+
+&lt;div class="math"&gt;
+  \begin{align*}
+  T(X_t)&amp;=\begin{cases}
+  X_t^\lambda, &amp; \text{ se } \lambda\ne 0;\\
+  \log(X_t), &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+## Correção do viés de transformação
+
+---
+class: animated, fadeIn
+
+### Correção do viés de transformação
+
+Na maioria dos casos, as previsões obtidas na análise preditiva devem
+ser apresentadas para o processo observado `\(\{X_t\}\)` e não para o
+processo transformado `\(\{T(X_t)\}\)`. Esse último, pode não ter 
+interpretação prática.
+
+Inicialmente, resulta intuitivo pensar que a aplicação da tranformação
+inversa de `\(T\)` (se existe), i.e. `\(T^{-1}\)`, poderia ser aplicada para
+obter as previsões da série original, entretanto, como mostrado por 
+Granger and Newbold (1976)&lt;sup&gt;1&lt;/sup&gt;, **as propriedades estatísticas desejáveis do preditor linear de `\(T(X_t)\)` não são garantidas se a transformação `\(T\)` não é lineal**.
+
+&gt; Na prática, as familias de tranformações de potência
+&lt;div class="math"&gt;
+  \begin{align*}
+  T(X_t)&amp;=\begin{cases}
+  \frac{X_t^\lambda-1}{\lambda}, &amp; \text{ se } \lambda\ne 0;\\
+  \log(X_t), &amp; \text{ se } \lambda=0.
+  \end{cases} &amp;  \mathrm{ou} &amp; &amp; 
+  T(X_t)&amp;=\begin{cases}
+  X_t^\lambda, &amp; \text{ se } \lambda\ne 0;\\
+  \log(X_t), &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+&gt; são comumente usadas. Para essa transformação é possível calcular o
+fator que permite corrigir aproximadamente o viés introduzido pela
+aplicação da transformação inversa.
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt; Granger, C. W. J . and Newbold, P. (1976)  
+&lt;b&gt;Forecasting transformed series&lt;/b&gt;, Journal of the Royal Statistical
+Society, B-38, 189-203.&lt;/font&gt;
+
+
+---
+class: animated, fadeRight
+
+### Correção do viés de transformação
+
+
+Seja `\(\{X_t\}\)` um processo estacionário de segunda ordem e seja 
+`\(\lambda\)` uma constante. Observe que, para um valor `\(\lambda\)` dado, e
+denotando `\(T(X_{t+h}):=X_{t+h}^{(\lambda)}\)`, então
+`$$X_{t+h}^{(\lambda)}=\sum_{k=0}^\infty\frac{1}{k!}\left.\frac{d^kX_t^{(\lambda)}}{dX_t^{k}}\right|_{X_t=X_0}\left(X_{t+h}-X_0\right)^k,$$`
+onde
+&lt;div class="math"&gt;
+  \begin{align*}
+  \left.\frac{d^kX_t^{(\lambda)}}{dX_t^{k}}\right|_{X_t=X_0}&amp;=
+  \begin{cases}
+  X_0^{(\lambda)}, &amp; \text{ se } k=0;\\
+  X_0^{\lambda-1}, &amp; \text{ se } k=1;\\
+  (\lambda-1)(\lambda-2)\cdots(\lambda-k+1)X_0^{\lambda-k}, &amp; \text{ se } k\ge 2.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Se `\(X_0=\mathbb{E}\left[X_{t+h}|X_t, X_{t-1},\ldots\right]=\mathbb{E}_t[X_{t+h}]\)`, 
+então
+`$$X_{t+h}^{(\lambda)}=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-1}\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]^2+\cdots$$`
+
+---
+class: animated, fadeUp
+
+### Correção do viés de transformação
+
+Dessa forma,
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_tX_{t+h}^{(\lambda)}&amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathbb{E}_t\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]^2\\
+    &amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t\left[X_{t+h}\right].
+  \end{align*}
+&lt;/div&gt;
+
+Da mesma forma, para `\(\left[X_{t+h}^{(\lambda)}\right]^2\)`, temos que
+&lt;div class=math&gt;
+  \begin{align*}
+  \left[X_{t+h}^{(\lambda)}\right]^2&amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\right)^2+2\,\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-1}\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]\\
+  &amp;+\left((\lambda-1)\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}+\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\right)\left[X_{t+h}-\mathbb{E}_tX_{t+h}\right]^2+\cdots
+\end{align*}
+&lt;/div&gt;
+
+Daí,
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]^2&amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\right)^2+\left((\lambda-1)\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}+\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\right)\mathrm{var}_t\left[X_{t+h}\right].
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeLeft
+
+### Correção do viés de transformação
+Assim,
+
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]&amp;=\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]^2-\left[\mathbb{E}_tX_{t+h}^{(\lambda)}\right]^2\\
+    &amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\right)^2+\left((\lambda-1)\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}+\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\right)\mathrm{var}_t\left[X_{t+h}\right]\\
+    &amp;-\left(\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t\left[X_{t+h}\right]\right)^2\\
+    &amp;=\left(\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\mathrm{var}_t[X_{t+h}]\right)\left(1-\frac{(\lambda-1)^2}{4}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t[X_{t+h}]\right).
+  \end{align*}
+&lt;/div&gt;
+
+Reduzindo mais ainda, podemos aproximar a `\(\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]\)`
+da seguinte forma
+
+`$$\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]=\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda-2}\mathrm{var}_t[X_{t+h}].$$`
+
+---
+class: animated, fadeDown
+
+### Correção do viés de transformação
+
+A expressão anterior implica que
+`$$\left[\mathbb{E}_tX_{t+h}\right]^{-\lambda}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]=\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t[X_{t+h}].$$`
+
+Substituindo em `\(\mathbb{E}_tX_{t+h}^{(\lambda)}\)`, temos que
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_tX_{t+h}^{(\lambda)}&amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{\lambda-2}\mathrm{var}_t\left[X_{t+h}\right]\\
+    &amp;=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{-\lambda}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right].
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Correção do viés de transformação
+
+A equação `\(\mathbb{E}_tX_{t+h}^{(\lambda)}=\left[\mathbb{E}_tX_{t+h}\right]^{(\lambda)}+\frac{\lambda-1}{2}\left[\mathbb{E}_tX_{t+h}\right]^{-\lambda}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]\)` permite obter os fatores para correção do viés.
+
+Por exemplo, para o caso `\(\lambda=0\)`, i.e. usando a transformação 
+logaritmica, tem-se
+`$$\mathbb{E}_t\left[\log X_{t+h}\right]=\log\left[\mathbb{E}_tX_{t+h}\right]-\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right].$$`
+ou
+`$$\mathbb{E}_tX_{t+h}=\exp\left\{\mathbb{E}_t\left[\log X_{t+h}\right]\right\}\exp\left\{\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right]\right\}.$$`
+
+Da mesma forma, para o caso `\(\lambda\ne0\)` e considerando a transformação
+de Box &amp; Cox (1964)&lt;sup&gt;1&lt;/sup&gt;, temos que
+`$$\left[\mathbb{E}_tX_{t+h}\right]^{2\lambda}-\left(1+\lambda\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)\left[\mathbb{E}_tX_{t+h}\right]^\lambda+\frac{\lambda(\lambda-1)}{2}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]=0.$$`
+
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Box, G. E. P. and Cox, D. R. (1964) &lt;b&gt;An analysis of transformations&lt;/b&gt;, Journal of the Royal Statistical Society,
+B-26, 21 1-43.&lt;/font&gt;
+
+
+---
+class: animated, fadeRight
+
+### Correção do viés de transformação
+
+A solução da euqação de segundo grau é dada por
+`$$\left[\mathbb{E}_tX_{t+h}\right]^\lambda=\frac{1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\pm\sqrt{\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^2-2\lambda(\lambda-1)\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]}}{2}$$`
+ou
+
+&lt;div class=math&gt;
+  \begin{align*}
+    \mathbb{E}_tX_{t+h}&amp;=\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{1/\lambda}\left(\frac12\pm\frac12\sqrt{1-2\lambda(\lambda-1)\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{-2}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]}\right)^{1/\lambda}\\
+    &amp;=\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{1/\lambda}c_{t,\lambda}(h).
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeDown
+
+### Correção do viés de transformação
+
+Dessa forma,
+`$$\mathbb{E}_tX_{t+h}=T^{-1}\left(\mathbb{E}_t\left[T(X_{t+h})\right]\right)c_{t,\lambda}(h),$$`
+onde
+&lt;div class="math"&gt;
+  \begin{align*}
+  c_{t,\lambda}(h)&amp;=\begin{cases}
+  \left(\frac12+\frac12\sqrt{1-2\lambda(\lambda-1)\left(1+\lambda\,\mathbb{E}_t\left[X_{t+h}^{(\lambda)}\right]\right)^{-2}\mathrm{var}_t\left[X_{t+h}^{(\lambda)}\right]}\right)^{1/\lambda}, &amp; \text{ se } \lambda&lt;1 \text{ e } \lambda\ne0;\\
+  \exp\left\{\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right]\right\}, &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+Da mesma forma, para a transformação de potência alternativa, temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+  c_{t,\lambda}(h)&amp;=\begin{cases}
+  \left(\frac12+\frac12\sqrt{1-\frac{2(\lambda-1)}{\lambda}\left(\mathbb{E}_t\left[X_{t+h}^{\lambda}\right]\right)^{-2}\mathrm{var}_t\left[X_{t+h}^{\lambda}\right]}\right)^{1/\lambda}, &amp; \text{ se } \lambda&lt;1 \text{ e } \lambda\ne0;\\
+  \exp\left\{\frac{1}{2}\mathrm{var}_t\left[\log X_{t+h}\right]\right\}, &amp; \text{ se } \lambda=0.
+  \end{cases}
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Correção do viés de transformação
+Os intervalos de previsão aproximados são dado por
+
+`$$T^{-1}\left(\mathbb{E}_t\left[T(X_{t+h})\right]\right)\pm z_{\alpha/2}\sqrt{\mathrm{var}_t\left(\mathbb{E}_t\left[T(X_{t+h})\right]\right)}.$$`
+O intervalo acima pode ser corrigido com o fator `\(c_{t,\lambda}(h)\)`, levando
+em consideração o tipo de transformação aplicada.
+
+&gt; O desenvolvimento realizado para a correção do viés supõe um valor
+de `\(\lambda\)` conhecido e fixo. Caso que `\(\lambda\)` seja estimado, usando 
+por exemplo o método de máxima verossimilhança, a variância do 
+estimador de `\(\lambda\)` deve ser utilizadas nas equações obtidas. 
+O que certamente mudará o resultado no intervalo de previsão.
+
+---
+class: inverse, hide-logo, middle, center
+
+## Testes de raízes unitárias
+
+
+---
+class: animated, fadeLeft
+
+### Testes de raíz unitária - I
+
+* O principal objetivo é determinar as ordens dos polinômios 
+autorregressivos e de médias móveis, assim como o número de diferênças
+necessárias para atingir a estacionariedade do processo. Em geral, a
+pretensão é identificar e remover as possíveis tendências que tornam o
+processo não-estacionário e assim identificar as ordens `\(p\)` e `\(q\)`;
+
+* Os **Testes de raízes unitárias** são uma forma mais formal de 
+verificar o grau de integração do processo sob estudo. Na análise de
+séries temporais algumas técnicas permitem criar uma suspeita a respeito
+da não-estacionariedade do processo gerador dos dados, por exemplo:
+A inspeção do gráfico da série vs tempo ou o gráfico da função de 
+autocorrelação amostral;
+
+* No caso em que `\(d\ge 0\)`, dizemos que a o processo é não-estacionário
+ou *integrado* de ordem `\(d\)`, denotado por `\(I(d)\)`;
+
+* A identificação do parâmetro `\(d\)` é de grande relevância, pois a
+sobrediferenciação do processo trará dificuldade na identificação das
+ordens corretas dos polinômios autorregressivo e de médias móveis,
+comprometimento das previsões e aumento nos erros de previsão. 
+A sobrediferenciação pode acarretar a presença de raízes unitárias no
+polinômio de médias móveis;
+
+* Por outra parte, a subdiferenciação traz 
+consequências mais graves, pois considerar
+um processo estacionário, sendo ele não-estacionário, invalida por completo 
+a metodologia aplicada.
+
+
+---
+class: animated, fadeRight
+
+### Testes de raíz unitária - I
+
+* **Definição**. Um processo `\(\{X_t\}\)` diz-se com representação
+ARIMA `\(\!(p,d,q)\)` se `\(Y_t=(1-B)^dX_t\)`, `\(d\)` inteiro não-negativo, é um 
+processo ARMA `\((p,q)\)` causal.
+
+&gt; * De acordo com a definição, um processo com representação ARIMA, 
+satisfaz a seguinte equação em diferenças
+`$$\phi(B)(1-B)^dX_t=\theta(B)Z_t,$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média zero e 
+variância `\(\sigma^2\)`, `\(\phi(B)\)` e `\(\theta(B)\)` representam os polinômios 
+autorregressivos e de médias móveis, respectivamente. `\(\phi(z)\ne0\)`
+para `\(|z|\le1\)`;
+
+&gt; * O processo `\(\{X_t\}\)` é estacionário *see* `\(d=0\)`, nesse caso o processo
+terá representação ARMA `\(\!(p,q)\)`;
+
+&gt; * Processos com representação ARIMA são adequados para estudar séries
+temporais com  tendência
+
+
+---
+class: animated, fadeDown
+
+### Testes de raíz unitária - I
+
+O problema de raízes unitária em processos com representação ARMA aparece
+quando o polinômio autorregressivo apresenta uma raíz sobre círculo 
+unitário.
+
+Considere um processo `\(\{X_t\}\)` com representação autorregressiva de 
+primeira ordem, i.e. `$$X_t-\mu=\phi_1(X_{t-1}-\mu)+Z_t,$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco gaussiano com média zero e 
+variância `\(\sigma^2\)`, com `\(\mu=\mathbb{E}X_t\)` e `\(|\phi_1|&lt;1\)`.
+  
+Seja `\(\hat{\phi}_1^{MV}\)` o estimador de máxima verossimilhança de 
+`\(\phi_1\)`, então `\(\hat{\phi}_1^{MV}\)` é assintoticamente normal com
+média `\(\phi\)` e variância `\(\frac{1-\phi_1^2}{n}\)`.
+
+Para testar `\(H_0:\phi_1=\phi\)` contra `\(H_1:\phi_1\ne\phi\)`, podemos usar
+a estatística de teste dada por
+`$$\frac{\hat{\phi}_1^{MV}-\phi}{ep\left(\hat{\phi}_1^{MV}\right)},$$`
+sob `\(H_0\)` segue uma distribuição `\(t\)`-student.
+
+---
+class: animated, fadeIn
+
+### Testes de raíz unitária - I
+
+* **Teste de Dickey-Fuller (DF)**: Proposto por Dickey e Fuller (1979)&lt;sup&gt;1&lt;/sup&gt;
+tem como objetivo avaliar a presença de tendência no processo sob estudo.
+
+  **Idea do teste**
+  
+  **Caso 1 (sem termo constante).** Considere um processo `\(\{X_t\}\)` com 
+  representação autorregressiva de primeira ordem, i.e.
+  `$$X_t=\phi_1X_{t-1}+Z_t,$$`
+  onde `\(\{Z_t\}\)` é um processo de ruído branco gaussiano com média zero e 
+  variância `\(\sigma^2\)`. Dessa forma, o processo `\(\{X_t\}\)` tem raíz
+  unitária se `\(\phi_1=1\)`, pois 
+  `$$\nabla X_t=X_t-X_{t-1}=\phi_1^*X_{t-1}+Z_t,$$`
+  onde `\(\phi_1^*=\phi_1-1\)`.
+  
+  
+ &lt;br /&gt;
+ 
+***
+&lt;font size=3&gt;Dickey, D. A., &amp; Fuller, W. A. (1979) &lt;b&gt;Distribution of the estimators for autoregressive time series with a unit root&lt;/b&gt;. Journal of American Statistical Association, 74,
+427–431.&lt;/font&gt;
+
+
+---
+class: animated, fadeUp
+
+### Testes de raíz unitária - I
+
+O parâmetro `\(\phi_1^*\)` pode ser estimado por mínimos quadrados 
+ordinários, sendo o erro padrão dado por
+`$$ep\left(\phi_1^*\right)=\frac{S}{\left(\sum_{t=2}^nX_{t-1}^2\right)^{1/2}},$$`
+onde `\(S^2=\frac{1}{n-2}\sum_{t=2}^n\left(\nabla X_t-\hat{\phi^*}_1X_{t-1}\right)^2\)` é
+o estimador de `\(\sigma^2\)` na regressão.
+
+Dessa forma, considerando a hipótese nula `\(H_0: \phi_1^*=0\)` contra 
+`\(H_1: \phi_1^*&lt;0\)`, Dickey e Fuller (1979) sugerem como estatística de teste 
+tipo `\(t\)` dada por
+`$$\hat{\tau}=\frac{\hat{\phi^*}_1}{ep\left(\phi_1^*\right)}=\frac{\hat{\phi}_1-1}{\left(\frac{S^2}{\sum_{t=2}^nX_{t-1}^2}\right)^{1/2}}.$$`
+A distribuição assintótica da estatística `\(\tau\)` é apresentada 
+pelos autores e os quantis da distribuição limite para `\(\alpha=0.01, 0.05\)`
+e `\(0.10\)` são dados por `\(-2.58, -1.95\)` e `\(-1.62\)`, respectivamente.
+
+
+---
+class: animated, fadeDown
+
+### Testes de raíz unitária - I
+
+Supondo que `\(\{Z_t\}\)` é um processo de ruído branco gaussiano com
+média `\(0\)` e variância `\(\sigma^2\)`, então
+`$$n\left(\hat{\phi_1^*}-1\right)\overset{D}{\longrightarrow}\frac{\frac12\left([W(1)]^2-1\right)}{\int_0^1[W(r)]^2\,dr},$$`
+onde `\(W(r)\)` é o movimento Browniano padrão, i.e., `\(W(t)\)` segue uma 
+distribuição normal com média zero e variância `\(t\)`, para todo `\(t\)`. Daí
+`$$\tau\overset{D}{\longrightarrow}\frac{\frac12\left([W(1)]^2-1\right)}{\left(\int_0^1[W(r)]^2\,dr\right)^{1/2}}.$$`
+
+**Caso 2 (com termo constante).** Considere um processo `\(\{X_t\}\)` com 
+  representação autorregressiva de primeira ordem, i.e.
+  `$$X_t-\mu=\phi_1\left(X_{t-1}-\mu\right)+Z_t,$$`
+  onde `\(\{Z_t\}\)` é um processo de ruído branco gaussiano com média zero e 
+  variância `\(\sigma^2\)`.
+
+---
+class: animated, fadeLeft
+
+### Testes de raíz unitária - I
+
+Dessa forma, o processo `\(\{X_t\}\)` tem raíz unitária se `\(\phi_1=1\)`, pois 
+  `$$\nabla X_t=X_t-X_{t-1}=\phi_0^*+\phi_1^*X_{t-1}+Z_t,$$`
+onde `\(\phi_0^*=\mu(1-\phi_1)\)`, `\(\phi_1^*=\phi_1-1\)` e `\(\mathbb{E}X_t=\mu\)`.
+
+Seja `\(\hat{\phi^*}_1\)` o estimador de mínimos quadrados de `\(\phi_1^*\)`,
+com erro padrão dado por
+`$$ep\left(\hat{\phi}_1^*\right)=\frac{S}{\left(\sum_{t=2}^n\left(X_{t-1}-\bar{X}\right)^2\right)^{1/2}},$$`
+onde `\(S^2=\frac{1}{n-3}\sum_{t=2}^n\left(\nabla X_t-\hat{\phi_0^*}-\hat{\phi_1^*}X_{t-1}\right)^2\)` e `\(\bar{X}\)` a média
+amostral de `\(X_1,X_2,\ldots, X_{n-1}\)`.
+
+---
+class: animated, fadeLeft
+
+### Testes de raíz unitária - I
+
+Dessa forma, considerando a hipótese nula `\(H_0: \phi_1^*=0\)` contra 
+`\(H_1: \phi_1^*&lt;0\)`, Dickey e Fuller (1979) sugerem como estatística de teste 
+tipo `\(t\)` dada por
+`$$\hat{\tau_\mu}=\frac{\hat{\phi_1^*}}{ep\left(\phi_1^*\right)}=\frac{\hat{\phi}_1-1}{\left(\frac{S^2}{\sum_{t=2}^n\left(X_{t-1}-\bar{X}\right)^2}\right)^{1/2}}.$$`
+A distribuição assintótica da estatística `\(\tau_\mu\)` é apresentada 
+pelos autores e os quantis da distribuição limite para `\(\alpha=0.01, 0.05\)`
+e `\(0.10\)` são dados por `\(-3.43, -2.86\)` e `\(-2.57\)`, respectivamente.
+
+Supondo que `\(\{Z_t\}\)` é um processo de ruído branco gaussiano com
+média `\(0\)` e variância `\(\sigma^2\)`, então
+`$$n\left(\hat{\phi_1^*}-1\right)\overset{D}{\longrightarrow}\frac{\frac12\left([W(1)]^2-1\right)-W(1)\int_0^1W(r)\,dr}{\int_0^1[W(r)]^2\,dr-\left(\int_0^1W(r)\,dr\right)^2},$$`
+onde `\(W(r)\)` é o movimento Browniano padrão, i.e., `\(W(t)\)` segue uma 
+distribuição normal com média zero e variância `\(t\)`, para todo `\(t\)`. 
+
+
+---
+class: animated, fadeInDown
+
+### Testes de raíz unitária - I
+Daí
+`$$\tau_\mu\overset{D}{\longrightarrow}\frac{\frac12\left([W(1)]^2-1\right)-W(1)\int_0^1W(r)\,dr}{\left(\int_0^1[W(r)]^2\,dr-\left(\int_0^1W(r)\,dr\right)^2\right)^{1/2}}.$$`
+
+**Caso 3 (com termo constante e com tendência determinística).** 
+Considere um processo `\(\{X_t\}\)` com 
+  representação autorregressiva de primeira ordem, i.e.
+  `$$X_t-\mu=\phi_1\left(X_{t-1}-\mu\right)+\phi_2t+Z_t,$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco gaussiano com média zero e 
+variância `\(\sigma^2\)`.
+
+Os detalhes para a distribuição assintótica da estatística de teste são
+apresentados na p. 497 do livro de Hamilton (1994).
+
+---
+class: animated, fadeLeft
+
+### Testes de raíz unitária - II
+
+*  Na literatura existem outras alternativas para avaliar a 
+não-estacionariedade de um processo, baseadas no teste de Dickey e 
+Fuller, temos por exemplo:
+  - **Teste de Phillips-Perron (PP)**: [Phillips e Perron (1988)](http://cowles.yale.edu/sites/default/files/files/pub/d07/d0795-r.pdf)&lt;sup&gt;1&lt;/sup&gt;
+  propõem generalizar os resultados de Dickey e Fuller para um cenário 
+  que contempla a ocorrência de mudanças na estrutura da dinâmica do 
+  processo. Em particular, se um processo estacionários apresenta 
+  uma mudança no seu nível, então os teste de DF indicarão que o processo
+  é `\(I(1)\)`. Os autores sugerem uma alteração nas estatísticas de teste 
+  para considerar o cenário acima. Contudo, mostram que as distribuições 
+  limites são as mesmas que nos cenários estudados para o teste de DF.
+  
+      &gt; Assintoticamente os testes de DF e PP são equivalentes, mas diferem
+  substancialmente em amostras finitas devido às diferentes maneiras 
+  como eles corrigem para correlação serial na regressão de teste. 
+  
+      &gt; Em geral, o poder dos testes de raiz unitária diminui à medida 
+      que termos determinísticos são adicionados às regressões do teste. 
+      Ou seja, testes que incluem uma constante e tendência na regressão 
+      do teste têm menos poder do que testes que apenas incluem uma 
+      constante. 
+
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Phillips, P. C. B.; Perron, P. (1988) &lt;b&gt;Testing for a Unit Root in Time Series Regression&lt;/b&gt;. Biometrika. 75 (2): 335–346.&lt;/font&gt;
+
+
+
+---
+class: animated, fadeIn
+
+### Testes de raíz unitária - II
+
+* **Teste KPSS**: Proposto
+por Kwiatkowski, Phillips, Schmidt and Shin (1992)&lt;sup&gt;1&lt;/sup&gt;,
+o teste é usado para avaliar a hipótese de estacionáriedade do processo 
+em torno de uma tendência determinística contra a alternativa de uma 
+raiz unitária. A diferênça dos testes de raiz unitária DF e PP, cuja 
+hipótese nula é que o processo é `\(I(1)\)`. O teste KPSS avalia a 
+estacionariedade do processo, i.e., se o processo é `\(I(0)\)`.
+  Os autores propõem o teste usando o seguinte modelo
+  
+  &lt;div class="math"&gt;
+    \begin{align*}
+      X_t&amp;=\beta'\mathbf{D}_t+\mu_t+u_t\\
+      \mu_t&amp;=\mu_{t-1}+\varepsilon_t,
+    \end{align*}
+  &lt;/div&gt;
+  
+  onde `\(\{\varepsilon_t\}\)` é um processo de ruído branco com média `\(0\)` e 
+  variância `\(\sigma^2\)`, `\(\mathbf{D}_t\)` representa as componentes 
+  deterministicas, `\(\{u_t\}\)` é `\(I(0)\)` e pode ser heteroscedástico, 
+  `\(\{\mu_t\}\)` é um passeio aleatório.
+  
+  O teste KPSS, a ausência de raiz unitária não confirma a 
+  estacionariedade do processo, mas, por definição, de estacionariedade 
+  em tendência. 
+  
+  &gt; Para outras alternativas, sugere-se a leitura do material escrito
+  por Eric Zivot intitulado **[Unit Root Tests](https://bit.ly/3VB3FEV)**.
+  
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt;Kwiatkowski, D.; Phillips, P. C. B.; Schmidt, P.; Shin, Y. (1992). &lt;b&gt;Testing the null hypothesis of stationarity against the alternative of a unit root&lt;/b&gt;. Journal of Econometrics. 54 (1–3): 159–178.&lt;/font&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+## Identificação das ordens `\(p\)` e `\(q\)`
+
+---
+class: animated, fadeInDown
+
+### Função de autocovariância amostral
+No estudo de processos estacionários de segunda ordem as funções de
+autocovariância e/ou autocorrelação desempenham um papel fundamental
+na análise inferencial dos processos. 
+
+* **Definição**: Seja `\(\{X_t\}\)` um processo estacionário de segunda 
+ordem, o estimador de momentos para a média do processo, `\(\mu\)`, é
+a média amostral dada por
+`$$\bar{X}_n=\frac{1}{n}\sum_{j=1}^nX_j.$$`
+
+O estimador `\(\bar{X}_n\)` é não-viesado para `\(\mu\)`, i.e., `\(\mathbb{E}\left[\bar{X}_n\right]=\mu\)`
+e o Erro Quadrático Médio (EQM) do estimador é dado por
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}\left[\bar{X}_n-\mu\right]^2&amp;=\mathrm{var}\left(\bar{X}\right)=
+    \frac{1}{n^2}\sum_{i=1}^n\sum_{j=1}^n\mathrm{cov}\left(X_i,X_j\right)=
+    \frac{1}{n^2}\sum_{h=-n}^n(n-|h|)\gamma(h)\\
+    &amp;=\frac1n\sum_{h=-n}^n\left(1-\frac{|h|}{n}\right)\gamma(h).
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância amostral
+
+* **Teorema.** Seja `\(\{X_t\}\)` um processo estacionário de segunda ordem
+com média `\(\mu\)` e função de autocovariância `\(\gamma(\cdot)\)`, então, quando
+`\(n\to\infty\)`
+  
+  - `\(\mathrm{var}\left(\bar{X}_n\right)=\mathbb{E}\left[\bar{X}_n-\mu\right]^2\longrightarrow0\)` se `\(\gamma(n)\to0\)`;
+  - `\(n\mathbb{E}\left[\bar{X}_n-\mu\right]^2\longrightarrow\sum_{|h|&lt;\infty}\gamma(h)\)` 
+  se `\(\sum_{h=-\infty}^\infty|\gamma(h)|&lt;\infty\)`.
+
+&gt; * Se `\(\{X_t\}\)` é um processo estacionário gaussiano então 
+`\(\sqrt{n}\left(\bar{X}_n-\mu\right)\)` é assintoticamente normal com
+média `\(0\)` e variância `\(\sum_{h=-n}^n\left(1-\frac{|h|}{n}\right)\gamma(h)\)`.
+
+&gt; * Um intervalo de confiança aproximado de `\(95\%\)` para `\(\mu\)` é dado por
+`$$\left[\bar{X}_n-1.96\left(\frac{1}{n}\sum_{|h|&lt;\infty}\gamma(h)\right)^{1/2}; \bar{X}_n+1.96\left(\frac{1}{n}\sum_{|h|&lt;\infty}\gamma(h)\right)^{1/2}\right].$$`
+
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância amostral
+
+* **Definição**: Seja `\(\{X_t\}\)` um processo estacionário de segunda 
+ordem, o estimador da função de autocovariância `\(\gamma(\cdot)\)` e a função
+de autocorrelação `\(\rho(\cdot)\)` são definidas como
+`$$\hat{\gamma}(h)=\frac1n\sum_{t=1}^{n-|h|}\left(X_{t+|h|}-\bar{X}_n\right)\left(X_{t}-\bar{X}_n\right)$$`
+e
+`$$\hat{\rho}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)}.$$`
+
+&gt; * O estimador de `\(\gamma(h)\)`, definido acima, é uma função par e não-negativa 
+definida&lt;sup&gt;1&lt;/sup&gt;;
+
+&gt; * Ambos os estimadores são viesados, mesmo quando o fator `\(\frac1n\)` é
+substituido por `\(\frac{1}{n-h}\)`. No entanto, sob suposições gerais, os
+estimadores são assintoticamente não-viesados para tamanhos de amostra 
+suficientemente grande. 
+
+***
+&lt;font size=3&gt;&lt;sup&gt;1&lt;/sup&gt; Vide, Brockwell &amp; Davis (2016), p. 51.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocovariância amostral
+
+&gt; Considere os seguintes estimadores para `\(\gamma(h)\)`:  `\(\hat{\gamma}(h)=\frac1n\sum_{t=1}^{n-|h|}\left(X_{t+|h|}-\bar{X}_n\right)\left(X_{t}-\bar{X}_n\right)\)` e `\(\hat{\gamma}^*(h)=\frac{1}{n-h}\sum_{t=1}^{n-|h|}\left(X_{t+|h|}-\bar{X}_n\right)\left(X_{t}-\bar{X}_n\right)\)`, então
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}\left[\hat{\gamma}(h)\right]&amp;\approx\gamma(h)-\frac{h}{n}\gamma(h)-\left(1-\frac{h}{n}\right)\mathrm{var}\left(\bar{X}_n\right)\\
+    \mathbb{E}\left[\hat{\gamma}^*(h)\right]&amp;\approx\gamma(h)-\mathrm{var}\left(\bar{X}_n\right)
+  \end{align*}
+&lt;/div&gt;
+
+&gt; Quando `\(\{X_t\}\)` é um processo gaussiano, Barttlet (1946) mostrou que
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathrm{var}\left(\hat{\gamma}(h)\right)&amp;\approx\frac1n\sum_{i=-\infty}^\infty\left(\gamma^2(i)+\gamma(i+h)\gamma(i-h)\right)\\
+    \mathrm{var}\left(\hat{\gamma}^*(h)\right)&amp;\approx\frac{1}{n-h}\sum_{i=-\infty}^\infty\left(\gamma^2(i)+\gamma(i+h)\gamma(i-h)\right)
+  \end{align*}
+&lt;/div&gt;
+
+***
+&lt;font size=3&gt;Barttlet, M. S. (1946) &lt;b&gt;On the theoretical specification  of
+sampling properties of autocorrelated time series&lt;/b&gt;. Journal of the royal 
+statistical society, B8, 27-41.&lt;/font&gt;
+
+---
+class: animated, fadeInDown
+
+### Função de autocovariância amostral
+
+&gt; A covariância dos estimadores é dada por
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathrm{Cov}\left(\hat{\gamma}(h),\hat{\gamma}(h+j)\right)&amp;\approx\frac1n\sum_{i=-\infty}^\infty\left(\gamma(i)\gamma(i+j)+\gamma(i+h+j)\gamma(i-h)\right)\\
+    \mathrm{Cov}\left(\hat{\gamma}^*(h),\hat{\gamma}^*(h+j)\right)&amp;\approx\frac{1}{n-h}\sum_{i=-\infty}^\infty\left(\gamma(i)\gamma(i+j)+\gamma(i+h+j)\gamma(i-h)\right)
+  \end{align*}
+&lt;/div&gt;
+
+No caso da função de autocorrelação, se o processo é gaussiano então
+`\(\hat{\rho}(h)\)` é assintoticamente normal com média `\(\rho(h)\)` e
+variância dada por
+`$$\mathrm{var}\left(\hat{\rho}(h)\right)\approx\frac1n\sum_{i=-\infty}^\infty\left(\rho^2(i)+\rho(i+h)\rho(i-h)-4\rho(h)\rho(i)\rho(i-h)+2\rho^2(h)\rho^2(i)\right)$$`
+Para processos tais que `\(\rho(h)=0\)`, para `\(h&gt;m\)`, a aproximação de 
+Barttlet pode ser reduzida em
+`$$\mathrm{var}\left(\hat{\rho}(h)\right)\approx\frac1n\left(1+2\rho^2(1)+2\rho^2(2)+\cdots+2\rho^2(m)\right).$$`
+
+
+---
+class: animated, fadeRight
+
+### Função de autocorrelação parcial amostral
+
+&gt; Na prática, os valores de `\(\rho(\cdot)\)` são desconhecidos e podem
+ser substituidos pelos valores estimados, i.e.
+`$$\mathrm{var}\left(\hat{\rho}(h)\right)\approx\frac1n\left(1+2\hat{\rho}^2(1)+2\hat{\rho}^2(2)+\cdots+2\hat{\rho}^2(m)\right).$$`
+
+* **Definição (FAC parcial)**: Seja `\(\{X_t\}\)` um processo estacionário
+de segunda ordem. A função de autocorrelação parcial define-se como
+`$$\mathrm{Corr}(X_t,X_{t+h}|X_{t+1},X_{t+2},\ldots,X_{t+h-1}).$$`
+ &gt; A FAC parcial, ou FACP, também pode ser definida como a função `\(\alpha(n)=\mathbb{I}_{\{0\}}(n)+\phi_{nn}\mathbb{I}_{\{2,3,\ldots,\}}(n)\)`,
+ onde `\(\phi_{nn}\)` é obtido calculando o preditor linear usando o 
+ **[algoritmo de Durbin-levinson](https://ffajardo64.github.io/statistical_learning/STA13828/aula4.html#16)**.
+
+A FACP também pode ser calculada considerando o seguinte modelo de 
+regressão
+`$$X_{t+k}=\phi_{k1}X_{t+k-1}+\phi_{k2}X_{t+k-2}+\cdots+\phi_{kk}X_{t}+e_{t+k},$$`
+onde `\(\phi_{ki}\)` denota o `\(i\)`-ésimo parámetro da regressão e `\(e_{t+k}\)` 
+representa o termo de erro com média `\(0\)` e variância constante, sendo
+ele não-correlacionado com `\(X_{t+k-j}\)` para `\(j=1,2,\ldots,k\)`.
+
+
+---
+class: animated, fadeDown
+
+### Função de autocorrelação parcial amostral
+
+Multiplicando por `\(X_{t+k-j}\)` e aplicando o operador valor esperado, 
+temos que
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \mathbb{E}[X_{t+k}X_{t+k-j}]&amp;=\phi_{k1}\mathbb{E}[X_{t+k-1}X_{t+k-j}]+\phi_{k2}\mathbb{E}[X_{t+k-2}X_{t+k-j}]+\cdots+\phi_{kk}\mathbb{E}[X_{t}X_{t+k-j}]+\mathbb{E}[e_{t+k}X_{t+k-j}]\\
+    \gamma(j)&amp;=\phi_{k1}\gamma(j-1)+\phi_{k2}\gamma(j-2)+\cdots+\phi_{kk}\gamma(j-k)\\
+  \end{align*}
+&lt;/div&gt;
+
+ou 
+
+`$$\rho(j)=\phi_{k1}\rho(j-1)+\phi_{k2}\rho(j-2)+\cdots+\phi_{kk}\rho(j-k).$$`
+Daí, para `\(j=1,2,\ldots,k\)` temos o seguinte sistema de equações
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \rho(1)&amp;=\phi_{k1}\rho(0)+\phi_{k2}\rho(-1)+\cdots+\phi_{kk}\rho(k-1)\\
+    \rho(2)&amp;=\phi_{k1}\rho(1)+\phi_{k2}\rho(0)+\cdots+\phi_{kk}\rho(k-2)\\
+    &amp;\ \ \vdots\\
+    \rho(k)&amp;=\phi_{k1}\rho(k-1)+\phi_{k2}\rho(k-2)+\cdots+\phi_{kk}\rho(0)
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeLeft
+
+### Função de autocorrelação parcial amostral
+Usando a regra de Cramer, para `\(k=1,2,3,\)`
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \phi_{11}&amp;=\rho(1) &amp; 
+    \phi_{22}&amp;=\frac{\begin{vmatrix}
+    1 &amp; \rho(1)\\
+    \rho(1) &amp; \rho(2)
+    \end{vmatrix}}{\begin{vmatrix}
+    1 &amp; \rho(1)\\
+    \rho(1) &amp; 1
+    \end{vmatrix}}
+    &amp; \phi_{33}&amp;=\frac{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(1)\\
+    \rho(1) &amp; 1 &amp; \rho(2)\\
+    \rho(2) &amp; \rho(1) &amp; \rho(3)
+    \end{vmatrix}}{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(2)\\
+    \rho(1) &amp; 1 &amp; \rho(1)\\
+    \rho(2) &amp; \rho(1) &amp; 1
+    \end{vmatrix}}
+  \end{align*}
+&lt;/div&gt;
+
+---
+class: animated, fadeIn
+
+### Função de autocorrelação parcial amostral
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    \phi_{kk}&amp;=\frac{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(2) &amp; \cdots &amp; \rho(k-2) &amp; \rho(1)\\
+    \rho(1) &amp; 1 &amp; \rho(1)&amp; \cdots &amp; \rho(k-3) &amp; \rho(2)\\
+    \vdots &amp; &amp; &amp; &amp; &amp; \vdots\\
+    \rho(k-1) &amp; \rho(k-2) &amp; \rho(k-3) &amp; \cdots &amp; \rho(1) &amp; \rho(k)
+    \end{vmatrix}}{\begin{vmatrix}
+    1 &amp; \rho(1) &amp; \rho(2) &amp; \cdots &amp; \rho(k-2) &amp; \rho(k-1)\\
+    \rho(1) &amp; 1 &amp; \rho(1)&amp; \cdots &amp; \rho(k-3) &amp; \rho(k-2)\\
+    \vdots &amp; &amp; &amp; &amp; &amp; \vdots\\
+    \rho(k-1) &amp; \rho(k-2) &amp; \rho(k-3) &amp; \cdots &amp; \rho(1) &amp; 1
+    \end{vmatrix}}
+  \end{align*}
+&lt;/div&gt;
+
+
+---
+class: animated, fadeUp
+
+### Função de autocorrelação parcial amostral
+
+Na prática, os valores da FACP são calculados usando algoritmos 
+iterativos, iniciando com `\(\hat{\phi}_{11}=\hat{\rho}(1)\)` e 
+`$$\hat{\phi}_{k+1,k+1}=\frac{\hat{\rho}(k+1)-\sum_{j=1}^k\hat{\phi}_{kj}\hat{\rho}_{k+1-j}}{1-\sum_{j=1}^k\hat{\phi}_{kj}\hat{\rho}_j}$$`
+e `\(\hat{\phi}_{k+1,j}=\hat{\phi}_{kj}-\hat{\phi}_{k+1,k+1}\,\hat{\phi}_{k,k+1-j}\)`,
+para `\(=1,2,\ldots,k\)`.
+
+Assumindo que o processo é ruído branco, a variância de `\(\hat{\phi}_{kk}\)` é
+aproximadamente `\(\mathrm{var}\left[\hat{\phi}_{kk}\right]\approx\frac1n\)`.
+
+&gt; * A identificação das ordens de processos com representação de médias 
+móveis pode ser realizada com a função de autocorrelação amostral;
+
+&gt; * Sendo um processo com representação autorregressiva, a identificação da ordem
+do processo é praticamente impossível só com o usao da função de 
+autocorrelação amostral. Nesse cenário, a função de autocorrelação 
+parcial amostral resulta mais adequada para a identificação da ordem 
+autorregressiva.
+
+
+---
+class: inverse, hide-logo, middle, center
+
+## Estimação dos parâmetros
+
+---
+class: animated, fadeIn
+
+### Estimação dos parâmetros
+
+Seja `\(\{X_t\}\)` um processo com representação ARMA `\(\!(p,q)\)` causal. O 
+objetivo é calcular as estimativas dos coeficientes dos polinômios 
+autorregressivo e de médias móveis, assim como a variância do ruído 
+branco.
+
+* Para o caso autorregressivo, os procedimentos de Yule-Walker e Burg 
+resultam boas alternativas para estimação. Em geral,
+o algoritmo de Burg fornece melhores estimativas, se comparado com
+a proposta de Yule-Walker, este último também pode ser adapatado
+para o caso ARMA com `\(q&gt;0\)`;
+
+* Para o caso de médias móveis, os algoritmos de inovações e Hannan-Rissanen 
+são uma boa opção para fornecer estimativas preliminares dos parâmetros 
+nas representações ARMA quando `\(q &gt; 0\)`. Neste cenário, o algoritmo de
+inovações proporciona melhores estimativas, se comparado com a proposta 
+de Hannan-Rissanen;
+
+* Para o cenário ARMA, com `\(p &gt; 0\)` e `\(q &gt; 0\)`, o algoritmo de 
+Hannan-Rissanen é geralmente mais bem-sucedidos para encontrar modelos 
+causais.
+
+---
+class: animated, fadeIn
+
+### Estimação pelo método de Yule-Walker
+
+Assumindo `\(\{X_t\}\)` um processo com representação autorregressiva causal,
+tal que `\(X_t=\sum_{j=0}^\infty\psi_jZ_{t-j}\)`.
+
+As equações de Yule-Walker surgem quando multiplicamos a variável `\(X_{t-j}\)` 
+e aplicamo o operador valor esperado, i.e.
+`$$\Gamma_p\phi=\gamma_p,$$`
+onde `\(\Gamma_p=\left[\gamma(i-j)\right]_{i,j=1}^p\)`,  `\(\gamma_p=(\gamma(1),\gamma(2),\ldots,\gamma(p))'\)` e `\(\sigma^2=\gamma(0)-\phi'\gamma_p\)`.
+
+&gt; Como discutido anteriormente, tais equações podem ser úteis para calcular
+`\(\gamma(0), \gamma(1), \ldots, \gamma(p)\)`.
+
+Observe que, se substituimos as autocovariâncias `\(\gamma(j)\)`, `\(j=0,1,2,\ldots,p\)`,
+pelos seus correspondentes estimadores, obtemosum sistema de equações para 
+estimar `\(\phi\)` e `\(\sigma^2\)`, i.e.\\
+&lt;div class="math"&gt;
+  \begin{align*}
+    \hat{\Gamma}_p\hat{\phi}&amp;=\hat{\gamma}_p &amp; \text{e} &amp; &amp; \hat{\sigma}^2&amp;=\hat{\gamma}(0)-\hat{\phi}'\hat{\gamma}_p,
+  \end{align*}
+&lt;/div&gt;
+
+onde `\(\hat{\Gamma}_p=\left[\hat{\gamma}(i-j)\right]_{i,j=1}^p\)` e   `\(\hat{\gamma}_p=(\hat{\gamma}(1),\hat{\gamma}(2),\ldots,\hat{\gamma}(p))'\)`.
+
+
+---
+class: animated, fadeLeft
+
+### Estimação pelo método de Yule-Walker
+
+Dessa forma, temos que
+`$$\hat{\phi}=\left(\hat{\phi}_1, \hat{\phi}_2,\ldots, \hat{\phi}_p\right)'=\hat{R}_p^{-1}\hat{\rho}_p,$$`
+onde `\(\hat{\rho}_p=\left(\hat{\rho}(1),\hat{\rho}(2),\ldots,\hat{\rho}(p)\right)'\)`, 
+`\(\hat{\sigma}^2=\hat{\gamma}(0)\left[1-\hat{\rho}_p'\hat{R}_p^{-1}\hat{\rho}_p\right]\)` e
+`\(\hat{R}_p=\left[\hat{\rho}(i-j)\right]_{i,j=1}^p\)`.
+
+Daí, a representação causal em termos dos estimadores dos parâmetros é 
+dada por
+`$$X_t-\hat{\phi}_1X_{t-1}-\cdots-\hat{\phi}_pX_{t-p}=Z_{t},$$`
+onde `\(\{Z_t\}\)` é um processo de ruído branco com média `\(0\)` e variância
+`\(\hat{\sigma}^2\)`.
+
+&gt; * Os estimadores pelo método de Yule-Walker são exatamento os
+coeficientes do melhor preditor linear de `\(X_{p+1}\)` em termos de
+`\(X_p,X_{p-1},\ldots,X_1\)`;
+&gt; * Para um processo `\(\{X_t\}\)` com representação AR `\(\!(p)\)`, pode-se
+mostrar que o estimador de Yule-Walker `\(\hat{\phi}\)` é assintoticamente
+normal com média `\(\phi\)` e variância `\(\frac1n\sigma^2\Gamma_p^{-1}\)`.
+&gt; * Os valores de `\(\sigma^2\)` e `\(\Gamma_p\)` podem ser substituidos pelos
+seus respectivos estimadores para obter regiões de confiança assintóticas
+para `\(\phi\)`.
+
+---
+class: animated, fadeUp
+
+### Estimação pelo Algoritmo de Burg
+
+O algoritmo de Burg estima a FACP, i.e. `\(\phi_{11}, \phi_{22}, \ldots\)`,
+minimizando sucessivamente as somas dos quadrados dos erros de 
+previsão de um passo para frente (*forward*) 
+e para trás (*backward*) em relação ao coeficientes `\(\phi_{ii}\)`.
+
+Dadas as realizaçoes `\(x_1,x_2,\ldots,x_n\)` de um processo `\(\{X_t\}\)`
+estacionário com média `\(0\)`, define-se `\(u_i(t)\)`, com `\(t=i+1,\ldots,n\)` e
+`\(0 \le i &lt; n\)`, como o erro de previsão para `\(x_{n+1+i-t}\)`, em termos 
+das `\(i\)` observações precedentes. De igual forma, define-se `\(\nu_i(t)\)`
+como o erro de previsão para `\(x_{n+1+i-t}\)`, em termos 
+das `\(i\)` observações subsequente.
+
+Pode-se mostrar que os erros de predição definidos, i.e. `\(\{u_i(t)\}\)` e
+`\(\nu_i(t)\)` satisfazem
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    u_0(t)&amp;=\nu_0(t)=x_{n+1-t};\\ \\
+    u_i(t)&amp;=u_{i-1}(t-1)-\phi_{ii}\nu_{i-1}(t);\\
+    \nu_i(t)&amp;=\nu_{i-1}(t)-\phi_{ii}u_{i-1}(t-1).
+  \end{align*}
+&lt;/div&gt;
+
+Dessa forma, a estimativa para `\(\phi_{11}\)` é obtida minimizando (com respeito a `\(\phi_{11}\)`)
+`$$\sigma_1^2=\frac{1}{2(n-1)}\sum_{t=2}^n\left[u_1^2(t)+\nu^2_1(t)\right].$$`
+
+---
+class: animated, fadeLeft
+
+### Estimação pelo Algoritmo de Burg
+Para `\(\phi_{22}\)`, a estimativa é obtida minimizando (com respeito a `\(\phi_{22}\)`)
+`$$\sigma_2^2=\frac{1}{2(n-2)}\sum_{t=3}^n\left[u_2^2(t)+\nu^2_2(t)\right].$$`
+Esse passo pode continuar até encontrar a estimativa para `\(\phi_{pp}\)`. Em resumo,
+o algoritmo de Burg pode ser respresentado pelas seguintes equações
+
+&lt;div class="math"&gt;
+  \begin{align*}
+    d(1)&amp;=\sum_{t=2}^n\left(u_0^2(t-1)+\nu_0^2(t)\right); &amp;
+    \phi_{ii}^{B}&amp;=\frac{2}{d(i)}\sum_{t=i+1}^n\nu_{i-1}(t)u_{i-1}(t-1);\\ \\
+    d(i+1)&amp;=\left(1-\left[\phi_{ii}^B\right]^2\right)\,d(i)-\nu_i^2(i+1)-u_i^2(n); &amp;
+    \left[\sigma_i^B\right]^2&amp;=\frac{1}{2(n-i)}\left(1-\left[\phi_{ii}^B\right]^2d(i)\right).
+  \end{align*}
+&lt;/div&gt;
+
+&gt; A distribuição assintótica do estimador pelo algoritmo de Burg
+segue a mesma distribuição que o estimador obtido pelo método de 
+Yule-Walker.
+
+---
+class: animated, fadeRight
+
+### Estimação pelo Algoritmo de Hannan- Rissanen
+O procedimento de estimação proposto por Hannan-Rissanen sugere a 
+aplicação de dois passos:
+
+* Para uma representação AR `\(\!(m)\)`, com `\(m &gt; \max(p,q)\)`, os coeficientes
+da representação são calculados usando o método de Yule-Walker. Dessa forma,
+se `\((\hat{\phi}_{m1}, \hat{\phi}_{m2},\ldots,\hat{\phi}_{mm})'\)` é o vetor 
+de coeficientes estimados, então os resíduos estimados são calculados 
+a partir das equações
+`$$\hat{Z}_t=X_t-\hat{\phi}_{m1}X_{t-1}-\hat{\phi}_{m2}X_{t-2}-\cdots-\hat{\phi}_{mm}X_{t-m},$$`
+onde `\(t=m+1,m+2,\ldots,n\)`;
+
+* Calculados os resíduos `\(\hat{Z}_t\)`, `\(t=m+1,m+2,\ldots,n\)`, estima-se 
+o vetor de parâmetros `\(\beta=\left(\phi',\theta'\right)'\)` pelo
+método de mínimos quadrados, assumindo a regressão de `\(X_t\)` com
+`\(\left(X_{t-1},X_{t-2},\ldots,X_{t-p},\hat{Z}_{t-1},\ldots,\hat{Z}_{t-q}\right)\)`
+com `\(t=m+1+q,\ldots,q\)`, i.e., minimizando
+`$$S(\beta)=\sum_{t=m+1+q}\left(X_t-\phi_1X_{t-1}-\phi_2X_{t-2}-\cdots-\phi_pX_{t-p}-\theta_1\hat{Z}_{t-1}-\cdots-\theta_q\hat{Z}_{t-q}\right)^2.$$`
+
+---
+class: animated, fadeIn
+
+### Estimação pelo Algoritmo de Hannan- Rissanen
+
+Dessa forma, o estimador de Hannan-Rissanen é dado por
+`$$\hat{\beta}=\left(Z'Z\right)^{-1}Z'\mathbf{X}_n,$$`
+onde `\(\mathbf{X}_n=(X_{m+1+q},\ldots,X_n)'\)` e `\(Z\)` é uma matriz 
+`\((n-m-q)\times (p+q)\)`, tal que
+&lt;div clas="math"&gt;
+  \begin{align*}
+    \begin{bmatrix}
+      X_{m+q} &amp; X_{m+q-1} &amp; \cdots &amp; X_{m+q+1-p} &amp; \hat{Z}_{m+q} &amp; \hat{Z}_{m+q-1} &amp; \cdots &amp; \hat{Z}_{m+1}\\
+      X_{m+q+1} &amp; X_{m+q} &amp; \cdots &amp; X_{m+q+2-p} &amp; \hat{Z}_{m+q+1} &amp; \hat{Z}_{m+q} &amp; \cdots &amp; \hat{Z}_{m+2}\\
+      \vdots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \cdots &amp; \vdots\\
+      X_{n-1} &amp; X_{n-2} &amp; \cdots &amp; X_{n-p} &amp; \hat{Z}_{n-1} &amp; \hat{Z}_{n-2} &amp; \cdots &amp; \hat{Z}_{n-q}
+    \end{bmatrix}
+  \end{align*}
+&lt;/div&gt;
+
+e a variância do ruído branco é dada por `\(\sigma_{HR}^2=\frac{S\left(\hat{\beta}\right)}{n-m-q}\)`.
+
+&gt; Para melhorar as estimativas obtidas pelo algoritmo de Hannan-Rissanen,
+um terceiro passo é sugerido, vide Brockwell and Davis (2016), p. 139.
+
+---
+class: animated, fadeDown
+
+### Estimação por máxima verossimilhança
+
+Seja `\(\{X_t\}\)` um processo estacionário de segunda ordem gaussiano, com 
+média `\(0\)` e função de autocovariância `\(\kappa(i,j)=\mathbb{E}\left[X_iX_j\right]\)`.
+Seja `\(\mathbf{X}_n=(X_1,X_2,\ldots,X_n)'\)` e `\(\hat{\mathbf{X}}=(\hat{X}_1,\hat{X}_2,\ldots,\hat{X}_n)'\)`, onde `\(\hat{X}_j=\mathbb{E}\left[X_j|X_1,X_2,\ldots,X_j-1\right]=P_{j-1}X_j\)`,
+para `\(j\ge2\)`. Seja `\(\Gamma_n=\mathbb{E}\mathbf{X}_n\mathbf{X}_n'\)` não-singular.
+
+A verossimihança de `\(\mathbf{X}_n\)` é dada por
+`$$L\left(\Gamma_n\right)=(2\pi)^{-n/2}\left(\det\Gamma_n\right)^{-1/2}\exp\left\{-\frac12\sum_{j=1}^n\frac{\left(X_j-\hat{X_j}\right)^2}{\nu_{j-1}}\right\},$$`
+onde `\(\nu_j\)`, `\(j=1,2,\ldots,n\)`, representam as variâncias dos erros 
+de predição um passo à frente.
+
+
+&gt; O estimador de máxima verossimilhança de `\(\beta=\left(\phi_1, \phi_2,\ldots,\phi_p,\theta_1,\theta_2,\ldots,\theta_q\right)'\)` é
+assintoticamente normal com média `\(\beta\)` e matriz de covariâncias 
+`\(\frac1n\mathbf{V}(\beta)\)`, esssa última pode ser aproximada pela 
+matriz `\(2H^{-1}(\beta)\)`, onde `\(H\)` representa a matriz hessiana.
+
+***
+Para detalhes, vide Brockwell and Davis (2016).
+
+---
+class: animated, lightSpeedIn
+### Referências
+
+Box, G. and G. M. Jenkins (1976). _Time Series Analysis: Forecasting
+and Control_. Holden-Day.
+
+Brockwell, P. and R. Davis (2016). _Introduction to Time Series and
+Forecasting_. 3rd. Springer Verlag.
+
+Hamilton, J. M. (1994). _Time Series Analysis_. Princeton University
+Press.
+
+Wei, W. (2005). _Time Series Analysis: Univariate and Multivariate
+Methods_. 2nd. Addison Wesley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

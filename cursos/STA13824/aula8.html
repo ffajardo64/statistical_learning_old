@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STA13824 - Análise de regressão</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STA13824 - Análise de regressão
+## Inferência no modelo de regressão linear - IV
+### <br/><br/>
+### LECON/DEST - UFES
+### Vitória, ES. - 14/07/2021
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Hipótese linear geral - I
+
+A estatística de teste `\(F=\frac{QM_{Reg}}{QM_{Res}}\)` permite avaliar a hipótese 
+nula de que todos os `\(\beta_j\)`, com `\(j=1,2,3,\ldots,k\)`, são 
+simultaneamente iguais a zero. Mas, algumas situações específicas, por exemplo: 
+quando a hipótese nula pode envolver uma única função linear, uma hipótese 
+simples, ou pode envolver vários funções lineares simultaneamente ou uma hipótese 
+composta, entre outras situações. Todos esses cenários **não** podem ser 
+avaliadas com a estatística `\(F\)` e uma nova contrução dos testes será
+necessária. A seguir será apresentada um método geral de construção de testes 
+para qualquer hipótese envolvendo funções lineares do vetor `\(\beta\)`. 
+
+A hipótese linear geral define-se como
+
+&lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0&amp;:\mathbf{K}'\beta=m &amp; H_1&amp;:\mathbf{K}'\beta\ne m,
+  \end{aligned}
+  $$
+&lt;/div&gt;
+
+onde `\(\mathbf{K}'\)` é uma matriz `\(l\times p\)` e representa a matriz de coeficientes
+que define as `\(l\)` funções lineares dos `\(\beta_j\)` a serem testadas. O vetor `\(m\)`,
+de dimensão `\(l\times1\)`, é um vetor de constantes. No caso de avaliar a
+significância das funções lineares, o vetor `\(m\)` frequentemente é o vetor nulo.
+
+&gt; As `\(l\)` equações lineares em `\(H_0\)` devem ser linearmente independentes (mas não 
+precisam ser ortogonais). Essa independência linear implica que a matriz 
+`\(\mathbf{K}'\)` tem posto coluna completo, i.e., `\(\textrm{posto}(\mathbf{K}')=l\)`.
+Isso garante que as equações em `\(H_0\)` sejam consistentes para cada escolha de `\(m\)`.
+
+---
+class: animated, slideInRight
+
+### Hipótese linear geral - II
+
+&gt; **Exemplo**
+
+Suponha o vetor de parâmetros dado por `\(\beta'=\left[\beta_0\ \ \beta_1\ \ \beta_2\ \ \beta_3\right]\)`
+e temos interesse em avaliar a seguinte hipótese:
+
+&lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0&amp;:&amp;\beta_1-\beta_2&amp;=0\\
+     &amp; &amp;\beta_1+\beta_2-2\beta_3&amp;=0\\
+     &amp; &amp;\beta_0&amp;=20.
+  \end{aligned}
+  $$
+&lt;/div&gt;
+
+`\(H_0\)` pode ser escrita no formato matricial da seguinte forma:
+
+&lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0:\mathbf{K}'\beta=\left[
+  \begin{array}{cccc}
+  0 &amp; 1 &amp; -1 &amp; 0 \\
+  0 &amp; 1 &amp; 1 &amp; -2 \\
+  1 &amp; 0 &amp; 0 &amp; 0
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{c}
+  \beta_0 \\
+  \beta_1 \\
+  \beta_2 \\
+  \beta_3
+  \end{array}
+  \right]=
+  \left[
+  \begin{array}{c}
+  0 \\
+  0 \\
+  20
+  \end{array}
+  \right]
+  \end{aligned}
+  $$
+&lt;/div&gt;
+
+A hipótese alternativa é dada por `\(H_1:\mathbf{K}'\beta\ne m\)`.
+
+---
+class: animated, slideInRight
+
+### Hipótese linear geral - III
+
+Para encontrar uma estatística de teste para avaliar a hipótese linear
+
+&lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  H_0&amp;:\mathbf{K}'\beta=m &amp; H_1&amp;:\mathbf{K}'\beta\ne m,
+  \end{aligned}
+  $$
+&lt;/div&gt;
+
+considere as Suposições **A1-A5**. Dessa forma, o estimador de MQO de 
+`\(\mathbf{K}'\beta-m\)` é dado por `\(\mathbf{K}'\widehat{\beta}-m\)` segue uma
+distribuição normal `\(l\)`-variada com
+
+&lt;div class="math"&gt;
+  $$
+  \begin{aligned}
+  \mathbf{E}\left[\mathbf{K}'\widehat{\beta}-m\right]&amp;=\mathbf{K}'\beta-m &amp; \text{e} &amp; &amp; \mathrm{cov}\left[\mathbf{K}'\widehat{\beta}-m\right]&amp;=\sigma^2\mathbf{K}'(\mathbf{X}'\mathbf{X})^{-1}\mathbf{K}.
+  \end{aligned}
+  $$
+&lt;/div&gt;
+
+
+A soma de quadrados associada à hipótese nula é dada por
+
+`$$SQ_{HLG}=\left(\mathbf{K}'\widehat{\beta}-m\right)'\left[\mathbf{K}'(\mathbf{X}'\mathbf{X})^{-1}\mathbf{K}\right]^{-1}\left(\mathbf{K}'\widehat{\beta}-m\right).$$`
+Daí, `\(\frac{SQ_{HLG}}{\sigma^2}\)` segue uma distribuição `\(\chi^2_{l,\lambda}\)`, com
+parâmetro de não-centralidade dado por
+
+`$$\lambda=\frac{1}{\sigma^2}\left(\mathbf{K}'\beta-m\right)'\left[\mathbf{K}'(\mathbf{X}'\mathbf{X})^{-1}\mathbf{K}\right]^{-1}\left(\mathbf{K}'\beta-m\right).$$`
+---
+class: animated, slideInRight
+
+### Hipótese linear geral - IV
+
+Dessa forma, a estatística de teste é dada por
+
+`$$F=\frac{QM_{HLG}}{QM_{Res}}$$`
+segue uma distribuição `\(F_{l,n-p,\lambda}\)`. Sob `\(H_0\)`, a distribuição da 
+estatística `\(F\)` torna-se centrlizada, i.e., `\(\lambda=0\)`. Assim, rejeita-se `\(H_0\)`
+se `\(F&gt;F_{l,n-p,\alpha}\)`.
+
+&gt; Esta formulação geral fornece um método conveniente para testar **qualquer**
+hipótese de interesse.
+
+---
+class: animated, fadeIn
+
+### Hipótese linear geral - IV
+
+#### Algumas considerações
+
+* O valor esperado das formas quadráticas dependem do formato funcional do modelo.
+Dessa forma, se o modelo usado é incorreto, o valor esperado da formas quadráticas
+é incorreto e isso é particularmente crítico para o estimador de `\(\sigma^2\)`;
+
+--
+
+* A suposição de normalidade é necessária para a construção dos testes de hipóteses,
+intervalos e regiões de confiança para avaliar a significância do vetor de parâmetros.
+Embora os testes de significância pareçam ser razoavelmente robustos contra a 
+não-normalidade, eles devem ser considerados como aproximações quando o pressuposto 
+de normalidade não está satisfeita.
+
+--
+
+* É importante ressaltar que todas as somas dos quadrados para hipóteses 
+estão vínculadas ao modelo específico que está sendo usado. Em geral, a exclusão 
+de uma covariável ou adicionar uma covariável ao modelo mudará a soma de 
+quadrados para todas as hipóteses;
+
+--
+
+* O formato matricial do teste de hipótese geral torna muito pratica a sua 
+implementação computacional.
+
+&lt;br&gt;&lt;/br&gt;
+
+Para detalhes, ver, e.g., Greene (2012), 
+Montgomery, Peck, and Vining (2006) e Searle and Khuri (2017)
+
+---
+class: animated, slideInRight
+
+### Somas de quadrados parciais - I
+
+O interesse agora é avaliar hipóteses referentes à significância de um 
+subconjunto do vetor de coeficientes. Para isso será necessária a análise das 
+somas de quadrados parciais vínculadas à `\(H_0\)`. Em outras palavras, será analisada
+a variação parcial explicada do modelo que contém apenas uma ou mais covariáveis.
+
+Seja `\(SQ_{Reg}=R(\beta_0,\beta_1, \beta_2, \ldots,\beta_k)\)` a soma de 
+quadrados da regressão, contendo os parâmetros listados entre parênteses. Essa
+soma de quadrados também é denotada como `\(SQ_{MC}\)` e é chamada de 
+*soma de quadrados do modelo completo*.
+
+A soma de quadrados para avaliar a hipótese que um subconjunto do `\(\beta\)` é o 
+vetor nulo, pode ser obtida como
+
+`$$SQ=SQ_{MC}-SQ_{MR}=R(\beta_0,\beta_1, \beta_2, \ldots,\beta_{k-q},\beta_{k-q+1},\ldots,\beta_k)-R(\beta_0,\beta_1, \beta_2, \ldots,\beta_{k-q}),$$`
+onde `\(SQ_{MR}\)` representa a *soma de quadrados do modelo reduzido*. Uma outra
+forma de escrever a soma de quadrados acime é dada por
+
+`$$SQ=R\left(\beta_{k-q+1},\ldots,\beta_k|\beta_0,\beta_1, \beta_2, \ldots,\beta_{k-q}\right).$$`
+&gt; Seguindo essa notação,
+`$$SQ_{Reg}=SQ_{Modelo}-SQ_\mu=R\left(\beta_1,\ldots,\beta_k|\beta_0\right).$$`
+
+
+---
+class: animated, fadeIn
+
+### Somas de quadrados parciais - II
+
+&gt; **Interpretação**
+
+* Suponha o modelo linear com duas covariáveis, sejam elas `\(x_1\)` e `\(x_2\)`. Nesse
+  cenário, `\(SQ_{Reg}(x_1)\)` representa a variação explicada do modelo que contem 
+  apenas a variável preditiva `\(x_1\)`. 
+
+  Por outra parte, `\(SQ_{Reg}(x_1,x_2)\)` representa a variação explicada do modelo 
+  que contem as variáveis preditivas `\(x_1\)` e `\(x_2\)` e assim por diante.
+
+--
+
+* A inclusão de uma covariável no modelo diminui o valor de `\(SQ_{Res}\)`, no pior 
+  dos casos fica igual (nunca maior) e não altera o valor da `\(SQ_{Total}\)`. Assim,
+  pode-se concluir que o valor da `\(SQ_{Reg}\)` aumenta com a inclusão de uma 
+  covariável no modelo, uma vez que `\(SQ_{Total}=SQ_{Reg}+SQ_{Res}\)`.
+  
+  Dessa forma, 
+  
+  `$$SQ_{Reg}(x_2|x_1)=SQ_{Reg}(x_1,x_2)-SQ_{Reg}(x_1)$$`
+  
+  representa o aumento da soma de quadrados com a inclusão da covariável `\(x_2\)`
+  no modelo, dado que já tinha a covariável `\(x_1\)`. 
+
+---
+class: animated, fadeIn
+
+### Somas de quadrados parciais - III
+
+&gt; **Interpretação**
+
+* A ideia pode-se estender para o caso de três covariáveis `\(x_1,x_2\)` e `\(x_3\)`.
+  Dessa forma
+
+  `$$SQ_{Reg}\left(x_3|x_1,x_2\right)=SQ_{Reg}(x_1,x_2,x_3)-SQ_{Reg}(x_1,x_2)$$`
+  representa o aumento da soma de quadrados com a inclusão da da covariável `\(x_3\)`
+  no modelo, dado que já tinha as covariáveis `\(x_1\)` e `\(x_2\)`. 
+
+  - Reescrevendo as equações acima, temos que
+
+  &lt;div class="math"&gt;
+  $$
+    \begin{aligned}
+      SQ_{Reg}(x_1,x_2)&amp;=SQ_{Reg}(x_1)+SQ_{Reg}(x_2|x_1)\\ \\
+      SQ_{Reg}(x_1,x_2,x_3)&amp;=SQ_{Reg}(x_1,x_2)+SQ_{Reg}(x_3|x_1,x_2)\\
+                           &amp;=SQ_{Reg}(x_1)+SQ_{Reg}(x_2|x_1)+SQ_{Reg}(x_3|x_1,x_2)
+    \end{aligned}
+  $$
+  &lt;/div&gt;
+
+---
+class: animated, slideInRight
+
+### Somas de quadrados parciais - IV
+
+Dessa forma, para o cenário com três covariáveis, a tabela para a 
+**Análise de Variância**, com a soma de quadrados parciais é dada por:
+
+
+ | Fonte                | Graus de liberdade |  Somas de quadrados           | Quadrados médios               |
+ |:--------------------:|:------------------:|:-----------------------------:|:------------------------------:|
+ |    `\(x_1\)`             |         `\(1\)`        | `\(SQ_{Reg}(x_1)\)`               |  `\(QM_{Reg}(x_1)\)`               |
+ |    `\(x_2\mid x_1\)`     |         `\(1\)`        | `\(SQ_{Reg}(x_2\mid x_1)\)`       |  `\(QM_{Reg}(x_2\mid x_1)\)`       |
+ |    `\(x_3\mid x_1,x_2\)` |         `\(1\)`        | `\(SQ_{Reg}(x_3 \mid x_1,x_2)\)` |  `\(QM_{Reg}(x_3 \mid x_1,x_2)\)` |
+ |     Resíduos         |         `\(n-4\)`      | `\(SQ_{Res}\)`                    |  `\(QM_{Res}\)`                    |
+ |                      |                    |                               |                                |
+ |        Total         |         `\(n-1\)`      | `\(SQ_{Total}\)`                  |                                |
+ 
+
+Tabela acima é a mesma fornecida pela função **anova** do ``R`` (ver, e.g., R Core Team (2021)).
+
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Greene, W. (2012). _Econometric Analysis_. Prentice Hall.
+
+Montgomery, D. C., E. A. Peck, and G. G. Vining (2006). _Introduction to Linear Regression Analysis_. 4th
+edition. Wiley &amp; Sons.
+
+Muirhead, R. J. (2005). _Aspects of Multivariate Statistical Theory_. Wiley-Interscience.
+
+R Core Team (2021). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
+Computing. Vienna, Austria. URL: [https://www.R-project.org/](https://www.R-project.org/).
+
+Searle, S. and A. Khuri (2017). _Matrix Algebra Useful for Statistics_. 2nd edition. Wiley.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

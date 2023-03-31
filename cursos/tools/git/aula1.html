@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Git</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Git
+]
+.subtitle[
+## Uma breve introdução
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 16/05/2022
+]
+
+---
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+### Documentação
+
+O material apresentado foi extraído da documentação oficial do `Git`, disponível em [http://git-scm.com/doc](http://git-scm.com/doc). 
+Especialmente do livro **Pro Git** publicado por Chacon and Straub (2021), cuja versão em português está 
+disponível em [http://git-scm.com/book/pt-br/v2](https://github.com/progit/progit2-pt-br/releases/download/2.1.45/progit.pdf).
+
+&gt; Outras referências
+  * *Git magic* publicado por Lynn (2007) e disponível [online](http://www-cs-students.stanford.edu/~blynn/gitmagic/);
+  * *Version control with `Git`* publicado por Loeliger and McCullough (2012).
+
+### Versão do Git
+Este material foi preparado usando a versão `2.36` do `Git`. 
+Como o `Git` é excelente para preservar compatibilidade com versões 
+anteriores, qualquer versão após `2.0` deve funcionar muito bem.
+
+&lt;img src="images/git_version.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Git
+
+O `Git` é um sistema de **controle de versões** usado para registrar
+o histórico de alterações de qualquer tipo de arquivo. O `Git` foi 
+inicialmente projetado e desenvolvido por _Linus Torvalds_ para o 
+&lt;img src="images/LinusTorvalds.jpg" width="25%" style="float:right; padding:20px" /&gt;
+desenvolvimento do kernel Linux, e hoje é adotado por muitas pessoas
+ao redor do mundo para o desenvolvimento de projetos. 
+
+** Algumas considerações**
+- Multiplataforma e software livre;
+- Integridade: Isto significa que é impossível mudar o conteúdo de 
+qualquer arquivo ou pasta sem que `Git` saiba. Dessa forma, você não 
+perderá informação durante a transferência e não receberá um arquivo 
+corrompido sem que o `Git` seja capaz de detectar;
+- Manipula eficientemente projetos extensos: O `Git` não fica lento com
+o aumento do histórico do projeto;
+- Relevante à medida que participa de projetos colaborativos,
+facilitando a reprodutibilidade científica.
+
+&lt;img src="images/Git_logo.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Instalando o Git
+
+Antes de começar a usar o `Git`, o primeiro é torná-lo disponível no 
+seu computador. A instalação é bastante simples. Você poderá instalá-lo como um pacote ou por meio de outro instalador, ou baixar o código fonte e compilá-lo. 
+
+* **Linux**: Se você usa uma distribuição baseada no `Debian`, como
+por exemplo `Ubuntu`, a instalação pode ser feita via linha de comando usando:
+&lt;img src="images/install_linux.png" width="35%" style="display: block; margin: auto;" /&gt;
+Para mais opções de instalação em outros sistemas `Unix`, consulte em
+[http://git-scm.com/download/linux](http://git-scm.com/download/linux).
+
+* **Windows**: Para o caso do Windows basta ir no site de **[downloads](http://git-scm.com/download/win)** e identificar o instalador 
+de acordo com a arquitetura do seu computador (32-bit ou 64-bit) e 
+executá-lo.
+
+* **Mac**: No caso do Mac, você pode usar o administrador de pacotes `homebrew`
+e usar a seguinte linha de comando
+&lt;img src="images/install_mac.png" width="23%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# Configuração Inicial do Git
+
+
+---
+class: animated, fadeIn
+
+### Configuração Inicial do `Git` - I
+
+Agora que você instalou o `Git` em seu sistema, você deve personalizar 
+o seu ambiente. Esse procedimento será realizado uma única vez
+no seu computador e tal procedimento será mantido mesmo após atualizações. 
+E é claro, você também pode mudá-las em qualquer momento realizando
+o mesmo procedimento.
+
+&gt; **`git config`**: permite ver e atribuir variáveis de configuração que 
+controlam todos os aspectos de como o `Git` aparece e opera. Em geral,
+você pode consultar, definir, substituir e remover opções com este comando.
+
+--
+
+* **Sua identidade**&lt;sup&gt;1&lt;/sup&gt;: A primeira coisa que você deve fazer ao instalar 
+`Git` é configurar seu nome de usuário e endereço de e-mail, da seguinte 
+forma:
+
+&lt;img src="images/username.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+***
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt; Muitas Interfaces Gráficas de Usuário 
+(Graphical User Interface  - GUI) o ajudarão com essa configuração
+quando forem usadas pela primeira vez. Um quadro comparativo dessas
+ferramentas para &lt;TT&gt;Git&lt;/TT&gt; pode ser encontrado na 
+&lt;a href="https://en.wikipedia.org/wiki/Comparison_of_Git_GUIs"&gt;Wikipedia&lt;/a&gt;.&lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+###  Configuração Inicial do `Git` - II
+
+* **Seu editor**: Uma vez configurada a sua identidade, você pode 
+configurar o editor de textoque será usado com `Git`. Se não for 
+configurado, o `Git` usará o editor padrão, que normalmente é o 
+[Vim](https://www.vim.org/). Se você quiser mudar o editor de texto 
+padrão, por exemplo&lt;sup&gt;1&lt;/sup&gt;: [Emacs](https://www.gnu.org/software/emacs/), 
+[Visual Studio Code](https://code.visualstudio.com/), 
+[atom](https://atom.io/) ou [Textmate](https://macromates.com/), 
+você pode usar uma das seguintes linhas de comando:
+
+&lt;img src="images/editor.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+***
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt; Para mais opções de editores, consulte a
+documentação oficial do &lt;TT&gt;Git&lt;/TT&gt; disponível em 
+&lt;a href="https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config"&gt;A3.1 Appendix C: Git Commands - Setup and Config&lt;/a&gt;.&lt;/font&gt;
+
+
+---
+class: animated, slideInRight
+
+### Configuração Inicial do `Git` - III
+
+Para revisar a sua listagem de configurações basta usar o comando 
+**`git config --list`** da seguinte forma:
+
+&lt;img src="images/config.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+***
+&lt;font size="3"&gt;&lt;sup&gt;1&lt;/sup&gt; Outras opções de configuração podem ser
+revisadas na documentação oficial do &lt;TT&gt;Git&lt;/TT&gt; disponível em 
+&lt;a href="http://git-scm.com/docs/git-config/pt_BR"&gt;http://git-scm.com/docs/git-config/pt_BR&lt;/a&gt;.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### Ajuda no `Git` - I
+* Para consultar a ajuda do `Git` existem três formas básicas:
+
+  1. Consultando na documentação oficial [http://git-scm.com/doc](http://git-scm.com/doc);
+
+  1. Usando o comando **`git help &lt;comando&gt;`**;
+
+  1. **`git &lt;comando&gt; --help`**;
+
+  &gt; Por exemplo, use **`git config --help`** para verificar todas as opções
+de configuração oferecidas pelo `Git`.
+
+* Algumas folhas de dicas (*cheat sheet*): 
+  -  [https://training.github.com/](https://training.github.com/).
+A versão em português se encontra [aqui](https://training.github.com/downloads/pt_BR/github-git-cheat-sheet.pdf);
+  - [Atlassian Bitbucket](https://wac-cdn.atlassian.com/dam/jcr:e7e22f25-bba2-4ef1-a197-53f46b6df4a5/SWTM-2088_Atlassian-Git-Cheatsheet.pdf?cdnVersion=309);
+  - [Git Cheat Sheet](https://baransel.dev/post/git-cheat-sheet/)
+  
+* A listagem completa de comandos está disponível &lt;ins&gt;[aqui](http://git-scm.com/docs/git#_git_commands)&lt;/ins&gt;;
+
+* Tutoriais, livros e vídeos sobre `Git` estão disponíveis em [http://git-scm.com/doc/ext](http://git-scm.com/doc/ext).
+
+---
+class: animated, fadeIn
+
+### Ajuda no `Git` - II
+
+*  Aplicativos para visualizar os conceitos básicos de `Git`: [https://learngitbranching.js.org](https://learngitbranching.js.org/?locale=pt_BR)
+
+&lt;iframe src="https://learngitbranching.js.org/?locale=pt_BR" width="100%" height="400px" data-external="1"&gt;&lt;/iframe&gt;
+
+---
+class: animated, fadeIn
+
+### Ajuda no `Git` - III
+
+*  Aplicativos para visualizar os conceitos básicos de `Git`:
+[https://git-school.github.io/visualizing-git/](https://git-school.github.io/visualizing-git/)
+
+&lt;iframe src="https://git-school.github.io/visualizing-git/" width="100%" height="400px" data-external="1"&gt;&lt;/iframe&gt;
+
+Também pode treinar alguns conceitos visualmente no [Git School](https://onlywei.github.io/explain-git-with-d3/).
+
+---
+class: inverse, hide-logo, middle, center
+
+# Fundamentos de Git
+
+
+---
+class: animated, fadeIn
+
+### Os três estados do `Git`
+
+Quando você faz algo no `Git`, quase sempre, dados são adicionados no 
+banco de dados do `Git`. É difícil fazer alguma coisa no sistema que 
+não seja reversível. Mas, para experimentar o `Git` sem perigo de 
+realizar alguma ação indesejada, fique atento aos três estados 
+principais do `Git`:
+**Committed** (Consolidado), **Modified** (modificado) e **Staged** (preparado). 
+
+* **Committed**: _Consolidado_ significa que os dados estão armazenados 
+de forma segura em seu banco de dados local;
+
+* **Modified**: _Modificado_ significa que você alterou o arquivo, mas 
+ainda não fez o *commit* no seu banco de dados;
+
+* **Staged**: _Preparado_ significa que você marcou a versão atual de um arquivo modificado para fazer parte de seu próximo *commit*.
+
+
+&gt;Os três estados nos levam a três seções principais de um projeto `Git`: 
+ - O diretório de trabalho;
+ - A área de preparo;
+ - O diretório Git (Repositório).
+
+---
+class: animated, slideInRight
+
+### Fluxo de trabalho
+
+&lt;img src="images/fluxo0.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Fluxo de trabalho
+
+&lt;img src="images/fluxo1.png" width="70%" style="display: block; margin: auto;" /&gt;
+Você modifica arquivos no diretório de trabalho e 
+prepara eles adicionando imagens deles à sua área de preparo.
+
+---
+class: animated, fadeIn
+
+### Fluxo de trabalho
+
+&lt;img src="images/fluxo2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+Você leva os arquivos da área de preparo e armazena essas
+imagens para o diretório do `Git`.
+
+---
+class: animated, fadeIn
+
+### Fluxo de trabalho
+
+&lt;img src="images/fluxo3.png" width="70%" style="display: block; margin: auto;" /&gt;
+**E tudo se repete!**
+
+---
+class: inverse, hide-logo, middle, center
+
+#  Repositórios
+
+---
+class: animated, bounceInDown
+
+### Criando um Repositório `Git` - I
+
+Existem diferentes formas de usar o `Git`, entre elas temos as 
+ferramentas originais de *linha de comando*, e existem as interfaces gráficas de 
+usuário (GUI - Graphical User Interface) com opções variadas. Nesta
+apresentação usaremos o `Git` na &lt;ins&gt;linha de comando&lt;/ins&gt;. 
+A linha de comando é o único lugar onde você pode rodar **todos** os 
+comandos do `Git`. 
+
+&gt; Se você sabe como usar o Git na linha de comando, você provavelmente 
+descobrirá como rodar versões GUI.
+
+
+Dessa forma, você pode obter um projeto `Git` utilizando duas formas principais:
+
+- &lt;ins&gt;Transformando&lt;/ins&gt; um diretório local em um *repositório*;
+
+- Fazendo um &lt;ins&gt;clone&lt;/ins&gt; de um *repositório* `Git` existente em outro lugar.
+
+&lt;img src="images/clone.png" width="30%" style="display: block; margin: auto;" /&gt;
+---
+class: animated, fadeIn
+
+### Criando um Repositório Git - II
+
+#### Inicializando um repositório em um diretório existente
+
+Para você começar o monitoramento com `Git` de um projeto existente, 
+você deve ir ao diretório desse projeto e executar o seguinte comando:
+`git init`.
+
+**Por exemplo:**
+
+&lt;img src="images/git_init.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+Isso cria um novo subdiretório chamado `.git` que contém todos os 
+arquivos necessários de seu repositório. **Neste ponto, nada em seu 
+projeto é monitorado ainda**.
+
+---
+class: animated, slideInRight
+
+### Criando um Repositório Git - II
+
+&lt;img src="images/git_init2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, bounceInDown
+
+### Criando um Repositório Git - II
+
+&lt;img src="images/git_init3.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+&lt;font size="3"&gt; Para mais informações sobre quais arquivos 
+estão contidos no diretório &lt;TT&gt;.git&lt;/TT&gt;, vide 
+&lt;a href="http://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain"&gt;Git Internals&lt;/a&gt;.&lt;/font&gt;
+
+---
+class: animated, slideInRight
+
+### Controlando o versionamento dos arquivos - I
+
+A principal ferramenta que você vai usar para determinar o &lt;ins&gt;estado&lt;/ins&gt;
+dos arquivos é o comando **`git status`**. Se você executar esse comando 
+imediatamente após criar um repositório, você vai ver algo assim:
+
+&lt;img src="images/git_status.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+Isso significa que nenhum de seus arquivos rastreados foi modificado. 
+O `Git` também não está vendo nenhum arquivo não rastreado, senão eles 
+estariam listados aqui. 
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - II
+
+**Exemplo**: Crie um arquivo de texto chamado `README.md` e use
+o comando **`git status`** para verificar o novo estado do arquivo.
+
+
+&lt;img src="images/git_add1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - II
+
+**Exemplo**: Use o comando **`git add`** para iniciar o monitoramento do 
+arquivo. Em outras palavras, o comando **`git add`** permite enviar o
+arquivo para o *stage* (área de preparo).
+
+&lt;img src="images/git_add2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - II
+
+&lt;img src="images/controle1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - II
+
+&lt;img src="images/controle2.png" width="70%" style="display: block; margin: auto;" /&gt;
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - II
+
+&lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# git add
+
+---
+class: animated, fadeIn
+
+### `git add`
+
+* O comando **`git add`** adiciona uma alteração no diretório 
+ativo à área de preparo (*staging area*). Ele informa ao `Git` 
+que você quer incluir atualizações a um arquivo específico no próximo 
+*commit*. No entanto, **`git add`** não tem efeito no repositório até 
+você executar **`git commit`**;
+
+* O comando **`git add`** pode ser utilizado a qualquer momento 
+durante o desenvolvimento do seu projeto, porém, a melhor 
+prática é realizar **todas** as alterações dos arquivos de 
+trabalho e quando tudo estiver pronto, você prepara as alterações com 
+**`git add`**. Caso queira examinar o estado atual do repositório 
+utilize o comando **`git status`**;
+
+* O **modo interativo** permitirá escolher opções de mudanças que você deseja realizar de forma prática e rápida. Para ingresar no modo interativo digite o comando **`git add –i`** e digitar o número da opção desejada:
+
+&lt;img src="images/git_add_i.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# git commit
+
+---
+class: animated, fadeIn
+
+### `git commit`
+
+O comando **`git commit`** adiciona as alterações mais recentes do seu
+arquivo para o repositório. É importante ressaltar que os *commits* são
+mantidos no repositório indefinidamente.
+
+**SEMPRE** tente deixar mensagens explícitas nos *commits*. Tente 
+usar descrições simples e objetivas para que você e/ou seu time de 
+trabalho consigam entender o que aquele *commit* faz. Para definir 
+uma mensagem use o seguinte comando:
+
+&lt;img src="images/commit_msg.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+&gt; Pode adicionar os arquivos direto no repositório local 
+sem passar pela área de preparo (*staging area*). Entretanto, novos 
+arquivos, que ainda não são acompanhados pelo `Git`, não serão incluídos.
+
+&lt;img src="images/commit_msg_all.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# git diff
+
+---
+class: animated, slideInRight
+
+### `git diff`
+
+O comando **`git diff`** é um comando multiuso que, quando executado, 
+permite a comparação nas fontes de dados `Git`. Essas fontes de dados 
+podem ser *commits*, ramificações, arquivos, entre outros.
+
+&lt;img src="images/git_diff1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+No exemplo, o arquivo `diff_test.txt` foi modificado e as alterações
+são visualizadas com o comando **`git diff`** ou **`git diff HEAD`**.
+
+---
+class: animated, fadeIn
+
+### `git diff`
+
+O comando **`git diff`** é um comando multiuso que, quando executado, 
+permite a comparação nas fontes de dados `Git`. Essas fontes de dados 
+podem ser *commits*, ramificações, arquivos, entre outros.
+
+&lt;img src="images/git_diff1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+Em &lt;span style="color:green"&gt;verde&lt;/span&gt; são mostrados os trechos do
+arquivo que foram **adicionados** e em &lt;span style="color:red"&gt;vermelho&lt;/span&gt;
+os trechos que foram **modificados**. Em branco aparece o que não sofreu
+modificações.
+
+---
+class: animated, fadeIn
+
+### `git diff`
+
+O comando **`git diff`** é um comando multiuso que, quando executado, 
+permite a comparação nas fontes de dados `Git`. Essas fontes de dados 
+podem ser *commits*, ramificações, arquivos, entre outros.
+
+&lt;img src="images/git_diff2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+Os marcadores de modificação **a** e **b** indicam, respectivamente,
+o arquivo antigo e o atual. Depois encontramos o número de linhas que 
+foram modificadas e o número das que foram adicionadas.
+
+---
+class: animated, slideInRight
+
+### `git diff`
+
+* Ao adicionar um arquivo na área de preparo (*staging area*), podemos
+verificar as mudanças usando qualquer um dos seguintes comandos:
+**`git diff --staged`** ou
+**`git diff --cached`**.
+
+&gt; O comando **`git diff`** mostra as modificações realizadas em todos
+os arquivos monitorados. Para visualizar as alterações de apenas um 
+arquivo específico, use o comando **git diff [nome_do_arquivo]**.
+
+* Para comparar arquivos entre ramificações diferentes, podemos usar
+as seguintes sintaxes:
+
+  - **`git diff [branch1] [branch2] [arquivo]`** - Compara o arquivo 
+  em ramificações específicas;
+  - **`git diff [branch1]:[arquivo] [branch2]:[arquivo]`** - Pode ser
+  usado para comparar arquivos em ramificações específicas;
+  - **`git diff ..[branch] [arquivo]`** - Para comparar seu diretório 
+  de trabalho atual com alguma ramificação.
+  
+&lt;br/&gt;
+
+***
+
+Detalhes na [Documentação Oficial do `Git`](https://git-scm.com/docs/git-diff/pt_BR). 
+
+---
+class: inverse, hide-logo, middle, center
+
+# git log
+
+---
+class: animated, slideInRight
+
+### `git log`
+
+**`git log`** lista os *commits* feitos no repositório em ordem 
+cronológica inversa; i.e., o *commit* mais recente aparece primeiro. 
+Esse comando lista cada *commit* com o seu **checksum SHA-1**, o 
+**nome** e **email do autor**, **data de inserção**, e **a mensagem do commit**.
+
+&lt;img src="images/commit_log.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, bounceInDown
+
+### `git log`
+
+**`git log`** disponibiliza uma grande variedade de opções a fim de 
+lhe proporcionar exatamente aquilo pelo que está procurando. A seguir 
+algumas das opções mais populares:
+
+
+ |Opções| Descrição  |      
+ |:--------------: |:-------------:|
+ |  `-p`      | Faz a junção dos comandos **log** e **diff**, mostrando todas as alterações do arquivo monitorado.|
+ |  `--stat`  | Mostra estatísticas de arquivos modificados em cada commit.| 
+ | `--shortstat`     | Exibe apenas a linha informando a alteração, inserção e exclusão do comando `--stat`.| 
+ |  `--pretty`  | Mostra os `commits` em um formato alternativo. As opções incluem **oneline**, **short**, **full**, **fuller** e **format**.| 
+|  `--abbrev-commit`  | Mostra apenas os primeiros caracteres da soma de verificação SHA-1 em vez de todos os 40.|
+|  `--name-status`  | Mostra a lista de arquivos que sofreram modificação com informações adicionadas / modificadas / excluídas.|
+|  `--graph`  | Exibe um gráfico ASCII do histórico de *branches* e *merges* ao lado da saída do `log`.|
+
+&lt;font size="3"&gt; Mais detalhes em 
+&lt;a href="http://git-scm.com/book/pt-br/v2/Fundamentos-de-Git-Vendo-o-hist%C3%B3rico-de-Commits"&gt;Git Documentation&lt;/a&gt;.&lt;/font&gt;
+
+---
+class: animated, fadeIn
+
+### `git log`
+
+A opção **`git log --pretty=format`**  apresenta uma listagem útil de
+opções para mostrar de forma personalizada o histórico de *commits*.
+
+&lt;img src="images/git_log_pretty1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### `git log`
+
+Uma opção interessante do `Git` é a possibilidade de combinar várias
+opções do mesmo comando. Observe por exemplo o seguinte exemplo:
+
+* **`git log --parents`**: Mostra os *commits* com seus respectivos 
+pais. O *commit* pai é o *commit* que foi efetuado anteriormente;
+
+* **`git log --decorate`**: Mostra o *commit* para o qual a ramificação
+`main` está apontando;
+
+* **`git log --oneline`**: Mostra um resumo compacto dos *commits*.
+
+&lt;img src="images/git_log_combine.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Exemplo prático - I
+
+* Inicialize um repositório em um diretório da sua preferência;
+
+* Crie dois arquivos `README.md` e `Intro.md`. Escreva algum texto da 
+sua preferência em cada um dos arquivos;
+
+* Verifique o estado do seu diretório local;
+
+* Envie os arquivos para a área de preparo e registre-os no repositório 
+local com a seguinte mensagem "Arquivos sem alterações";
+
+* Uma vez encaminhados, você percebe que a mensagem no registro está 
+**errada** e você deve corrigir;
+
+* Cada arquivo deve ser registrado com uma mensagem diferente. O 
+arquivo `README.md` com a mensagem "Primeiro arquivo `README.md` sem 
+alterações" e o arquivo `Intro.md` com a mensagem "Novo texto para 
+verificação". Uma vez corrigidas as mensagens, faça um novo registro.
+
+[&lt;div style="text-align: right"&gt; **Dica**&lt;/div&gt;](https://bit.ly/3sk3OQC)
+
+<div class="countdown" id="timer_6282ed2e" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: inverse, hide-logo, middle, center
+
+# Alguns problemas frequentes
+
+---
+class: animated, slideInRight
+
+### Alguns problemas frequentes - `git add`
+
+1. [Como retirar um arquivo da área de preparo (`staging area`)](https://bit.ly/3Fs8hGm);
+
+1. [Desfazendo as modificações de um arquivo](https://bit.ly/3kSAvk8);
+
+---
+class: animated, slideInRight
+
+### Alguns problemas frequentes - `git commit`
+
+1. [Corrigindo a mensagem do último *commit*](https://bit.ly/3sk3OQC);
+
+1. [Corrigindo a mensagem de um *commit* antigo](https://bit.ly/3wgMM70);
+
+1. [Diferença entre `checkout`, `revert` e `reset`](https://bit.ly/3L6Wdf2);
+
+1. [Desfazendo o último *commit*](https://bit.ly/3FytwGl);
+
+1. [Recuperar o número de *commits* realizados por um usuário]();
+
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+* No seu repositório local crie um arquivo chamado `bugFix.txt` e 
+edite o arquivo escrevendo o seguinte texto: `Primeiro item`. Use 
+**`git commit`** para enviar ao repositório. 
+
+--
+
+* Edite novamente o arquivo, inserindo mais um texto: Repita`Segundo item` 
+e envie novamente ao repositório. Repita essa ação mais uma vez;
+
+--
+
+* Use **`git log --oneline`** e **`git status`** para verificar o 
+histórico de *commits* e o estado do diretório de trabalho;
+
+--
+
+* Use **`git diff [SHA1_1] [SHA1_2]`** para verificar as diferenças 
+entre o primeiro *commit* e o segundo. Repita essa ação para verificar
+as diferenção entre os outros *commits*;
+
+--
+
+* Edite o arquivo `bugFix.txt` adicionando uma nova linha: `Quarto item`
+e use **`git add`** para enviar o arquivo para a área de preparo. Note 
+que o arquivo está marcado para ser *commitado*.
+&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Segure a tentação e não commite&lt;/span&gt;;
+
+--
+
+* Mais uma vez edite o arquivo e adicione a linha: `Quinto item`. Use
+**`git status`** para verificar o estado do arquivo;
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+&gt; **Lembre**: O diretório de trabalho é o local onde estão seus 
+arquivos. Também chamado de *working directory* ou *working dir* ou 
+*working tree*. No exemplo: o arquivo `bugFix.txt` encontra-se no
+seu diretório de trabalho.
+
+--
+
+&gt; As alterações no arquivo só estarão no próximo *commit* se você as
+manda para a área de preparo. Também chamada de *staging area* ou 
+*index* ou *cache*. No exemplo: o conteúdo do arquivo `bugFix.txt` é
+enviado à área de preparo com o comando **`git add`**.
+
+&lt;br/&gt;
+
+--
+
+* Use o comando **`git diff`** para verificar as diferenças entre o 
+diretório de trabalho e a área de preparo;
+
+--
+
+* Use o comando **`git diff --cached`** para verificar as diferenças 
+entre a área de preparo e o último *commit*;
+
+--
+
+&lt;br/&gt;
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;A quinta linha está no diretório
+de trabalho mas não está na área de preparo e não irá no próximo *commit*.
+Em outras palavras, Na área de preparo temos a quarta linha do arquivo, 
+e no diretório de trabalho temos a quarta e quinta linhas.&lt;/span&gt;
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+Agora usaremos as opções do comando **`git reset`** para esclarecer
+as diferenças.
+
+* Aplique o comando **`git reset --soft`** no segundo *commit* e 
+verifique o histório com **`git log --oneline`**.
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Observe que o ponteiro
+**HEAD** aponta para o commit indicado e o arquivo no seu diretório
+de trabalho não sofreu alterações.&lt;/span&gt;
+
+&gt; Com o comando **`git diff --cached`** verifique que na área de 
+preparo o arquivo continua com 4 linhas e que a terceira e quarta 
+linhas foram adicionadas.
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Repare que o SHA-1 do 
+arquivo continua o mesmo, o que indica que a área de preparo não foi 
+alterada.&lt;/span&gt;** Dessa forma, o arquivo que está na área de preparo
+continua com a quarta linha, pois o comando **`git reset --soft`** não
+alterou seu conteúdo.
+
+--
+
+* Repita o mesmo procedimento com o comando **`git reset --mixed`**.
+
+&gt; &lt;span style="color:rgba(141, 0, 69, 1)"&gt;Observe que o ponteiro
+**HEAD** aponta para o commit indicado e a área de preparo foi 
+atualizada com o mesmo conteúdo do *commit*.&lt;/span&gt;
+
+
+---
+class: animated, fadeIn
+
+### Exemplo prático - II
+
+&gt; Com o comando **`git diff --cached`** verifique que na área de 
+preparo não são informadas mais diferenças. Ou seja, a área de preparo
+está igual ao último *commit* (i.e. o segundo *commit*).
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Repare que o SHA-1 do 
+arquivo mudou, o que indica que a área de preparo foi 
+alterada.&lt;/span&gt;** Dessa forma, o arquivo que está na área de preparo
+está com apenas duas linhas e o arquivo no diretório de trabalho 
+continua sem alterações.
+
+--
+
+* Repita o mesmo procedimento com o comando **`git reset --hard`**. 
+Verifique que o comando faz o mesmo que o **`--mixed`**, ou seja, 
+o **HEAD** está apontando para o segundo *commit* e a área de preparo
+está igual a este *commit*, i.e. está com duas linhas só. 
+
+&gt; Use os comandos **`git log --oneline`** e **`git diff --cached`** para
+verificar o hitórico de *commits* e as diferenças na área de preparo,
+respectivamente.
+
+&gt; **&lt;span style="color:rgba(141, 0, 69, 1)"&gt;Repare que a opção `--hard` fez o mesmo que `--mixed`, mas também alterou o diretório de trabalho com o mesmo conteúdo do segundo *commit*.&lt;/span&gt;**
+
+***
+
+Uma discussão mais detalhada pode ser revisada na Documentação Oficial do 
+Git, na seção [Git Tools - Reset Demystified](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
+
+---
+class: center, middle, hide-logo
+background-image: url("images/git_cheatsheet.jpeg")
+background-size: contain
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Chacon, S. and B. Straub (2021). _Pro Git_. 2nd Edition. Apress.
+
+Loeliger, J. and M. McCullough (2012). _Version control with Git_. 2nd
+Edition. O'Reilly Media.
+
+Lynn, B. (2007). _Git magic_. 2nd Edition. GNU General Public License
+version 3.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
