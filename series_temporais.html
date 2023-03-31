@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+	
+	<html class="no-js" lang="en">
+
+<head>
+
+	<!-- Google Tag Manager -->
+	<script>
+		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-PNSXVNR');
+	</script>
+	<!-- End Google Tag Manager -->
+
+   <!--- basic page needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>Séries temporais</title>
+	<meta name="description" content="Site do Laboratório de Estatística e Computação Natural -- LECON. Neste site serão disponibilizados materiais sobre Estatística e afins.">  
+	<meta name="author" content="LECON">
+
+   <!-- mobile specific metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+ 	<!-- CSS
+   ================================================== -->
+   <link rel="stylesheet" href="css/base.css">  
+   <link rel="stylesheet" href="css/main_ST.css">
+   <link rel="stylesheet" href="css/vendor.css">     
+   <link rel="stylesheet" href="css/slidebar.css"> 
+
+   <!-- script
+   ================================================== -->   
+	
+	<script src="js/modernizr.js"></script>
+	<script src="js/pace.min.js"></script>
+	<script src="js/slidebar.js"></script>
+
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+	<link rel="stylesheet" href="css/font-awesome-6/css/all.css" type="text/css">
+
+	
+</head>
+
+   <!-- favicons
+	================================================== -->
+	<link rel="icon" type="image/png" href="favicon.ico">
+
+</head>
+
+<body id="top">
+
+	<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNSXVNR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+	<!-- header 
+   ================================================== -->
+   <header>   	
+
+	   
+   	<div class="row">
+
+   		<div class="top-bar">
+   			<a class="menu-toggle" href="#"><span>Menu</span></a>
+
+	   		<div class="logo">
+		         <a href="index.html">Menu</a>
+		      </div>		      
+
+		   	<nav id="main-nav-wrap">
+					<ul class="main-navigation">
+						<li class="current"><a class="smoothscroll"  href="#intro" title="">Início</a></li>
+						<li><a class="smoothscroll"  href="#slides" title="">Slides</a></li>
+						<li><a class="smoothscroll"  href="#referencias" title="">Referências</a></li>
+						<li><a class="smoothscroll"  href="#scripts" title="">Scripts</a></li>
+						<li><a class="smoothscroll"  href="#datasets" title="">Datasets</a></li>			
+						<li><a class="smoothscroll"  href="#contato" title="">Contato</a></li>				
+					</ul>
+				</nav>    		
+   		</div> <!-- /top-bar --> 
+   		
+   	</div> <!-- /row --> 		
+   </header> <!-- /header -->
+
+	<!-- intro section
+   ================================================== -->
+   <section id="intro">   
+
+   	<div class="intro-overlay"></div>	
+
+   	<div class="intro-content">
+   		<div class="row">
+
+   			<div class="col-twelve">
+
+	   			<h5>Introdução à</h5>
+	   			<h1>Análise de Séries Temporais</h1>
+				
+				<p class="intro-position">
+					<span><a href="#slides">Slides</a></span> 
+					<span><a href="#referencias">Referências</a></span>
+					<span><a href="#scripts">Scripts</a></span>
+					<span><a href="#datasets">Datasets</a></span>
+					<span><a href="#contato">Contato</a></span>
+				</p>
+
+	   		</div>  
+   			
+   		</div>   		 		
+   	</div> <!-- /intro-content --> 
+
+   	<ul class="intro-social">        
+         <li><a href="mailto:lecon@grupos.ufes.br" target="_blank"><i class="fas fa-envelope"></i></a></li>
+         <li><a href="https://github.com/lecondest" target="_blank"><i class="fab fa-github"></i></a></li>
+         <li><a href="https://www.linkedin.com/in/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+      </ul> <!-- /intro-social -->      	
+
+   </section> <!-- /intro -->
+
+
+   <!-- slides section
+   ================================================== -->
+	<section id="slides" class="grey-section">
+		<div class="row section-intro">
+			<div class="col-twelve slides-header">
+
+				<h2>Slides</h2>
+				<h1>Introdução à análise de séries temporais</h1>
+
+				<p class="lead">
+					O curso tem como objetivo discutir diferentes metodologias para a análise de séries temporais univariadas. Ao longo dessas discussões são apresentados conceitos fundamentais e práticos para o tratamento de dados com estrutura de dependência. Várias aplicações práticas são desenvolvidas para melhor compreensão dos conceitos.
+				</p>
+
+			</div>   		
+		</div> <!-- /section-intro--> 
+
+		<div class="row slides-timeline">
+
+			<div class="col-twelve slides-header">
+
+			</div> <!-- /slides-header -->
+
+			<div class="col-twelve">
+
+				<div class="timeline-wrap">
+
+					<div id="owl-slider-work" class="owl-carousel certificate-list">
+
+					<!-- Intro -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-book-open-reader"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3> Aula 0 </h3>
+								<p>Setembro, 2022</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4><a href="https://bit.ly/3cRbdm6" target="_blank">Plano de Ensino</a></h4>
+								<p>
+									Plano de ensino proposto para a disciplina. Nesse material é informado o programa da disciplina e as referências bibliográficas sugeridas para o acompanhamento dos assuntos.
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Intro -->
+
+					<!-- Aula 1 -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-chart-line"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3> Aula 1 </h3>
+								<p>Setembro, 2022</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4> <a href="https://bit.ly/3U49BWQ" target="_blank">Processos estacionários</a></h4>
+								<p>
+									São definidos os diferentes tipos de estacionariedade e a vantagem de considerar processos estocásticos estacionários. Ainda,são definidas a função de autocovariância e a densidade espectral de um processo estocástico estacionário de segunda ordem e a relação entre ambas as funções.
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Aula 1 -->
+
+					<!-- Aula 2 -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-chart-line"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3>  Aula 2 </h3>
+								<p>Outubro, 2022</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4><a href="https://bit.ly/3QXldrX" target="_blank"> Processos lineares e Equações em diferenças</a></h4>
+								<p>
+									São definidos o processos estocásticos lineares e como eles podem ser representados em equações em diferenças finitas. São discutidas as condições de equilibrio para encontrar a solução de algumas representações de processos estocásticos lineares. 
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Aula 2 -->
+
+
+					<!-- Aula 3 -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-chart-line"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3>  Aula 3 </h3>
+								<p>Outubro, 2022</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4><a href="https://bit.ly/3UYaHnv" target="_blank">Processos com representação ARMA(p,q) - parte I</a></h4>
+								<p>
+									São discutos os processos com representação ARMA(p,q) e quais as condições que permitem encontrar a solução da sua representação em equações em diferenças. Ainda, são apresentadas as definições da função de autocovariância e da densidade espectral de um processo ARMA(p,q).
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Aula 3 -->
+
+					<!-- Aula 4 -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-chart-line"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3> Aula 4 </h3>
+								<p>Outubro - Dezembro, 2022</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4><a href="https://bit.ly/3N1DT9w" target="_blank"> Processos com representação ARMA(p,q) - parte II</a></h4>
+								<p>
+									São discutidos os conceitos de preditores lineares e sua utilidade na predição de processos estocásticos estacionários. Alguns algoritmos de predição são apresentados e discutidos.
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Aula 4 -->
+					
+					<!-- Aula 5 -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-chart-line"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3> Aula 5 </h3>
+								<p>Dezembro, 2022</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4><a href="https://bit.ly/3VK9T5O" target="_blank"> Modelagem em processos com representação ARMA(p,q)</a></h4>
+								<p>
+									São discutidas alguns testes para raíz unitária, assim como os estimadores para a função de autocorrelação e a densidade espectral e algumas metodologias para estimação dos parâmetros do modelo.
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Aula 5 -->
+
+					<!-- Aula 6 -->
+						<div class="timeline-block">
+
+							<div class="timeline-ico">
+								<i class="fa fa-chart-line"></i>
+							</div>
+
+							<div class="timeline-header">
+								<h3> Aula 6 </h3>
+								<p>Fevereiro, 2023</p>
+							</div>
+
+							<div class="timeline-content">
+								<h4><a href="http://bit.ly/3DuS5nM" target="_blank"> Dados atípicos e análise de intervenção</a></h4>
+								<p>
+									São discutidos os tipos de dados atípico encontrados em séries temporais e como eles podem ser tratados. Além disso, são discutidos os conceitos de análise de intervenção e como ela pode ser utilizada para identificar e tratar dados atípicos.
+								</p>
+							</div>
+						</div> <!-- /timeline-block -->
+					<!-- \Aula 6 -->
+
+				</div> <!-- /timeline-wrap -->   			
+
+			</div> <!-- /col-twelve -->
+	   
+		</div> <!-- /slides-timeline -->
+   	   
+	</section> <!-- /features -->
+
+	<section id="referencias">  
+
+		<div class="row section-intro">
+			<div class="col-twelve">
+ 
+				<h1>Referências Bibliográficas</h1>
+ 
+				<div class="intro-info">
+ 
+					<!--<img src="images/profile-pic.jpg" alt="Profile Picture">-->
+					<p class="lead">
+						As referências bibliográficas estão compostas por livros físicos, livros online e alguns sites com assuntos relacionados à áreas. Os livros online são gratuitos e podem ser acessados diretamente no link. Os livros físicos podem ser adquiridos em livrarias ou em sites de vendas online.	
+					<p>
+
+					<h5>Livros físicos</h5>
+					<ol>
+						<li>Brockwell, P. J. and Davis, R. A. (2016) Introduction to Time Series and Forecasting. 3rd Ed., Springer Texts in Statistics, New York.</li>
+
+						<li>Brockwell P. J. and Davis R. A. (1991) Time Series: Theory and methods. 2nd Ed., New York: Springer.</li>
+							
+						<li>Guerrero, V. (2003) Análisis Estadistico de Series de Tiempo Economicas. International Thomson Editores, S. A.</li>
+
+						<li>Shumway, R.H. and Stoffer, D.S. (2017) Time Series Analysis and Its Applications: With R Examples. Springer, New York.</li>
+					</ol>	
+
+					<h5>Livros online</h5>
+					<ol>
+						<li> Coghlan, A. (2018) <a href="https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/src/timeseries.html" target="_blank">Using R for Time Series Analysis</a> (<a href="https://media.readthedocs.org/pdf/a-little-book-of-r-for-time-series/latest/a-little-book-of-r-for-time-series.pdf" target="_blank">PDF version</a>).</li>
+
+						<li> Hanck, C., Arnold, M., Gerber, A. and Schmelzer, M. (2020) <a href="https://www.econometrics-with-r.org" target="_blank"> Introduction to Econometrics with R</a>. (<a href="https://bit.ly/38V2F80" target="_blank">PDF version</a>).</li>
+
+						<li>Zeileis, A. (2021) <a href="https://cran.r-project.org/web/packages/sandwich/vignettes/sandwich.pdf" target="_blank">Econometric Computing with HC and HAC Covariance Matrix Estimators</a>. Acesso em 11/02/2023.</li>
+					</ol>
+
+					<h5>Sites</h5>
+					<ol>
+						<li>Banerjee, P. (2021) <a href="https://www.kaggle.com/code/prashant111/complete-guide-on-time-series-analysis-in-python" target="_blank">Complete Guide on Time Series Analysis in Python</a>. Acesso em 11/02/2023.</li>
+						
+						<li> Bischoff, F. (2021) <a href="https://www.r-bloggers.com/2021/06/time-series-introduction-with-r-codes/" target="_blank">Time Series Introduction with R codes</a>. Acesso em 11/02/2023.</li>
+						<li> Hyndman, R. and Killick, R. (2023) <a href="https://cran.r-project.org/web/views/TimeSeries.html">CRAN Task View: Time Series Analysis</a>. Acesso em 11/02/2023.</li>
+					</ol>
+				</div>   			
+			</div>   		
+		</div> <!-- /section-intro -->
+ 
+	</section> <!-- /process-->    
+ 
+
+	<!-- Scripts Section
+   ================================================== -->
+	<section id="scripts">
+
+		<div class="overlay"></div>
+
+		<div class="row section-intro">
+	   		<div class="col-twelve">
+
+	   			<h5>Scripts</h5>
+
+	   			<p class="lead">
+					Scripts em R e Python estão disponíveis para ilustrar algumas técnicas utilizadas para a análise de séries temporais univariadas. Para execução do exemplos são utilizados conjuntos de dados disponíveis na seção de <a href="#datasets">Datasets</a>. Não esqueça de verificar a seção de <a href="#referencias">Referências Bibliográficas</a> para obter mais informações sobre os métodos utilizados.
+	   			</p>
+
+	   		</div>   		
+		</div> <!-- /section-intro -->
+
+	   	<div class="row scripts-content">
+
+	   		<div id="owl-slider" class="owl-carousel scripts-list">
+
+		      						
+				<div class="scripts">
+
+				   	<span class="icon"><i class="icon-pie-chart"></i></span>	            
+
+		            <div class="scripts-content">
+
+		            	<h3>Visualização</h3>
+
+			            <p class="desc">
+							<ul>
+								<li><a href="https://bit.ly/3V2urGL" target="_blank"> ST_aula1.ipynb</a></li>
+								<li><a href="http://" target="_blank"> Script1.ipynb</a></li>
+								<li><a href="http://" target="_blank"> Script2.ipynb</a></li>
+							</ul>
+	        			</p> 
+		            </div>	               
+				</div> <!-- /scripts -->
+
+				<div class="scripts">	
+
+		      		<span class="icon"><i class="icon-bar-chart"></i></span>            
+
+		            <div class="scripts-content">	
+
+						<h3>Análise Descritiva</h3>
+
+			            <p class="desc">
+							<ul>
+								<li><a href="https://bit.ly/3dUNBgW" target="_blank"> ST_aula2.ipynb</a></li>
+								<li><a href="https://bit.ly/3rCnHSd" target="_blank"> ST_aula3.ipynb</a></li>	
+							</ul>
+		         		</p>
+		         	</div> 	         	 
+				</div> <!-- /scripts -->
+
+				<div class="scripts">	
+
+					<span class="icon"><i class="icon-signal"></i></span>                          
+
+		            <div class="scripts-content">	
+
+						<h3>Modelagem</h3>  
+
+						<p class="desc">
+							<ul>
+								<li><a href="https://bit.ly/3yGxtqi" target="_blank"> ST_aula4.ipynb</a></li>
+								<li><a href="https://bit.ly/3WsuQTn" target="_blank"> ST_aula5.ipynb</a></li>
+							</ul>
+						</p>
+
+					</div>	                          
+				</div> <!-- /scripts -->
+
+				<div class="scripts">
+
+				   	<span class="icon"><i class="icon-network"></i></span>		            
+
+		            <div class="scripts-content">
+
+		            	<h3> Análise Preditiva</h3>
+
+			            <p class="desc">
+							<a href="http://" target="_blank"> Script1.ipynb</a>
+	        			</p> 
+
+		            </div> 	            	               
+
+				</div> <!-- /scripts -->
+
+				<div class="scripts">
+
+					<span class="icon"><i class="icon-edit"></i></span>	              
+
+		            <div class="scripts-content">
+
+		            	<h3>Análise de intervenção</h3>
+
+			            <p class="desc">
+							<a href="https://bit.ly/3wWBSEg" target="_blank"> ST_aula6.ipynb</a>
+		         		</p> 
+		         		
+		            </div>                
+
+				</div> <!-- /scripts -->
+
+				<div class="scripts">
+
+				   	<span class="icon"><i class="icon-external"></i></span>	            
+
+		            <div class="scripts-content">
+
+		            	<h3>Análise robusta</h3>
+
+			            <p class="desc">
+							<a href="http://" target="_blank"> Script1.ipynb</a>
+	        			</p> 
+
+		            </div>	               
+
+				   </div> <!-- /scripts -->
+
+				   
+	   	</div> <!-- /scripts-content -->
+		
+	</section> <!-- /scripts -->	
+
+	<!-- Datasets Section
+   ================================================== -->
+
+	<section id="datasets">  
+
+		<div class="row section-intro">
+			<div class="col-twelve">
+ 
+				<h1>Datasets</h1>
+ 
+				<div class="intro-info">
+ 
+					<p class="lead">
+						Os conjuntos de dados disponíveis também podem ser encontradas em diferentes fontes. Alguns deles fazem parte da literatura clássica de análise de séries temporais, outros são conjuntos proporcionados por diversas plataformas de análise de dados ou por instituições dedicadas ao tratamento estatístico de dados.
+					<p>
+
+					<h5>Arquivos csv</h5>
+					<ol>
+						<li> 
+							<a href="https://github.com/ffajardo64/statistical_learning/blob/main/docs/STA13828/db/airpassengers/airpassengers.csv" target="_blank">Monthly international airline passengers, Jan. 1949 - Dec. 1960</a> (mensal - milhares de passageiros).
+						</li>
+
+						<li> 
+							<a href="https://github.com/ffajardo64/statistical_learning/blob/main/docs/STA13828/db/nile/nile.csv" target="_blank"> Vazão média anual do rio Nilo abaixo da represa de Aswan Dam 1871 - 1970</a>. (anual - metros cúbicos por segundo).
+						</li>
+						
+						<li> 
+							<a href="https://www.sidc.be/silso/datafiles" target="_blank"> Sunspot number</a>. (diária - mensal - anual).
+						</li>
+					</ol>
+
+					<h5>Sites</h5>
+					<ol>
+						<li>
+							<a href="https://datasetsearch.research.google.com/" target="_blank">Dataset Search</a>.
+						</li>
+
+						<li>
+							<a href="https://www.google.com/publicdata/directory" target="_blank">Global public data explorer</a>.
+						</li>
+
+						<li>
+							<a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html" target="_blank">The R Datasets Package</a>.
+						</li>
+
+					</ol>
+				</div>   			
+			</div>   		
+		</div> <!-- /section-intro -->
+ 
+	</section> <!-- /process-->    
+
+
+
+   <!-- End Dataset Section ================================================== -->
+
+
+
+
+
+	<!-- Phrase Section ================================================== -->
+
+	<section id="cta" class="grey-section">
+
+   	<div class="row cta-content">
+
+   		<div class="col-twelve section-ads">  
+
+     		<h2 class="h01">Sherlock Holmes</h2>
+
+      		<aside class="pull-quote">
+		   		<blockquote>
+			   		<p>
+						Nunca se poderá predizer, por exemplo, o que fará um homem, mas é possível prever as atitudes de certo número deles.
+					</p>
+				</blockquote>
+
+			</aside> <!-- /pull-quote -->  
+
+   		</div> <!-- /section-ads -->
+
+   	</div> <!-- /cta-content -->
+
+   </section> <!-- /cta --> 
+
+   <!-- contato
+   ================================================== -->
+	<section id="contato">
+
+		<div class="row section-intro">
+   		<div class="col-twelve">
+
+   			<h5>Contato</h5>
+   			<h1>FALE CONOSCO!</h1>
+
+   			<p>
+   				Laboratório de Estatística e Computação Natural -- LECON <br/>
+				Departamento de Estatística | Universidade Federal do Espírito Santo <br/> 
+				Av. Fernando Ferrari, 514 - Goiabeiras, Vitória - ES, 29075-910.
+			</p>
+
+   		</div> 
+   	</div> <!-- /section-intro -->
+
+   	<div class="row contato-form">
+
+		<a href="mailto:lecon@grupos.ufes.br"><button class="submitform">Enviar E-mail</button></i></a>
+   		
+   	</div> <!-- /contato-form -->
+		
+	</section> <!-- /contato -->
+
+
+   <!-- footer
+   ================================================== -->
+
+   <footer>
+     	<div class="row">
+
+     		<div class="col-six tab-full pull-right social">
+
+			   	<ul class="footer-social">        
+					<li><a href="https://github.com/lecondest"><i class="fab fa-github"></i></a></li>
+					<li><a href="https://www.linkedin.com/in/"><i class="fab fa-linkedin"></i></a></li>
+		      	</ul> <!-- /intro-social -->    
+
+      		</div>
+
+	  	<div class="col-eight tab-full">
+
+	      	<div class="copyright">
+
+	        	<span>
+	        		© Copyright 2022 - 
+
+	        		<script>
+	        			new Date().getFullYear()>document.write(new Date().getFullYear());
+	        		</script>
+	        	</span> 
+	        	
+	        	<span>Design by <a href="https://lecon.ufes.br/">LECON</a></span>  
+	        	    	
+	         </div>		                  
+	  	</div>
+
+	  	<div id="go-top">
+	 		<a class="smoothscroll" title="Voltar ao topo" href="#top"><i class="fas fa-arrow-up"></i></a>
+	  	</div>
+
+      	</div> <!-- /row -->     	
+   </footer>  
+
+   <div id="preloader"> 
+    	<div id="loader"></div>
+   </div> 
+
+   <!-- Java Script
+   ================================================== --> 
+   <script src="js/jquery-3.5.1.min.js"></script>
+   <script src="js/jquery-migrate-1.4.1.min.js"></script>
+   <script src="js/plugins.js"></script>
+   <script src="js/main.js"></script>
+
+</body>
+
+</html>

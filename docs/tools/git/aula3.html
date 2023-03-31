@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Git</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Git
+]
+.subtitle[
+## Trabalhando com repositórios remotos
+]
+.author[
+### <br/><br/>
+]
+.institute[
+### LECON/DEST - UFES
+]
+.date[
+### Vitória. ES - 30/07/2022
+]
+
+---
+
+
+class: animated, fadeIn
+
+
+
+
+&lt;style&gt; body {text-align: justify} &lt;/style&gt; &lt;!-- Justify text. --&gt;
+
+
+### Serviços de hospedagem de projetos
+
+&gt; Existem alguns serviços para hospedagem de projetos na internet, que 
+permitem a utilização de ferramentas de controle de versão. Tais serviços
+permitem que você possa hospedar seus projetos, e os mesmos poderão ser
+acessados de qualquer lugar do mundo.  Alguns desses serviços são: 
+[GitHub](http://github.com/), [GitLab](https://gitlab.com), [DAGsHub](https://dagshub.com) ou [Bitbucket](http://Bitbucket.org).
+
+* [`GitHub`](https://github.com/) é um serviço de Web Hosting compartilhado para projetos que usam o `Git`. Possui planos comerciais e gratuitos para projetos de código aberto. Por outra parte, o `GitLab` é um serviço similar ao GitHub, mas ele permite armazenamento do código em seus próprios servidores, ao invés de servidores de terceiros.
+
+* [`DagsHub`](https://dagshub.com/) é uma plataforma para que cientistas de dados e engenheiros de aprendizado de máquina criem versões de seus dados, modelos, experimentos e códigos. Ele permite compartilhamento, revisão e reutilização fácil do seu trabalho, fornecendo a experiência do `GitHub` para aprendizado de máquina.
+
+* [`Bitbucket`](https://bitbucket.org/) é um serviço de hospedagem de projetos controlados desenvolvido pela [Atlassian](https://www.atlassian.com/). É similar ao `GitHub`, mas também
+suporta uma integração com outras ferramentas.
+
+&lt;img src="images/github.png" width="30%" style="float:left; padding:5px" /&gt;
+
+&lt;img src="images/dagshub.png" width="30%" style="float:right; padding:15px" /&gt;&lt;img src="images/bitbucket.png" width="30%" style="float:right; padding:15px" /&gt;
+
+---
+class: animated, fadeIn
+
+### Criando um usuário no `GitHub`
+
+A criação de um novo usuário deve ser realizada na página
+inicial do `GitHub` - [https://github.com/](https://github.com/).
+
+&lt;img src="images/homepage_github.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Criando um usuário no `GitHub`
+
+.pull-left[
+
+Devemos informar um nome de usuário, o e-mail e uma senha. 
+
+Caso já exista um outro usuário cadastrado com o mesmo nome de 
+usuário e/ou e-mail informado, o `GitHub` nos mostrará um alerta indicando tal 
+situação, e só permitirá que continuemos o cadastro após a alteração 
+dessa(s) informação(ões).
+
+Após informar os dados e clicar no botão **Continue**, você será
+redirecionado para uma página de boas-vindas, onde devemos escolher qual
+o plano a ser contratado.
+]
+
+.pull-right[
+&lt;img src="images/sign_up_github.png" width="100%" style="float:left; padding:20px" /&gt;
+]
+
+
+---
+class: animated, slideInRight
+
+### Criando um repositório do projeto - I
+
+&gt; Um *repositório* remoto é simplesmente uma coleção de todos os arquivos que contém as diferentes versões de um projeto, hospedado em algum lugar que não seja sua máquina local. 
+
+Para criar um novo repositório no `GitHub`, devemos acessar a `URL` 
+[https://github.com/new](https://github.com/new) ou clicar no botão 
+**New**.
+
+&lt;p align="center" width="600" height="100"&gt;
+  &lt;img src="images/new_repository_github.png" alt="New repository GitHub"/&gt;
+&lt;/p&gt;
+
+---
+class: animated, slideInRight
+
+&lt;p align="center" width="600" height="100"&gt;
+  &lt;img src="images/new_repository_github2.png" alt="New repository GitHub"/&gt;
+&lt;/p&gt;
+
+---
+class: animated, fanceIn
+background-image: url("images/repositorio_introGit.png")
+background-size: contain
+
+### Criando um repositório do projeto - I
+
+---
+class: animated, fadeIn
+
+### Clonando um repositório remoto - I
+
+Agora que o nosso repositório remoto está hospedado no `GitHub`, podemos 
+sincronizar nossos repositórios locais desde qualquer lugar do mundo.
+É possível **clonar** o repositório para criar uma cópia local no seu 
+computador e sincronizar entre os dois locais.
+
+**Clonar** um repositório extrai uma cópia &lt;ins&gt;completa&lt;/ins&gt; de todos
+os dados do repositório remoto tem nesse momento, incluindo todas as 
+versões de cada arquivo e pasta do projeto. Você pode fazer `push` 
+das alterações no repositório remoto no `GitHub` ou extrair as 
+alterações de outras pessoas no `GitHub`. Detalhes em [GitHub Docs](https://docs.github.com/pt/enterprise-cloud@latest/repositories).
+
+Para que um novo usuário obtenha uma cópia do repositório, ele
+agora deverá usar o comando `git clone`:
+
+&lt;img src="images/clone_repo.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+background-image: url("images/repositorio_introGit2.png")
+background-size: contain
+
+### Clonando um repositório remoto - I
+
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - I
+
+&lt;img src="images/controle3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - I
+
+&lt;img src="images/controle4.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, fadeIn
+
+### Controlando o versionamento dos arquivos - I
+
+&lt;img src="images/controle5.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo, middle, center
+
+# Branches
+
+---
+class: animated, fadeIn
+
+### Trabalhando em paralelo com branches - I
+
+* A maioria dos sistemas de controle de versão permite trabalho em 
+paralelo por meio de `branches`. Um `branch` é uma ramificação da sua
+"árvore" principal de desenvolvimento, geralmente criada para
+isolar o seu trabalho sem afetar outros `branches` no 
+seu repositório.
+
+  &lt;img src="images/branch1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+  Os `branches` permitem que você desenvolva recursos, corrija erros ou 
+  experimente com segurança novas ideias em uma área contida do seu 
+  repositório.
+
+---
+class: animated, fadeIn
+
+### Trabalhando em paralelo com branches - II
+
+* Cada repositório tem um `branch` padrão e pode ter vários outros
+`branches`. Você sempre cria um `branch` a partir de um `branch` 
+existente.  Você então poderá trabalhar nesse novo `branch` isolado 
+das mudanças que outras pessoas estão fazendo no repositório.
+
+  &lt;img src="images/branch2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+ Você pode fazer um **merge** ("mescla") de um `branch` em outro `branch` 
+ usando um **pull request**.
+
+  Em muitos sistemas de controle de versão, utilizar *branches* é algo 
+  bastante lento e trabalhoso. Porém, a estrutura interna do `Git` 
+  permite lidarmos com branches de maneira muito rápida e leve.
+
+
+---
+class: animated, slideInRight
+
+### Criando um branch - I
+O conceito de *branch* é extremamente simples no `Git`. Um *branch*
+não é mais do que uma **referência** (ou rótulo) para um registro 
+(*commit*) em seu repositório.
+
+Para listar as *branches* do nosso repositório, execute o comando 
+**`git branch`**:
+
+&lt;img src="images/git_branch1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+`Git` possui por padrão uma *branch* principal chamada `main`. Em 
+ausência de outras referências, o `Git` realizará todos os registros
+na *branch* principal.
+
+&gt; O asterisco indica que é a *branch* atual na que estamos trabalhando.
+
+***
+
+Para detalhes veja Uzayr (2022).
+
+---
+class: animated, slideInLeft
+
+### Criando um branch - II
+
+Para criar um novo *branch* use o comando **`git branch`** da seguinte 
+forma:
+
+&lt;img src="images/git_branch2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+Outra forma de você visualizar os nomes dos seus *branches* é com o
+comando `ls .git/refs/heads/`:
+
+&lt;img src="images/git_branch3.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: animated, slideInRight
+
+### Criando um branch - III
+
+&lt;iframe src="https://git-school.github.io/visualizing-git/" height="500" width="1200" style="border: 1px solid #464646;" allowfullscreen="" allow="autoplay"&gt;&lt;/iframe&gt;
+
+---
+class: animated, slideInLeft
+
+### Algumas tarefas muito comuns com `branches` - I
+
+* **`git branch -v`**: lista todas as *branches* existentes no seu 
+repositório com os *commits* associados;
+
+* **`git checkout [branch]`**&lt;sup&gt;1&lt;/sup&gt;: Permite alternar ramificações, por exemplo 
+`git checkout novoBranch` alterna para a ramificação *novoBranch*; 
+
+&gt; **O que é HEAD?**
+
+&gt; O **HEAD** é simplesmente um ponteiro para um *commit* 
+específico, i.e. ele pode apontar para qualquer *commit*, 
+inclusive algum que não esteja sendo referenciado por nenhum *branch*.
+* Para alternar o **HEAD** (ou seja, para mudar o *branch* para o 
+qual ele aponta), usamos **`git checkout [branch]`**.
+
+&gt; Existem várias formas de visualizar qual o valor do **HEAD**. Os 
+seguintes comandos realizam essa tarefa: **`git show HEAD`** ou **`git log -1`**.
+Mas não são as unicas formas de visualizar.
+
+***
+&lt;sup&gt;1&lt;/sup&gt;`[branch]` é usado para indicar o nome da ramificação.
+
+---
+class: animated, slideInLeft
+
+### Algumas tarefas muito comuns com `branches` - II
+
+* **`git branch -d [branch]`**: Permite deletar uma *branch*. Em caso 
+de termos feito algum *commit* no *branch* a ser deletado, é possível 
+que o `Git` mostre uma mensagem de erro indicando que existem *commits* 
+não aplicados ainda em outras *branches*. Nesse caso, use o comando 
+`git branch -D [branch]`.
+
+  &gt; Para deletar o *branch* remoto você pode utilizar o seguinte 
+  comando: 
+  
+  &gt; `git push origin :[branch]`
+  
+  &gt; Os dois pontos na frente do nome da *branch* (**:**) são importantes
+  e não devem ser esquecidos, pois são eles que indicam que o *branch*
+  será deletado. &lt;ins&gt;Caso você esqueça os dois pontos, você estaria 
+  atualizando o *branch* remoto.&lt;/ins&gt;
+  
+* **`git branch --all`**: Permite visualizar todos os *branches* que 
+o `Git` conhece neste repositório, seja local ou remoto;
+
+* **`git branch -m [branch_antigo] [branch_novo]`**: Permite renomear 
+um *brach*;
+
+
+---
+class: animated, slideInLeft
+
+### Exemplo prático
+
+**Excluir um branch com commits**. Você não quer estragar suas 
+ramificações existentes, então você precisará para criar uma 
+ramificação local temporária, alterne para ela, faça um commit e 
+exclua essa ramificação.
+
+1. Crie um branch temporário com o nome de **novoBranch**;
+1. Alterne para essa ramificação;
+1. Crie um novo arquivo `READMEnew.md` vazio, na raiz diretório do 
+seu projeto;
+1. Adicione esse novo arquivo `READMEnew.md` à área de preparo;
+1. Confirme essa mudança com uma mensagem apropriada;
+1. Faça o *check-out* do *branch* `main`;
+1. Exclua **novoBranch** — mas o `Git` não permitirá que você exclua 
+este *branch* em seu estado atual. Por quê?
+1. Siga a sugestão que o Git lhe dá para ver se você pode deletar este 
+*branch*.
+
+<div class="countdown" id="timer_62e54e11" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: animated, slideInRight
+
+### **`git stash`**
+Considerando que você tenha arquivos pendentes para *commitar*, ao 
+utilizar o comando **`git stash`**, o `Git` vai criar uma *branch* 
+&lt;ins&gt;temporária&lt;/ins&gt; contendo a versão atual do seu projeto e após 
+isso vai desfazer essas modificações feitas nos arquivos da sua 
+*branch* atual.
+
+&lt;img src="images/git_stash1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+&gt; O arquivo **index.html** não consta como modificado.
+
+O `Git` cria uma ramificação temporária com as alterações realizadas
+e para recuperar basta usar o comando **`git stash apply`**. Dessa forma,
+todos os arquivos que você modificou no momento do **`apply`** vão ser 
+restaurados, exatamente como você deixou.
+
+***
+
+Detalhes na [Documentação Oficial do Git](https://git-scm.com/docs/git-stash/pt_BR).
+
+
+---
+class: animated, fadeIn
+
+### **`git stash`**
+
+Você poderá criar mais de uma ramificação temporária durante o 
+desenvolvimento do seu projeto. Nesse cenário, você poderá escolher
+qual ramificação deseja restaurar usando o comando **`git stash list`**:
+
+&lt;img src="images/git_stash2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+A ordem das ramificações é apresentada da mais recente até a mais antiga.
+Para restaurar uma determinada ramificação use o comando **`git stash apply @{id}`**.
+
+#### Algumas opções úteis
+
+* **`git stash show`**: Mostra todos os arquivos modificados na última
+ramificação temporária;
+
+* **`git stash clear`**: Remove todas as ramificações temporárias;
+
+* **`git stash drop`**: Remove uma determinada ramificação temporária,
+por exemplo: **`git stash drop stash@{0}`** remove a ramificação `\(0\)`;
+
+
+---
+class: inverse, hide-logo, middle, center
+
+# .gitignore
+
+---
+class: animated, slideInRight
+
+## Ignorando arquivos no `Git` - I
+
+Os arquivos ignorados no `Git` costumam ser aqueles arquivos gerados
+na execução de algum software ou uma linguagem de programação ou 
+simplesmente aqueles que você não tem interesse em salvar no seu 
+repositório local ou remoto.
+
+O arquivo **`.gitignore`** informa ao `Git` quais arquivos devem ser 
+ignorados intencionalmente. Para ignorar determinados arquivos é 
+necessário seguir um padrão especial chamado 
+[*globbing*](http://linux.die.net/man/7/glob)&lt;sup&gt;1&lt;/sup&gt;.
+
+Um exemplo do arquivo **`.gitignore`** está disponível [aqui](https://github.com/ffajardo64/statistical_learning/blob/main/docs/tools/git/.gitignore).
+O arquivo foi criado automaticamente no site da Toptal no seguinte link:
+[**gitignore.io**](https://www.toptal.com/developers/gitignore).
+
+#### Algumas opções úteis
+* O comando **`git status --ignored`** mostra a listagem de arquivos
+ignorados. Par verificar se um determinado arquivo é ignorado pelo `Git`
+use o comando **`git check-ignore [nome_do_arquivo]`** ou 
+**`git check-ignore -v [nome_do_arquivo]`** para determinar qual 
+padrão está fazendo com que um arquivo específico seja ignorado;
+
+* Para fazer um *commit* de um arquivo ignorado será necessário usar 
+o comando **`git add -f [nome_do_arquivo]`**.
+
+
+---
+class: animated, slideInRight
+
+## Ignorando arquivos no `Git` - II
+
+Você também pode definir padrões globais para todos os repositórios 
+em seu sistema local da seguinte forma:
+
+&lt;img src="images/git_ignore.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+[CS Visualized: Useful Git Commands](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1)
+
+
+***
+&lt;sup&gt;1&lt;/sup&gt; Para detalhes recomenda-se a leitura da [Documentação Oficial](https://git-scm.com/docs/gitignore).
+
+&lt;ol start="3"&gt;
+  &lt;li&gt;item 3&lt;/li&gt;
+  &lt;li&gt;item 4&lt;/li&gt;
+&lt;/ol&gt;
+
+
+---
+class: animated, lightSpeedIn
+# Referências
+
+Uzayr, S. (2022). _Mastering Git: A beginner's guide_.
+Taylor &amp; Francis Group. CRC Press.
+
+---
+class: animated, hide-logo, bounceInDown
+## Política de proteção aos direitos autorais
+
+&gt; &lt;span style="color:grey"&gt;O conteúdo disponível consiste em material protegido pela legislação brasileira, sendo certo que, por ser
+o detentor dos direitos sobre o conteúdo disponível na plataforma, o **LECON** e o **NEAEST** detém direito
+exclusivo de usar, fruir e dispor de sua obra, conforme Artigo 5&lt;sup&gt;o&lt;/sup&gt;, inciso XXVII, da Constituição Federal
+e os Artigos 7&lt;sup&gt;o&lt;/sup&gt; e 28&lt;sup&gt;o&lt;/sup&gt;, da Lei 9.610/98.
+A divulgação e/ou veiculação do conteúdo em sites diferentes à plataforma e sem a devida autorização do
+**LECON** e o **NEAEST**, pode configurar violação de direito autoral, nos termos da Lei 9.610/98, inclusive podendo
+caracterizar conduta criminosa, conforme Artigo 184&lt;sup&gt;o&lt;/sup&gt;, §1&lt;sup&gt;o&lt;/sup&gt; a 3&lt;sup&gt;o&lt;/sup&gt;, do Código Penal.
+É considerada como contrafação a reprodução não autorizada, integral ou parcial, de todo e qualquer
+conteúdo disponível na plataforma.&lt;/span&gt;
+
+.pull-left[
+&lt;img src="images/logo_lecon.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/logo_neaest.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+&lt;br&gt;&lt;/br&gt;
+.center[
+[https://lecon.ufes.br](https://lecon.ufes.br/) &amp;emsp; &amp;emsp;  &amp;emsp; &amp;emsp; [https://analytics.ufes.br](https://analytics.ufes.br)
+]
+
+&lt;font size="2"&gt;&lt;span style="color:grey"&gt;Material elaborado pela equipe LECON/NEAEST: 
+Alessandro J. Q. Sarnaglia, Bartolomeu Zamprogno, Fabio A. Fajardo, Luciana G. de Godoi 
+e Nátaly A. Jiménez.&lt;/span&gt;&lt;/font&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(images/logo_neaest.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 150px;
+  height: 168px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
